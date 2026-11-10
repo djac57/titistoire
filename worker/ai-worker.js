@@ -75,20 +75,33 @@ export default {
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
-        const model = env.GEMINI_MODEL || "gemini-3.8-flash"; // 2.0-flash retiré ; surchargeable par secret
+        // On essaie plusieurs modèles dans l'ordre : le 1er qui répond gagne.
+        // Ainsi, si un modèle est saturé (503) ou retiré (404), on bascule tout seul.
+        const forced = u.searchParams.get("model");
+        const models = forced ? [forced]
+          : (env.GEMINI_MODEL ? [env.GEMINI_MODEL]
+            : ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash-001", "gemini-3.8-flash"]);
         const prompt = `Conteuse pour enfants de 3 à 6 ans. Invente une histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
           + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
           + `Exactement 7 pages, UNE phrase courte et simple par page, la dernière page est la morale et commence par "La morale de l'histoire :". `
           + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...","...","...","...","...","...","..."]}`;
-        const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GKEY)}`, {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json" } })
-        });
-        const gd = await gr.json();
-        const txt = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content
-          && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
-        if (!txt) return new Response(JSON.stringify({ error: "Gemini: réponse vide", raw: gd }), { status: 502, headers: { "content-type": "application/json", ...cors } });
+        let txt = null, lastErr = null, usedModel = null;
+        for (const model of models) {
+          try {
+            const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GKEY)}`, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json" } })
+            });
+            const gd = await gr.json();
+            const t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content
+              && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
+            if (t) { txt = t; usedModel = model; break; }
+            lastErr = (gd && gd.error && gd.error.message) || "réponse vide";
+          } catch (e) { lastErr = String(e); }
+        }
+        if (!txt) return new Response(JSON.stringify({ error: "Gemini indisponible", detail: lastErr, tried: models }), { status: 502, headers: { "content-type": "application/json", ...cors } });
+        if (u.searchParams.get("debug")) return new Response(JSON.stringify({ usedModel, txt }), { headers: { "content-type": "application/json", ...cors } });
         // on renvoie tel quel le JSON du modèle (le navigateur le parse)
         return new Response(txt, { headers: { "content-type": "application/json", "cache-control": "no-store", ...cors } });
       }
