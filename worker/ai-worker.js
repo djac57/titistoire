@@ -77,6 +77,7 @@ export default {
       // ---------- HISTOIRE (mode libre, sans clé navigateur) ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
+        if (u.searchParams.get("diag")) return new Response(JSON.stringify({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY||env.ELEVENLABS_KEY), hasAI: !!env.AI }), { headers: { "content-type": "application/json", ...cors } });
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
