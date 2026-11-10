@@ -538,16 +538,14 @@ function renderSaved(){ const a=savedAll(), el=document.getElementById('savedLis
 
 /* ===== choix de la voix (voix premade gratuites ElevenLabs) ===== */
 const VOICES=[
-  ["Xb7hH8MSUJpSbSDYk0k2","Alice 👧 (claire)"],
-  ["JBFqnCBsd6RMkjVDRZzb","George 👦 (conteur)"],
-  ["nPczCjzI2devNBz1zQrb","Brian 👦 (grave)"],
-  ["TX3LPaxmHKxFdv7VOQHJ","Liam 👦 (jeune)"],
-  ["IKne3meq5aSn9XLyUdCD","Charlie 👦 (décontracté)"],
+  ["Xb7hH8MSUJpSbSDYk0k2","Alice"],
+  ["IKne3meq5aSn9XLyUdCD","Charlie"],
 ];
 let voiceId="";
 function curVoice(){ return voiceId||VOICES[0][0]; }
 (function initVoice(){ const sel=document.getElementById('voiceSel'); if(!sel) return;
   try{ voiceId=localStorage.getItem('titi_voice')||''; }catch(e){}
+  if(!VOICES.some(v=>v[0]===voiceId)) voiceId=''; // voix enregistrée retirée -> défaut
   VOICES.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
   sel.value=curVoice();
   sel.addEventListener('change',()=>{ voiceId=sel.value; try{localStorage.setItem('titi_voice',voiceId);}catch(e){} stopAudio(); resetPlay(); });
