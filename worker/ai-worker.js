@@ -34,7 +34,8 @@ export default {
           //   Matilda XrExE9yKIg1WjnnlVkGX · Lily pFZP5JQG7iQjIQuC4Bku · Sarah EXAVITQu4vr4xnSDxMaL
           //   Alice Xb7hH8MSUJpSbSDYk0k2 · Laura FGY2WhTYpPnrIDTdsKH5
           const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "XrExE9yKIg1WjnnlVkGX";
-          const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "?output_format=mp3_44100_128", {
+          // "with-timestamps" : audio + alignement caractère→temps (pour un karaoké précis)
+          const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "/with-timestamps?output_format=mp3_44100_128", {
             method: "POST",
             headers: { "xi-api-key": ELEVEN, "content-type": "application/json" },
             body: JSON.stringify({
@@ -42,7 +43,11 @@ export default {
               voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.1, use_speaker_boost: true }
             })
           });
-          if (r.ok) return new Response(r.body, { headers: { "content-type": "audio/mpeg", "cache-control": "public, max-age=31536000", ...cors } });
+          if (r.ok) {
+            const j = await r.json();
+            const out = { audio_base64: j.audio_base64, alignment: j.alignment || j.normalized_alignment || null };
+            return new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": "public, max-age=31536000", ...cors } });
+          }
           // échec ElevenLabs : si ?debug=1, on renvoie la raison au lieu de basculer en secours
           if (u.searchParams.get("debug")) {
             const msg = await r.text();
