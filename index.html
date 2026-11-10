@@ -52,6 +52,8 @@
   @media(hover:hover){.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:rgba(255,203,77,.5);}}
   .card .thumb{width:100%;aspect-ratio:16/11;object-fit:cover;display:block;background:#2c2566;}
   .card .emoji{font-size:clamp(2.4rem,11vw,3.4rem);padding:20px 0 2px;}
+  .card .icon{display:flex;justify-content:center;align-items:center;padding:22px 0 4px;color:var(--gold);}
+  .card .icon svg{width:clamp(46px,13vw,62px);height:auto;filter:drop-shadow(0 3px 8px rgba(255,203,77,.28));}
   .card .lab{display:block;padding:11px 8px 15px;font-size:clamp(1rem,3.8vw,1.18rem);font-weight:600;color:var(--ink);}
   .back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:none;border-radius:999px;padding:9px 16px;font-size:.95rem;font-weight:600;color:var(--paper-ink);box-shadow:var(--sh-sm);cursor:pointer;margin-bottom:18px;transition:transform .12s;}
   .back:active{transform:scale(.95);}
@@ -113,10 +115,10 @@
   <section class="screen" id="s0">
     <h2 class="q">On invente comment&nbsp;? 🪄</h2>
     <div class="grid">
-      <button class="card" id="modeGuided"><div class="emoji">🎴</div><span class="lab">Avec des images</span></button>
-      <button class="card" id="modeFree"><div class="emoji">✏️</div><span class="lab">Je raconte</span></button>
+      <button class="card" id="modeGuided"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="11" width="34" height="26" rx="4"/><circle cx="17" cy="20" r="3" fill="currentColor" stroke="none"/><path d="M9 33l8-8 5 5 7-8 10 11"/></svg></div><span class="lab">Avec des images</span></button>
+      <button class="card" id="modeFree"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 33L33 15"/><path d="M31 11l1.6 3.4L36 16l-3.4 1.6L31 21l-1.6-3.4L26 16l3.4-1.6z" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.4" fill="currentColor" stroke="none"/><circle cx="36" cy="31" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="lab">Je raconte</span></button>
     </div>
-    <button class="card" id="modeSaved" style="width:100%;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px"><span style="font-size:2rem">📚</span><span class="lab" style="padding:0">Mes histoires</span></button>
+    <button class="card" id="modeSaved" style="width:100%;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:12px;padding:16px"><span class="icon" style="padding:0"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:34px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg></span><span class="lab" style="padding:0">Mes histoires</span></button>
   </section>
 
   <section class="screen" id="sSaved">
@@ -198,11 +200,15 @@ const UNIVERS=[
   {id:'foret',nom:'La forêt',emoji:'🌲',phrase:"dans la grande forêt"},
   {id:'ocean',nom:"L'océan",emoji:'🌊',phrase:"tout au fond de l'océan"},
 ];
+const SVG_GIFT='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="22" width="30" height="17" rx="3"/><path d="M6 22h36v4H6z" fill="currentColor" stroke="none"/><path d="M24 22v17"/><path d="M24 22c-2-5-9-5-7.5-1 1 2.6 7.5 1 7.5 1zM24 22c2-5 9-5 7.5-1-1 2.6-7.5 1-7.5 1z"/></svg>';
+const SVG_SHIELD='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l15 5v10c0 9-6.5 15.5-15 20-8.5-4.5-15-11-15-20V11z"/><path d="M24 17l2.4 5 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z" fill="currentColor" stroke="none"/></svg>';
+const SVG_FRIENDS='<svg viewBox="0 0 48 48" fill="currentColor"><circle cx="18" cy="16" r="6"/><circle cx="31" cy="18" r="5.5"/><path d="M6 40c0-7 5.4-12 12-12s12 5 12 12z"/><path d="M22 40c.6-6 5-10 10.5-10 5 0 9.5 4 9.5 10z" opacity=".7"/></svg>';
+const SVG_TRUTH='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 9h26a4 4 0 014 4v15a4 4 0 01-4 4H23l-8 6v-6h-4a4 4 0 01-4-4V13a4 4 0 014-4z"/><path d="M24 18.5c-1.7-1.8-4.5-1.1-5.3.9-.6 1.7.9 3.4 5.3 6.3 4.4-2.9 5.9-4.6 5.3-6.3-.8-2-3.6-2.7-5.3-.9z" fill="currentColor" stroke="none"/></svg>';
 const VALEURS=[
-  {id:'partage',nom:'Le partage',emoji:'🤝'},
-  {id:'courage',nom:'Le courage',emoji:'🦁'},
-  {id:'amitie',nom:"L'amitié",emoji:'🫂'},
-  {id:'verite',nom:'La vérité',emoji:'💛'},
+  {id:'partage',nom:'Le partage',icon:SVG_GIFT},
+  {id:'courage',nom:'Le courage',icon:SVG_SHIELD},
+  {id:'amitie',nom:"L'amitié",icon:SVG_FRIENDS},
+  {id:'verite',nom:'La vérité',icon:SVG_TRUTH},
 ];
 
 /* Trame (schéma narratif) commune : 1 incipit · 2 élément perturbateur · 3 adjuvant ·
@@ -322,7 +328,7 @@ function univThumb(u){ return `assets/filou_${u.id}.png`; }
 function fillGrid(id,items,onPick,thumb){ const gEl=document.getElementById(id); gEl.innerHTML='';
   items.forEach(it=>{ const b=document.createElement('button'); b.className='card';
     if(thumb){ b.innerHTML=`<img class="thumb" src="${thumb(it)}" alt="" onerror="this.style.display='none'"><span class="lab">${it.nom}</span>`; }
-    else { b.innerHTML=`<div class="emoji">${it.emoji}</div><span class="lab">${it.nom}</span>`; }
+    else { b.innerHTML=`<div class="icon">${it.icon||('<span class="emoji">'+(it.emoji||'')+'</span>')}</div><span class="lab">${it.nom}</span>`; }
     b.addEventListener('click',()=>onPick(it)); gEl.appendChild(b); }); }
 
 const choice={perso:null,univers:null,valeur:null};
@@ -349,13 +355,15 @@ function sceneCandidates(){
   if(choice.sceneImg) out.push(choice.sceneImg);                                         // ancienne image unique
   return out;
 }
-function tryImg(list,i){ if(i>=list.length) return; const img=new Image(); img.className='scene-img';
-  img.onload=()=>{ scene.querySelectorAll('svg,.fallback,.scene-img').forEach(e=>e.remove()); scene.appendChild(img); };
-  img.onerror=()=>tryImg(list,i+1); img.src=list[i]; }
 function renderScene(){
-  const uid=(choice.univers&&choice.univers.id)||'';
-  scene.innerHTML = sceneSVG(uid)+`<div class="hero-emo fallback">${(choice.perso&&choice.perso.emoji)||'🧒'}</div>`;
-  tryImg(sceneCandidates(),0);
+  const uid=(choice.univers&&choice.univers.id)||'', cands=sceneCandidates(); let done=false;
+  (function go(i){
+    if(i>=cands.length){ if(!done) scene.innerHTML=sceneSVG(uid)+`<div class="hero-emo fallback">${(choice.perso&&choice.perso.emoji)||'🧒'}</div>`; return; }
+    const img=new Image(); img.className='scene-img';
+    img.onload=()=>{ done=true; scene.replaceChildren(img); };              // on garde l'ancienne image jusqu'au chargement -> pas de flash
+    img.onerror=()=>go(i+1);
+    img.src=cands[i];
+  })(0);
   if(choice.sceneImgs && choice.sceneImgs[cur+1]){ const pf=new Image(); pf.src=choice.sceneImgs[cur+1]; } // pré-charge la page suivante (mode libre)
 }
 function renderWords(text){ storyPlain=text; wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g,el=document.getElementById('ptext'); let m;
@@ -394,7 +402,7 @@ function highlightSync(){
   const w=wordSpans.map(x=>{ const r=x.raw; const letters=r.replace(/[^\wàâäéèêëïîôöùûüç]/gi,'').length;
     let pause=1; if(/[,;:»)]$/.test(r)) pause+=2; if(/[.!?…]$/.test(r)) pause+=4; return letters+1+pause; });
   const tot=w.reduce((a,b)=>a+b,0)||1; const starts=[]; let acc=0; w.forEach(x=>{starts.push(acc/tot*dur);acc+=x;});
-  function tick(){ if(player.paused||player.ended) return; const t=player.currentTime; let idx=0;
+  function tick(){ if(player.paused||player.ended) return; const t=player.currentTime+0.15; let idx=0; // +0.15 : la voix était en avance, on fait avancer le surlignage
     for(let k=0;k<starts.length;k++){ if(starts[k]<=t) idx=k; else break; } setWord(idx); rafId=requestAnimationFrame(tick); }
   if(rafId) cancelAnimationFrame(rafId); rafId=requestAnimationFrame(tick);
 }
