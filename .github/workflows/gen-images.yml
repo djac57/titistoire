@@ -1,38 +1,66 @@
-name: Générer les illustrations (HF FLUX)
+name: Générer les illustrations (FLUX)
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "all = régénère les 24 · missing = seulement les manquantes"
-        default: "all"
+        description: "ce qu'on génère"
+        default: "scenes"
         type: choice
-        options: [all, missing]
+        options: [scenes, ambiances, all, test]
 
 permissions:
   contents: write
 
+concurrency:
+  group: gen-images
+  cancel-in-progress: false
+
 jobs:
   gen:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Générer les illustrations
+
+      - name: Générer les illustrations (reprise auto, saute les existantes)
+        id: gen
+        continue-on-error: true            # quota/temps atteint -> on committe quand même ce qui est fait
         env:
+          TITI_IMG_SRC: cf                 # API Cloudflare directe (flux-1-schnell)
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          if [ -z "$CF_API_TOKEN" ] && [ -z "$HF_TOKEN" ]; then echo "::error::Ajoute les secrets CF_ACCOUNT_ID + CF_API_TOKEN (Workers AI), ou HF_TOKEN"; exit 1; fi
-          python3 tools/gen_images.py "${{ github.event.inputs.mode }}"
-      - name: Committer les images
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ACCOUNT_ID" ]; then
+            echo "::error::Secrets CF_ACCOUNT_ID + CF_API_TOKEN requis (Workers AI)"; exit 1
+          fi
+          case "${{ github.event.inputs.mode }}" in
+            test)      python3 tools/gen_images.py scenes test ;;
+            ambiances) python3 tools/gen_images.py ambiances ;;
+            all)       python3 tools/gen_images.py all ;;
+            *)         python3 tools/gen_images.py scenes ;;
+          esac
+
+      - name: Committer les images générées (même si partiel)
+        if: always()
         run: |
           git config user.name "titistoire-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/
-          git commit -m "Illustrations FLUX générées en CI (Hugging Face)" || echo "rien à committer"
-          git push
+          git add assets/ || true
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à committer."
+          else
+            N=$(git diff --cached --name-only | wc -l | tr -d ' ')
+            git commit -m "Illustrations FLUX générées en CI ($N fichier(s))"
+            git push
+          fi
+
+      - name: Bilan
+        if: always()
+        run: |
+          echo "Ambiances : $(ls assets/*.png 2>/dev/null | wc -l | tr -d ' ') / 24"
+          echo "Scènes    : $(ls assets/scenes/*.png 2>/dev/null | wc -l | tr -d ' ') / 576"
+          echo "(Relance le workflow pour continuer là où il s'est arrêté si le quota a coupé.)"
