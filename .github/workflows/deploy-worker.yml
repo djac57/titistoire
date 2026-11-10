@@ -17,9 +17,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Déployer via wrangler
+      - name: Déployer via wrangler (+ (re)pose les secrets du worker)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: deploy
+          secrets: |
+            GEMINI_KEY
+            ELEVEN_KEY
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ELEVEN_KEY: ${{ secrets.ELEVEN_KEY }}
