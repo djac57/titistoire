@@ -84,9 +84,11 @@
   @keyframes flip{0%{transform:scale(1)}50%{transform:scale(.965);opacity:.92}100%{transform:scale(1);opacity:1}} /* douce : ne devient jamais blanche */
   .frame img,.frame svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   .hero-emo{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-size:clamp(3rem,16vw,5rem);filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));}
-  .loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(253,250,243,.7);backdrop-filter:blur(2px);font-family:var(--font-d);color:var(--paper-ink2);font-size:2rem;}
-  .loading.on{display:flex;animation:pulse 1.2s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+  /* petit badge discret en bas à droite (ne recouvre PLUS l'image) */
+  .loading{position:absolute;right:10px;bottom:10px;display:none;align-items:center;gap:6px;background:rgba(45,37,112,.78);color:#fff;font-family:var(--font-d);font-size:.95rem;padding:6px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.3);}
+  .loading.on{display:inline-flex;}
+  .loading::before{content:"";width:13px;height:13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#ffcb4d;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
   .ptext{padding:22px 10px 6px;font-size:clamp(1.28rem,4.6vw,1.6rem);line-height:1.75;text-align:center;min-height:2.6em;font-weight:600;color:var(--paper-ink);}
   .ptext.moral{font-style:italic;color:var(--pur-d);font-weight:700;}
   .word{padding:1px 3px;border-radius:7px;transition:background .12s,color .12s;}
@@ -168,7 +170,7 @@
       <h2 class="title" id="title"></h2>
       <div class="frame" id="frame">
         <div class="scene" id="scene"></div>
-        <div class="loading" id="loading">🎨✨</div>
+        <div class="loading" id="loading"></div>
       </div>
       <div class="ptext" id="ptext"></div>
       <div class="pagenav">
@@ -186,7 +188,6 @@
         <span>🐢 <input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"> 🐇</span>
         <span>🎙️ <select id="voiceSel"></select></span>
       </div>
-      <p class="hint" id="hint">Belle voix via le conteur magique 🎙️</p>
     </div>
   </section>
 </div>
@@ -401,7 +402,7 @@ function showBook(title){ document.getElementById('title').textContent=title||''
 function openStory(){ const s=buildStory(choice.perso,choice.univers,choice.valeur); pages=s.pages; pageBeats=s.beats; choice.sceneImg=null; choice.sceneImgs=null; choice.freeStory=null; showBook(`L'histoire de ${choice.perso.nom}`); }
 
 /* ===== VOIX (worker TTS) + surlignage synchronisé ===== */
-let auto=false, rafId=0, usingFallback=false, playToken=0, exactStarts=null;
+let auto=false, rafId=0, usingFallback=false, playToken=0, exactStarts=null, loadTimer=0;
 const player=new Audio(); player.preload="auto";   // UN SEUL élément audio réutilisé (indispensable iOS/Safari)
 function rate(){ return parseFloat(document.getElementById('rate').value)||1; }
 function setPlay(on){ const b=document.getElementById('playBtn'); b.textContent=on?'⏸️ Pause':'▶️ Lire'; b.classList.toggle('pause',on); }
@@ -411,8 +412,9 @@ function stopAudio(){
   try{ player.pause(); const s=player.src; if(s&&s.startsWith('blob:'))URL.revokeObjectURL(s); player.removeAttribute('src'); player.load(); }catch(e){}
   if(rafId) cancelAnimationFrame(rafId); rafId=0;
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false;
-  document.getElementById('loading').classList.remove('on'); }
-function loader(on){ document.getElementById('loading').classList.toggle('on',on); }
+  clearTimeout(loadTimer); document.getElementById('loading').classList.remove('on'); }
+function loader(on){ const el=document.getElementById('loading'); clearTimeout(loadTimer);
+  if(on){ loadTimer=setTimeout(()=>el.classList.add('on'),350); } else { el.classList.remove('on'); } }
 
 function wordTimesFromAlignment(text,al){
   if(!al||!al.character_start_times_seconds) return null;
