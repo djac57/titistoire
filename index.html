@@ -436,7 +436,7 @@ function bindPlayer(my,i,text){
 function readPage(i){
   cur=i; stopAudio(); loader(true);
   const my=++playToken, text=pages[i]; exactStarts=null;
-  const url=AIW+"/tts?lang=fr&v="+curVoice()+"&t="+encodeURIComponent(text);
+  const url=AIW+"/tts?lang=fr&cv=2&v="+curVoice()+"&t="+encodeURIComponent(text); // cv = version réglages voix (buste le cache)
   fetch(url).then(async r=>{
     if(my!==playToken) return;
     if(!r.ok) throw new Error("tts "+r.status);
@@ -522,7 +522,15 @@ function renderSaved(){ const a=savedAll(), el=document.getElementById('savedLis
 }
 
 /* ===== choix de la voix (voix premade gratuites ElevenLabs) ===== */
-const VOICES=[["XrExE9yKIg1WjnnlVkGX","Matilda (douce)"],["pFZP5JQG7iQjIQuC4Bku","Lily (chaleureuse)"],["EXAVITQu4vr4xnSDxMaL","Sarah (posée)"],["Xb7hH8MSUJpSbSDYk0k2","Alice (claire)"],["FGY2WhTYpPnrIDTdsKH5","Laura (jeune)"]];
+const VOICES=[
+  ["Xb7hH8MSUJpSbSDYk0k2","Alice 👧 (claire)"],
+  ["XrExE9yKIg1WjnnlVkGX","Matilda 👧 (douce)"],
+  ["pFZP5JQG7iQjIQuC4Bku","Lily 👧 (chaleureuse)"],
+  ["EXAVITQu4vr4xnSDxMaL","Sarah 👧 (posée)"],
+  ["JBFqnCBsd6RMkjVDRZzb","George 👦 (conteur)"],
+  ["nPczCjzI2devNBz1zQrb","Brian 👦 (grave)"],
+  ["IKne3meq5aSn9XLyUdCD","Charlie 👦 (jeune)"],
+];
 let voiceId="";
 function curVoice(){ return voiceId||VOICES[0][0]; }
 (function initVoice(){ const sel=document.getElementById('voiceSel'); if(!sel) return;

@@ -33,14 +33,15 @@ export default {
           // voix "premade" accessibles en palier GRATUIT (les voix "library" exigent un plan payant) :
           //   Matilda XrExE9yKIg1WjnnlVkGX · Lily pFZP5JQG7iQjIQuC4Bku · Sarah EXAVITQu4vr4xnSDxMaL
           //   Alice Xb7hH8MSUJpSbSDYk0k2 · Laura FGY2WhTYpPnrIDTdsKH5
-          const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "XrExE9yKIg1WjnnlVkGX";
+          const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "Xb7hH8MSUJpSbSDYk0k2"; // Alice par défaut
           // "with-timestamps" : audio + alignement caractère→temps (pour un karaoké précis)
           const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "/with-timestamps?output_format=mp3_44100_128", {
             method: "POST",
             headers: { "xi-api-key": ELEVEN, "content-type": "application/json" },
             body: JSON.stringify({
               text: t, model_id: "eleven_multilingual_v2",
-              voice_settings: { stability: 0.5, similarity_boost: 0.8, style: 0.1, use_speaker_boost: true }
+              // stabilité plus basse + style plus haut = lecture plus vivante/expressive (moins plate)
+              voice_settings: { stability: 0.38, similarity_boost: 0.85, style: 0.45, use_speaker_boost: true }
             })
           });
           if (r.ok) {
