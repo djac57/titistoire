@@ -373,46 +373,50 @@ function showBook(title){ document.getElementById('title').textContent=title||''
 function openStory(){ const s=buildStory(choice.perso,choice.univers,choice.valeur); pages=s.pages; pageBeats=s.beats; choice.sceneImg=null; choice.sceneImgs=null; choice.freeStory=null; showBook(`L'histoire de ${choice.perso.nom}`); }
 
 /* ===== VOIX (worker TTS) + surlignage synchronisé ===== */
-let auto=false, curAudio=null, rafId=0, usingFallback=false;
+let auto=false, rafId=0, usingFallback=false, playToken=0;
+const player=new Audio(); player.preload="auto";   // UN SEUL élément audio réutilisé (indispensable iOS/Safari)
 function rate(){ return parseFloat(document.getElementById('rate').value)||1; }
 function setPlay(on){ const b=document.getElementById('playBtn'); b.textContent=on?'⏸️ Pause':'▶️ Lire'; b.classList.toggle('pause',on); }
 function resetPlay(){ auto=false; setPlay(false); }
 function stopAudio(){
-  if(curAudio){ try{ curAudio.onended=curAudio.onerror=curAudio.oncanplay=curAudio.onloadedmetadata=null; curAudio.pause(); curAudio.removeAttribute('src'); curAudio.load(); }catch(e){} curAudio=null; }
+  playToken++;                                       // invalide les callbacks de la page précédente
+  try{ player.pause(); player.removeAttribute('src'); player.load(); }catch(e){}
   if(rafId) cancelAnimationFrame(rafId); rafId=0;
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false;
   document.getElementById('loading').classList.remove('on'); }
 function loader(on){ document.getElementById('loading').classList.toggle('on',on); }
 
-function highlightSync(audio){
-  const dur=audio.duration; if(!dur||!isFinite(dur)||!wordSpans.length) return;
+function highlightSync(){
+  const dur=player.duration; if(!dur||!isFinite(dur)||!wordSpans.length) return;
   const w=wordSpans.map(x=>x.raw.replace(/[^\wàâäéèêëïîôöùûüç]/gi,'').length+2);
   const tot=w.reduce((a,b)=>a+b,0); const starts=[]; let acc=0; w.forEach(x=>{starts.push(acc/tot*dur);acc+=x;});
-  function tick(){ if(!curAudio||audio.paused||audio.ended) return; const t=audio.currentTime; let idx=0;
+  function tick(){ if(player.paused||player.ended) return; const t=player.currentTime; let idx=0;
     for(let k=0;k<starts.length;k++){ if(starts[k]<=t) idx=k; else break; } setWord(idx); rafId=requestAnimationFrame(tick); }
-  rafId=requestAnimationFrame(tick);
+  if(rafId) cancelAnimationFrame(rafId); rafId=requestAnimationFrame(tick);
 }
 function speakFallback(text,onend){ usingFallback=true; try{ const u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=rate()*0.95;
   u.onboundary=e=>{ if(typeof e.charIndex==='number'){ let idx=0,acc=0; for(let k=0;k<wordSpans.length;k++){ if(acc<=e.charIndex) idx=k; acc+=wordSpans[k].raw.length+1; } setWord(idx);} };
   u.onend=()=>{clearHi();onend&&onend();}; speechSynthesis.cancel(); speechSynthesis.speak(u);
 }catch(e){ onend&&onend(); } }
 
+function advance(i){ if(auto){ if(i+1<pages.length) turnTo(i+1,()=>readPage(i+1)); else resetPlay(); } }
 function readPage(i){
   cur=i; stopAudio(); loader(true);
-  const text=pages[i];
-  const url=AIW+"/tts?lang=fr&v="+curVoice()+"&t="+encodeURIComponent(text);
-  const a=new Audio(); curAudio=a; a.src=url;
-  a.playbackRate=rate();
-  a.onloadedmetadata=()=>{ loader(false); highlightSync(a); };
-  a.oncanplay=()=>loader(false);
-  a.onended=()=>{ clearHi(); if(auto){ if(i+1<pages.length) turnTo(i+1,()=>readPage(i+1)); else resetPlay(); } };
-  a.onerror=()=>{ loader(false); curAudio=null; speakFallback(text,()=>{ if(auto){ if(i+1<pages.length) turnTo(i+1,()=>readPage(i+1)); else resetPlay(); } }); };
-  a.play().catch(()=>{ a.onerror(); });
+  const my=++playToken, text=pages[i];
+  player.onloadedmetadata=()=>{ if(my!==playToken)return; loader(false); highlightSync(); };
+  player.oncanplay=()=>{ if(my===playToken) loader(false); };
+  player.onended=()=>{ if(my!==playToken)return; clearHi(); advance(i); };
+  player.onerror=()=>{ if(my!==playToken)return; loader(false); speakFallback(text,()=>{ if(my===playToken) advance(i); }); };
+  player.src=AIW+"/tts?lang=fr&v="+curVoice()+"&t="+encodeURIComponent(text);
+  try{ player.load(); }catch(e){}
+  player.playbackRate=rate();
+  player.play().catch(()=>{ if(my===playToken && player.onerror) player.onerror(); });
 }
 function startReading(){ auto=true; setPlay(true); readPage(cur); }
 document.getElementById('playBtn').addEventListener('click',()=>{
-  if(curAudio){ if(curAudio.paused){ curAudio.play(); setPlay(true);} else { curAudio.pause(); setPlay(false);} return; }
-  if(speechSynthesis.speaking){ if(speechSynthesis.paused){speechSynthesis.resume();setPlay(true);}else{speechSynthesis.pause();setPlay(false);} return; }
+  if(usingFallback && speechSynthesis.speaking){ if(speechSynthesis.paused){speechSynthesis.resume();setPlay(true);}else{speechSynthesis.pause();setPlay(false);} return; }
+  if(player.src && !player.paused){ player.pause(); setPlay(false); return; }                                   // en lecture -> pause
+  if(player.src && player.paused && !player.ended && player.currentTime>0){ player.play(); setPlay(true); return; } // reprise
   startReading();
 });
 document.getElementById('replayBtn').addEventListener('click',()=>{ stopAudio(); cur=0; renderPage(0); startReading(); });
