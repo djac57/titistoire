@@ -2,8 +2,14 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#2d2570">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Titistoire">
 <title>Titistoire — Mon Petit Conteur</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%232d2570'/><path d='M32 20c-5-3-12-3-17-2v26c5-1 12-1 17 2 5-3 12-3 17-2V18c-5-1-12-1-17 2z' fill='none' stroke='%23ffcb4d' stroke-width='3.6' stroke-linejoin='round'/><path d='M32 20v26' stroke='%23ffcb4d' stroke-width='3.6'/><path d='M47 9l1.6 3.4 3.7.5-2.7 2.6.6 3.7-3.2-1.7-3.2 1.7.6-3.7-2.7-2.6 3.7-.5z' fill='%23ffd86b'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%232d2570'/><path d='M32 20c-5-3-12-3-17-2v26c5-1 12-1 17 2 5-3 12-3 17-2V18c-5-1-12-1-17 2z' fill='none' stroke='%23ffcb4d' stroke-width='3.6' stroke-linejoin='round'/><path d='M32 20v26' stroke='%23ffcb4d' stroke-width='3.6'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +33,8 @@
   body{ margin:0; color:var(--ink); font-family:var(--font-t); font-weight:600;
     background:radial-gradient(130% 90% at 50% -10%, #3b2f86 0%, #2d2570 45%, #241e5c 100%) fixed;
     min-height:100%; position:relative; overflow-x:hidden; -webkit-font-smoothing:antialiased;
-    display:flex; flex-direction:column; align-items:center; padding:20px 16px 56px; }
+    display:flex; flex-direction:column; align-items:center;
+    padding:calc(20px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)); }
   body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(100px);opacity:.3;z-index:-2;pointer-events:none;}
   body::before{width:380px;height:380px;background:#6a4fd0;top:-130px;left:-100px;}
   body::after{width:420px;height:420px;background:#3b61c4;bottom:-150px;right:-110px;}
@@ -100,7 +107,13 @@
   .genBtnWrap{align-self:center;}
   .settings{display:flex;gap:12px 18px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:18px;background:rgba(60,48,110,.05);border:1px solid var(--paper-line);border-radius:16px;padding:10px 14px;color:var(--paper-ink2);font-weight:700;font-size:1.05rem;}
   .settings input[type=range]{accent-color:var(--pur);height:6px;vertical-align:middle;}
-  .settings select{font-family:var(--font-t);font-weight:700;color:var(--paper-ink);border:1px solid var(--paper-line);border-radius:10px;padding:6px 10px;background:#fff;cursor:pointer;}
+  .settings select{font-family:var(--font-t);font-weight:700;color:var(--paper-ink);border:1px solid var(--paper-line);border-radius:10px;padding:6px 10px;background:#fff;cursor:pointer;max-width:48vw;}
+  /* mobile : un poil plus compact, cibles tactiles confortables */
+  @media (max-width:430px){
+    h1{font-size:2rem;} .q{font-size:1.3rem;margin-bottom:16px;} .grid{gap:12px;}
+    .book{padding:14px 14px 18px;border-radius:22px;} .ptext{font-size:1.3rem;padding:18px 6px 4px;}
+    .controls{gap:8px;} .btn{padding:11px 18px;} .card .lab{font-size:1.05rem;}
+  }
   .hint{text-align:center;color:var(--paper-ink2);font-size:.82rem;font-weight:600;margin-top:14px;}
   .saved-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
   .saved-del{width:46px;height:46px;font-size:1rem;flex:0 0 auto;background:#fff;color:var(--paper-ink);}
@@ -524,12 +537,10 @@ function renderSaved(){ const a=savedAll(), el=document.getElementById('savedLis
 /* ===== choix de la voix (voix premade gratuites ElevenLabs) ===== */
 const VOICES=[
   ["Xb7hH8MSUJpSbSDYk0k2","Alice 👧 (claire)"],
-  ["XrExE9yKIg1WjnnlVkGX","Matilda 👧 (douce)"],
-  ["pFZP5JQG7iQjIQuC4Bku","Lily 👧 (chaleureuse)"],
-  ["EXAVITQu4vr4xnSDxMaL","Sarah 👧 (posée)"],
   ["JBFqnCBsd6RMkjVDRZzb","George 👦 (conteur)"],
   ["nPczCjzI2devNBz1zQrb","Brian 👦 (grave)"],
-  ["IKne3meq5aSn9XLyUdCD","Charlie 👦 (jeune)"],
+  ["TX3LPaxmHKxFdv7VOQHJ","Liam 👦 (jeune)"],
+  ["IKne3meq5aSn9XLyUdCD","Charlie 👦 (décontracté)"],
 ];
 let voiceId="";
 function curVoice(){ return voiceId||VOICES[0][0]; }

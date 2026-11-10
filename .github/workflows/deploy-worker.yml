@@ -31,6 +31,8 @@ jobs:
           secrets: |
             GEMINI_KEY
             ELEVEN_KEY
+            OPENROUTER_KEY
         env:
           GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
           ELEVEN_KEY: ${{ secrets.ELEVEN_KEY }}
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}

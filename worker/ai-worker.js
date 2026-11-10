@@ -77,7 +77,6 @@ export default {
       // ---------- HISTOIRE (mode libre, sans clé navigateur) ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
-        if (!GKEY) return new Response(JSON.stringify({ error: "GEMINI_KEY manquante sur le worker (Cloudflare, pas GitHub)" }), { status: 502, headers: { "content-type": "application/json", ...cors } });
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
@@ -108,8 +107,27 @@ export default {
             return { err: msg, busy: /high demand|overloaded|unavailable|503|429|quota|rate/i.test(msg) };
           } catch (e) { return { err: String(e), busy: true }; } finally { clearTimeout(to); }
         }
+        async function askOpenRouter(key){
+          const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 22000);
+          try{
+            const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method:"POST", signal:ctrl.signal,
+              headers:{ "Authorization":"Bearer "+key, "content-type":"application/json", "HTTP-Referer":"https://djac57.github.io/titistoire/", "X-Title":"Titistoire" },
+              body: JSON.stringify({ model:"deepseek/deepseek-chat-v3-0324:free",
+                messages:[{role:"system",content:"Tu es une conteuse pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour."},{role:"user",content:prompt}],
+                response_format:{type:"json_object"}, max_tokens:2600 }) });
+            const d = await r.json();
+            let raw = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+            if (!raw) return { err: (d && d.error && (d.error.message || JSON.stringify(d.error))) || "réponse vide" };
+            const a = raw.indexOf("{"), b = raw.lastIndexOf("}");
+            if (a >= 0 && b > a) { const c = raw.slice(a, b + 1); try { JSON.parse(c); return { txt: c }; } catch (e) { return { err: "JSON invalide" }; } }
+            return { err: "pas de JSON" };
+          } catch (e) { return { err: String(e) }; } finally { clearTimeout(to); }
+        }
         let txt = null, lastErr = null, usedModel = null, busy = false;
-        for (const model of models) {
+        // 1) OpenRouter / DeepSeek V3 (gratuit, bon français, quota séparé) si clé présente
+        if (env.OPENROUTER_KEY) { const r = await askOpenRouter(env.OPENROUTER_KEY); if (r.txt) { txt = r.txt; usedModel = "openrouter:deepseek-v3"; } else lastErr = "OpenRouter: " + r.err; }
+        // 2) Gemini (si clé) — en secours
+        if (!txt && GKEY) for (const model of models) {
           const res = await askGemini(model);
           if (res.txt) { txt = res.txt; usedModel = model; break; }
           lastErr = res.err; if (res.busy) busy = true;
