@@ -23,9 +23,11 @@ jobs:
           python-version: "3.12"
       - name: Générer les illustrations
         env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          if [ -z "$HF_TOKEN" ]; then echo "::error::Ajoute le secret HF_TOKEN (Settings → Secrets → Actions)"; exit 1; fi
+          if [ -z "$CF_API_TOKEN" ] && [ -z "$HF_TOKEN" ]; then echo "::error::Ajoute les secrets CF_ACCOUNT_ID + CF_API_TOKEN (Workers AI), ou HF_TOKEN"; exit 1; fi
           python3 tools/gen_images.py "${{ github.event.inputs.mode }}"
       - name: Committer les images
         run: |
