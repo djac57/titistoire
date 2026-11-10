@@ -1,0 +1,36 @@
+name: Générer les illustrations (HF FLUX)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "all = régénère les 24 · missing = seulement les manquantes"
+        default: "all"
+        type: choice
+        options: [all, missing]
+
+permissions:
+  contents: write
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Générer les illustrations
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then echo "::error::Ajoute le secret HF_TOKEN (Settings → Secrets → Actions)"; exit 1; fi
+          python3 tools/gen_images.py "${{ github.event.inputs.mode }}"
+      - name: Committer les images
+        run: |
+          git config user.name "titistoire-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/
+          git commit -m "Illustrations FLUX générées en CI (Hugging Face)" || echo "rien à committer"
+          git push
