@@ -66,11 +66,10 @@
   .story-title{ text-align:center; font-size:clamp(1.2rem,4.6vw,1.6rem); margin:2px 0 12px; }
   .book{ perspective:1700px; }
   .page{ background:var(--paper); border-radius:24px; box-shadow:var(--shadow); overflow:hidden;
-    transform-origin:left center; will-change:transform,opacity; border:1px solid #efe7d6; }
-  .page.flip-out{ animation:flipOut .5s ease-in forwards; }
-  .page.flip-in{ animation:flipIn .5s ease-out; }
-  @keyframes flipOut{ from{transform:rotateY(0);opacity:1;} to{transform:rotateY(-108deg);opacity:0;} }
-  @keyframes flipIn{ from{transform:rotateY(108deg);opacity:0;} to{transform:rotateY(0);opacity:1;} }
+    will-change:transform,opacity; border:1px solid #efe7d6;
+    transition:opacity .42s ease, transform .55s cubic-bezier(.22,.8,.3,1); }
+  .page.leaving{ opacity:0; transform:translateX(-26px) scale(.975) rotate(-.5deg); }
+  .page.entering{ opacity:0; transform:translateX(26px) scale(.975) rotate(.5deg); }
   .scene{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#eef; }
   .scene-svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
   .scene-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
@@ -179,10 +178,12 @@ const PERSOS=[
   {id:'plume', nom:'Plume', emoji:'🦉',f:true,  desc:"une petite chouette beige curieuse"},
 ];
 const UNIVERS=[
-  {id:'foret',  nom:'La forêt',  emoji:'🌲',phrase:"dans la grande forêt",     desc:"une forêt enchantée avec de grands arbres et des fleurs"},
-  {id:'ocean',  nom:"L'océan",   emoji:'🌊',phrase:"tout au fond de l'océan",  desc:"le fond de l'océan avec des coraux et des poissons colorés"},
-  {id:'espace', nom:"L'espace",  emoji:'🚀',phrase:"parmi les étoiles",        desc:"l'espace étoilé avec des planètes et la lune"},
-  {id:'chateau',nom:'Le château',emoji:'🏰',phrase:"dans un grand château",    desc:"un royaume avec un grand château et des collines"},
+  {id:'pirates',   nom:'Les pirates',    emoji:'🏴‍☠️',phrase:"sur un bateau de pirates",          desc:"a friendly pirate ship sailing on the sea near a treasure island"},
+  {id:'dino',      nom:'Les dinosaures', emoji:'🦕',  phrase:"au temps des dinosaures",            desc:"a prehistoric jungle with friendly dinosaurs and a volcano"},
+  {id:'chevaliers',nom:'Les chevaliers', emoji:'🛡️', phrase:"au temps des chevaliers",            desc:"a medieval kingdom with a castle, colorful flags and a brave little knight"},
+  {id:'espace',    nom:'Les astronautes',emoji:'🚀',  phrase:"dans l'espace, parmi les étoiles",   desc:"outer space with planets, stars, a little rocket and the moon"},
+  {id:'foret',     nom:'La forêt',       emoji:'🌲',  phrase:"dans la grande forêt",               desc:"an enchanted forest with tall trees and flowers"},
+  {id:'ocean',     nom:"L'océan",        emoji:'🌊',  phrase:"tout au fond de l'océan",            desc:"the bottom of the sea with corals and colorful fish"},
 ];
 const VALEURS=[
   {id:'partage',nom:'Le partage',emoji:'🤝'},
@@ -256,15 +257,20 @@ function buildStory(p,u,v){
 
 /* ===== SCÈNES ===== */
 function sceneSVG(id){
+  if(id==='chevaliers') id='chateau';
+  if(id==='pirates') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pr" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#ffd59e"/><stop offset=1 stop-color="#6fb9e0"/></linearGradient></defs><rect width=400 height=225 fill="url(#pr)"/><circle cx=322 cy=58 r=23 fill="#ffce6b"/><rect x=0 y=152 width=400 height=73 fill="#3f8fc0"/><path d="M0 152 Q50 145 100 152 T200 152 T300 152 T400 152 V162 H0Z" fill="#5aa6d0"/><g transform="translate(160 92)"><rect x=-3 y=0 width=6 height=58 fill="#7a4a24"/><path d="M4 4 L48 20 L4 30 Z" fill="#ffffff"/><path d="M4 32 L42 46 L4 54 Z" fill="#f0f0f0"/><path d="M-56 56 Q0 90 62 56 L50 80 Q0 98 -46 80 Z" fill="#6b3f1e"/></g></svg>`;
+  if(id==='dino') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dn" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#cdefff"/><stop offset=1 stop-color="#dff3c6"/></linearGradient></defs><rect width=400 height=225 fill="url(#dn)"/><circle cx=70 cy=52 r=22 fill="#ffe27a"/><polygon points="250,182 332,182 291,92" fill="#9a7b6b"/><polygon points="276,120 291,92 306,120" fill="#ff7a4d"/><rect x=0 y=182 width=400 height=43 fill="#8cc968"/><ellipse cx=120 cy=188 rx=64 ry=22 fill="#7bbd57"/></svg>`;
   if(id==='ocean') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="o" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#8fd3ff"/><stop offset=1 stop-color="#1f6bb0"/></linearGradient></defs><rect width=400 height=225 fill="url(#o)"/><circle cx=70 cy=50 r=5 fill="#fff" opacity=.6/><circle cx=120 cy=90 r=7 fill="#fff" opacity=.5/><circle cx=300 cy=60 r=6 fill="#fff" opacity=.55/><circle cx=340 cy=120 r=4 fill="#fff" opacity=.5/><path d="M0 185 Q60 165 120 185 T240 185 T360 185 T480 185 V225 H0Z" fill="#f3e2a9"/><path d="M0 195 Q60 178 120 195 T240 195 T360 195 T480 195 V225 H0Z" fill="#e7cf86"/></svg>`;
   if(id==='espace') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="e" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#2a1b5e"/><stop offset=1 stop-color="#5b2a82"/></linearGradient></defs><rect width=400 height=225 fill="url(#e)"/>${Array.from({length:30}).map(()=>`<circle cx=${(Math.random()*400|0)} cy=${(Math.random()*205|0)} r=${(Math.random()*1.6+0.6).toFixed(1)} fill="#fff" opacity=${(Math.random()*.6+.4).toFixed(2)}/>`).join('')}<circle cx=330 cy=55 r=26 fill="#ffe27a"/><circle cx=322 cy=48 r=6 fill="#eac94e"/><circle cx=340 cy=66 r=4 fill="#eac94e"/><ellipse cx=90 cy=165 rx=30 ry=12 fill="#ff9ecb" opacity=.85/></svg>`;
   if(id==='chateau') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="c" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#ffd1ec"/><stop offset=1 stop-color="#b79cff"/></linearGradient></defs><rect width=400 height=225 fill="url(#c)"/><circle cx=60 cy=50 r=22 fill="#fff6c8" opacity=.9/><g fill="#8a6fd6"><rect x=150 y=120 width=100 height=70/><rect x=135 y=100 width=22 height=90/><rect x=243 y=100 width=22 height=90/><rect x=188 y=80 width=24 height=110/></g><g fill="#6d53bd"><polygon points="135,100 157,100 146,78"/><polygon points="243,100 265,100 254,78"/><polygon points="188,80 212,80 200,54"/></g><rect x=191 y=150 width=18 height=40 rx=9 fill="#ffe27a"/><rect x=0 y=190 width=400 height=35 fill="#9fd68b"/></svg>`;
   return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="f" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#bfe9ff"/><stop offset=1 stop-color="#eafaf0"/></linearGradient></defs><rect width=400 height=225 fill="url(#f)"/><circle cx=330 cy=48 r=26 fill="#ffe27a"/><path d="M0 175 Q100 140 200 170 T400 165 V225 H0Z" fill="#9fd68b"/><g><polygon points="60,180 90,180 75,120" fill="#3f9b57"/><rect x=72 y=180 width=6 height=16 fill="#8a5a33"/><polygon points="300,185 340,185 320,115" fill="#2f8a49"/><rect x=317 y=185 width=7 height=18 fill="#8a5a33"/><polygon points="340,185 375,185 357,130" fill="#3f9b57"/></g></svg>`;
 }
 function mapDecor(d){ d=(d||'').toLowerCase();
-  if(/ocean|océan|mer|eau|poisson|sous.l|marin/.test(d)) return 'ocean';
-  if(/espace|étoile|etoile|lune|planèt|planet|ciel|fusée|fusee|cosmos/.test(d)) return 'espace';
-  if(/château|chateau|royaume|princ|roi|reine|magique/.test(d)) return 'chateau';
+  if(/pirate|bateau|corsaire|trésor|tresor|île|ile/.test(d)) return 'pirates';
+  if(/dino|dinosaure|préhist|prehist|volcan|jungle|t-?rex/.test(d)) return 'dino';
+  if(/chevalier|médiéval|medieval|château|chateau|royaume|roi|reine|princ|dragon/.test(d)) return 'chevaliers';
+  if(/espace|astronaute|étoile|etoile|lune|planèt|planet|fusée|fusee|cosmos|ciel/.test(d)) return 'espace';
+  if(/ocean|océan|mer|eau|poisson|sous.l|marin|sir[èe]ne/.test(d)) return 'ocean';
   return 'foret'; }
 function propFor(text){ const t=(text||'').toLowerCase();
   if(/panier|fruit|fraise|pomme|raisin/.test(t)) return '🧺';
@@ -316,8 +322,12 @@ function renderWords(text){ storyPlain=text; wordSpans=[]; let html=''; const re
   wordSpans.forEach((ws,i)=> ws.el=el.querySelector('.word[data-i="'+i+'"]')); }
 function renderPage(i){ cur=i; renderScene(); renderWords(pages[i]); updateNav(); }
 function updateNav(){ document.getElementById('counter').textContent=`Page ${cur+1} / ${pages.length}`; document.getElementById('prevBtn').disabled=cur<=0; document.getElementById('nextBtn').disabled=cur>=pages.length-1; }
-function turnTo(i,cb){ if(i<0||i>=pages.length){ cb&&cb(); return; } bookPage.classList.remove('flip-in'); bookPage.classList.add('flip-out');
-  setTimeout(()=>{ renderPage(i); bookPage.classList.remove('flip-out'); bookPage.classList.add('flip-in'); setTimeout(()=>{ bookPage.classList.remove('flip-in'); cb&&cb(); },480); },480); }
+function turnTo(i,cb){ if(i<0||i>=pages.length){ cb&&cb(); return; }
+  bookPage.classList.add('leaving');
+  setTimeout(()=>{ renderPage(i);
+    bookPage.classList.remove('leaving'); bookPage.classList.add('entering');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ bookPage.classList.remove('entering'); setTimeout(()=>cb&&cb(),430); }));
+  }, 430); }
 function clearHi(){ wordSpans.forEach(ws=> ws.el&&ws.el.classList.remove('on')); }
 function setWordByIndex(i){ clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wordSpans[i].el.classList.add('on'); }
 function setWordByChar(c){ let f=0; for(let i=0;i<wordSpans.length;i++){ if(wordSpans[i].start<=c) f=i; else break; } setWordByIndex(f); }

@@ -22,10 +22,12 @@ HEROS = {
     "plume":  "a cute little beige owl, curious and sweet",
 }
 UNIV = {
-    "foret":   "an enchanted forest with tall trees and flowers",
-    "ocean":   "the bottom of the sea with corals and colorful fish",
-    "espace":  "starry outer space with planets and the moon",
-    "chateau": "a kingdom with a big castle and green rolling hills",
+    "pirates":    "on a friendly pirate ship sailing on the sea near a treasure island",
+    "dino":       "in a prehistoric jungle with friendly dinosaurs and a volcano",
+    "chevaliers": "in a medieval kingdom with a castle, colorful flags and brave knights",
+    "espace":     "in outer space with planets, stars, a little rocket and the moon",
+    "foret":      "in an enchanted forest with tall trees and flowers",
+    "ocean":      "at the bottom of the sea with corals and colorful fish",
 }
 OUT = pathlib.Path(__file__).resolve().parent.parent / "assets"
 OUT.mkdir(exist_ok=True)
