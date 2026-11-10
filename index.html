@@ -11,80 +11,93 @@
   :root{
     --font-d:'Fredoka',ui-rounded,system-ui,sans-serif;
     --font-t:'Nunito',ui-rounded,system-ui,sans-serif;
-    --ink:#46345f; --ink2:#7a6a95; --paper:#fffaf2;
-    --accent:#ff8fab; --accent2:#9b8cff; --go:#43c79a; --go-d:#36a983;
-    --hi:#ffd86b; --hi-ink:#5a4100;
-    --shadow:0 14px 34px rgba(120,95,165,.18);
+    --ink:#3b3350; --ink2:#978da8; --paper:#ffffff;
+    --accent:#ff7e9d; --accent-d:#f0608a; --accent2:#8a7bf0; --accent2-d:#6f5fe0;
+    --go:#2fc39a; --go-d:#24a884;
+    --hi:#ffe79a; --hi-ink:#6b4e00;
+    --line:rgba(70,52,110,.09);
+    --sh-sm:0 2px 10px rgba(80,62,120,.06);
+    --sh:0 12px 30px rgba(84,64,126,.10);
+    --sh-lg:0 22px 50px rgba(84,64,126,.16);
+    --radius:22px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;}
   body{ margin:0; color:var(--ink); font-family:var(--font-t); font-weight:600;
-    background:linear-gradient(170deg,#fff3e3 0%,#ffe0ee 45%,#e7e4ff 100%); background-attachment:fixed;
-    min-height:100%; position:relative; overflow-x:hidden;
-    display:flex; flex-direction:column; align-items:center; padding:16px 16px 44px; }
-  body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-2;pointer-events:none;}
-  body::before{width:340px;height:340px;background:#ffd0e4;top:-90px;left:-70px;}
-  body::after{width:380px;height:380px;background:#d4ebff;bottom:-110px;right:-80px;}
-  /* étoiles */
+    background:linear-gradient(168deg,#fbf8f6 0%,#f7f3fb 55%,#f2f0fb 100%); background-attachment:fixed;
+    min-height:100%; position:relative; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column; align-items:center; padding:20px 16px 56px; }
+  body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(90px);opacity:.42;z-index:-2;pointer-events:none;}
+  body::before{width:360px;height:360px;background:#ffd8e6;top:-110px;left:-90px;}
+  body::after{width:420px;height:420px;background:#dfe0ff;bottom:-140px;right:-100px;}
   .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;}
-  .stars b{position:absolute;color:#fff;opacity:.8;font-size:12px;animation:tw 3s ease-in-out infinite;}
-  @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.1)}}
-  h1,h2,.q,.btn,.lab,.title,.counter,.back{font-family:var(--font-d);}
-  header{text-align:center;margin:4px 0 12px;}
-  h1{font-size:clamp(1.7rem,6.5vw,2.5rem);margin:.1em 0;color:#5a3c7a;text-shadow:0 2px 0 #fff;letter-spacing:.5px;}
-  .sub{color:var(--ink2);margin:0;font-size:clamp(.9rem,3.4vw,1.1rem);}
-  .wrap{width:100%;max-width:760px;}
-  .screen{display:none;animation:pop .4s ease;}
+  .stars b{position:absolute;color:#b9a9ff;opacity:.35;font-size:9px;animation:tw 5s ease-in-out infinite;}
+  @keyframes tw{0%,100%{opacity:.12;transform:scale(.7)}50%{opacity:.5;transform:scale(1)}}
+
+  h1,h2,.q,.btn,.lab,.title,.counter,.back,.arrow{font-family:var(--font-d);letter-spacing:.2px;}
+  header{text-align:center;margin:6px 0 20px;}
+  h1{font-size:clamp(1.9rem,7vw,2.7rem);margin:.1em 0;font-weight:700;
+    background:linear-gradient(95deg,var(--accent2-d),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .sub{color:var(--ink2);margin:6px 0 0;font-size:clamp(.92rem,3.3vw,1.08rem);font-weight:600;}
+  .wrap{width:100%;max-width:720px;}
+  .screen{display:none;animation:pop .45s cubic-bezier(.2,.7,.3,1);}
   .screen.show{display:block;}
-  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
-  .q{text-align:center;font-size:clamp(1.3rem,5vw,1.8rem);margin:2px 0 18px;}
+  @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+  .q{text-align:center;font-size:clamp(1.35rem,5vw,1.9rem);font-weight:600;margin:4px 0 22px;color:var(--ink);}
 
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .card{background:#fff;border:none;border-radius:24px;box-shadow:var(--shadow);cursor:pointer;overflow:hidden;
-    transition:transform .14s,box-shadow .14s;font-family:inherit;color:inherit;padding:0;}
-  .card:active{transform:scale(.95);}
-  .card:hover{transform:translateY(-5px);box-shadow:0 20px 38px rgba(120,95,165,.26);}
-  .card .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#f0ecf8;}
-  .card .emoji{font-size:clamp(2.6rem,12vw,4rem);padding:18px 0 6px;}
-  .card .lab{display:block;padding:10px 6px 14px;font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:700;}
-  .back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:none;border-radius:999px;padding:9px 16px;font-weight:700;color:var(--ink);box-shadow:var(--shadow);cursor:pointer;margin-bottom:12px;}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--sh-sm);cursor:pointer;overflow:hidden;
+    transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s;font-family:inherit;color:var(--ink);padding:0;}
+  .card:active{transform:scale(.96);}
+  @media(hover:hover){.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:rgba(138,123,240,.25);}}
+  .card .thumb{width:100%;aspect-ratio:16/11;object-fit:cover;display:block;background:#f1eefb;}
+  .card .emoji{font-size:clamp(2.6rem,12vw,3.8rem);padding:22px 0 4px;}
+  .card .lab{display:block;padding:12px 8px 16px;font-size:clamp(1.02rem,4vw,1.22rem);font-weight:600;}
+  .back{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:1rem;font-weight:500;color:var(--ink);box-shadow:var(--sh-sm);cursor:pointer;margin-bottom:18px;transition:transform .12s;}
+  .back:active{transform:scale(.95);}
 
   /* mode libre */
-  .freeform{display:flex;flex-direction:column;gap:14px;background:#ffffffcc;border-radius:24px;padding:18px;box-shadow:var(--shadow);}
-  .freeform label{display:flex;flex-direction:column;gap:6px;font-weight:700;}
-  .freeform input{font-family:inherit;font-size:1.05rem;padding:12px 14px;border-radius:14px;border:2px solid #ecdff5;}
+  .freeform{display:flex;flex-direction:column;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--sh);}
+  .freeform label{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:1.02rem;}
+  .freeform input{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid #e9e3f5;background:#fbfaff;transition:border-color .15s,box-shadow .15s;}
+  .freeform input:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 0 4px rgba(138,123,240,.14);}
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
 
   /* LIVRE */
-  .book{background:var(--paper);border-radius:28px;box-shadow:var(--shadow);padding:16px 16px 20px;border:1px solid #f0e6d6;position:relative;}
-  .title{text-align:center;font-size:clamp(1.2rem,4.8vw,1.65rem);margin:4px 0 12px;color:#5a3c7a;}
-  .frame{position:relative;border-radius:20px;overflow:hidden;border:6px solid #fff;box-shadow:0 10px 26px rgba(90,60,120,.22);aspect-ratio:16/10;background:#eef;}
+  .book{background:var(--paper);border-radius:28px;box-shadow:var(--sh-lg);padding:18px 18px 22px;border:1px solid var(--line);position:relative;}
+  .title{text-align:center;font-size:clamp(1.25rem,4.8vw,1.7rem);font-weight:600;margin:4px 0 16px;color:var(--ink);}
+  .frame{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(70,52,110,.14),inset 0 0 0 1px rgba(70,52,110,.05);aspect-ratio:16/11;background:#eceafb;}
   .frame.turning{animation:flip .6s ease;}
   @keyframes flip{0%{opacity:1;transform:translateX(0)}45%{opacity:0;transform:translateX(-22px) rotate(-1deg)}55%{opacity:0;transform:translateX(22px) rotate(1deg)}100%{opacity:1;transform:none}}
   .frame img,.frame svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-  .hero-emo{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-size:clamp(3rem,16vw,5rem);}
-  .loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#fff8;font-family:var(--font-d);color:var(--ink2);font-size:1rem;}
-  .loading.on{display:flex;}
-  .ptext{padding:18px 14px 6px;font-size:clamp(1.3rem,5vw,1.75rem);line-height:1.8;text-align:center;min-height:2.6em;}
-  .ptext.moral{font-style:italic;color:var(--accent2);}
-  .word{padding:1px 4px;border-radius:9px;transition:background .1s,color .1s;}
-  .word.on{background:var(--hi);color:var(--hi-ink);box-shadow:0 0 0 4px var(--hi);font-weight:800;}
+  .hero-emo{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-size:clamp(3rem,16vw,5rem);filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));}
+  .loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.65);backdrop-filter:blur(2px);font-family:var(--font-d);color:var(--ink2);font-size:2rem;}
+  .loading.on{display:flex;animation:pulse 1.2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+  .ptext{padding:22px 10px 6px;font-size:clamp(1.3rem,4.8vw,1.7rem);line-height:1.75;text-align:center;min-height:2.6em;font-weight:600;}
+  .ptext.moral{font-style:italic;color:var(--accent2-d);font-weight:700;}
+  .word{padding:1px 3px;border-radius:7px;transition:background .12s,color .12s;}
+  .word.on{background:var(--hi);color:var(--hi-ink);font-weight:800;}
 
-  .pagenav{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px 0 2px;}
-  .arrow{border:none;background:#fff;border-radius:50%;width:52px;height:52px;font-size:1.5rem;box-shadow:var(--shadow);cursor:pointer;color:var(--ink);transition:transform .12s;}
-  .arrow:active{transform:scale(.9);} .arrow:disabled{opacity:.3;}
-  .counter{font-weight:700;color:var(--ink2);min-width:84px;text-align:center;}
-  .controls{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:10px;}
-  .btn{border:none;border-radius:999px;padding:14px 22px;font-size:1.1rem;font-weight:700;font-family:var(--font-d);color:#fff;cursor:pointer;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px;transition:transform .12s;}
-  .btn:active{transform:scale(.93);}
-  .btn.play{background:var(--go);font-size:1.3rem;padding:16px 30px;}
-  .btn.play.pause{background:var(--accent2);}
-  .btn.sec{background:#fff;color:var(--ink);} .btn.home{background:var(--accent);}
-  .settings{display:flex;gap:14px 20px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:16px;background:#ffffffaa;border-radius:18px;padding:10px 14px;color:var(--ink2);font-weight:700;}
-  .settings input[type=range]{accent-color:var(--accent2);}
-  .hint{text-align:center;color:var(--ink2);font-size:.84rem;margin-top:12px;}
+  .pagenav{display:flex;align-items:center;justify-content:center;gap:18px;margin:12px 0 2px;}
+  .arrow{border:1px solid var(--line);background:var(--paper);border-radius:50%;width:52px;height:52px;font-size:1.3rem;box-shadow:var(--sh-sm);cursor:pointer;color:var(--ink);transition:transform .12s,box-shadow .12s;}
+  .arrow:active{transform:scale(.9);} .arrow:disabled{opacity:.32;box-shadow:none;}
+  @media(hover:hover){.arrow:not(:disabled):hover{box-shadow:var(--sh);}}
+  .counter{font-weight:600;color:var(--ink2);min-width:92px;text-align:center;font-size:.98rem;}
+  .controls{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px;}
+  .btn{border:none;border-radius:999px;padding:14px 24px;font-size:1.08rem;font-weight:600;font-family:var(--font-d);color:#fff;cursor:pointer;box-shadow:var(--sh);display:inline-flex;align-items:center;gap:8px;transition:transform .14s,box-shadow .14s,filter .14s;}
+  .btn:active{transform:scale(.94);}
+  @media(hover:hover){.btn:hover{filter:brightness(1.04);box-shadow:var(--sh-lg);}}
+  .btn.play{background:linear-gradient(135deg,var(--go),var(--go-d));font-size:1.2rem;padding:16px 34px;}
+  .btn.play.pause{background:linear-gradient(135deg,var(--accent2),var(--accent2-d));}
+  .btn.sec{background:var(--paper);color:var(--ink);box-shadow:var(--sh-sm);border:1px solid var(--line);}
+  .btn.home{background:linear-gradient(135deg,var(--accent),var(--accent-d));}
+  .settings{display:flex;gap:14px 20px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:18px;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:16px;padding:12px 16px;color:var(--ink2);font-weight:700;font-size:1.1rem;}
+  .settings input[type=range]{accent-color:var(--accent2);height:6px;vertical-align:middle;}
+  .settings select{font-family:var(--font-t);font-weight:700;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff;cursor:pointer;}
+  .hint{text-align:center;color:var(--ink2);font-size:.85rem;font-weight:600;margin-top:14px;}
   .saved-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-  .saved-del{width:46px;height:46px;font-size:1.05rem;flex:0 0 auto;}
+  .saved-del{width:48px;height:48px;font-size:1.05rem;flex:0 0 auto;}
   .saved-open{flex:1;}
 </style>
 </head>
@@ -150,7 +163,8 @@
         <button class="btn home" id="homeBtn">🏠 Nouvelle</button>
       </div>
       <div class="settings">
-        🐢 <input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"> 🐇
+        <span>🐢 <input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"> 🐇</span>
+        <span>🎙️ <select id="voiceSel"></select></span>
       </div>
       <p class="hint" id="hint">Belle voix via le conteur magique 🎙️</p>
     </div>
@@ -191,60 +205,105 @@ const VALEURS=[
   {id:'verite',nom:'La vérité',emoji:'💛'},
 ];
 
+/* Trame (schéma narratif) commune : 1 incipit · 2 élément perturbateur · 3 adjuvant ·
+   4 péripéties · 5 résolution · 6 conclusion. L'illustration change à chaque étape. */
+const STORY_BEATS=[1,1,1,1, 2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5, 6,6];
 function buildStory(p,u,v){
-  const H=p.nom,il=p.f?"elle":"il",Il=p.f?"Elle":"Il",seul=p.f?"seule":"seul",cont=p.f?"contente":"content",place=u.phrase;
-  if(v.id==='partage') return [
-    `Il était une fois ${H}, un petit ami tout doux qui vivait ${place}.`,
-    `Ce matin-là, le soleil brillait, et ${H} partit se promener en chantonnant.`,
-    `Au détour du chemin, ${il} découvrit un grand panier rempli de bonnes choses à manger.`,
-    `« Oh ! Des fruits, des gâteaux… et tout ça pour moi ! » se réjouit-${il}.`,
-    `${Il} serra le panier bien fort, sans vouloir en donner une miette.`,
-    `Mais un peu plus loin, ${H} vit des amis au ventre tout vide qui soupiraient.`,
-    `${Il} s'arrêta net. Dans sa tête, une petite voix murmura : « Et si tu partageais ? »`,
+  const H=p.nom,il=p.f?"elle":"il",Il=p.f?"Elle":"Il",seul=p.f?"seule":"seul",lo=p.f?"la":"le",place=u.phrase,desc=p.desc||"un petit personnage";
+  let pages;
+  if(v.id==='partage') pages=[
+    `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
+    `Chaque matin, ${H} se réveillait avec le sourire et saluait le grand soleil.`,
+    `${H} adorait par-dessus tout les bonnes choses : les fruits, les gâteaux, les noisettes.`,
+    `Mais ${H} avait un petit défaut : ${il} n'aimait pas beaucoup partager.`,
+    `Un beau jour, en se promenant, ${H} trouva un immense panier posé sur le chemin.`,
+    `Le panier débordait de fruits dorés, de tartes et de mille friandises !`,
+    `« Oh là là ! Tout ça rien que pour moi ! » s'écria ${H}, les yeux brillants.`,
+    `Vite, ${il} serra le panier très fort et courut se cacher pour tout garder.`,
+    `En chemin, ${H} croisa un vieil ami très sage, assis au bord de l'eau.`,
+    `« Pourquoi caches-tu ce beau panier ? » demanda doucement le sage.`,
+    `« Parce qu'il est à moi, à moi tout seul ! » répondit ${H} en baissant les yeux.`,
+    `Le sage sourit : « Le bonheur gardé pour soi tout seul devient vite tout petit. »`,
+    `${H} repartit en réfléchissant à ces drôles de mots.`,
+    `Un peu plus loin, ${il} vit des amis au ventre tout vide qui soupiraient.`,
+    `Leur petit ventre faisait « grrrr », et leurs yeux étaient tout tristes.`,
+    `${H} regarda son panier, puis ses amis… et son cœur se serra très fort.`,
     `Alors ${H} prit une grande respiration et ouvrit tout grand le panier.`,
-    `${Il} offrit un bon fruit à chacun, et bientôt tout le monde croquait en riant.`,
-    `Entouré${p.f?'e':''} de ses amis joyeux, ${H} se sentit ${cont} comme jamais.`,
+    `${Il} offrit un fruit à l'un, une tarte à l'autre, une friandise à chacun.`,
+    `Et là, chose étonnante : plus ${il} donnait, plus ${il} se sentait ${p.f?'heureuse':'heureux'} !`,
+    `Tout le monde se régala ensemble en riant : ce fut le plus joyeux des goûters.`,
     `La morale de l'histoire : quand on partage, la joie devient deux fois plus grande.`,
   ];
-  if(v.id==='courage') return [
-    `Il était une fois ${H}, un petit ami curieux qui vivait ${place}.`,
-    `Un beau jour, ${H} explorait joyeusement les alentours.`,
-    `Tout à coup, ${il} entendit un tout petit cri : « Au secours ! »`,
-    `${Il} tendit l'oreille et suivit le son, à pas prudents.`,
-    `Là, ${H} trouva un minuscule ami coincé, qui tremblait de peur.`,
-    `Le cœur de ${H} se mit à battre très fort : boum, boum, boum.`,
-    `${Il} avait un peu peur… mais ${il} prit une grande respiration pour se donner du courage.`,
-    `Doucement, pas à pas, ${H} s'approcha pour aider.`,
-    `Avec délicatesse, ${il} réussit à libérer le petit ami prisonnier.`,
-    `« Merci, merci ! » dit le petit ami en serrant ${H} dans ses bras.`,
+  else if(v.id==='courage') pages=[
+    `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
+    `${H} était ${p.f?'douce et gentille':'doux et gentil'}, mais une chose lui faisait très peur : le noir.`,
+    `Dès que le soir tombait, ${H} se cachait sous sa couverture en tremblant.`,
+    `« Un jour, se disait-${il}, j'aimerais être aussi ${p.f?'courageuse':'courageux'} qu'un grand héros. »`,
+    `Un soir, alors que la nuit était tombée, ${H} entendit un tout petit cri.`,
+    `« Au secours ! Au secours ! » pleurait une minuscule voix dans le noir.`,
+    `Le cœur de ${H} se mit à battre très fort : boum… boum… boum…`,
+    `« Oh non, il fait si sombre… est-ce que j'ose y aller ? » se demanda ${H}.`,
+    `C'est alors qu'une petite luciole apparut, brillant comme une étoile.`,
+    `« N'aie pas peur, dit-elle, je vais éclairer ton chemin. »`,
+    `« Le courage, ce n'est pas de ne jamais avoir peur, chuchota la luciole. »`,
+    `« C'est d'avancer quand même, un tout petit pas après l'autre. »`,
+    `Alors ${H} prit une grande respiration et fit un premier pas dans le noir.`,
+    `Puis un deuxième, puis un troisième, en suivant la lumière de la luciole.`,
+    `Le vent soufflait et les ombres dansaient, mais ${H} continua bravement.`,
+    `Enfin, ${il} arriva près d'un buisson d'où venaient les petits pleurs.`,
+    `Un tout petit oiseau était tombé du nid et tremblait de froid.`,
+    `Avec douceur, ${H} ${lo} prit dans ses bras et ${lo} ramena bien au chaud.`,
+    `« Merci ! Tu es ${p.f?'la plus courageuse':'le plus courageux'} de tous ! » pépia l'oiseau.`,
+    `Ce soir-là, ${H} s'endormit ${p.f?'fière':'fier'} : ${il} n'avait plus peur du noir.`,
     `La morale de l'histoire : le courage, c'est oser aider même quand on a un peu peur.`,
   ];
-  if(v.id==='amitie') return [
-    `Il était une fois ${H}, un petit ami au grand cœur qui vivait ${place}.`,
-    `Ce matin-là, ${H} se sentait un peu ${seul}, et rêvait d'un compagnon de jeu.`,
-    `En se promenant, ${il} entendit quelqu'un qui pleurait tout doucement.`,
-    `${Il} s'approcha gentiment et demanda : « Qu'est-ce qui ne va pas ? »`,
-    `Puis, avec un grand sourire, ${H} proposa : « Veux-tu jouer avec moi ? »`,
-    `D'abord timides, les deux amis commencèrent à jouer ensemble.`,
-    `Ils inventèrent mille jeux rigolos et rirent de bon cœur.`,
-    `Fatigués et heureux, ils partagèrent un petit goûter, côte à côte.`,
-    `Quand le soleil se coucha, ils étaient devenus de vrais amis.`,
-    `${H} rentra chez ${il==='elle'?'elle':'lui'}, le cœur tout rempli de bonheur.`,
+  else if(v.id==='amitie') pages=[
+    `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
+    `${H} avait une jolie maison et plein de jouets… mais personne avec qui jouer.`,
+    `Le matin, ${il} jouait ${seul}. Le soir, ${il} dînait ${seul}.`,
+    `« Comme j'aimerais avoir un ami… » soupirait ${H} en regardant les nuages.`,
+    `Un jour, un drôle de bruit vint de derrière un grand rocher : « Snif… snif… »`,
+    `${H} s'approcha tout doucement et découvrit un petit être qui pleurait.`,
+    `« Je suis perdu et je n'ai aucun ami… » dit le petit être en reniflant.`,
+    `${H} sentit son cœur se serrer : ${il} aussi connaissait bien cette tristesse.`,
+    `${H} s'assit tout près et proposa, un peu timide : « Veux-tu jouer avec moi ? »`,
+    `Le petit être releva la tête, les yeux encore mouillés, et fit oui.`,
+    `D'abord, ils ne savaient pas trop quoi faire et se regardaient en silence.`,
+    `Puis ${H} inventa un jeu rigolo, et un premier sourire apparut.`,
+    `Ils coururent, sautèrent, et construisirent une belle cabane de branches.`,
+    `Ils inventèrent un langage secret, rien que pour eux deux.`,
+    `Quand l'un tombait, l'autre l'aidait gentiment à se relever.`,
+    `Le temps passa si vite que le soleil commença déjà à se coucher.`,
+    `Assis côte à côte, ils regardèrent le ciel devenir tout rose.`,
+    `« Avant, j'étais ${seul}, dit ${H}. Maintenant, j'ai un ami. »`,
+    `« Moi aussi ! » répondit le petit être en lui serrant la patte très fort.`,
+    `Et depuis ce jour, ${H} ne fut plus jamais ${seul}.`,
     `La morale de l'histoire : un ami, c'est le plus joli des trésors.`,
   ];
-  return [
-    `Il était une fois ${H}, un petit ami espiègle qui vivait ${place}.`,
-    `Un jour, en jouant, ${H} s'amusait comme un fou.`,
-    `Mais patatras ! Sans le vouloir, ${il} cassa un très joli objet.`,
-    `${H} regarda les morceaux par terre, tout surpris${p.f?'e':''}.`,
-    `« Oh non… si je le dis, on va me gronder », pensa-t-${il}.`,
-    `${Il} eut envie de se cacher et de ne rien dire du tout.`,
-    `Mais au fond de son cœur, quelque chose le chatouillait sans arrêt.`,
-    `Alors ${H} rassembla tout son courage et alla voir un grand ami.`,
-    `${Il} raconta la vérité : « C'est moi… je suis vraiment désolé${p.f?'e':''}. »`,
-    `Au lieu de se fâcher, le grand ami le serra tendrement dans ses bras.`,
+  else pages=[
+    `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
+    `${H} était ${p.f?'joyeuse et pleine':'joyeux et plein'} de vie, et adorait sauter partout.`,
+    `Dans la maison trônait un très joli vase, celui que tout le monde admirait.`,
+    `« Surtout, ne jouez pas près du vase ! » répétait toujours Maman.`,
+    `Mais un jour, en jouant au ballon, ${H} s'approcha bien trop près…`,
+    `Patatras ! Le vase tomba et se brisa en mille morceaux : CRAC !`,
+    `${H} resta ${p.f?'figée':'figé'}, le cœur battant, à fixer les morceaux par terre.`,
+    `« Oh non… si je le dis, je vais être ${p.f?'grondée':'grondé'}… » pensa ${H}.`,
+    `${H} eut très envie de cacher les morceaux et de ne rien dire du tout.`,
+    `Tout doucement, ${il} poussa les bouts de vase sous le tapis.`,
+    `Mais au fond de son ventre, une petite boule toute lourde apparut.`,
+    `Cette petite boule ${lo} chatouillait et l'empêchait même de jouer.`,
+    `${H} essaya de penser à autre chose, mais la boule grossissait encore.`,
+    `Même ses jeux préférés n'étaient plus rigolos du tout.`,
+    `« Un secret trop lourd, ça pèse sur le cœur », se souvint ${H}.`,
+    `Alors ${il} rassembla tout son courage et alla retrouver Maman.`,
+    `« Maman… c'est moi qui ai cassé le vase. Je suis vraiment ${p.f?'désolée':'désolé'}. »`,
+    `Maman ${lo} regarda, puis ${lo} serra tendrement dans ses bras.`,
+    `« Merci d'avoir dit la vérité, mon trésor. Ça, c'est être courageux. »`,
+    `Aussitôt, la petite boule lourde s'envola, et ${H} se sentit tout ${p.f?'légère':'léger'}.`,
     `La morale de l'histoire : dire la vérité rend le cœur tout léger.`,
   ];
+  return {pages, beats:STORY_BEATS};
 }
 
 /* ===== SCÈNES (SVG de secours) ===== */
@@ -275,14 +334,14 @@ fillGrid('grid2',UNIVERS,it=>{choice.univers=it;goto('s3');}, univThumb);
 fillGrid('grid3',VALEURS,it=>{choice.valeur=it;openStory();}, null);
 
 /* ===== LIVRE ===== */
-let pages=[],cur=0,storyPlain="",wordSpans=[];
+let pages=[],pageBeats=[],cur=0,storyPlain="",wordSpans=[];
 const frame=document.getElementById('frame'), scene=document.getElementById('scene');
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function sceneCandidates(){
   const h=choice.perso&&choice.perso.id, u=choice.univers&&choice.univers.id, v=choice.valeur&&choice.valeur.id, out=[];
   if(choice.sceneImgs && choice.sceneImgs[cur]) out.push(choice.sceneImgs[cur]);        // mode libre : une image par page
   if(h&&u){
-    if(cur>0 && v) out.push(`assets/scenes/${h}_${u}_${v}_p${cur+1}.png`);              // scène guidée de cette page
+    if(v && pageBeats[cur]) out.push(`assets/scenes/${h}_${u}_${v}_b${pageBeats[cur]}.png`); // illustration de l'étape du récit
     out.push(`assets/${h}_${u}.png`);                                                    // ambiance (repli)
   }
   if(choice.sceneImg) out.push(choice.sceneImg);                                         // ancienne image unique
@@ -311,7 +370,7 @@ function setWord(i){ clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wo
 function showBook(title){ document.getElementById('title').textContent=title||''; cur=0; renderPage(0); resetPlay();
   const sb=document.getElementById('saveBtn'); sb.style.display=choice.freeStory?'inline-flex':'none'; sb.disabled=false; sb.textContent='💾 Garder';
   goto('s4'); }
-function openStory(){ pages=buildStory(choice.perso,choice.univers,choice.valeur); choice.sceneImg=null; choice.sceneImgs=null; choice.freeStory=null; showBook(`L'histoire de ${choice.perso.nom}`); }
+function openStory(){ const s=buildStory(choice.perso,choice.univers,choice.valeur); pages=s.pages; pageBeats=s.beats; choice.sceneImg=null; choice.sceneImgs=null; choice.freeStory=null; showBook(`L'histoire de ${choice.perso.nom}`); }
 
 /* ===== VOIX (worker TTS) + surlignage synchronisé ===== */
 let auto=false, curAudio=null, rafId=0, usingFallback=false;
@@ -341,7 +400,7 @@ function speakFallback(text,onend){ usingFallback=true; try{ const u=new SpeechS
 function readPage(i){
   cur=i; stopAudio(); loader(true);
   const text=pages[i];
-  const url=AIW+"/tts?lang=fr&t="+encodeURIComponent(text);
+  const url=AIW+"/tts?lang=fr&v="+curVoice()+"&t="+encodeURIComponent(text);
   const a=new Audio(); curAudio=a; a.src=url;
   a.playbackRate=rate();
   a.onloadedmetadata=()=>{ loader(false); highlightSync(a); };
@@ -377,7 +436,7 @@ async function generateFree(){
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon}).toString());
     const out=await r.json();
     if(out.error) throw new Error(out.error);
-    pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); if(pages.length<3) throw new Error('histoire trop courte');
+    pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); pageBeats=[]; if(pages.length<3) throw new Error('histoire trop courte');
     const emoji=(out.emoji&&[...out.emoji][0])||'🧒', decor=out.decor||'foret', titre=out.titre||'Mon histoire';
     choice.perso={nom:hero||'le héros',emoji,id:''};
     choice.univers={id:decor,emoji:'✨'}; choice.valeur={emoji:'🌟',id:''};
@@ -395,7 +454,7 @@ function saveCurrent(){ if(!choice.freeStory) return; const a=savedAll();
   a.unshift(Object.assign({id:'s'+Date.now(),ts:Date.now()},choice.freeStory)); savedPut(a);
   const b=document.getElementById('saveBtn'); b.textContent='✅ Gardée !'; b.disabled=true; }
 function openSaved(it){
-  pages=(it.pages||[]).slice();
+  pages=(it.pages||[]).slice(); pageBeats=[];
   choice.perso={nom:it.hero||'le héros',emoji:it.emoji||'🧒',id:''};
   choice.univers={id:it.decor||'foret',emoji:'✨'}; choice.valeur={emoji:'🌟',id:''};
   choice.sceneImg=null; choice.sceneImgs=(it.sceneImgs&&it.sceneImgs.length)?it.sceneImgs.slice():null; choice.freeStory=null;
@@ -412,6 +471,17 @@ function renderSaved(){ const a=savedAll(), el=document.getElementById('savedLis
     del.addEventListener('click',()=>{ savedPut(savedAll().filter(x=>x.id!==it.id)); renderSaved(); });
     row.appendChild(open); row.appendChild(del); el.appendChild(row); });
 }
+
+/* ===== choix de la voix (voix premade gratuites ElevenLabs) ===== */
+const VOICES=[["XrExE9yKIg1WjnnlVkGX","Matilda (douce)"],["pFZP5JQG7iQjIQuC4Bku","Lily (chaleureuse)"],["EXAVITQu4vr4xnSDxMaL","Sarah (posée)"],["Xb7hH8MSUJpSbSDYk0k2","Alice (claire)"],["FGY2WhTYpPnrIDTdsKH5","Laura (jeune)"]];
+let voiceId="";
+function curVoice(){ return voiceId||VOICES[0][0]; }
+(function initVoice(){ const sel=document.getElementById('voiceSel'); if(!sel) return;
+  try{ voiceId=localStorage.getItem('titi_voice')||''; }catch(e){}
+  VOICES.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
+  sel.value=curVoice();
+  sel.addEventListener('change',()=>{ voiceId=sel.value; try{localStorage.setItem('titi_voice',voiceId);}catch(e){} stopAudio(); resetPlay(); });
+})();
 
 goto('s0');
 </script>

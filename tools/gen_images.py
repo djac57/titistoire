@@ -43,56 +43,41 @@ UNIV = {
     "ocean":      "deep under the sea among colourful corals and friendly fish",
 }
 
-# Scènes = une description d'ACTION par page (pages 2..11 de l'histoire, index 1..10).
-# L'ordre suit EXACTEMENT les trames de buildStory() dans index.html (11 pages : 1 intro + 9 + morale).
+# 6 illustrations par histoire = une par ÉTAPE du récit (schéma narratif),
+# alignées sur STORY_BEATS de buildStory() dans index.html :
+#   b1 incipit · b2 élément perturbateur · b3 adjuvant · b4 péripéties · b5 résolution · b6 conclusion
 MORALS = {
     "partage": [
-        "walking cheerfully along a path, humming happily in the morning sun",
-        "discovering a big wicker basket overflowing with fruit, cakes and good food",
-        "eyes sparkling with delight at all the food, wanting it all",
-        "hugging the full basket tightly, not wanting to give any away",
-        "noticing a few little friends nearby with empty tummies, looking hungry",
-        "pausing thoughtfully, a kind idea appearing, a little glowing heart",
-        "taking a big breath and opening the basket wide with a smile",
-        "giving a piece of fruit to each friend, everyone eating and laughing together",
-        "sitting happily among grateful little friends, content and warm",
-        "all the friends together around the empty basket, joyful warm group hug",
+        "happily enjoying fruits and treats, a cheerful little gourmand, daily life",
+        "discovering a huge wicker basket overflowing with golden fruit, tarts and treats, eyes sparkling",
+        "talking with a kind wise old friend sitting by the water, who smiles gently",
+        "seeing little friends with empty hungry tummies looking sad",
+        "opening the big basket wide and giving a piece of fruit to each friend",
+        "all the friends feasting together joyfully, a warm happy group",
     ],
     "courage": [
-        "exploring joyfully and curiously, happy and carefree",
-        "ears perked up, hearing a tiny faraway cry for help, surprised",
-        "following the sound carefully, searching around with concern",
-        "finding a tiny little friend stuck and trembling with fear",
-        "looking worried with a pounding heart, but caring",
-        "taking a deep brave breath, with a determined little face",
-        "stepping forward carefully, reaching out a paw to help",
-        "gently freeing and rescuing the little trapped friend",
-        "the rescued little friend hugging and thanking, both smiling",
-        "standing proud and brave together, happy, little sparkles of courage",
+        "a gentle little one, a bit afraid of the dark, hiding under a cozy blanket at night",
+        "hearing a tiny cry for help in the dark night, worried, with a pounding heart",
+        "a glowing little firefly appears like a star, lighting the way, reassuring",
+        "bravely taking small steps into the dark, following the firefly's gentle light",
+        "gently cradling a tiny fallen baby bird, bringing it to safety and warmth",
+        "falling asleep proud and peaceful, no longer afraid of the dark, cozy and happy",
     ],
     "amitie": [
-        "sitting alone, looking a little lonely and wistful",
-        "wandering and daydreaming, wishing for a friend to play with",
-        "meeting a small someone who is crying softly",
-        "approaching gently and kindly asking what is wrong",
-        "reaching out a paw with a big smile, inviting the other to play",
-        "starting to play together, first shy happy smiles",
-        "inventing lots of fun games together, laughing with joy",
-        "sharing a little snack, resting side by side, happy",
-        "two friends watching a warm golden sunset together",
-        "two best friends hugging warmly, a glowing little heart between them",
+        "alone with lots of toys but no one to play with, looking wistful at the clouds",
+        "discovering a small sad someone crying behind a big rock",
+        "sitting beside the sad little one, shyly offering a paw to play together",
+        "two of them playing joyfully together, building a little hut, running and laughing",
+        "two friends side by side watching a warm pink sunset",
+        "two best friends together, holding hands, a glowing little heart, friends forever",
     ],
     "verite": [
-        "playing happily and having lots of fun",
-        "accidentally knocking over and breaking a pretty little vase",
-        "staring surprised at the broken pieces on the ground",
-        "looking guilty and worried, wanting to hide",
-        "hiding behind something, a worry tickling its heart",
-        "sitting thoughtful and torn, unable to stop thinking about it",
-        "bravely walking over to tell a kind grown-up friend the truth",
-        "confessing honestly and saying sorry, sincere and brave",
-        "being hugged warmly and forgiven, looking relieved and light",
-        "smiling with a light happy heart under a bright sky, all is well",
+        "a joyful playful little one bouncing around near a pretty precious vase",
+        "a vase falling and shattering into pieces, the little one frozen in shock",
+        "guiltily hiding the broken pieces under a rug, looking worried",
+        "sitting sad with a heavy worry, unable to enjoy playing anymore",
+        "bravely confessing to its mother and being hugged warmly and forgiven",
+        "feeling light and happy again, relieved, smiling under a bright sky",
     ],
 }
 
@@ -168,8 +153,8 @@ def plan_scenes():
     for h in HEROS:
         for u in UNIV:
             for m in MORALS:
-                for idx in range(10):           # pages 2..11
-                    f = SCN / f"{h}_{u}_{m}_p{idx+2}.png"
+                for idx in range(6):            # 6 étapes du récit : b1..b6
+                    f = SCN / f"{h}_{u}_{m}_b{idx+1}.png"
                     jobs.append((f, prompt_scene(h, u, m, idx), HERO_SEED[h]))
     return jobs
 

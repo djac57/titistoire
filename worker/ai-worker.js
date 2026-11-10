@@ -81,10 +81,11 @@ export default {
         const models = forced ? [forced]
           : (env.GEMINI_MODEL ? [env.GEMINI_MODEL]
             : ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash-001", "gemini-3.8-flash"]);
-        const prompt = `Conteuse pour enfants de 3 à 6 ans. Invente une histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
+        const prompt = `Tu es une conteuse pour enfants de 3 à 6 ans. Invente une vraie petite histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
           + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
-          + `Exactement 7 pages, UNE phrase courte et simple par page, la dernière page est la morale et commence par "La morale de l'histoire :". `
-          + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...","...","...","...","...","...","..."]}`;
+          + `Structure-la comme un album jeunesse (schéma narratif) : incipit (on présente le héros et son petit monde), un élément perturbateur, une rencontre qui aide (un adjuvant), des péripéties, une résolution où le héros met en pratique la leçon, puis une conclusion heureuse. `
+          + `Entre 18 et 22 pages. UNE à DEUX phrases courtes et simples par page. La TOUTE DERNIÈRE page est la morale et commence EXACTEMENT par "La morale de l'histoire :". `
+          + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...", "...", "..."]}`;
         let txt = null, lastErr = null, usedModel = null;
         for (const model of models) {
           try {
