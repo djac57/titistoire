@@ -1,6 +1,8 @@
 name: Générer les illustrations (FLUX)
 
 on:
+  schedule:
+    - cron: "20 2 * * *"      # chaque jour ~03h20 (après le reset quotidien du quota Cloudflare) : génère la ration du jour
   workflow_dispatch:
     inputs:
       mode:
