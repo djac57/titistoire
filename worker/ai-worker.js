@@ -28,6 +28,7 @@ export default {
         if (!t) return new Response("manque ?t=", { status: 400, headers: cors });
         // 1) ElevenLabs (voix naturelle) si la clé secrète est définie
         const ELEVEN = env.ELEVEN_KEY || env.ELEVENLABS_KEY;
+        if (!ELEVEN && u.searchParams.get("debug")) return new Response("Aucune clé ELEVEN_KEY (ni ELEVENLABS_KEY) lue par le worker", { status: 200, headers: { "content-type": "text/plain", ...cors } });
         if (ELEVEN) {
           const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "21m00Tcm4TlvDq8ikWAM";
           const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "?output_format=mp3_44100_128", {
@@ -39,6 +40,11 @@ export default {
             })
           });
           if (r.ok) return new Response(r.body, { headers: { "content-type": "audio/mpeg", "cache-control": "public, max-age=31536000", ...cors } });
+          // échec ElevenLabs : si ?debug=1, on renvoie la raison au lieu de basculer en secours
+          if (u.searchParams.get("debug")) {
+            const msg = await r.text();
+            return new Response("ElevenLabs HTTP " + r.status + " : " + msg.slice(0, 400), { status: 200, headers: { "content-type": "text/plain", ...cors } });
+          }
           // quota dépassé / erreur -> on tente melotts si dispo
         }
         // 2) melotts (gratuit, secours) — nécessite le binding AI
