@@ -113,7 +113,22 @@ export default {
           if (res.txt) { txt = res.txt; usedModel = model; break; }
           lastErr = res.err; if (res.busy) busy = true;
         }
-        if (!txt) return new Response(JSON.stringify({ error: "Gemini indisponible", busy, detail: lastErr, tried: models }), { status: 502, headers: { "content-type": "application/json", ...cors } });
+        // Secours GRATUIT sans clé externe : Workers AI (Llama), utile quand Gemini sature
+        if (!txt && env.AI) {
+          try {
+            const ar = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
+              messages: [
+                { role: "system", content: "Tu es une conteuse pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans aucun texte autour." },
+                { role: "user", content: prompt }
+              ], max_tokens: 2048
+            });
+            let raw = (ar && (ar.response || ar.result)) || "";
+            if (typeof raw !== "string") raw = JSON.stringify(raw);
+            const a = raw.indexOf("{"), b = raw.lastIndexOf("}");
+            if (a >= 0 && b > a) { const cand = raw.slice(a, b + 1); try { JSON.parse(cand); txt = cand; usedModel = "workers-ai-llama"; } catch (e) { lastErr = "Llama: JSON invalide"; } }
+          } catch (e) { lastErr = lastErr || ("WorkersAI: " + String(e)); }
+        }
+        if (!txt) return new Response(JSON.stringify({ error: "Conteuse indisponible", busy, detail: lastErr, tried: models.concat(["workers-ai-llama"]) }), { status: 502, headers: { "content-type": "application/json", ...cors } });
         if (u.searchParams.get("debug")) return new Response(JSON.stringify({ usedModel, txt }), { headers: { "content-type": "application/json", ...cors } });
         // on renvoie tel quel le JSON du modèle (le navigateur le parse)
         return new Response(txt, { headers: { "content-type": "application/json", "cache-control": "no-store", ...cors } });
