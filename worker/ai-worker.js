@@ -83,30 +83,37 @@ export default {
         // On essaie plusieurs modèles dans l'ordre : le 1er qui répond gagne.
         // Ainsi, si un modèle est saturé (503) ou retiré (404), on bascule tout seul.
         const forced = u.searchParams.get("model");
+        // modèles VALIDES uniquement (2.5/2.0 sont retirés pour les nouveaux comptes) ; le 1er qui répond gagne
         const models = forced ? [forced]
           : (env.GEMINI_MODEL ? [env.GEMINI_MODEL]
-            : ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash-001", "gemini-3.8-flash"]);
+            : ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"]);
         const prompt = `Tu es une conteuse pour enfants de 3 à 6 ans. Invente une vraie petite histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
           + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
           + `Structure-la comme un album jeunesse (schéma narratif) : incipit (on présente le héros et son petit monde), un élément perturbateur, une rencontre qui aide (un adjuvant), des péripéties, une résolution où le héros met en pratique la leçon, puis une conclusion heureuse. `
           + `Entre 18 et 22 pages. UNE à DEUX phrases courtes et simples par page. La TOUTE DERNIÈRE page est la morale et commence EXACTEMENT par "La morale de l'histoire :". `
           + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...", "...", "..."]}`;
-        let txt = null, lastErr = null, usedModel = null;
-        for (const model of models) {
+        async function askGemini(model){
+          const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000); // échoue vite si ça rame
           try {
             const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GKEY)}`, {
-              method: "POST",
-              headers: { "content-type": "application/json" },
+              method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
               body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json" } })
             });
             const gd = await gr.json();
             const t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content
               && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
-            if (t) { txt = t; usedModel = model; break; }
-            lastErr = (gd && gd.error && gd.error.message) || "réponse vide";
-          } catch (e) { lastErr = String(e); }
+            if (t) return { txt: t };
+            const msg = (gd && gd.error && gd.error.message) || "réponse vide";
+            return { err: msg, busy: /high demand|overloaded|unavailable|503|429|quota|rate/i.test(msg) };
+          } catch (e) { return { err: String(e), busy: true }; } finally { clearTimeout(to); }
         }
-        if (!txt) return new Response(JSON.stringify({ error: "Gemini indisponible", detail: lastErr, tried: models }), { status: 502, headers: { "content-type": "application/json", ...cors } });
+        let txt = null, lastErr = null, usedModel = null, busy = false;
+        for (const model of models) {
+          const res = await askGemini(model);
+          if (res.txt) { txt = res.txt; usedModel = model; break; }
+          lastErr = res.err; if (res.busy) busy = true;
+        }
+        if (!txt) return new Response(JSON.stringify({ error: "Gemini indisponible", busy, detail: lastErr, tried: models }), { status: 502, headers: { "content-type": "application/json", ...cors } });
         if (u.searchParams.get("debug")) return new Response(JSON.stringify({ usedModel, txt }), { headers: { "content-type": "application/json", ...cors } });
         // on renvoie tel quel le JSON du modèle (le navigateur le parse)
         return new Response(txt, { headers: { "content-type": "application/json", "cache-control": "no-store", ...cors } });

@@ -1,0 +1,9 @@
+name = "titistoire-ai"
+main = "worker/ai-worker.js"
+compatibility_date = "2024-11-01"
+
+# Binding Workers AI (melotts + flux). Déclaré ici pour que `wrangler deploy` le CONSERVE.
+# Les secrets (ELEVEN_KEY, GEMINI_KEY, ELEVEN_VOICE, GEMINI_MODEL) restent posés dans le
+# dashboard Cloudflare : wrangler deploy ne les touche pas.
+[ai]
+binding = "AI"

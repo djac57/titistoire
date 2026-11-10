@@ -477,7 +477,7 @@ async function generateFree(){
   try{
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon}).toString());
     const out=await r.json();
-    if(out.error) throw new Error(out.error);
+    if(out.error){ gstatus(out.busy?'🌙 La conteuse est très demandée en ce moment. Réessaie dans un instant !':('😅 Raté ('+out.error+'). Réessaie.')); return; }
     pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); pageBeats=[]; if(pages.length<3) throw new Error('histoire trop courte');
     const emoji=(out.emoji&&[...out.emoji][0])||'🧒', decor=out.decor||'foret', titre=out.titre||'Mon histoire';
     choice.perso={nom:hero||'le héros',emoji,id:''};
