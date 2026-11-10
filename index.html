@@ -64,6 +64,10 @@
   .freeform input{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
   .freeform input:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
+  .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
+  .genbar[hidden]{display:none;}
+  .genbar span{position:absolute;top:0;bottom:0;width:38%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));animation:genslide 1.2s cubic-bezier(.65,0,.35,1) infinite;}
+  @keyframes genslide{0%{left:-40%}100%{left:102%}}
 
   /* LIVRE = papier ivoire qui "brille" dans la nuit */
   .book{background:var(--paper);color:var(--paper-ink);border-radius:26px;box-shadow:var(--sh-lg);padding:18px 18px 22px;position:relative;}
@@ -140,6 +144,7 @@
       <label>🌟 La leçon<input id="fLecon" placeholder="ex : il faut être patient"></label>
       <button class="btn play" id="genBtn" style="align-self:center">✨ Invente l'histoire</button>
       <div id="genStatus" class="genstatus"></div>
+      <div id="genBar" class="genbar" hidden><span></span></div>
     </div>
   </section>
 
@@ -473,7 +478,8 @@ function libreImgs(hero,lieu,pages){
 }
 async function generateFree(){
   const hero=document.getElementById('fHero').value.trim(),lieu=document.getElementById('fLieu').value.trim(),lecon=document.getElementById('fLecon').value.trim();
-  gstatus('✨ La conteuse invente…');
+  const gb=document.getElementById('genBar'), gbtn=document.getElementById('genBtn');
+  gstatus('✨ La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true;
   try{
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon}).toString());
     const out=await r.json();
@@ -486,6 +492,7 @@ async function generateFree(){
     choice.freeStory={titre,decor,emoji,hero:hero||'le héros',lieu,lecon,pages:pages.slice(),sceneImgs:choice.sceneImgs.slice()};
     gstatus(''); showBook(titre);
   }catch(e){ gstatus('😅 Raté ('+e.message+'). Réessaie.'); }
+  finally{ gb.hidden=true; gbtn.disabled=false; }
 }
 document.getElementById('genBtn').addEventListener('click',generateFree);
 
