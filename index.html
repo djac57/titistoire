@@ -3,21 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Mon Petit Conteur</title>
+<title>Titistoire — Mon Petit Conteur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg1:#fde9c8; --bg2:#f7c8e0; --bg3:#c8e7f7;
-    --card:#fff; --ink:#3a2b52; --ink-soft:#6b5b86;
-    --accent:#ff7aa2; --accent2:#7c5cff; --go:#36c48b;
-    --hi:#ffd84d; --hi-ink:#4a3600; --paper:#fffdf6;
-    --shadow:0 10px 24px rgba(90,60,120,.18);
+    --font-display:'Fredoka','Baloo 2',ui-rounded,system-ui,sans-serif;
+    --font-text:'Nunito',ui-rounded,system-ui,sans-serif;
+    --bg1:#fff6ec; --bg2:#fde4ef; --bg3:#e8e5ff;
+    --card:#fffdfb; --ink:#4a3a63; --ink-soft:#9286ad;
+    --accent:#ff9fbb; --accent2:#9b8cff; --go:#6fd3ab;
+    --hi:#ffe08a; --hi-ink:#5a4100; --paper:#fffdf8;
+    --shadow:0 12px 30px rgba(120,100,160,.16);
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{height:100%;}
   body{ margin:0; color:var(--ink);
-    font-family:"Baloo 2","Fredoka","Chalkboard SE","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
-    background:linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3)); background-attachment:fixed;
-    min-height:100%; display:flex; flex-direction:column; align-items:center; padding:14px 14px 40px; }
+    font-family:var(--font-text); font-weight:600;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2) 50%,var(--bg3)); background-attachment:fixed;
+    min-height:100%; position:relative; overflow-x:hidden;
+    display:flex; flex-direction:column; align-items:center; padding:14px 14px 40px; }
+  body::before,body::after{ content:""; position:fixed; border-radius:50%; filter:blur(64px); opacity:.45; z-index:-1; pointer-events:none; }
+  body::before{ width:320px; height:320px; background:#ffd3e6; top:-90px; left:-70px; }
+  body::after{ width:360px; height:360px; background:#cfeafd; bottom:-110px; right:-80px; }
+  h1,h2,.q,.btn,.choice .lab,.story-title,.counter,.back{ font-family:var(--font-display); }
   header{ text-align:center; margin:4px 0 10px; }
   h1{ font-size:clamp(1.5rem,6vw,2.3rem); margin:.2em 0; text-shadow:0 2px 0 #fff; }
   .sub{ color:var(--ink-soft); font-size:clamp(.9rem,3.4vw,1.1rem); margin:0; }
@@ -61,8 +71,9 @@
   .page.flip-in{ animation:flipIn .5s ease-out; }
   @keyframes flipOut{ from{transform:rotateY(0);opacity:1;} to{transform:rotateY(-108deg);opacity:0;} }
   @keyframes flipIn{ from{transform:rotateY(108deg);opacity:0;} to{transform:rotateY(0);opacity:1;} }
-  .scene{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; }
+  .scene{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#eef; }
   .scene-svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .scene-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
   .hero-emo{ position:absolute; left:50%; bottom:6%; transform:translateX(-50%); line-height:1;
     font-size:clamp(3.4rem,17vw,6rem); filter:drop-shadow(0 6px 5px rgba(0,0,0,.22)); animation:bob 3s ease-in-out infinite; }
   .prop-emo{ position:absolute; right:10%; top:12%; font-size:clamp(1.8rem,8vw,3rem);
@@ -162,16 +173,16 @@
 <script>
 /* ===== DONNÉES ===== */
 const PERSOS=[
-  {id:'mickey',nom:'Mickey',emoji:'🐭',f:false},
-  {id:'winnie',nom:'Winnie',emoji:'🐻',f:false},
-  {id:'peppa', nom:'Peppa', emoji:'🐷',f:true },
-  {id:'elsa',  nom:'Elsa',  emoji:'❄️',f:true },
+  {id:'filou', nom:'Filou', emoji:'🦊',f:false, desc:"un petit renard roux malicieux et gentil"},
+  {id:'nestor',nom:'Nestor',emoji:'🐻',f:false, desc:"un ourson brun tout doux et courageux"},
+  {id:'rosie', nom:'Rosie', emoji:'🐰',f:true,  desc:"une petite lapine blanche aux grands yeux doux"},
+  {id:'plume', nom:'Plume', emoji:'🦉',f:true,  desc:"une petite chouette beige curieuse"},
 ];
 const UNIVERS=[
-  {id:'foret',  nom:'La forêt',  emoji:'🌲',phrase:"dans la grande forêt"},
-  {id:'ocean',  nom:"L'océan",   emoji:'🌊',phrase:"tout au fond de l'océan"},
-  {id:'espace', nom:"L'espace",  emoji:'🚀',phrase:"parmi les étoiles"},
-  {id:'chateau',nom:'Le château',emoji:'🏰',phrase:"dans un grand château"},
+  {id:'foret',  nom:'La forêt',  emoji:'🌲',phrase:"dans la grande forêt",     desc:"une forêt enchantée avec de grands arbres et des fleurs"},
+  {id:'ocean',  nom:"L'océan",   emoji:'🌊',phrase:"tout au fond de l'océan",  desc:"le fond de l'océan avec des coraux et des poissons colorés"},
+  {id:'espace', nom:"L'espace",  emoji:'🚀',phrase:"parmi les étoiles",        desc:"l'espace étoilé avec des planètes et la lune"},
+  {id:'chateau',nom:'Le château',emoji:'🏰',phrase:"dans un grand château",    desc:"un royaume avec un grand château et des collines"},
 ];
 const VALEURS=[
   {id:'partage',nom:'Le partage',emoji:'🤝'},
@@ -285,7 +296,20 @@ fillGrid('grid3',VALEURS,it=>{choice.valeur=it;openStory();});
 let pages=[], cur=0, storyPlain="", wordSpans=[];
 const bookPage=document.getElementById('bookPage');
 function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function renderScene(){ document.getElementById('scene').innerHTML = sceneSVG(choice.univers.id)+`<div class="hero-emo">${choice.perso.emoji}</div><div class="prop-emo">${propFor(pages[cur])}</div>`; }
+function renderScene(){
+  const sc=document.getElementById('scene');
+  const hid=(choice.perso&&choice.perso.id)||'', uid=(choice.univers&&choice.univers.id)||'';
+  sc.innerHTML = `<img class="scene-img" alt="">`
+    + sceneSVG(uid)
+    + `<div class="hero-emo fallback">${(choice.perso&&choice.perso.emoji)||'🧒'}</div>`
+    + `<div class="prop-emo fallback">${propFor(pages[cur])}</div>`;
+  const img=sc.querySelector('.scene-img');
+  img.onload=()=>{ sc.querySelectorAll('.scene-svg,.fallback').forEach(e=>e.style.display='none'); };
+  img.onerror=()=>{ img.remove(); };
+  if(choice.sceneImg){ img.src=choice.sceneImg; }            // mode libre : image générée (dataURL)
+  else if(hid && uid){ img.src=`assets/${hid}_${uid}.png`; } // mode guidé : illustration embarquée
+  else { img.remove(); }
+}
 function renderWords(text){ storyPlain=text; wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g; let m;
   while((m=re.exec(text))){ if(m[1]) html+=' '; else { const w=m[2]; wordSpans.push({raw:w,start:m.index,end:m.index+w.length}); html+=`<span class="word" data-i="${wordSpans.length-1}">${escapeHtml(w)}</span>`; } }
   const el=document.getElementById('ptext'); el.className='ptext'+(cur===pages.length-1?' moral':''); el.innerHTML=html;
