@@ -33,10 +33,10 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "assets"
 OUT.mkdir(exist_ok=True)
 
 def style(h, u):
-    return ("Children's storybook illustration, vintage 1950s-1960s clean clear-line (ligne claire) style, "
-            "thick clean outlines, flat soft pastel colours, gentle and whimsical, retro mid-century picture book. "
-            f"The main character is {HEROS[h]} {UNIV[u]}. No humans, no text, no letters, no watermark. "
-            "Centered friendly animal character, soft warm lighting.")
+    return ("Flat 2D vector illustration in the Belgian 'ligne claire' comic style of Tintin and Hergé: "
+            "bold uniform black outlines, flat pastel colours, NO gradients, NO shading, NO texture, NO photorealism. "
+            "Vintage 1950s-1960s-1970s children's picture-book / Disney storybook background, charming and clean, simple geometric shapes. "
+            f"A cute {HEROS[h]} {UNIV[u]}. Friendly animal character, no humans, no text, no letters, no watermark.")
 
 def gen_cf(prompt):
     url = f"https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT}/ai/run/@cf/black-forest-labs/flux-1-schnell"
