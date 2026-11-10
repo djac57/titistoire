@@ -62,5 +62,5 @@ jobs:
         if: always()
         run: |
           echo "Ambiances : $(ls assets/*.png 2>/dev/null | wc -l | tr -d ' ') / 24"
-          echo "Scènes    : $(ls assets/scenes/*.png 2>/dev/null | wc -l | tr -d ' ') / 576"
+          echo "Scènes    : $(ls assets/scenes/*.png 2>/dev/null | wc -l | tr -d ' ') / 960"
           echo "(Relance le workflow pour continuer là où il s'est arrêté si le quota a coupé.)"

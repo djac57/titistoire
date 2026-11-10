@@ -192,41 +192,57 @@ const VALEURS=[
 ];
 
 function buildStory(p,u,v){
-  const H=p.nom,il=p.f?"elle":"il",Il=p.f?"Elle":"Il",fier=p.f?"fière":"fier",seul=p.f?"seule":"seul",place=u.phrase;
+  const H=p.nom,il=p.f?"elle":"il",Il=p.f?"Elle":"Il",seul=p.f?"seule":"seul",cont=p.f?"contente":"content",place=u.phrase;
   if(v.id==='partage') return [
-    `Il était une fois ${H}, qui vivait ${place}.`,
-    `Un beau jour, ${H} trouva un grand panier rempli de bonnes choses.`,
-    `« Oh, tout pour moi ! » pensa-t-${il}.`,
-    `Mais un peu plus loin, ${H} vit des amis qui avaient très faim.`,
-    `${Il} s'arrêta, réfléchit, puis ouvrit grand le panier.`,
-    `${Il} donna quelque chose à chacun, et tout le monde se régala en riant.`,
-    `La morale de l'histoire : quand on partage, la joie devient plus grande.`,
+    `Il était une fois ${H}, un petit ami tout doux qui vivait ${place}.`,
+    `Ce matin-là, le soleil brillait, et ${H} partit se promener en chantonnant.`,
+    `Au détour du chemin, ${il} découvrit un grand panier rempli de bonnes choses à manger.`,
+    `« Oh ! Des fruits, des gâteaux… et tout ça pour moi ! » se réjouit-${il}.`,
+    `${Il} serra le panier bien fort, sans vouloir en donner une miette.`,
+    `Mais un peu plus loin, ${H} vit des amis au ventre tout vide qui soupiraient.`,
+    `${Il} s'arrêta net. Dans sa tête, une petite voix murmura : « Et si tu partageais ? »`,
+    `Alors ${H} prit une grande respiration et ouvrit tout grand le panier.`,
+    `${Il} offrit un bon fruit à chacun, et bientôt tout le monde croquait en riant.`,
+    `Entouré${p.f?'e':''} de ses amis joyeux, ${H} se sentit ${cont} comme jamais.`,
+    `La morale de l'histoire : quand on partage, la joie devient deux fois plus grande.`,
   ];
   if(v.id==='courage') return [
-    `Il était une fois ${H}, qui vivait ${place}.`,
-    `Un jour, ${H} entendit un tout petit cri : « Au secours ! »`,
-    `Un minuscule ami était coincé et tremblait de peur.`,
-    `Le cœur de ${H} battait très fort : boum, boum, boum.`,
-    `${Il} prit une grande respiration et avança, pas à pas.`,
-    `Enfin, ${H} réussit à sauver le petit ami, qui dit merci.`,
-    `La morale de l'histoire : le courage, c'est oser même quand on a un peu peur.`,
+    `Il était une fois ${H}, un petit ami curieux qui vivait ${place}.`,
+    `Un beau jour, ${H} explorait joyeusement les alentours.`,
+    `Tout à coup, ${il} entendit un tout petit cri : « Au secours ! »`,
+    `${Il} tendit l'oreille et suivit le son, à pas prudents.`,
+    `Là, ${H} trouva un minuscule ami coincé, qui tremblait de peur.`,
+    `Le cœur de ${H} se mit à battre très fort : boum, boum, boum.`,
+    `${Il} avait un peu peur… mais ${il} prit une grande respiration pour se donner du courage.`,
+    `Doucement, pas à pas, ${H} s'approcha pour aider.`,
+    `Avec délicatesse, ${il} réussit à libérer le petit ami prisonnier.`,
+    `« Merci, merci ! » dit le petit ami en serrant ${H} dans ses bras.`,
+    `La morale de l'histoire : le courage, c'est oser aider même quand on a un peu peur.`,
   ];
   if(v.id==='amitie') return [
-    `Il était une fois ${H}, qui vivait ${place}.`,
-    `Ce matin-là, ${H} se sentait un peu ${seul}.`,
-    `${Il} rencontra quelqu'un qui pleurait tout doucement.`,
-    `${H} s'approcha et demanda : « Veux-tu jouer avec moi ? »`,
-    `Ensemble, ils inventèrent mille jeux et rirent très fort.`,
-    `Le soir venu, ils étaient devenus de vrais amis.`,
+    `Il était une fois ${H}, un petit ami au grand cœur qui vivait ${place}.`,
+    `Ce matin-là, ${H} se sentait un peu ${seul}, et rêvait d'un compagnon de jeu.`,
+    `En se promenant, ${il} entendit quelqu'un qui pleurait tout doucement.`,
+    `${Il} s'approcha gentiment et demanda : « Qu'est-ce qui ne va pas ? »`,
+    `Puis, avec un grand sourire, ${H} proposa : « Veux-tu jouer avec moi ? »`,
+    `D'abord timides, les deux amis commencèrent à jouer ensemble.`,
+    `Ils inventèrent mille jeux rigolos et rirent de bon cœur.`,
+    `Fatigués et heureux, ils partagèrent un petit goûter, côte à côte.`,
+    `Quand le soleil se coucha, ils étaient devenus de vrais amis.`,
+    `${H} rentra chez ${il==='elle'?'elle':'lui'}, le cœur tout rempli de bonheur.`,
     `La morale de l'histoire : un ami, c'est le plus joli des trésors.`,
   ];
   return [
-    `Il était une fois ${H}, qui vivait ${place}.`,
-    `En jouant, ${H} cassa sans le vouloir un très joli objet.`,
-    `Oh non ! ${Il} eut envie de se cacher et de ne rien dire.`,
-    `Mais au fond de son cœur, quelque chose le chatouillait.`,
-    `Alors ${H} alla tout raconter : « C'est moi, je suis désolé. »`,
-    `Au lieu de se fâcher, on le serra très fort dans les bras.`,
+    `Il était une fois ${H}, un petit ami espiègle qui vivait ${place}.`,
+    `Un jour, en jouant, ${H} s'amusait comme un fou.`,
+    `Mais patatras ! Sans le vouloir, ${il} cassa un très joli objet.`,
+    `${H} regarda les morceaux par terre, tout surpris${p.f?'e':''}.`,
+    `« Oh non… si je le dis, on va me gronder », pensa-t-${il}.`,
+    `${Il} eut envie de se cacher et de ne rien dire du tout.`,
+    `Mais au fond de son cœur, quelque chose le chatouillait sans arrêt.`,
+    `Alors ${H} rassembla tout son courage et alla voir un grand ami.`,
+    `${Il} raconta la vérité : « C'est moi… je suis vraiment désolé${p.f?'e':''}. »`,
+    `Au lieu de se fâcher, le grand ami le serra tendrement dans ses bras.`,
     `La morale de l'histoire : dire la vérité rend le cœur tout léger.`,
   ];
 }
@@ -302,7 +318,11 @@ let auto=false, curAudio=null, rafId=0, usingFallback=false;
 function rate(){ return parseFloat(document.getElementById('rate').value)||1; }
 function setPlay(on){ const b=document.getElementById('playBtn'); b.textContent=on?'⏸️ Pause':'▶️ Lire'; b.classList.toggle('pause',on); }
 function resetPlay(){ auto=false; setPlay(false); }
-function stopAudio(){ if(curAudio){ curAudio.pause(); curAudio.src=''; curAudio=null; } if(rafId) cancelAnimationFrame(rafId); try{speechSynthesis.cancel();}catch(e){} document.getElementById('loading').classList.remove('on'); }
+function stopAudio(){
+  if(curAudio){ try{ curAudio.onended=curAudio.onerror=curAudio.oncanplay=curAudio.onloadedmetadata=null; curAudio.pause(); curAudio.removeAttribute('src'); curAudio.load(); }catch(e){} curAudio=null; }
+  if(rafId) cancelAnimationFrame(rafId); rafId=0;
+  try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false;
+  document.getElementById('loading').classList.remove('on'); }
 function loader(on){ document.getElementById('loading').classList.toggle('on',on); }
 
 function highlightSync(audio){
