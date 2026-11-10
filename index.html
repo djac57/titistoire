@@ -6,430 +6,341 @@
 <title>Titistoire — Mon Petit Conteur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --font-display:'Fredoka','Baloo 2',ui-rounded,system-ui,sans-serif;
-    --font-text:'Nunito',ui-rounded,system-ui,sans-serif;
-    --bg1:#fff6ec; --bg2:#fde4ef; --bg3:#e8e5ff;
-    --card:#fffdfb; --ink:#4a3a63; --ink-soft:#9286ad;
-    --accent:#ff9fbb; --accent2:#9b8cff; --go:#6fd3ab;
-    --hi:#ffe08a; --hi-ink:#5a4100; --paper:#fffdf8;
-    --shadow:0 12px 30px rgba(120,100,160,.16);
+    --font-d:'Fredoka',ui-rounded,system-ui,sans-serif;
+    --font-t:'Nunito',ui-rounded,system-ui,sans-serif;
+    --ink:#46345f; --ink2:#7a6a95; --paper:#fffaf2;
+    --accent:#ff8fab; --accent2:#9b8cff; --go:#43c79a; --go-d:#36a983;
+    --hi:#ffd86b; --hi-ink:#5a4100;
+    --shadow:0 14px 34px rgba(120,95,165,.18);
   }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;}
-  body{ margin:0; color:var(--ink);
-    font-family:var(--font-text); font-weight:600;
-    background:linear-gradient(160deg,var(--bg1),var(--bg2) 50%,var(--bg3)); background-attachment:fixed;
+  body{ margin:0; color:var(--ink); font-family:var(--font-t); font-weight:600;
+    background:linear-gradient(170deg,#fff3e3 0%,#ffe0ee 45%,#e7e4ff 100%); background-attachment:fixed;
     min-height:100%; position:relative; overflow-x:hidden;
-    display:flex; flex-direction:column; align-items:center; padding:14px 14px 40px; }
-  body::before,body::after{ content:""; position:fixed; border-radius:50%; filter:blur(64px); opacity:.45; z-index:-1; pointer-events:none; }
-  body::before{ width:320px; height:320px; background:#ffd3e6; top:-90px; left:-70px; }
-  body::after{ width:360px; height:360px; background:#cfeafd; bottom:-110px; right:-80px; }
-  h1,h2,.q,.btn,.choice .lab,.story-title,.counter,.back{ font-family:var(--font-display); }
-  header{ text-align:center; margin:4px 0 10px; }
-  h1{ font-size:clamp(1.5rem,6vw,2.3rem); margin:.2em 0; text-shadow:0 2px 0 #fff; }
-  .sub{ color:var(--ink-soft); font-size:clamp(.9rem,3.4vw,1.1rem); margin:0; }
-  .wrap{ width:100%; max-width:760px; }
+    display:flex; flex-direction:column; align-items:center; padding:16px 16px 44px; }
+  body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-2;pointer-events:none;}
+  body::before{width:340px;height:340px;background:#ffd0e4;top:-90px;left:-70px;}
+  body::after{width:380px;height:380px;background:#d4ebff;bottom:-110px;right:-80px;}
+  /* étoiles */
+  .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+  .stars b{position:absolute;color:#fff;opacity:.8;font-size:12px;animation:tw 3s ease-in-out infinite;}
+  @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.1)}}
+  h1,h2,.q,.btn,.lab,.title,.counter,.back{font-family:var(--font-d);}
+  header{text-align:center;margin:4px 0 12px;}
+  h1{font-size:clamp(1.7rem,6.5vw,2.5rem);margin:.1em 0;color:#5a3c7a;text-shadow:0 2px 0 #fff;letter-spacing:.5px;}
+  .sub{color:var(--ink2);margin:0;font-size:clamp(.9rem,3.4vw,1.1rem);}
+  .wrap{width:100%;max-width:760px;}
+  .screen{display:none;animation:pop .4s ease;}
+  .screen.show{display:block;}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  .q{text-align:center;font-size:clamp(1.3rem,5vw,1.8rem);margin:2px 0 18px;}
 
-  .screen{ display:none; animation:pop .35s ease; }
-  .screen.show{ display:block; }
-  @keyframes pop{ from{opacity:0; transform:translateY(12px) scale(.98);} to{opacity:1; transform:none;} }
-  .q{ text-align:center; font-size:clamp(1.25rem,5vw,1.7rem); margin:0 0 16px; }
-
-  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .choice{ background:var(--card); border:none; border-radius:26px; padding:22px 10px; box-shadow:var(--shadow);
-    cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px; min-height:150px; justify-content:center;
-    transition:transform .12s, box-shadow .12s; font-family:inherit; color:inherit; }
-  .choice:active{ transform:scale(.94); }
-  .choice:hover{ transform:translateY(-4px); box-shadow:0 16px 30px rgba(90,60,120,.26); }
-  .choice .emo{ font-size:clamp(3rem,14vw,4.6rem); line-height:1; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
-  .choice .lab{ font-size:clamp(1.05rem,4.5vw,1.35rem); font-weight:700; }
-
-  .back{ display:inline-flex; align-items:center; gap:6px; background:#fff; border:none; border-radius:999px;
-    padding:8px 16px; font-family:inherit; font-weight:700; color:var(--ink); box-shadow:var(--shadow); cursor:pointer; margin-bottom:12px; }
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:#fff;border:none;border-radius:24px;box-shadow:var(--shadow);cursor:pointer;overflow:hidden;
+    transition:transform .14s,box-shadow .14s;font-family:inherit;color:inherit;padding:0;}
+  .card:active{transform:scale(.95);}
+  .card:hover{transform:translateY(-5px);box-shadow:0 20px 38px rgba(120,95,165,.26);}
+  .card .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#f0ecf8;}
+  .card .emoji{font-size:clamp(2.6rem,12vw,4rem);padding:18px 0 6px;}
+  .card .lab{display:block;padding:10px 6px 14px;font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:700;}
+  .back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:none;border-radius:999px;padding:9px 16px;font-weight:700;color:var(--ink);box-shadow:var(--shadow);cursor:pointer;margin-bottom:12px;}
 
   /* mode libre */
-  .freeform{ display:flex; flex-direction:column; gap:14px; background:#ffffffcc; border-radius:24px; padding:18px; box-shadow:var(--shadow); }
-  .freeform label{ display:flex; flex-direction:column; gap:6px; font-weight:700; font-size:1.05rem; }
-  .freeform input{ font-family:inherit; font-size:1.05rem; padding:12px 14px; border-radius:14px; border:2px solid #e7dcf5; background:#fff; color:var(--ink); }
-  .genstatus{ text-align:center; color:var(--ink-soft); min-height:1.4em; font-weight:700; }
-  .keybox{ background:#f4efff; border-radius:14px; padding:8px 12px; }
-  .keybox summary{ cursor:pointer; font-weight:700; }
-  .keybox input{ width:100%; margin-top:8px; font-family:inherit; padding:10px 12px; border-radius:12px; border:2px solid #e7dcf5; }
-  .tiny{ font-size:.8rem; color:var(--ink-soft); margin:6px 0 0; }
+  .freeform{display:flex;flex-direction:column;gap:14px;background:#ffffffcc;border-radius:24px;padding:18px;box-shadow:var(--shadow);}
+  .freeform label{display:flex;flex-direction:column;gap:6px;font-weight:700;}
+  .freeform input{font-family:inherit;font-size:1.05rem;padding:12px 14px;border-radius:14px;border:2px solid #ecdff5;}
+  .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
 
-  /* livre */
-  .recap{ display:flex; gap:8px; justify-content:center; margin-bottom:6px; font-size:1.5rem; }
-  .recap span{ background:#ffffffcc; border-radius:14px; padding:2px 8px; box-shadow:var(--shadow); }
-  .story-title{ text-align:center; font-size:clamp(1.2rem,4.6vw,1.6rem); margin:2px 0 12px; }
-  .book{ perspective:1700px; }
-  .page{ background:var(--paper); border-radius:24px; box-shadow:var(--shadow); overflow:hidden;
-    will-change:transform,opacity; border:1px solid #efe7d6;
-    transition:opacity .42s ease, transform .55s cubic-bezier(.22,.8,.3,1); }
-  .page.leaving{ opacity:0; transform:translateX(-26px) scale(.975) rotate(-.5deg); }
-  .page.entering{ opacity:0; transform:translateX(26px) scale(.975) rotate(.5deg); }
-  .scene{ position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#eef; }
-  .scene-svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-  .scene-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-  .hero-emo{ position:absolute; left:50%; bottom:6%; transform:translateX(-50%); line-height:1;
-    font-size:clamp(3.4rem,17vw,6rem); filter:drop-shadow(0 6px 5px rgba(0,0,0,.22)); animation:bob 3s ease-in-out infinite; }
-  .prop-emo{ position:absolute; right:10%; top:12%; font-size:clamp(1.8rem,8vw,3rem);
-    filter:drop-shadow(0 4px 4px rgba(0,0,0,.18)); animation:floaty 3.4s ease-in-out infinite; }
-  @keyframes bob{ 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-8px);} }
-  @keyframes floaty{ 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-10px) rotate(4deg);} }
-  .ptext{ padding:20px 22px 24px; font-size:clamp(1.3rem,5vw,1.8rem); line-height:1.85; text-align:center; min-height:3.2em; }
-  .ptext.moral{ font-style:italic; color:var(--accent2); background:#f4efff; }
-  .word{ padding:1px 4px; border-radius:8px; transition:background .08s,color .08s; }
-  .word.on{ background:var(--hi); color:var(--hi-ink); box-shadow:0 0 0 3px var(--hi); font-weight:700; }
+  /* LIVRE */
+  .book{background:var(--paper);border-radius:28px;box-shadow:var(--shadow);padding:16px 16px 20px;border:1px solid #f0e6d6;position:relative;}
+  .title{text-align:center;font-size:clamp(1.2rem,4.8vw,1.65rem);margin:4px 0 12px;color:#5a3c7a;}
+  .frame{position:relative;border-radius:20px;overflow:hidden;border:6px solid #fff;box-shadow:0 10px 26px rgba(90,60,120,.22);aspect-ratio:16/10;background:#eef;}
+  .frame.turning{animation:flip .6s ease;}
+  @keyframes flip{0%{opacity:1;transform:translateX(0)}45%{opacity:0;transform:translateX(-22px) rotate(-1deg)}55%{opacity:0;transform:translateX(22px) rotate(1deg)}100%{opacity:1;transform:none}}
+  .frame img,.frame svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-emo{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-size:clamp(3rem,16vw,5rem);}
+  .loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#fff8;font-family:var(--font-d);color:var(--ink2);font-size:1rem;}
+  .loading.on{display:flex;}
+  .ptext{padding:18px 14px 6px;font-size:clamp(1.3rem,5vw,1.75rem);line-height:1.8;text-align:center;min-height:2.6em;}
+  .ptext.moral{font-style:italic;color:var(--accent2);}
+  .word{padding:1px 4px;border-radius:9px;transition:background .1s,color .1s;}
+  .word.on{background:var(--hi);color:var(--hi-ink);box-shadow:0 0 0 4px var(--hi);font-weight:800;}
 
-  .pagenav{ display:flex; align-items:center; justify-content:center; gap:16px; margin:14px 0 4px; }
-  .arrow{ border:none; background:#fff; border-radius:50%; width:56px; height:56px; font-size:1.6rem; box-shadow:var(--shadow); cursor:pointer; color:var(--ink); transition:transform .12s; }
-  .arrow:active{ transform:scale(.9); } .arrow:disabled{ opacity:.35; cursor:default; }
-  .counter{ font-weight:700; color:var(--ink-soft); min-width:74px; text-align:center; }
-  .controls{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:10px; }
-  .btn{ border:none; border-radius:999px; padding:14px 20px; font-size:1.1rem; font-weight:700; font-family:inherit;
-    cursor:pointer; box-shadow:var(--shadow); color:#fff; display:inline-flex; align-items:center; gap:8px; transition:transform .12s; }
-  .btn:active{ transform:scale(.93); }
-  .btn.play{ background:var(--go); font-size:1.25rem; padding:15px 26px; }
-  .btn.play.pause{ background:var(--accent2); }
-  .btn.sec{ background:#fff; color:var(--ink); } .btn.home{ background:var(--accent); }
-  .btn.big{ font-size:1.2rem; padding:15px 24px; background:var(--accent2); align-self:center; }
-  .settings{ display:flex; flex-wrap:wrap; gap:14px 20px; justify-content:center; align-items:center;
-    margin-top:16px; background:#ffffffaa; border-radius:18px; padding:12px 16px; }
-  .settings label{ display:flex; align-items:center; gap:8px; font-size:1rem; font-weight:700; }
-  .settings select{ font-family:inherit; font-size:1rem; padding:8px 10px; border-radius:12px; border:2px solid #e7dcf5; background:#fff; color:var(--ink); max-width:56vw; }
-  .settings input[type=range]{ accent-color:var(--accent2); }
-  .warn{ text-align:center; color:#b23; font-size:.9rem; margin-top:10px; display:none; }
-  .hint{ text-align:center; color:var(--ink-soft); font-size:.86rem; margin-top:12px; }
+  .pagenav{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px 0 2px;}
+  .arrow{border:none;background:#fff;border-radius:50%;width:52px;height:52px;font-size:1.5rem;box-shadow:var(--shadow);cursor:pointer;color:var(--ink);transition:transform .12s;}
+  .arrow:active{transform:scale(.9);} .arrow:disabled{opacity:.3;}
+  .counter{font-weight:700;color:var(--ink2);min-width:84px;text-align:center;}
+  .controls{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:10px;}
+  .btn{border:none;border-radius:999px;padding:14px 22px;font-size:1.1rem;font-weight:700;font-family:var(--font-d);color:#fff;cursor:pointer;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px;transition:transform .12s;}
+  .btn:active{transform:scale(.93);}
+  .btn.play{background:var(--go);font-size:1.3rem;padding:16px 30px;}
+  .btn.play.pause{background:var(--accent2);}
+  .btn.sec{background:#fff;color:var(--ink);} .btn.home{background:var(--accent);}
+  .settings{display:flex;gap:14px 20px;flex-wrap:wrap;justify-content:center;align-items:center;margin-top:16px;background:#ffffffaa;border-radius:18px;padding:10px 14px;color:var(--ink2);font-weight:700;}
+  .settings input[type=range]{accent-color:var(--accent2);}
+  .hint{text-align:center;color:var(--ink2);font-size:.84rem;margin-top:12px;}
 </style>
 </head>
 <body>
-  <header>
-    <h1>📖 Mon Petit Conteur</h1>
-    <p class="sub">Choisis, écoute, et tourne les pages&nbsp;✨</p>
-  </header>
+<div class="stars" id="stars"></div>
+<header>
+  <h1>✨ Titistoire ✨</h1>
+  <p class="sub">Choisis, écoute une belle voix, et tourne les pages</p>
+</header>
 
-  <div class="wrap">
-    <!-- s0 : mode -->
-    <section class="screen" id="s0">
-      <h2 class="q">On crée l'histoire comment&nbsp;? 🪄</h2>
-      <div class="grid">
-        <button class="choice" id="modeGuided"><span class="emo">🎴</span><span class="lab">Avec des images</span></button>
-        <button class="choice" id="modeFree"><span class="emo">✏️</span><span class="lab">Je raconte (mode libre)</span></button>
+<div class="wrap">
+  <!-- mode -->
+  <section class="screen" id="s0">
+    <h2 class="q">On invente comment&nbsp;? 🪄</h2>
+    <div class="grid">
+      <button class="card" id="modeGuided"><div class="emoji">🎴</div><span class="lab">Avec des images</span></button>
+      <button class="card" id="modeFree"><div class="emoji">✏️</div><span class="lab">Je raconte</span></button>
+    </div>
+  </section>
+
+  <section class="screen" id="s1"><button class="back" data-go="s0">⬅️ Retour</button><h2 class="q">Qui est le héros&nbsp;? 🦸</h2><div class="grid" id="grid1"></div></section>
+  <section class="screen" id="s2"><button class="back" data-go="s1">⬅️ Retour</button><h2 class="q">Où ça se passe&nbsp;? 🗺️</h2><div class="grid" id="grid2"></div></section>
+  <section class="screen" id="s3"><button class="back" data-go="s2">⬅️ Retour</button><h2 class="q">Quelle belle leçon&nbsp;? 🌟</h2><div class="grid" id="grid3"></div></section>
+
+  <section class="screen" id="sFree">
+    <button class="back" data-go="s0">⬅️ Retour</button>
+    <h2 class="q">Raconte ton histoire ✏️</h2>
+    <div class="freeform">
+      <label>🦸 Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
+      <label>🗺️ Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
+      <label>🌟 La leçon<input id="fLecon" placeholder="ex : il faut être patient"></label>
+      <button class="btn play" id="genBtn" style="align-self:center">✨ Invente l'histoire</button>
+      <div id="genStatus" class="genstatus"></div>
+      <details style="font-size:.85rem;color:var(--ink2)"><summary>🔑 Clé Gemini (mode libre)</summary>
+        <input id="apiKey" type="password" placeholder="clé Gemini" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:2px solid #ecdff5;"></details>
+    </div>
+  </section>
+
+  <!-- livre -->
+  <section class="screen" id="s4">
+    <button class="back" id="homeBtn2">🏠 Nouvelle histoire</button>
+    <div class="book">
+      <h2 class="title" id="title"></h2>
+      <div class="frame" id="frame">
+        <div class="scene" id="scene"></div>
+        <div class="loading" id="loading">🎨✨</div>
       </div>
-    </section>
-
-    <!-- guidé -->
-    <section class="screen" id="s1"><button class="back" data-go="s0">⬅️ Retour</button><h2 class="q">Qui est le héros&nbsp;? 🦸</h2><div class="grid" id="grid1"></div></section>
-    <section class="screen" id="s2"><button class="back" data-go="s1">⬅️ Retour</button><h2 class="q">Où se passe l'histoire&nbsp;? 🗺️</h2><div class="grid" id="grid2"></div></section>
-    <section class="screen" id="s3"><button class="back" data-go="s2">⬅️ Retour</button><h2 class="q">Quelle belle leçon&nbsp;? 🌟</h2><div class="grid" id="grid3"></div></section>
-
-    <!-- libre -->
-    <section class="screen" id="sFree">
-      <button class="back" data-go="s0">⬅️ Retour</button>
-      <h2 class="q">Raconte ton histoire ✏️</h2>
-      <div class="freeform">
-        <label>🦸 Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
-        <label>🗺️ Le lieu / l'univers<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
-        <label>🌟 La leçon / le thème<input id="fLecon" placeholder="ex : il faut être patient"></label>
-        <button class="btn big" id="genBtn">✨ Invente l'histoire</button>
-        <div id="genStatus" class="genstatus"></div>
-        <details class="keybox">
-          <summary>🔑 Clé API (Gemini) — à coller une seule fois</summary>
-          <input id="apiKey" type="password" placeholder="colle ta clé Gemini ici">
-          <p class="tiny">La clé reste sur CET appareil (localStorage) ; elle n'est envoyée qu'à Google pour créer l'histoire. Le mode libre marche mieux en ligne (GitHub Pages) qu'en fichier local.</p>
-        </details>
-      </div>
-    </section>
-
-    <!-- livre -->
-    <section class="screen" id="s4">
-      <button class="back" id="homeBtn2">🏠 Nouvelle histoire</button>
-      <div class="recap" id="recap"></div>
-      <h2 class="story-title" id="storyTitle"></h2>
-      <div class="book"><div class="page" id="bookPage"><div class="scene" id="scene"></div><div class="ptext" id="ptext"></div></div></div>
+      <div class="ptext" id="ptext"></div>
       <div class="pagenav">
-        <button class="arrow" id="prevBtn" title="Page précédente">◀</button>
+        <button class="arrow" id="prevBtn">◀</button>
         <span class="counter" id="counter"></span>
-        <button class="arrow" id="nextBtn" title="Page suivante">▶</button>
+        <button class="arrow" id="nextBtn">▶</button>
       </div>
       <div class="controls">
-        <button class="btn play" id="playBtn">▶️ Lire l'histoire</button>
+        <button class="btn play" id="playBtn">▶️ Lire</button>
         <button class="btn sec" id="replayBtn">🔁 Recommencer</button>
-        <button class="btn home" id="homeBtn">🏠 Nouvelle histoire</button>
+        <button class="btn home" id="homeBtn">🏠 Nouvelle</button>
       </div>
       <div class="settings">
-        <label>🎙️ Voix : <select id="voiceSel"></select></label>
-        <label>🐢 <input type="range" id="rate" min="0.6" max="1.1" step="0.05" value="0.85"> 🐇</label>
+        🐢 <input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"> 🐇
       </div>
-      <p class="warn" id="warn">🔇 Lecture vocale indisponible ici. Essaie Chrome ou Safari.</p>
-      <p class="hint">Astuce : installe une voix FR « Premium/Améliorée » (Réglages → Accessibilité → Contenu énoncé) pour une voix douce.</p>
-    </section>
-  </div>
+      <p class="hint" id="hint">Belle voix via le conteur magique 🎙️</p>
+    </div>
+  </section>
+</div>
 
 <script>
+/* ===== Worker IA (voix + images) ===== */
+const AIW = "https://titistoire-ai.djac-gene.workers.dev";
+
+/* ===== étoiles déco ===== */
+(function(){ const s=document.getElementById('stars'); let h='';
+  for(let i=0;i<22;i++){ h+=`<b style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;animation-delay:${(Math.random()*3).toFixed(1)}s">✦</b>`; }
+  s.innerHTML=h; })();
+
 /* ===== DONNÉES ===== */
 const PERSOS=[
-  {id:'filou', nom:'Filou', emoji:'🦊',f:false, desc:"un petit renard roux malicieux et gentil"},
-  {id:'nestor',nom:'Nestor',emoji:'🐻',f:false, desc:"un ourson brun tout doux et courageux"},
-  {id:'rosie', nom:'Rosie', emoji:'🐰',f:true,  desc:"une petite lapine blanche aux grands yeux doux"},
-  {id:'plume', nom:'Plume', emoji:'🦉',f:true,  desc:"une petite chouette beige curieuse"},
+  {id:'filou',nom:'Filou',f:false,desc:"un petit renard roux malicieux"},
+  {id:'nestor',nom:'Nestor',f:false,desc:"un ourson brun tout doux"},
+  {id:'rosie',nom:'Rosie',f:true,desc:"une petite lapine blanche"},
+  {id:'plume',nom:'Plume',f:true,desc:"une petite chouette beige"},
 ];
 const UNIVERS=[
-  {id:'pirates',   nom:'Les pirates',    emoji:'🏴‍☠️',phrase:"sur un bateau de pirates",          desc:"a friendly pirate ship sailing on the sea near a treasure island"},
-  {id:'dino',      nom:'Les dinosaures', emoji:'🦕',  phrase:"au temps des dinosaures",            desc:"a prehistoric jungle with friendly dinosaurs and a volcano"},
-  {id:'chevaliers',nom:'Les chevaliers', emoji:'🛡️', phrase:"au temps des chevaliers",            desc:"a medieval kingdom with a castle, colorful flags and a brave little knight"},
-  {id:'espace',    nom:'Les astronautes',emoji:'🚀',  phrase:"dans l'espace, parmi les étoiles",   desc:"outer space with planets, stars, a little rocket and the moon"},
-  {id:'foret',     nom:'La forêt',       emoji:'🌲',  phrase:"dans la grande forêt",               desc:"an enchanted forest with tall trees and flowers"},
-  {id:'ocean',     nom:"L'océan",        emoji:'🌊',  phrase:"tout au fond de l'océan",            desc:"the bottom of the sea with corals and colorful fish"},
+  {id:'pirates',nom:'Les pirates',emoji:'🏴‍☠️',phrase:"sur un bateau de pirates"},
+  {id:'dino',nom:'Les dinosaures',emoji:'🦕',phrase:"au temps des dinosaures"},
+  {id:'chevaliers',nom:'Les chevaliers',emoji:'🛡️',phrase:"au temps des chevaliers"},
+  {id:'espace',nom:'Les astronautes',emoji:'🚀',phrase:"dans l'espace, parmi les étoiles"},
+  {id:'foret',nom:'La forêt',emoji:'🌲',phrase:"dans la grande forêt"},
+  {id:'ocean',nom:"L'océan",emoji:'🌊',phrase:"tout au fond de l'océan"},
 ];
 const VALEURS=[
   {id:'partage',nom:'Le partage',emoji:'🤝'},
   {id:'courage',nom:'Le courage',emoji:'🦁'},
-  {id:'amitie', nom:"L'amitié",  emoji:'🫂'},
-  {id:'verite', nom:'La vérité', emoji:'💛'},
+  {id:'amitie',nom:"L'amitié",emoji:'🫂'},
+  {id:'verite',nom:'La vérité',emoji:'💛'},
 ];
 
-/* ===== HISTOIRES (≈12 pages, morale en dernier) ===== */
 function buildStory(p,u,v){
-  const H=p.nom, il=p.f?"elle":"il", Il=p.f?"Elle":"Il";
-  const fier=p.f?"fière":"fier", seul=p.f?"seule":"seul";
-  const place=u.phrase;
+  const H=p.nom,il=p.f?"elle":"il",Il=p.f?"Elle":"Il",fier=p.f?"fière":"fier",seul=p.f?"seule":"seul",place=u.phrase;
   if(v.id==='partage') return [
     `Il était une fois ${H}, qui vivait ${place}.`,
-    `Chaque matin, ${H} aimait se promener et dire bonjour à tout le monde.`,
-    `Un beau jour, ${H} trouva un grand panier rempli de fruits bien mûrs.`,
-    `Il y avait des fraises, des pommes et de belles grappes de raisin.`,
-    `« Miam ! Tout ça, rien que pour moi ! » pensa-t-${il}.`,
-    `Mais un peu plus loin, ${H} vit trois petits amis assis par terre.`,
-    `Leurs ventres faisaient grrr, grrr : ils avaient très très faim.`,
-    `${H} s'arrêta, réfléchit un moment, puis ouvrit grand le panier.`,
-    `${Il} donna une fraise, une pomme et du raisin à chacun.`,
-    `Tout le monde se régala en riant, et le panier se vida en chansons.`,
-    `Et ${H} comprit qu'un bonheur partagé devient deux fois plus grand.`,
-    `La morale de l'histoire : quand on partage, la joie devient encore plus grande.`,
+    `Un beau jour, ${H} trouva un grand panier rempli de bonnes choses.`,
+    `« Oh, tout pour moi ! » pensa-t-${il}.`,
+    `Mais un peu plus loin, ${H} vit des amis qui avaient très faim.`,
+    `${Il} s'arrêta, réfléchit, puis ouvrit grand le panier.`,
+    `${Il} donna quelque chose à chacun, et tout le monde se régala en riant.`,
+    `La morale de l'histoire : quand on partage, la joie devient plus grande.`,
   ];
   if(v.id==='courage') return [
     `Il était une fois ${H}, qui vivait ${place}.`,
-    `${H} n'était pas très grand, mais avait un très grand cœur.`,
-    `Un matin, un vent joueur se mit à souffler sur tout le pays.`,
-    `Soudain, ${H} entendit un tout petit cri : « Au secours ! »`,
-    `Un minuscule oiseau était tombé et tremblait de peur.`,
-    `Pour l'aider, ${H} devait traverser un passage sombre et étroit.`,
-    `Son cœur battait très fort : boum, boum, boum.`,
-    `${Il} ferma les yeux, prit une grande respiration, et avança.`,
-    `Pas à pas, tout doucement, ${H} arriva jusqu'au petit oiseau.`,
-    `${Il} le prit délicatement et le ramena bien au chaud dans son nid.`,
-    `« Merci ! » chanta l'oiseau, et ${H} se sentit vraiment ${fier}.`,
-    `La morale de l'histoire : le courage, c'est oser essayer même quand on a un peu peur.`,
+    `Un jour, ${H} entendit un tout petit cri : « Au secours ! »`,
+    `Un minuscule ami était coincé et tremblait de peur.`,
+    `Le cœur de ${H} battait très fort : boum, boum, boum.`,
+    `${Il} prit une grande respiration et avança, pas à pas.`,
+    `Enfin, ${H} réussit à sauver le petit ami, qui dit merci.`,
+    `La morale de l'histoire : le courage, c'est oser même quand on a un peu peur.`,
   ];
   if(v.id==='amitie') return [
     `Il était une fois ${H}, qui vivait ${place}.`,
     `Ce matin-là, ${H} se sentait un peu ${seul}.`,
-    `${Il} regardait les autres jouer, sans oser s'approcher.`,
-    `En se promenant, ${H} rencontra quelqu'un qui pleurait tout doucement.`,
-    `« Pourquoi pleures-tu ? » demanda ${H} gentiment.`,
-    `« Je n'ai personne avec qui jouer », répondit le petit.`,
-    `Alors ${H} sourit et dit : « Veux-tu jouer avec moi ? »`,
-    `Les yeux du petit compagnon se mirent à briller de joie.`,
-    `Ensemble, ils construisirent une cabane et inventèrent mille jeux.`,
-    `Ils rirent si fort que même le soleil souriait.`,
-    `Le soir venu, ils étaient devenus de vrais amis pour toujours.`,
+    `${Il} rencontra quelqu'un qui pleurait tout doucement.`,
+    `${H} s'approcha et demanda : « Veux-tu jouer avec moi ? »`,
+    `Ensemble, ils inventèrent mille jeux et rirent très fort.`,
+    `Le soir venu, ils étaient devenus de vrais amis.`,
     `La morale de l'histoire : un ami, c'est le plus joli des trésors.`,
   ];
   return [
     `Il était une fois ${H}, qui vivait ${place}.`,
-    `${H} adorait jouer au ballon, partout et tout le temps.`,
-    `Un jour, en jouant dans la maison, ${H} lança le ballon très fort.`,
-    `Patatras ! Le joli vase tomba par terre et se cassa en morceaux.`,
-    `Oh non ! ${H} regarda les morceaux, le cœur tout serré.`,
-    `${Il} eut d'abord envie de se cacher et de ne rien dire.`,
+    `En jouant, ${H} cassa sans le vouloir un très joli objet.`,
+    `Oh non ! ${Il} eut envie de se cacher et de ne rien dire.`,
     `Mais au fond de son cœur, quelque chose le chatouillait.`,
-    `Alors ${H} prit une grande respiration et alla tout raconter.`,
-    `« C'est moi qui ai cassé le vase. Je suis désolé », dit-${il}.`,
+    `Alors ${H} alla tout raconter : « C'est moi, je suis désolé. »`,
     `Au lieu de se fâcher, on le serra très fort dans les bras.`,
-    `« Merci d'avoir dit la vérité », entendit-${il}, et ${H} se sentit léger comme une plume.`,
-    `La morale de l'histoire : dire la vérité, ça rend le cœur tout léger.`,
+    `La morale de l'histoire : dire la vérité rend le cœur tout léger.`,
   ];
 }
 
-/* ===== SCÈNES ===== */
+/* ===== SCÈNES (SVG de secours) ===== */
 function sceneSVG(id){
   if(id==='chevaliers') id='chateau';
-  if(id==='pirates') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pr" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#ffd59e"/><stop offset=1 stop-color="#6fb9e0"/></linearGradient></defs><rect width=400 height=225 fill="url(#pr)"/><circle cx=322 cy=58 r=23 fill="#ffce6b"/><rect x=0 y=152 width=400 height=73 fill="#3f8fc0"/><path d="M0 152 Q50 145 100 152 T200 152 T300 152 T400 152 V162 H0Z" fill="#5aa6d0"/><g transform="translate(160 92)"><rect x=-3 y=0 width=6 height=58 fill="#7a4a24"/><path d="M4 4 L48 20 L4 30 Z" fill="#ffffff"/><path d="M4 32 L42 46 L4 54 Z" fill="#f0f0f0"/><path d="M-56 56 Q0 90 62 56 L50 80 Q0 98 -46 80 Z" fill="#6b3f1e"/></g></svg>`;
-  if(id==='dino') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dn" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#cdefff"/><stop offset=1 stop-color="#dff3c6"/></linearGradient></defs><rect width=400 height=225 fill="url(#dn)"/><circle cx=70 cy=52 r=22 fill="#ffe27a"/><polygon points="250,182 332,182 291,92" fill="#9a7b6b"/><polygon points="276,120 291,92 306,120" fill="#ff7a4d"/><rect x=0 y=182 width=400 height=43 fill="#8cc968"/><ellipse cx=120 cy=188 rx=64 ry=22 fill="#7bbd57"/></svg>`;
-  if(id==='ocean') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="o" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#8fd3ff"/><stop offset=1 stop-color="#1f6bb0"/></linearGradient></defs><rect width=400 height=225 fill="url(#o)"/><circle cx=70 cy=50 r=5 fill="#fff" opacity=.6/><circle cx=120 cy=90 r=7 fill="#fff" opacity=.5/><circle cx=300 cy=60 r=6 fill="#fff" opacity=.55/><circle cx=340 cy=120 r=4 fill="#fff" opacity=.5/><path d="M0 185 Q60 165 120 185 T240 185 T360 185 T480 185 V225 H0Z" fill="#f3e2a9"/><path d="M0 195 Q60 178 120 195 T240 195 T360 195 T480 195 V225 H0Z" fill="#e7cf86"/></svg>`;
-  if(id==='espace') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="e" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#2a1b5e"/><stop offset=1 stop-color="#5b2a82"/></linearGradient></defs><rect width=400 height=225 fill="url(#e)"/>${Array.from({length:30}).map(()=>`<circle cx=${(Math.random()*400|0)} cy=${(Math.random()*205|0)} r=${(Math.random()*1.6+0.6).toFixed(1)} fill="#fff" opacity=${(Math.random()*.6+.4).toFixed(2)}/>`).join('')}<circle cx=330 cy=55 r=26 fill="#ffe27a"/><circle cx=322 cy=48 r=6 fill="#eac94e"/><circle cx=340 cy=66 r=4 fill="#eac94e"/><ellipse cx=90 cy=165 rx=30 ry=12 fill="#ff9ecb" opacity=.85/></svg>`;
-  if(id==='chateau') return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="c" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#ffd1ec"/><stop offset=1 stop-color="#b79cff"/></linearGradient></defs><rect width=400 height=225 fill="url(#c)"/><circle cx=60 cy=50 r=22 fill="#fff6c8" opacity=.9/><g fill="#8a6fd6"><rect x=150 y=120 width=100 height=70/><rect x=135 y=100 width=22 height=90/><rect x=243 y=100 width=22 height=90/><rect x=188 y=80 width=24 height=110/></g><g fill="#6d53bd"><polygon points="135,100 157,100 146,78"/><polygon points="243,100 265,100 254,78"/><polygon points="188,80 212,80 200,54"/></g><rect x=191 y=150 width=18 height=40 rx=9 fill="#ffe27a"/><rect x=0 y=190 width=400 height=35 fill="#9fd68b"/></svg>`;
-  return `<svg class="scene-svg" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="f" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="#bfe9ff"/><stop offset=1 stop-color="#eafaf0"/></linearGradient></defs><rect width=400 height=225 fill="url(#f)"/><circle cx=330 cy=48 r=26 fill="#ffe27a"/><path d="M0 175 Q100 140 200 170 T400 165 V225 H0Z" fill="#9fd68b"/><g><polygon points="60,180 90,180 75,120" fill="#3f9b57"/><rect x=72 y=180 width=6 height=16 fill="#8a5a33"/><polygon points="300,185 340,185 320,115" fill="#2f8a49"/><rect x=317 y=185 width=7 height=18 fill="#8a5a33"/><polygon points="340,185 375,185 357,130" fill="#3f9b57"/></g></svg>`;
+  const g={foret:['#bfe9ff','#eafaf0'],ocean:['#8fd3ff','#1f6bb0'],espace:['#2a1b5e','#5b2a82'],chateau:['#ffd1ec','#b79cff'],pirates:['#ffd59e','#6fb9e0'],dino:['#cdefff','#dff3c6']}[id]||['#bfe9ff','#eafaf0'];
+  return `<svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="z" x1=0 y1=0 x2=0 y2=1><stop offset=0 stop-color="${g[0]}"/><stop offset=1 stop-color="${g[1]}"/></linearGradient></defs><rect width=400 height=250 fill="url(#z)"/></svg>`;
 }
-function mapDecor(d){ d=(d||'').toLowerCase();
-  if(/pirate|bateau|corsaire|trésor|tresor|île|ile/.test(d)) return 'pirates';
-  if(/dino|dinosaure|préhist|prehist|volcan|jungle|t-?rex/.test(d)) return 'dino';
-  if(/chevalier|médiéval|medieval|château|chateau|royaume|roi|reine|princ|dragon/.test(d)) return 'chevaliers';
-  if(/espace|astronaute|étoile|etoile|lune|planèt|planet|fusée|fusee|cosmos|ciel/.test(d)) return 'espace';
-  if(/ocean|océan|mer|eau|poisson|sous.l|marin|sir[èe]ne/.test(d)) return 'ocean';
-  return 'foret'; }
-function propFor(text){ const t=(text||'').toLowerCase();
-  if(/panier|fruit|fraise|pomme|raisin/.test(t)) return '🧺';
-  if(/faim|régal|regal|mangè|mange/.test(t)) return '🍎';
-  if(/secours|cri/.test(t)) return '🆘';
-  if(/coincé|tremblait|peur|sombre/.test(t)) return '😟';
-  if(/cœur|coeur|boum/.test(t)) return '💓';
-  if(/sauver|merci|chanta|nid|oiseau/.test(t)) return '🐦';
-  if(/seul|pleurait|pleures/.test(t)) return '😢';
-  if(/jouer|jeux|jouèrent|cabane|amis|compagnon/.test(t)) return '🧸';
-  if(/cassa|vase|morceaux|objet|ballon/.test(t)) return '🏺';
-  if(/désolé|desole|vérité|verite|raconter/.test(t)) return '💛';
-  if(/heureux|joie|trésor|tresor|léger|leger|plume|sourit|rire|rirent/.test(t)) return '🌟';
-  return '✨'; }
 
-/* ===== NAVIGATION PAR ID ===== */
-function goto(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id)); window.scrollTo({top:0,behavior:'smooth'}); }
-document.querySelectorAll('.back[data-go]').forEach(b=> b.addEventListener('click',()=>{ synth&&synth.cancel(); stopFallback(); goto(b.dataset.go); }));
-function fillGrid(id,items,onPick){ const g=document.getElementById(id); g.innerHTML=''; items.forEach(it=>{ const b=document.createElement('button'); b.className='choice'; b.innerHTML=`<span class="emo">${it.emoji}</span><span class="lab">${it.nom}</span>`; b.addEventListener('click',()=>{ speakShort(it.nom); onPick(it); }); g.appendChild(b); }); }
+/* ===== NAV ===== */
+function goto(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id)); window.scrollTo({top:0,behavior:'smooth'}); stopAudio(); }
+document.querySelectorAll('.back[data-go]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.go)));
+
+function heroThumb(p){ return `assets/${p.id}_foret.png`; }
+function univThumb(u){ return `assets/filou_${u.id}.png`; }
+function fillGrid(id,items,onPick,thumb){ const gEl=document.getElementById(id); gEl.innerHTML='';
+  items.forEach(it=>{ const b=document.createElement('button'); b.className='card';
+    if(thumb){ b.innerHTML=`<img class="thumb" src="${thumb(it)}" alt="" onerror="this.style.display='none'"><span class="lab">${it.nom}</span>`; }
+    else { b.innerHTML=`<div class="emoji">${it.emoji}</div><span class="lab">${it.nom}</span>`; }
+    b.addEventListener('click',()=>onPick(it)); gEl.appendChild(b); }); }
 
 const choice={perso:null,univers:null,valeur:null};
 document.getElementById('modeGuided').addEventListener('click',()=>goto('s1'));
 document.getElementById('modeFree').addEventListener('click',()=>{ loadKey(); goto('sFree'); });
-fillGrid('grid1',PERSOS, it=>{choice.perso=it;goto('s2');});
-fillGrid('grid2',UNIVERS,it=>{choice.univers=it;goto('s3');});
-fillGrid('grid3',VALEURS,it=>{choice.valeur=it;openStory();});
+fillGrid('grid1',PERSOS, it=>{choice.perso=it;goto('s2');}, heroThumb);
+fillGrid('grid2',UNIVERS,it=>{choice.univers=it;goto('s3');}, univThumb);
+fillGrid('grid3',VALEURS,it=>{choice.valeur=it;openStory();}, null);
 
 /* ===== LIVRE ===== */
-let pages=[], cur=0, storyPlain="", wordSpans=[];
-const bookPage=document.getElementById('bookPage');
-function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+let pages=[],cur=0,storyPlain="",wordSpans=[];
+const frame=document.getElementById('frame'), scene=document.getElementById('scene');
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderScene(){
-  const sc=document.getElementById('scene');
   const hid=(choice.perso&&choice.perso.id)||'', uid=(choice.univers&&choice.univers.id)||'';
-  sc.innerHTML = `<img class="scene-img" alt="">`
-    + sceneSVG(uid)
-    + `<div class="hero-emo fallback">${(choice.perso&&choice.perso.emoji)||'🧒'}</div>`
-    + `<div class="prop-emo fallback">${propFor(pages[cur])}</div>`;
-  const img=sc.querySelector('.scene-img');
-  img.onload=()=>{ sc.querySelectorAll('.scene-svg,.fallback').forEach(e=>e.style.display='none'); };
-  img.onerror=()=>{ img.remove(); };
-  if(choice.sceneImg){ img.src=choice.sceneImg; }            // mode libre : image générée (dataURL)
-  else if(hid && uid){ img.src=`assets/${hid}_${uid}.png`; } // mode guidé : illustration embarquée
-  else { img.remove(); }
+  scene.innerHTML = sceneSVG(uid)+`<div class="hero-emo fallback">${(choice.perso&&choice.perso.emoji)||'🧒'}</div>`;
+  if(choice.sceneImg || (hid&&uid)){
+    const img=new Image(); img.className='scene-img';
+    img.onload=()=>{ scene.querySelectorAll('svg,.fallback').forEach(e=>e.style.display='none'); scene.appendChild(img); };
+    img.onerror=()=>{};
+    img.src = choice.sceneImg || `assets/${hid}_${uid}.png`;
+  }
 }
-function renderWords(text){ storyPlain=text; wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g; let m;
-  while((m=re.exec(text))){ if(m[1]) html+=' '; else { const w=m[2]; wordSpans.push({raw:w,start:m.index,end:m.index+w.length}); html+=`<span class="word" data-i="${wordSpans.length-1}">${escapeHtml(w)}</span>`; } }
-  const el=document.getElementById('ptext'); el.className='ptext'+(cur===pages.length-1?' moral':''); el.innerHTML=html;
-  wordSpans.forEach((ws,i)=> ws.el=el.querySelector('.word[data-i="'+i+'"]')); }
+function renderWords(text){ storyPlain=text; wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g,el=document.getElementById('ptext'); let m;
+  while((m=re.exec(text))){ if(m[1])html+=' '; else { wordSpans.push({raw:m[2]}); html+=`<span class="word" data-i="${wordSpans.length-1}">${esc(m[2])}</span>`; } }
+  el.className='ptext'+(cur===pages.length-1?' moral':''); el.innerHTML=html;
+  wordSpans.forEach((w,i)=>w.el=el.querySelector('.word[data-i="'+i+'"]')); }
 function renderPage(i){ cur=i; renderScene(); renderWords(pages[i]); updateNav(); }
 function updateNav(){ document.getElementById('counter').textContent=`Page ${cur+1} / ${pages.length}`; document.getElementById('prevBtn').disabled=cur<=0; document.getElementById('nextBtn').disabled=cur>=pages.length-1; }
-function turnTo(i,cb){ if(i<0||i>=pages.length){ cb&&cb(); return; }
-  bookPage.classList.add('leaving');
-  setTimeout(()=>{ renderPage(i);
-    bookPage.classList.remove('leaving'); bookPage.classList.add('entering');
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{ bookPage.classList.remove('entering'); setTimeout(()=>cb&&cb(),430); }));
-  }, 430); }
-function clearHi(){ wordSpans.forEach(ws=> ws.el&&ws.el.classList.remove('on')); }
-function setWordByIndex(i){ clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wordSpans[i].el.classList.add('on'); }
-function setWordByChar(c){ let f=0; for(let i=0;i<wordSpans.length;i++){ if(wordSpans[i].start<=c) f=i; else break; } setWordByIndex(f); }
-function showBook(title){ document.getElementById('recap').innerHTML=`<span>${choice.perso.emoji}</span><span>${choice.univers.emoji}</span><span>${choice.valeur.emoji}</span>`;
-  document.getElementById('storyTitle').textContent=title||''; cur=0; renderPage(0); resetPlay(); goto('s4'); }
-function openStory(){ pages=buildStory(choice.perso,choice.univers,choice.valeur); showBook(`L'histoire de ${choice.perso.nom}`); }
+function turnTo(i,cb){ if(i<0||i>=pages.length){cb&&cb();return;} frame.classList.remove('turning'); void frame.offsetWidth; frame.classList.add('turning');
+  setTimeout(()=>{ renderPage(i); },300); setTimeout(()=>{ frame.classList.remove('turning'); cb&&cb(); },600); }
+function clearHi(){ wordSpans.forEach(w=>w.el&&w.el.classList.remove('on')); }
+function setWord(i){ clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wordSpans[i].el.classList.add('on'); }
 
-/* ===== MODE LIBRE (LLM Gemini) ===== */
-const GEMINI_MODEL='gemini-2.0-flash';
-let savedKey='';
-function loadKey(){ try{ savedKey=localStorage.getItem('conteur_gemini_key')||''; }catch(e){} if(savedKey) document.getElementById('apiKey').value=savedKey; }
-function status(msg){ document.getElementById('genStatus').textContent=msg||''; }
-async function callGemini(prompt,key){
-  const url=`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`;
-  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    contents:[{parts:[{text:prompt}]}], generationConfig:{temperature:0.95,responseMimeType:'application/json'} })});
-  if(!res.ok){ throw new Error('HTTP '+res.status); }
-  const data=await res.json();
-  const txt=data&&data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&data.candidates[0].content.parts[0].text;
-  if(!txt) throw new Error('réponse vide');
-  return JSON.parse(txt);
-}
-async function generateFree(){
-  const hero=document.getElementById('fHero').value.trim();
-  const lieu=document.getElementById('fLieu').value.trim();
-  const lecon=document.getElementById('fLecon').value.trim();
-  const key=(document.getElementById('apiKey').value.trim())||savedKey;
-  if(!key){ status('🔑 Ajoute d\'abord ta clé Gemini (section en bas).'); return; }
-  try{ localStorage.setItem('conteur_gemini_key',key); savedKey=key; }catch(e){}
-  status('✨ La conteuse invente ton histoire… (quelques secondes)');
-  const prompt=
-`Tu es une gentille conteuse pour de jeunes enfants de 3 à 6 ans.
-Invente une histoire en FRANÇAIS, douce, positive, avec une fin heureuse.
-Héros : ${hero||'un petit personnage attachant'}.
-Lieu ou univers : ${lieu||'un endroit magique'}.
-Leçon / morale à transmettre : ${lecon||'la gentillesse'}.
-Règles STRICTES :
-- 10 à 12 pages ; UNE phrase courte et simple par page (vocabulaire d'enfant).
-- Déroulé clair : situation, petit problème, solution.
-- La DERNIÈRE page est la morale et commence par "La morale de l'histoire : ".
-- Aucune violence ni peur excessive.
-Réponds UNIQUEMENT en JSON valide, sans texte autour, au format :
-{"titre":"...","decor":"foret|ocean|espace|chateau","emoji":"UN seul emoji pour le héros","pages":["phrase page 1","phrase page 2","..."]}`;
-  try{
-    const out=await callGemini(prompt,key);
-    let pg=Array.isArray(out.pages)?out.pages.map(x=>String(x).trim()).filter(Boolean):[];
-    if(pg.length<3) throw new Error('histoire trop courte');
-    if(pg.length>16) pg=pg.slice(0,16);
-    pages=pg;
-    choice.perso={nom:(hero||'le héros'),emoji:(out.emoji&&[...out.emoji][0])||'🧒'};
-    choice.univers={id:mapDecor(out.decor||lieu),emoji:'✨'};
-    choice.valeur={emoji:'🌟'};
-    status('');
-    showBook(out.titre||'Mon histoire');
-  }catch(e){ status('😅 La magie a raté ('+e.message+'). Vérifie la clé, la connexion, ou réessaie.'); }
-}
-document.getElementById('genBtn').addEventListener('click',generateFree);
+function showBook(title){ document.getElementById('title').textContent=title||''; cur=0; renderPage(0); resetPlay(); goto('s4'); }
+function openStory(){ pages=buildStory(choice.perso,choice.univers,choice.valeur); choice.sceneImg=null; showBook(`L'histoire de ${choice.perso.nom}`); }
 
-/* ===== VOIX ===== */
-const synth=window.speechSynthesis;
-let frVoice=null, allVoices=[], auto=false, boundaryFired=false, fbTimer=null, keepAlive=null;
-function getRate(){ const r=document.getElementById('rate'); return r?parseFloat(r.value):0.85; }
-function rankVoice(v){ let s=0; const n=(v.name||'').toLowerCase();
-  if(/fr-fr/i.test(v.lang)) s+=5; else if(/^fr/i.test(v.lang)) s+=3;
-  if(v.localService) s+=3;
-  if(/premium|enhanced|amélior|ameliore|siri|neural|natural/.test(n)) s+=7;
-  if(/audrey|aurélie|aurelie|thomas|amélie|amelie|marie|chloé|chloe|jacques/.test(n)) s+=2; return s; }
-function populateVoices(){ if(!synth) return; let vs=synth.getVoices(); if(!vs.length) return;
-  allVoices=vs.filter(v=>/^fr/i.test(v.lang)); if(!allVoices.length) allVoices=vs.slice();
-  allVoices.sort((a,b)=>rankVoice(b)-rankVoice(a));
-  const sel=document.getElementById('voiceSel'); sel.innerHTML='';
-  allVoices.forEach(v=>{ const o=document.createElement('option'); o.value=v.name; o.textContent=v.name+(v.localService?'':' (en ligne)'); sel.appendChild(o); });
-  let saved=null; try{ saved=localStorage.getItem('conteur_voice'); }catch(e){}
-  const chosen=allVoices.find(v=>v.name===saved)||allVoices[0]; if(chosen){ sel.value=chosen.name; frVoice=chosen; } }
-if(synth){ populateVoices(); synth.onvoiceschanged=populateVoices; } else { document.getElementById('warn').style.display='block'; }
-document.getElementById('voiceSel').addEventListener('change',e=>{ frVoice=allVoices.find(v=>v.name===e.target.value)||frVoice; try{ localStorage.setItem('conteur_voice',e.target.value); }catch(err){} });
-
-function stopFallback(){ if(fbTimer){clearTimeout(fbTimer);fbTimer=null;} }
-function startFallback(){ stopFallback(); let i=0; (function step(){ if(i>=wordSpans.length) return; setWordByIndex(i); const w=wordSpans[i].raw; const dur=Math.max(240,w.length*60+140)/getRate(); i++; fbTimer=setTimeout(step,dur); })(); }
-function startKeepAlive(){ stopKeepAlive(); keepAlive=setInterval(()=>{ if(synth.speaking&&!synth.paused) synth.resume(); },9000); }
-function stopKeepAlive(){ if(keepAlive){clearInterval(keepAlive);keepAlive=null;} }
-function setPlay(on){ const b=document.getElementById('playBtn'); if(on){ b.textContent='⏸️ Pause'; b.classList.add('pause'); } else { b.textContent='▶️ Lire l\'histoire'; b.classList.remove('pause'); } }
+/* ===== VOIX (worker TTS) + surlignage synchronisé ===== */
+let auto=false, curAudio=null, rafId=0, usingFallback=false;
+function rate(){ return parseFloat(document.getElementById('rate').value)||1; }
+function setPlay(on){ const b=document.getElementById('playBtn'); b.textContent=on?'⏸️ Pause':'▶️ Lire'; b.classList.toggle('pause',on); }
 function resetPlay(){ auto=false; setPlay(false); }
-function speakText(text,onend){ if(!synth){ document.getElementById('warn').style.display='block'; onend&&onend(); return; }
-  synth.cancel(); stopFallback(); boundaryFired=false;
-  const u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; if(frVoice)u.voice=frVoice; u.rate=getRate(); u.pitch=1.06;
-  u.onboundary=e=>{ boundaryFired=true; stopFallback(); if(typeof e.charIndex==='number') setWordByChar(e.charIndex); };
-  u.onstart=()=>{ startKeepAlive(); setTimeout(()=>{ if(synth.speaking&&!boundaryFired) startFallback(); },700); };
-  u.onend=()=>{ stopFallback(); stopKeepAlive(); onend&&onend(); };
-  u.onerror=()=>{ stopFallback(); stopKeepAlive(); onend&&onend(); };
-  synth.speak(u); }
-function readPage(i){ cur=i; speakText(pages[i],()=>{ if(!auto) return; if(i+1<pages.length){ setTimeout(()=>turnTo(i+1,()=>readPage(i+1)),650); } else { clearHi(); resetPlay(); } }); }
+function stopAudio(){ if(curAudio){ curAudio.pause(); curAudio.src=''; curAudio=null; } if(rafId) cancelAnimationFrame(rafId); try{speechSynthesis.cancel();}catch(e){} document.getElementById('loading').classList.remove('on'); }
+function loader(on){ document.getElementById('loading').classList.toggle('on',on); }
+
+function highlightSync(audio){
+  const dur=audio.duration; if(!dur||!isFinite(dur)||!wordSpans.length) return;
+  const w=wordSpans.map(x=>x.raw.replace(/[^\wàâäéèêëïîôöùûüç]/gi,'').length+2);
+  const tot=w.reduce((a,b)=>a+b,0); const starts=[]; let acc=0; w.forEach(x=>{starts.push(acc/tot*dur);acc+=x;});
+  function tick(){ if(!curAudio||audio.paused||audio.ended) return; const t=audio.currentTime; let idx=0;
+    for(let k=0;k<starts.length;k++){ if(starts[k]<=t) idx=k; else break; } setWord(idx); rafId=requestAnimationFrame(tick); }
+  rafId=requestAnimationFrame(tick);
+}
+function speakFallback(text,onend){ usingFallback=true; try{ const u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=rate()*0.95;
+  u.onboundary=e=>{ if(typeof e.charIndex==='number'){ let idx=0,acc=0; for(let k=0;k<wordSpans.length;k++){ if(acc<=e.charIndex) idx=k; acc+=wordSpans[k].raw.length+1; } setWord(idx);} };
+  u.onend=()=>{clearHi();onend&&onend();}; speechSynthesis.cancel(); speechSynthesis.speak(u);
+}catch(e){ onend&&onend(); } }
+
+function readPage(i){
+  cur=i; stopAudio(); loader(true);
+  const text=pages[i];
+  const url=AIW+"/tts?lang=fr&t="+encodeURIComponent(text);
+  const a=new Audio(); curAudio=a; a.src=url;
+  a.playbackRate=rate();
+  a.onloadedmetadata=()=>{ loader(false); highlightSync(a); };
+  a.oncanplay=()=>loader(false);
+  a.onended=()=>{ clearHi(); if(auto){ if(i+1<pages.length) turnTo(i+1,()=>readPage(i+1)); else resetPlay(); } };
+  a.onerror=()=>{ loader(false); curAudio=null; speakFallback(text,()=>{ if(auto){ if(i+1<pages.length) turnTo(i+1,()=>readPage(i+1)); else resetPlay(); } }); };
+  a.play().catch(()=>{ a.onerror(); });
+}
 function startReading(){ auto=true; setPlay(true); readPage(cur); }
-document.getElementById('playBtn').addEventListener('click',()=>{ if(!synth){ document.getElementById('warn').style.display='block'; return; }
-  if(auto&&synth.speaking){ if(synth.paused){ synth.resume(); document.getElementById('playBtn').textContent='⏸️ Pause'; } else { synth.pause(); document.getElementById('playBtn').textContent='▶️ Reprendre'; } return; } startReading(); });
-document.getElementById('replayBtn').addEventListener('click',()=>{ synth&&synth.cancel(); stopFallback(); clearHi(); cur=0; renderPage(0); startReading(); });
-function home(){ synth&&synth.cancel(); stopFallback(); stopKeepAlive(); clearHi(); resetPlay(); choice.perso=choice.univers=choice.valeur=null; goto('s0'); }
+document.getElementById('playBtn').addEventListener('click',()=>{
+  if(curAudio){ if(curAudio.paused){ curAudio.play(); setPlay(true);} else { curAudio.pause(); setPlay(false);} return; }
+  if(speechSynthesis.speaking){ if(speechSynthesis.paused){speechSynthesis.resume();setPlay(true);}else{speechSynthesis.pause();setPlay(false);} return; }
+  startReading();
+});
+document.getElementById('replayBtn').addEventListener('click',()=>{ stopAudio(); cur=0; renderPage(0); startReading(); });
+function home(){ stopAudio(); resetPlay(); choice.perso=choice.univers=choice.valeur=choice.sceneImg=null; goto('s0'); }
 document.getElementById('homeBtn').addEventListener('click',home);
 document.getElementById('homeBtn2').addEventListener('click',home);
-document.getElementById('prevBtn').addEventListener('click',()=>{ auto=false; setPlay(false); synth&&synth.cancel(); stopFallback(); turnTo(cur-1,()=>speakText(pages[cur])); });
-document.getElementById('nextBtn').addEventListener('click',()=>{ auto=false; setPlay(false); synth&&synth.cancel(); stopFallback(); turnTo(cur+1,()=>speakText(pages[cur])); });
-function speakShort(txt){ if(!synth) return; try{ synth.cancel(); const u=new SpeechSynthesisUtterance(txt); u.lang='fr-FR'; if(frVoice)u.voice=frVoice; u.rate=1; u.pitch=1.06; synth.speak(u); }catch(e){} }
+document.getElementById('prevBtn').addEventListener('click',()=>{ auto=false;setPlay(false);stopAudio(); turnTo(cur-1,()=>readPage(cur)); });
+document.getElementById('nextBtn').addEventListener('click',()=>{ auto=false;setPlay(false);stopAudio(); turnTo(cur+1,()=>readPage(cur)); });
+
+/* ===== MODE LIBRE (Gemini) ===== */
+const GMODEL="gemini-2.0-flash"; let savedKey="";
+function loadKey(){ try{savedKey=localStorage.getItem('conteur_gemini_key')||'';}catch(e){} if(savedKey)document.getElementById('apiKey').value=savedKey; }
+function gstatus(m){ document.getElementById('genStatus').textContent=m||''; }
+async function generateFree(){
+  const hero=document.getElementById('fHero').value.trim(),lieu=document.getElementById('fLieu').value.trim(),lecon=document.getElementById('fLecon').value.trim();
+  const key=document.getElementById('apiKey').value.trim()||savedKey;
+  if(!key){ gstatus('🔑 Ajoute ta clé Gemini.'); return; }
+  try{localStorage.setItem('conteur_gemini_key',key);savedKey=key;}catch(e){}
+  gstatus('✨ La conteuse invente…');
+  const prompt=`Conteuse pour enfants 3-6 ans. Histoire FRANÇAIS, douce, fin heureuse. Héros: ${hero||'un petit personnage'}. Lieu: ${lieu||'un endroit magique'}. Leçon: ${lecon||'la gentillesse'}. 7 pages, UNE phrase courte par page, derniere page = morale commençant par "La morale de l'histoire :". JSON uniquement: {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"1 emoji","pages":["..."]}`;
+  try{
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:.95,responseMimeType:'application/json'}})});
+    const d=await r.json(); const out=JSON.parse(d.candidates[0].content.parts[0].text);
+    pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); if(pages.length<3) throw new Error('trop court');
+    choice.perso={nom:hero||'le héros',emoji:(out.emoji&&[...out.emoji][0])||'🧒',id:''};
+    choice.univers={id:(out.decor||'foret'),emoji:'✨'}; choice.valeur={emoji:'🌟'};
+    choice.sceneImg = AIW+"/img?p="+encodeURIComponent("Flat 2D ligne claire Tintin style, flat pastel colours, bold outlines, no shading, vintage storybook. "+(hero||'a cute animal')+" "+(lieu||'in a magical place')+". No text.");
+    gstatus(''); showBook(out.titre||'Mon histoire');
+  }catch(e){ gstatus('😅 Raté ('+e.message+'). Réessaie.'); }
+}
+document.getElementById('genBtn').addEventListener('click',generateFree);
 
 goto('s0');
 </script>
