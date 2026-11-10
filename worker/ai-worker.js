@@ -30,7 +30,10 @@ export default {
         const ELEVEN = env.ELEVEN_KEY || env.ELEVENLABS_KEY;
         if (!ELEVEN && u.searchParams.get("debug")) return new Response("Aucune clé ELEVEN_KEY (ni ELEVENLABS_KEY) lue par le worker", { status: 200, headers: { "content-type": "text/plain", ...cors } });
         if (ELEVEN) {
-          const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "21m00Tcm4TlvDq8ikWAM";
+          // voix "premade" accessibles en palier GRATUIT (les voix "library" exigent un plan payant) :
+          //   Matilda XrExE9yKIg1WjnnlVkGX · Lily pFZP5JQG7iQjIQuC4Bku · Sarah EXAVITQu4vr4xnSDxMaL
+          //   Alice Xb7hH8MSUJpSbSDYk0k2 · Laura FGY2WhTYpPnrIDTdsKH5
+          const voice = u.searchParams.get("v") || env.ELEVEN_VOICE || "XrExE9yKIg1WjnnlVkGX";
           const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "?output_format=mp3_44100_128", {
             method: "POST",
             headers: { "xi-api-key": ELEVEN, "content-type": "application/json" },
@@ -72,7 +75,7 @@ export default {
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
-        const model = "gemini-2.0-flash";
+        const model = env.GEMINI_MODEL || "gemini-3.8-flash"; // 2.0-flash retiré ; surchargeable par secret
         const prompt = `Conteuse pour enfants de 3 à 6 ans. Invente une histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
           + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
           + `Exactement 7 pages, UNE phrase courte et simple par page, la dernière page est la morale et commence par "La morale de l'histoire :". `
