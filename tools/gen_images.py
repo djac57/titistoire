@@ -157,16 +157,22 @@ def plan_scenes():
                     jobs.append((f, prompt_scene(h, u, m, idx), HERO_SEED[h]))
     return jobs
 
+MAX_CONSEC_FAIL = int(os.environ.get("TITI_MAX_FAIL", "12"))  # arrêt si quota/API en rade
+
 def run(jobs, label):
-    print(f"🎨 Source : {SRC} ({WORKER if SRC=='worker' else ''}) — {label} : {len(jobs)} cible(s)")
-    ok = sk = fa = 0
+    print(f"🎨 Source : {SRC} ({WORKER if SRC=='worker' else ''}) — {label} : {len(jobs)} cible(s)", flush=True)
+    ok = sk = fa = consec = 0
     for i, (f, p, seed) in enumerate(jobs, 1):
         r = make(f, p, seed)
-        if r == "ok":   ok += 1; print(f"  [{i}/{len(jobs)}] ✅ {f.name} ({f.stat().st_size//1024} Ko)")
+        if r == "ok":   ok += 1; consec = 0; print(f"  [{i}/{len(jobs)}] ✅ {f.name} ({f.stat().st_size//1024} Ko)", flush=True)
         elif r == "skip": sk += 1
-        else: fa += 1;    print(f"  [{i}/{len(jobs)}] ❌ {f.name} (échec)")
+        else:
+            fa += 1; consec += 1; print(f"  [{i}/{len(jobs)}] ❌ {f.name} (échec)", flush=True)
+            if consec >= MAX_CONSEC_FAIL:
+                print(f"⛔ {consec} échecs d'affilée — quota/API probablement épuisé, arrêt (reprise plus tard).", flush=True)
+                break
         if r == "ok": time.sleep(0.5)
-    print(f"Fini {label} : {ok} générées, {sk} déjà là, {fa} échecs.")
+    print(f"Fini {label} : {ok} générées, {sk} déjà là, {fa} échecs.", flush=True)
     return fa
 
 mode = sys.argv[1] if len(sys.argv) > 1 else "scenes"
@@ -178,6 +184,10 @@ if mode in ("scenes", "all"):
     jobs = plan_scenes()
     if sub == "test":
         jobs = [j for j in jobs if j[0].name.startswith("filou_foret_partage_")]
+    else:
+        lim = int(os.environ.get("TITI_LIMIT", "0"))
+        if lim > 0:  # ne garder qu'un lot de N manquantes (pour committer par paquets)
+            jobs = [j for j in jobs if not good(j[0])][:lim]
     fails += run(jobs, "scenes" + (" (test)" if sub == "test" else ""))
 if mode not in ("ambiances", "scenes", "all"):
     print("Usage: gen_images.py ambiances | scenes [test] | all")
