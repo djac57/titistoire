@@ -604,6 +604,7 @@ $('saveBtn').addEventListener('click',saveCurrent);
 $('homeBtn2').addEventListener('click',home);
 
 /* ===== « J'INVENTE LA MIENNE » : histoire écrite, contrôlée et signée par le worker ===== */
+const imgBis={};
 function gstatus(m){ $('genStatus').textContent=m||''; }
 async function generateFree(){
   const hero=$('fHero').value.trim(),lieu=$('fLieu').value.trim(),lecon=$('fLecon').value.trim();
@@ -624,7 +625,7 @@ async function generateFree(){
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
     const urls=it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)); let faites=0;
     clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; };
-    const charge=(u,compte)=>new Promise(res=>{ const im=new Image(); let n=0; im.onload=()=>{ if(compte){ faites++; maj(); } res(); }; im.onerror=()=>{ if(n++<1) im.src=u+"&r=2"; else res(); }; im.src=u; });
+    const charge=(u,compte)=>new Promise(res=>{ const im=new Image(); let n=0; im.onload=()=>{ if(n) imgBis[u]=u+"&r=2"; if(compte){ faites++; maj(); } res(); }; im.onerror=()=>{ if(n++<1) im.src=u+"&r=2"; else res(); }; im.src=u; });   // imgBis : l'adresse du 2e essai, pour ne pas faire redessiner l'image à l'affichage
     // D'abord les fiches des personnages (une image de référence chacun) : toutes les pages sont ensuite dessinées d'après elles.
     if(Array.isArray(out.fiches)&&out.fiches.length){ gstatus('La conteuse dessine les personnages…'); fill.style.width='55%';
       await Promise.race([Promise.all(out.fiches.map(u=>charge(AIW+u,false))), new Promise(r=>setTimeout(r,60000))]); }
@@ -636,7 +637,7 @@ async function generateFree(){
 }
 function openFree(it,fresh){
   const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
-  if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?AIW+u:null); })); }
+  if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(imgBis[AIW+u]||AIW+u):null); })); }
   else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
   book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,
         libre:fresh?it:null,src:it};
