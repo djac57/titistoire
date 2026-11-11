@@ -66,7 +66,7 @@ def main():
             p = style + "Character reference sheet of one single character: " + desc + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture."
             f.write_bytes(jpeg(appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, {}), 512))
             print(f"  📇 fiche {f.name}", flush=True)
-        court = desc.split(",")[0].replace("the only fox in the picture", "").strip()
+        court = re.sub(r"^(one|the only \w+ in the picture)\s*,?\s*", "", desc.split(",")[0]).strip() or desc.split(",")[1].strip()
         return f.read_bytes(), court
 
     cible = set()
