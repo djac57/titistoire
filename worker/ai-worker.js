@@ -130,6 +130,7 @@ export default {
         if (u.searchParams.get("check")) return J({ ok: true });
         const dbg = !!u.searchParams.get("debug");
         const hero = propre(u.searchParams.get("hero")), lieu = propre(u.searchParams.get("lieu")), lecon = propre(u.searchParams.get("lecon"));
+        const age = ["petit", "moyen", "grand"].includes(u.searchParams.get("age")) ? u.searchParams.get("age") : "moyen";
 
         // 1. contrôle de ce qui est demandé
         const demande = `Héros : ${hero || "(non précisé)"}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
@@ -151,15 +152,15 @@ export default {
         const forceIA = dbg ? u.searchParams.get("ia") : null;
         const journal = []; let occupe = false, refusContenu = null, secours = null, retenu = null;
         for (const [nom, redige] of redacteurs(env, GKEY, forceIA)) {
-          const r = await redige(consigneHistoire(hero, lieu, lecon));
+          const r = await redige(consigneHistoire(hero, lieu, lecon, age));
           if (!r.txt) { journal.push(nom + " : " + r.err); occupe = occupe || !!r.busy; continue; }
           const h = normaliser(r.txt);
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
           for (const t of h.tableaux) t.images = t.images.map(d => motInterdit(d) ? "" : d);      // description douteuse : écartée, la page reprendra l'image voisine
           const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
           const tx = pg.join(" "), mots = tx.toLowerCase().match(/[a-zà-ÿœ']+/g) || [], dits = (tx.match(/(^|[^a-zà-ÿ])dit(?![a-zà-ÿ])/gi) || []).length;
-          const pauvre = dits > 5 || new Set(mots).size < mots.length * 0.36;       // « dit » partout, ou trop peu de mots différents
-          const maigre = pauvre || pg.length < 18 || moy < 68 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+          const pauvre = age !== "petit" && (dits > 5 || new Set(mots).size < mots.length * 0.36);       // « dit » partout, ou trop peu de mots différents
+          const maigre = pauvre || pg.length < 18 || moy < AGES[age].mini || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
           const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
           const c2 = await controle(env, tout, "histoire");
           if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
@@ -298,14 +299,24 @@ async function imageDouce(env, b64) {
 }
 
 /* ===================== écriture de l'histoire ===================== */
-function consigneHistoire(hero, lieu, lecon) {
-  return `Tu es une autrice d'albums jeunesse pour les 3-6 ans (dans l'esprit des histoires Lunii et des albums de l'École des loisirs). Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
+/* Trois âges : la langue, la longueur des pages et la complexité de l'intrigue changent. */
+const AGES = {
+  petit: { qui: "les 2-3 ans", page: "UNE ou DEUX phrases très courtes (8 à 20 mots)", mini: 35,
+    ton: "Histoire toute simple pour un tout-petit : une seule petite aventure, des gestes et des bruits, des mots de tous les jours, des répétitions rassurantes et des onomatopées. Un mot nouveau de temps en temps, pas plus." },
+  moyen: { qui: "les 4-5 ans", page: "DEUX ou TROIS phrases complètes (20 à 45 mots)", mini: 68,
+    ton: "Histoire pour un enfant de 4-5 ans qui aime qu'on lui raconte de vraies aventures : une intrigue avec des surprises, des personnages qui ont du caractère, de l'humour, une langue riche." },
+  grand: { qui: "les 6-7 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
+    ton: "Histoire pour un enfant de 6-7 ans, grand lecteur d'albums : une intrigue construite avec un vrai retournement, un dilemme pour le héros, un second personnage qui a ses propres envies, de l'humour fin, du suspense doux, une langue soutenue (subordonnées, comparaisons, mots précis et savoureux)." },
+};
+function consigneHistoire(hero, lieu, lecon, age = "moyen") {
+  const A = AGES[age] || AGES.moyen;
+  return `Tu es une autrice d'albums jeunesse pour ${A.qui} (dans l'esprit des histoires Lunii et des albums de l'École des loisirs). ${A.ton} Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
 Héros : ${hero || "un petit animal attachant"}. Lieu : ${lieu || "un endroit qui fait rêver"}. Ce dont l'histoire parle, en profondeur : ${lecon || "la gentillesse"}.
 
 CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Le héros a un caractère : une envie forte et un petit défaut touchant. Donne-lui une expression à lui, qui revient.
 - Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
-- Un problème CONCRET qu'un enfant comprend. Le héros essaie, rate (souvent trois fois, avec de l'humour), doute, puis fait LUI-MÊME un choix difficile qui change tout.
+- Un problème CONCRET qu'un enfant comprend. Des péripéties qui surprennent : évite le schéma mécanique « trois essais ratés puis la solution ». Chaque tentative est différente, l'une d'elles tourne autrement que prévu, quelqu'un change d'avis, un détail du début resservira à la fin. Le héros doute, puis fait LUI-MÊME un choix qui change tout.
 - Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses.
 - UNE LANGUE RICHE ET SOIGNÉE, celle des beaux albums qu'un parent a plaisir à lire : le mot juste plutôt que le mot vague (« il trottine », « il se faufile », « il dégringole » plutôt que « il va » ; « une brindille », « un talus », « une ribambelle » plutôt que « un truc », « plein de »). Dans chaque tableau, glisse un ou deux beaux mots qu'un enfant ne connaît peut-être pas encore mais comprend grâce à la phrase (« il grelotte de froid », « elle est penaude, les oreilles toutes basses »).
 - Les verbes de parole sont VARIÉS et disent l'émotion : répond, demande, s'étonne, s'écrie, murmure, chuchote, ajoute, soupire, bougonne, marmonne, propose, annonce, s'exclame, proteste, avoue, promet, réplique… « dit » apparaît AU PLUS TROIS FOIS dans toute l'histoire, jamais deux fois de suite. Souvent, pas de verbe de parole du tout : un geste suffit (« Nina hausse les épaules. "Bof." »).
@@ -317,7 +328,7 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours".
 - Histoire pour tout-petits : aucune violence, aucune blessure, aucune mort, aucune arme, rien d'effrayant, aucun gros mot. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
 
-FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait DEUX ou TROIS phrases complètes (15 à 40 mots), qui se terminent par un point, jamais un simple bout de phrase. Vocabulaire simple, guillemets français « » pour les dialogues.
+FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
 Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
   * écris HERO pour le héros et FRIEND pour le deuxième personnage, jamais leur prénom, et ne redécris PAS leur apparence (elle est fixée par "heros" et "ami") ;
   * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte la page, pas la page d'avant ni celle d'après ;
@@ -372,9 +383,8 @@ function redacteurs(env, GKEY, forceIA) {
   if (forceIA) return [[forceIA, forceIA.startsWith("@cf/") ? ia(forceIA) : gemini(forceIA)]];
   const L = [];
   // flash-lite d'abord : c'est celui qui répond en pratique sur le palier gratuit, et son texte est bon
-  // (mesuré : flash-lite répond en ~10 s ; les deux autres Gemini dépassent souvent 45 s sur une histoire entière, on ne les tente qu'après un 2e essai de flash-lite)
-  if (GKEY) { L.push(["gemini-flash-lite-latest", gemini("gemini-flash-lite-latest")]); L.push(["gemini-flash-lite-latest (2e essai)", gemini("gemini-flash-lite-latest")]);
-    for (const m of ["gemini-flash-latest", "gemini-3.8-flash"]) L.push([m, gemini(m)]); }
+  // (mesuré le 11/11 sur la même demande : 3.8-flash et flash-latest, sans réflexion préalable, écrivent en 25-30 s une langue bien plus riche que flash-lite, qui répond en 10 s)
+  if (GKEY) for (const m of ["gemini-3.8-flash", "gemini-flash-latest", "gemini-flash-lite-latest", "gemini-flash-lite-latest"]) L.push([m, gemini(m)]);
   if (env.OPENROUTER_KEY) for (const m of ["nvidia/nemotron-3-ultra-550b-a55b:free", "google/gemma-4-31b-it:free"]) L.push(["or:" + m, openrouter(m)]);
   if (env.AI) for (const m of ["@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"]) L.push([m, ia(m)]);
   return L;

@@ -115,8 +115,8 @@
   /* mode libre */
   .freeform{display:flex;flex-direction:column;gap:16px;background:var(--card);border:1px solid var(--card-bd);border-radius:var(--radius);padding:22px;box-shadow:var(--sh);}
   .freeform label{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:1.02rem;color:var(--ink);}
-  .freeform input{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
-  .freeform input:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
+  .freeform input,.freeform select{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
+  .freeform input:focus,.freeform select:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
   #libreForm{display:flex;flex-direction:column;gap:16px;}
   #libreLock{display:flex;flex-direction:column;}
@@ -236,6 +236,7 @@
         <label>Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
+        <label>Pour quel âge ?<select id="fAge"><option value="petit">2-3 ans — toute simple</option><option value="moyen" selected>4-5 ans — une vraie aventure</option><option value="grand">6-7 ans — plus longue, langue soutenue</option></select></label>
         <button class="btn play" id="genBtn" style="align-self:center">Invente l'histoire</button>
         <div id="genStatus" class="genstatus"></div>
         <div id="genBar" class="genbar" hidden><span></span></div>
@@ -608,12 +609,13 @@ const imgBis={};
 function gstatus(m){ $('genStatus').textContent=m||''; }
 async function generateFree(){
   const hero=$('fHero').value.trim(),lieu=$('fLieu').value.trim(),lecon=$('fLecon').value.trim();
+  const age=$('fAge').value; try{localStorage.setItem('titi_age',age);}catch(e){}
   const gb=$('genBar'), gbtn=$('genBtn'), fill=gb.firstElementChild;
   gstatus('La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true; fill.style.width='3%';
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,pass:librePass()}).toString());
+    const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,age,pass:librePass()}).toString());
     if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
     const out=await r.json();
     if(out.plafond){ gstatus("C'est tout pour aujourd'hui : "+out.max+" histoires inventées, la conteuse se repose. À demain !"); return; }
@@ -681,6 +683,7 @@ function preparerVoix(){
   P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
 }
 $('genBtn').addEventListener('click',generateFree);
+try{ const a0=localStorage.getItem('titi_age'); if(a0&&[...$('fAge').options].some(o=>o.value===a0)) $('fAge').value=a0; }catch(e){}   // l'âge choisi est gardé d'une fois sur l'autre
 
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
 function savedAll(){ try{return JSON.parse(localStorage.getItem('titi_saved')||'[]');}catch(e){return [];} }
