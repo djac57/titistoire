@@ -364,7 +364,9 @@ const choice={perso:null,univers:null,valeur:null};
 document.getElementById('modeGuided').addEventListener('click',()=>goto('s1'));
 function librePass(){ try{return localStorage.getItem('titi_libre_pass')||'';}catch(e){return '';} }
 function showLibreGate(){ const unl=!!librePass(); const lk=document.getElementById('libreLock'), fm=document.getElementById('libreForm');
-  if(lk) lk.hidden=unl; if(fm) fm.hidden=!unl; const lm=document.getElementById('lockMsg'); if(lm&&!unl) lm.textContent=''; }
+  if(lk){ lk.hidden=unl; lk.style.display=unl?'none':'flex'; }        // style inline = blindé contre le cache CSS
+  if(fm){ fm.hidden=!unl; fm.style.display=unl?'flex':'none'; }
+  const lm=document.getElementById('lockMsg'); if(lm&&!unl) lm.textContent=''; }
 document.getElementById('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
 async function doUnlock(){
   const el=document.getElementById('librePass'), v=el.value.trim(), lm=document.getElementById('lockMsg'), btn=document.getElementById('libreUnlock');
