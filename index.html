@@ -73,8 +73,7 @@
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
   .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
   .genbar[hidden]{display:none;}
-  .genbar span{position:absolute;top:0;bottom:0;width:38%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));animation:genslide 1.2s cubic-bezier(.65,0,.35,1) infinite;}
-  @keyframes genslide{0%{left:-40%}100%{left:102%}}
+  .genbar span{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));transition:width .25s ease;}
 
   /* LIVRE = papier ivoire qui "brille" dans la nuit */
   .book{background:var(--paper);color:var(--paper-ink);border-radius:26px;box-shadow:var(--sh-lg);padding:18px 18px 22px;position:relative;}
@@ -488,16 +487,16 @@ document.getElementById('nextBtn').addEventListener('click',()=>{ auto=false;set
 /* ===== MODE LIBRE (via worker, sans clé navigateur) ===== */
 function gstatus(m){ document.getElementById('genStatus').textContent=m||''; }
 function libreImgs(hero,lieu,pages){
-  // OPTION B : Pollinations (gratuit, illimité, mais watermark) — une image par page, en direct
-  const seed=seedFrom(hero||lieu||'conte'), desc=(hero||'little animal')+(lieu?(' '+lieu):'');
-  return pages.map((txt,i)=> "https://image.pollinations.ai/prompt/"
-    +encodeURIComponent(LIBRE_STYLE+desc+". Scene: "+txt+" No text.")
-    +"?width=1024&height=704&nologo=true&model=flux&seed="+(seed+i)+"&referrer=titistoire");
+  // flux via le worker quand le quota Cloudflare est libre ; sinon repli sur l'illustration du décor (voir sceneCandidates)
+  const desc=(hero||'little animal')+(lieu?(' '+lieu):'');
+  return pages.map(txt=> AIW+"/img?"+new URLSearchParams({p:LIBRE_STYLE+desc+". Scene: "+txt+" No text, no letters."}).toString());
 }
 async function generateFree(){
   const hero=document.getElementById('fHero').value.trim(),lieu=document.getElementById('fLieu').value.trim(),lecon=document.getElementById('fLecon').value.trim();
-  const gb=document.getElementById('genBar'), gbtn=document.getElementById('genBtn');
-  gstatus('✨ La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true;
+  const gb=document.getElementById('genBar'), gbtn=document.getElementById('genBtn'), fill=gb.firstElementChild;
+  gstatus('✨ La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true; fill.style.width='3%';
+  const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/7))).toFixed(1)+'%'; },200);
+  const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon}).toString());
     const out=await r.json();
@@ -510,7 +509,7 @@ async function generateFree(){
     choice.freeStory={titre,decor,emoji,hero:hero||'le héros',lieu,lecon,pages:pages.slice(),sceneImgs:choice.sceneImgs.slice()};
     gstatus(''); showBook(titre);
   }catch(e){ gstatus('😅 Raté ('+e.message+'). Réessaie.'); }
-  finally{ gb.hidden=true; gbtn.disabled=false; }
+  finally{ endBar(); }
 }
 document.getElementById('genBtn').addEventListener('click',generateFree);
 
