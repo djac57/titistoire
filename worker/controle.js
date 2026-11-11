@@ -25,5 +25,5 @@ export function normaliser(txt) {
   tb = tb.filter(t => t.pages.length).slice(0, 10);
   if (tb.length < 4 || tb.reduce((a, t) => a + t.pages.length, 0) < 9) return null;
   return { titre: chaine(o.titre, 90) || "Mon histoire", decor: DECORS.includes(o.decor) ? o.decor : "foret",
-           emoji: [...chaine(o.emoji, 8)][0] || "🧒", heros: chaine(o.heros, 220), ami: chaine(o.ami, 220), tableaux: tb };
+           emoji: [...chaine(o.emoji, 8)][0] || "🧒", heros: chaine(o.heros, 220), ami: chaine(o.ami, 220), lieu: chaine(o.lieu, 160), tableaux: tb };
 }

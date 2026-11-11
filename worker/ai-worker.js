@@ -22,8 +22,8 @@
 import { octets, base64, pcmDepuis, wav, reech, tranches, alignerMots, caler } from "./voix.js";
 import { motInterdit, normaliser } from "./controle.js";
 
-const STYLE = "Children's picture book illustration, flat 2D vector art in the Franco-Belgian 'ligne claire' tradition and 1950s storybooks: clean thin dark outlines, flat soft pastel colours, simple rounded shapes, no gradients, no shading, no photorealism. Square composition, characters centred and fully visible. ";
-const FIN = " Cute expressive animal characters, warm and gentle mood for toddlers, nothing scary, no weapons, no humans, no text, no letters, no speech bubbles, no watermark.";
+const STYLE = "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles, no humans. ";
+const FIN = " Cute gentle animal characters, each one drawn only once, warm mood for toddlers, nothing scary.";
 const VOIX = ["Sulafat", "Vindemiatrix", "Algieba"];
 const TTS_MODELES = ["gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "gemini-2.5-flash-preview-tts"];
 
@@ -119,28 +119,37 @@ export default {
         if (fait >= MAXJ) return J({ error: "plafond", plafond: true, max: MAXJ }, 429);
         const compter = () => { try { ctx.waitUntil(caches.default.put(cleJour, new Response(String(fait + 1), { headers: { "cache-control": "public, max-age=172800" } }))); } catch (e) {} };
 
-        // 2. écriture, puis contrôle de ce qui a été écrit (une seconde chance, sinon refus)
-        let dernier = null, occupe = false;
-        for (let essai = 0; essai < 2; essai++) {
-          const brut = await ecrire(env, GKEY, hero, lieu, lecon, dbg ? u.searchParams.get("ia") : null);
-          if (!brut.txt) { dernier = brut.err; occupe = occupe || !!brut.busy; continue; }
-          const h = normaliser(brut.txt);
-          if (!h) { dernier = "histoire illisible"; continue; }
-          const tout = h.titre + "\n" + h.tableaux.map(t => t.pages.join("\n")).join("\n") + "\n" + [h.heros, h.ami].concat(h.tableaux.map(t => t.image)).join("\n");
+        // 2. écriture : on essaie les rédacteurs du meilleur au moins bon. Une histoire trop maigre (phrases
+        //    tronquées, pages très courtes) est mise de côté et ne sert que si personne ne fait mieux.
+        //    Tout ce qui est retenu repasse le contrôle de contenu avant d'être signé.
+        const forceIA = dbg ? u.searchParams.get("ia") : null;
+        const journal = []; let occupe = false, refusContenu = null, secours = null, retenu = null;
+        for (const [nom, redige] of redacteurs(env, GKEY, forceIA)) {
+          const r = await redige(consigneHistoire(hero, lieu, lecon));
+          if (!r.txt) { journal.push(nom + " : " + r.err); occupe = occupe || !!r.busy; continue; }
+          const h = normaliser(r.txt);
+          if (!h) { journal.push(nom + " : histoire illisible"); continue; }
+          const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
+          const maigre = pg.length < 18 || moy < 75 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+          const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.map(t => t.image)).join("\n");
           const c2 = await controle(env, tout, "histoire");
-          if (!c2.ok) { dernier = "contrôle : " + c2.raison; continue; }
-          // 3. signature de ce qui est validé
-          const tableaux = [];
-          for (const t of h.tableaux) {
-            const p = (STYLE + decrire(t.image, h) + "." + FIN).slice(0, 1500);
+          if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
+          if (maigre && !forceIA) { journal.push(nom + ` : trop maigre (${pg.length} pages, ${Math.round(moy)} car./page)`); secours = secours || { h, nom }; continue; }
+          retenu = { h, nom }; break;
+        }
+        retenu = retenu || secours;
+        if (retenu) {
+          const h = retenu.h, tableaux = [];
+          for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
+            const p = (STYLE + decrire(t.image, h) + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + FIN).slice(0, 1500);
             tableaux.push({ pages: t.pages, img: t.image ? "/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString() : null });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
-          compter();
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, reste: MAXJ - fait - 1, modele: dbg ? brut.modele : undefined, journal: dbg ? brut.journal : undefined });
+          if (!dbg) compter();                             // les essais de mise au point ne comptent pas dans le plafond du jour
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
-        if (dernier && dernier.startsWith("contrôle")) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? dernier : undefined });
-        return J({ error: "Conteuse indisponible", busy: occupe, detail: dernier }, 502);
+        if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });
+        return J({ error: "Conteuse indisponible", busy: occupe, detail: dbg ? journal : undefined }, 502);
       }
 
       return new Response("titistoire-ai", { headers: cors });
@@ -224,15 +233,18 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
 - Un problème CONCRET qu'un enfant comprend. Le héros essaie, rate (souvent trois fois, avec de l'humour), doute, puis fait LUI-MÊME un choix difficile qui change tout.
 - Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses.
+- Le PREMIER tableau est une vraie ouverture d'album : il présente le héros par son prénom, dit qui il est, où il vit et ce qu'il aime, AVANT que le problème arrive. On ne commence jamais au milieu de l'action.
+- L'histoire se passe du début à la fin dans le lieu demandé (ou y revient).
 - Un vrai moment d'émotion, dit simplement. La fin fait écho au début et laisse une image douce.
 - N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours".
 - Histoire pour tout-petits : aucune violence, aucune blessure, aucune mort, aucune arme, rien d'effrayant, aucun gros mot. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
 
-FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Sur chaque page, UNE à TROIS phrases courtes (40 mots au maximum). Vocabulaire simple, guillemets français « » pour les dialogues.
+FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait DEUX ou TROIS phrases complètes (15 à 40 mots), qui se terminent par un point, jamais un simple bout de phrase. Vocabulaire simple, guillemets français « » pour les dialogues.
 Pour chaque tableau, "image" décrit EN ANGLAIS (20 à 40 mots) ce qu'on voit : qui est là, ce qu'ils font, leur expression, le lieu, la lumière. Dans "image", écris HERO pour le héros et FRIEND pour le deuxième personnage (jamais leur prénom), sans aucun texte écrit ni bulle.
 "heros" et "ami" décrivent EN ANGLAIS leur apparence en 12 à 20 mots (espèce, couleurs, un accessoire reconnaissable).
+"lieu" décrit EN ANGLAIS le décor en 8 à 15 mots (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
-{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","tableaux":[{"image":"...","pages":["...","...","..."]}]}`;
+{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"image":"...","pages":["...","...","..."]}]}`;
 }
 function extraireJSON(raw) {
   if (typeof raw !== "string") raw = JSON.stringify(raw || "");
@@ -240,50 +252,43 @@ function extraireJSON(raw) {
   if (a < 0 || b <= a) return null;
   const c = raw.slice(a, b + 1); try { JSON.parse(c); return c; } catch (e) { return null; }
 }
-async function ecrire(env, GKEY, hero, lieu, lecon, forceIA) {
-  const prompt = consigneHistoire(hero, lieu, lecon), sys = "Tu es une autrice pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour.";
-  let err = "aucun modèle disponible", busy = false;
-  const journal = [];
-  if (forceIA) {                                 // essai d'un modèle Workers AI précis (mise au point)
-    try { const ar = await env.AI.run(forceIA, { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
+/** Rédacteurs, du meilleur au moins bon (jugé sur essais : Gemini écrit nettement mieux que les modèles Workers AI). */
+function redacteurs(env, GKEY, forceIA) {
+  const sys = "Tu es une autrice pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour.";
+  const ia = modele => async prompt => {
+    try { const ar = await env.AI.run(modele, { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
       const c = extraireJSON(ar && (ar.response || ar.result || (ar.choices && ar.choices[0] && ar.choices[0].message && ar.choices[0].message.content)));
-      return c ? { txt: c, modele: forceIA } : { err: "illisible : " + JSON.stringify(ar).slice(0, 300) };
-    } catch (e) { return { err: String(e).slice(0, 300) }; }
-  }
-  if (env.OPENROUTER_KEY) {                       // modèles gratuits d'OpenRouter, le premier qui répond
-    const modeles = env.OPENROUTER_MODEL ? [env.OPENROUTER_MODEL] : ["nvidia/nemotron-3-ultra-550b-a55b:free", "nvidia/nemotron-3.5-super-vl:free", "google/gemma-4-31b-it:free"];
-    for (const model of modeles) {
-      const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 40000);
-      try {
-        const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method: "POST", signal: ctrl.signal,
-          headers: { "Authorization": "Bearer " + env.OPENROUTER_KEY, "content-type": "application/json", "HTTP-Referer": "https://djac57.github.io/titistoire/", "X-Title": "Titistoire" },
-          body: JSON.stringify({ model, messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 5000 }) });
-        const d = await r.json(), c = extraireJSON(d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content);
-        if (c) return { txt: c, modele: "or:" + model };
-        err = "OpenRouter : " + ((d && d.error && (d.error.message || JSON.stringify(d.error))) || "réponse illisible").slice(0, 160);
-      } catch (e) { err = "OpenRouter : " + String(e).slice(0, 100); } finally { clearTimeout(to); }
-      journal.push(model + " -> " + err);
-    }
-  }
-  if (GKEY) for (const model of (env.GEMINI_MODEL ? [env.GEMINI_MODEL] : ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"])) {
-    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 25000);
+      return c ? { txt: c } : { err: "réponse illisible" };
+    } catch (e) { return { err: String(e).slice(0, 120) }; }
+  };
+  const gemini = modele => async prompt => {
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 30000);
     try {
-      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GKEY)}`, {
+      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json" } }) });
       const gd = await gr.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
-      const c = t && extraireJSON(t); if (c) return { txt: c, modele: model };
-      const msg = (gd && gd.error && gd.error.message) || "réponse vide"; err = "Gemini : " + msg.slice(0, 140);
-      if (/high demand|overloaded|unavailable|503|429|quota|rate/i.test(msg)) busy = true;
-    } catch (e) { err = "Gemini : " + String(e).slice(0, 100); busy = true; } finally { clearTimeout(to); }
-    journal.push(model + " -> " + err);
-  }
-  if (env.AI) try {                               // dernier recours : Llama sur Workers AI
-    const ar = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
-    const c = extraireJSON(ar && (ar.response || ar.result)); if (c) return { txt: c, modele: "workers-ai-llama", journal };
-    err = "Llama : réponse illisible";
-  } catch (e) { err = "Llama : " + String(e).slice(0, 100); }
-  return { err, busy };
+      const c = t && extraireJSON(t); if (c) return { txt: c };
+      return { err: ((gd && gd.error && gd.error.message) || "réponse vide").slice(0, 120), busy: true };
+    } catch (e) { return { err: String(e).slice(0, 100), busy: true }; } finally { clearTimeout(to); }
+  };
+  const openrouter = modele => async prompt => {
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 40000);
+    try {
+      const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method: "POST", signal: ctrl.signal,
+        headers: { "Authorization": "Bearer " + env.OPENROUTER_KEY, "content-type": "application/json", "HTTP-Referer": "https://djac57.github.io/titistoire/", "X-Title": "Titistoire" },
+        body: JSON.stringify({ model: modele, messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 5000 }) });
+      const d = await r.json(), c = extraireJSON(d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content);
+      return c ? { txt: c } : { err: ((d && d.error && (d.error.message || JSON.stringify(d.error))) || "réponse illisible").slice(0, 120) };
+    } catch (e) { return { err: String(e).slice(0, 100) }; } finally { clearTimeout(to); }
+  };
+  if (forceIA) return [[forceIA, forceIA.startsWith("@cf/") ? ia(forceIA) : gemini(forceIA)]];
+  const L = [];
+  if (GKEY) for (const m of ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"]) L.push([m, gemini(m)]);
+  if (env.OPENROUTER_KEY) for (const m of ["nvidia/nemotron-3-ultra-550b-a55b:free", "google/gemma-4-31b-it:free"]) L.push(["or:" + m, openrouter(m)]);
+  if (GKEY) L.push(["gemini-flash-lite-latest (2e essai)", gemini("gemini-flash-lite-latest")]);
+  if (env.AI) for (const m of ["@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"]) L.push([m, ia(m)]);
+  return L;
 }
 const decrire = (image, h) => String(image || "").replace(/\bHERO\b/g, h.heros || "a cute little animal").replace(/\bFRIEND\b/g, h.ami || "a friendly little animal");
 
