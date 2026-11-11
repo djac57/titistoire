@@ -306,6 +306,7 @@ def main():
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--essai", default="")
     ap.add_argument("--refaire", action="store_true")
+    ap.add_argument("--petits", action="store_true", help="versions Lucioles (1-3 ans) : histoires/petits/, pistes dans assets/voix/<Voix>/petits/")
     a = ap.parse_args()
     # assets/voix/voix.txt : les voix proposées dans l'appli, une par ligne. La 1re est celle par défaut ;
     # elle est enregistrée pour TOUTES les histoires avant qu'on passe à la suivante.
@@ -314,7 +315,7 @@ def main():
     if a.voix:
         liste = [a.voix]
     key = cle()
-    stories = titi.load()
+    stories = titi.load_petits() if a.petits else titi.load()
     dispo = list(MODELES)                               # modèles dont le quota du jour n'est pas épuisé
 
     if a.essai:                                         # banc d'essai de voix
@@ -340,7 +341,7 @@ def main():
     fait = saute = 0
     for voix, s in [(v, s) for v in liste for s in stories]:
         a.voix = voix
-        OUT = BASE / voix
+        OUT = BASE / voix / "petits" if a.petits else BASE / voix
         if a.only and not s["id"].startswith(a.only):
             continue
         if not dispo:

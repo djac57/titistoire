@@ -114,6 +114,13 @@
 
   /* mode libre */
   .freeform{display:flex;flex-direction:column;gap:16px;background:var(--card);border:1px solid var(--card-bd);border-radius:var(--radius);padding:22px;box-shadow:var(--sh);}
+  .groupes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 18px;}
+  .groupes button{font-family:inherit;border:1.5px solid transparent;border-radius:16px;padding:9px 4px 8px;background:rgba(255,255,255,.10);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.15;}
+  .groupes button svg{width:30px;height:30px;}
+  .groupes button b{font-size:.86rem;font-weight:800;}
+  .groupes button small{font-size:.72rem;opacity:.8;font-weight:600;}
+  .groupes button.on{background:rgba(255,203,77,.20);border-color:#ffcb4d;}
+  .groupes button:disabled{opacity:.5;cursor:default;}
   .freeform label{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:1.02rem;color:var(--ink);}
   .freeform input,.freeform select{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
   .freeform input:focus,.freeform select:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
@@ -197,6 +204,7 @@
 <div class="wrap" id="wrap">
   <!-- accueil -->
   <section class="screen" id="s0">
+    <div class="groupes" id="groupes" role="tablist" aria-label="Âge de l'enfant"></div>
     <div class="season" id="season" hidden>
       <h2 id="seasonTitle"></h2>
       <p id="seasonSub"></p>
@@ -236,7 +244,7 @@
         <label>Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
-        <label>Pour quel âge ?<select id="fAge"><option value="petit">2-3 ans — toute simple</option><option value="moyen" selected>4-5 ans — une vraie aventure</option><option value="grand">6-7 ans — plus longue, langue soutenue</option></select></label>
+        <label>Pour quel âge ?<select id="fAge"><option value="petit">Lucioles, 1-3 ans — toute simple</option><option value="moyen" selected>Étoiles, 3-6 ans — une vraie aventure</option><option value="grand">Comètes, 6-8 ans — plus longue, langue soutenue</option></select></label>
         <button class="btn play" id="genBtn" style="align-self:center">Invente l'histoire</button>
         <div id="genStatus" class="genstatus"></div>
         <div id="genBar" class="genbar" hidden><span></span></div>
@@ -370,7 +378,22 @@ document.querySelectorAll('.back[data-go]').forEach(b=>b.addEventListener('click
 
 /* une histoire de saison n'est proposée que pendant sa période */
 function enSaison(sid){ const u=byId(UNIVERS,sid.split('_')[1]); return !u.saison||u.id===SAISON; }
-function renderHome(){
+/* ===== GROUPES D'ÂGE : Lucioles (1-3), Étoiles (3-6) ; Comètes (6-8) et Galaxies (8-10) à venir ===== */
+const ICO=p=>`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const GROUPES=[
+  ["lucioles","Lucioles","1-3 ans",ICO('<ellipse cx="24" cy="29" rx="8" ry="10"/><path d="M17 22c-7-2-10-8-7-12 4-2 9 2 10 9M31 22c7-2 10-8 7-12-4-2-9 2-10 9"/><path d="M21 29c1.5 2 4.500 2 6 0M24 6v3M14 40l-2 3M34 40l2 3M24 42v3"/>')],
+  ["etoiles","Étoiles","3-6 ans",ICO('<path d="M24 6l5.200 11.200 12.300 1.500-9.100 8.400 2.500 12.100L24 33.200l-10.900 6 2.500-12.100-9.100-8.400 12.300-1.500z"/><path d="M20.500 25c1.500 2.200 5.500 2.200 7 0"/>')],
+  ["cometes","Comètes","6-8 ans",ICO('<circle cx="31" cy="17" r="8"/><path d="M24 22L7 39M27 26L14 42M21 18L6 29"/>'),true],
+  ["galaxies","Galaxies","8-10 ans",ICO('<path d="M24 24c0-3 3-5 6-4 4 1 6 6 4 10-3 6-11 8-17 4-7-5-8-15-2-21 7-7 19-7 26 0"/><circle cx="24" cy="24" r="1.600"/><path d="M40 34l.100 0M8 38l.100 0M38 8l.100 0"/>'),true]];
+function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; }catch(e){} return 'etoiles'; }
+function renderGroupes(){ const box=$('groupes'); if(!box) return; box.innerHTML=''; const g0=groupe(), aLucioles=Object.values(STORIES).some(x=>x.p);
+  GROUPES.forEach(([id,nom,age,ico,bientot])=>{ const b=document.createElement('button'); const off=bientot||(id==='lucioles'&&!aLucioles);
+    b.className=id===g0?'on':''; b.disabled=!!off; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===g0?'true':'false');
+    b.innerHTML=ico+`<b>${nom}</b><small>${off?'bientôt':age}</small>`;
+    b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderGroupes(); });
+    box.appendChild(b); });
+  const fa=$('fAge'); if(fa&&!fa.dataset.choisi) fa.value=g0==='lucioles'?'petit':'moyen'; }
+function renderHome(){ renderGroupes();
   const box=$('season');
   if(SAISON){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
     $('seasonTitle').textContent=S.titre; $('seasonSub').textContent=S.sub;
@@ -473,8 +496,9 @@ function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.i
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
 async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
-  const pages=[], sc=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
-  book={id:sid,titre:st.t,pages,sc,im:st.im||null,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,piste:null,libre:null};
+  const petit=groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
+  const pages=[], sc=[]; if(petit) st.p.forEach((t,k)=>{ pages.push(t); sc.push(k+1); }); else st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
+  book={id:sid,petit,titre:st.t,pages,sc,im:petit?null:(st.im||null),imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,piste:null,libre:null};
   showBook();
   const pb=$('playBtn'); pb.disabled=true;                      // le temps de savoir si la voix enregistrée existe (fichier local, très rapide)
   await loadVoix(sid);
@@ -483,8 +507,9 @@ async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u
 async function loadVoix(sid){
   const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
   for(const v of ordre){
-    try{ const r=await fetch(`assets/voix/${v}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
-      if(book&&book.id===sid&&j&&j.sc){ j.dir=v; book.voix=j; } noteVoix(); return; }catch(e){}
+    const sous=book&&book.petit?'/petits':'';
+    try{ const r=await fetch(`assets/voix/${v}${sous}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
+      if(book&&book.id===sid&&j&&j.sc){ j.dir=v+sous; j.v=v; book.voix=j; } noteVoix(); return; }catch(e){}
   }
   noteVoix();
 }
@@ -683,7 +708,7 @@ function preparerVoix(){
   P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
 }
 $('genBtn').addEventListener('click',generateFree);
-try{ const a0=localStorage.getItem('titi_age'); if(a0&&[...$('fAge').options].some(o=>o.value===a0)) $('fAge').value=a0; }catch(e){}   // l'âge choisi est gardé d'une fois sur l'autre
+$('fAge').addEventListener('change',()=>{ $('fAge').dataset.choisi='1'; });       // sans choix explicite, l'âge suit le groupe choisi à l'accueil
 
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
 function savedAll(){ try{return JSON.parse(localStorage.getItem('titi_saved')||'[]');}catch(e){return [];} }
@@ -713,7 +738,7 @@ function curVoice(){ return conteur()==="Algieba"?"IKne3meq5aSn9XLyUdCD":"Xb7hH8
 /* Dit clairement quelle voix on va entendre : la voix choisie n'est pas forcément déjà enregistrée pour cette histoire. */
 function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v=>(CONTEURS.find(c=>c[0]===v)||[0,v])[1];
   if(!book.id){ n.textContent=(book.piste||(book.voix&&book.voix.sc[1]))?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
-  const d=book.voix&&book.voix.dir, complet=d&&book.sc.every(x=>book.voix.sc[x]);
+  const d=book.voix&&(book.voix.v||book.voix.dir), complet=d&&book.sc.every(x=>book.voix.sc[x]);
   n.textContent = complet&&d===conteur() ? '' :
     complet ? `« ${nom(conteur())} » n'est pas encore enregistrée pour cette histoire : tu entendras « ${nom(d)} ».` :
     `Cette histoire n'est pas encore enregistrée : lecture provisoire, la belle voix arrive dans quelques jours.`; }

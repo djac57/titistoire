@@ -12,6 +12,7 @@ Format d'un fichier d'histoires :
 Dans les lignes « @ », {nom} est remplacé par la description du personnage
 (pour un héros : avec le costume de l'univers ; {nom-} = sans costume).
 """
+import sys
 import json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -84,6 +85,27 @@ def load():
     if len(ids) != len(set(ids)):
         raise ValueError("identifiant d'histoire en double")
     return stories
+
+
+def load_petits():
+    """Versions « Lucioles » (1-3 ans) : histoires/petits/*.txt, une ligne par tableau (8 lignes), lue sur la 1re image du tableau.
+    -> liste d'histoires au même format que load() : 8 tableaux d'une page. Une histoire incomplète est ignorée (avec un avertissement)."""
+    c = cast(); out = []; cur = None
+    for f in sorted((SRC / "petits").glob("*.txt")):
+        for raw in f.read_text(encoding="utf-8").split("\n"):
+            line = raw.strip()
+            if not line or line.startswith("#"): continue
+            if line.startswith("==="):
+                sid = line.strip("= ").strip(); hero, _, univ = sid.partition("_")
+                cur = {"id": sid, "hero": hero, "univ": univ, "titre": "", "scenes": []} if hero in c["heros"] and univ in c["costumes"] else None
+                if cur: out.append(cur)
+            elif cur is not None:
+                if line.startswith("titre:"): cur["titre"] = line.partition(":")[2].strip()
+                elif not line.startswith(("@", ">")): cur["scenes"].append({"pages": [line]})
+    bons = [s for s in out if len(s["scenes"]) == 8 and all(len(sc["pages"][0]) <= 200 for sc in s["scenes"])]
+    for s in out:
+        if s not in bons: print(f"⚠️  petits/{s['id']} : {len(s['scenes'])} lignes (8 attendues, 200 car. au plus) — ignorée", file=sys.stderr)
+    return bons
 
 
 def check(stories):

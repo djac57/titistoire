@@ -250,7 +250,7 @@ async function signatureOK(texte, sig, cle) {
 
 /* ===================== contrôle du contenu ===================== */
 async function controle(env, texte, quoi, age = "moyen") {
-  const ans = { petit: "3 ANS", moyen: "4-5 ANS", grand: "6-7 ANS" }[age] || "4-5 ANS";
+  const ans = { petit: "2 ANS", moyen: "4 ANS", grand: "7 ANS" }[age] || "4 ANS";
   const mot = motInterdit(texte);
   if (mot) return { ok: false, raison: "mot interdit : " + mot };
   if (!env.AI) return { ok: false, raison: "contrôle indisponible" };
@@ -302,12 +302,12 @@ async function imageDouce(env, b64) {
 /* ===================== écriture de l'histoire ===================== */
 /* Trois âges : la langue, la longueur des pages et la complexité de l'intrigue changent. */
 const AGES = {
-  petit: { qui: "les 2-3 ans", page: "UNE ou DEUX phrases très courtes (8 à 20 mots)", mini: 35,
+  petit: { qui: "les 1-3 ans", page: "UNE ou DEUX phrases très courtes (8 à 20 mots)", mini: 35,
     ton: "Histoire toute simple pour un tout-petit : une seule petite aventure, des gestes et des bruits, des mots de tous les jours, des répétitions rassurantes et des onomatopées. Un mot nouveau de temps en temps, pas plus." },
-  moyen: { qui: "les 4-5 ans", page: "DEUX ou TROIS phrases complètes (20 à 45 mots)", mini: 68,
-    ton: "Histoire pour un enfant de 4-5 ans qui aime qu'on lui raconte de vraies aventures : une intrigue avec des surprises, des personnages qui ont du caractère, de l'humour, une langue riche." },
-  grand: { qui: "les 6-7 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
-    ton: "Histoire pour un enfant de 6-7 ans, grand lecteur d'albums : une intrigue construite avec un vrai retournement, un dilemme pour le héros, un second personnage qui a ses propres envies, de l'humour fin, du suspense doux, une langue soutenue (subordonnées, comparaisons, mots précis et savoureux)." },
+  moyen: { qui: "les 3-6 ans", page: "DEUX ou TROIS phrases complètes (20 à 45 mots)", mini: 68,
+    ton: "Histoire pour un enfant de 3 à 6 ans qui aime qu'on lui raconte de vraies aventures : une intrigue avec des surprises, des personnages qui ont du caractère, de l'humour, une langue riche." },
+  grand: { qui: "les 6-8 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
+    ton: "Histoire pour un enfant de 6 à 8 ans, grand lecteur d'albums : une intrigue construite avec un vrai retournement, un dilemme pour le héros, un second personnage qui a ses propres envies, de l'humour fin, du suspense doux, une langue soutenue (subordonnées, comparaisons, mots précis et savoureux)." },
 };
 function consigneHistoire(hero, lieu, lecon, age = "moyen") {
   const A = AGES[age] || AGES.moyen;

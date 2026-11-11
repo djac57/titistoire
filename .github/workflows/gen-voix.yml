@@ -50,7 +50,9 @@ jobs:
           VOIX: ${{ github.event.inputs.voix }}
         run: |
           if [ -z "$GEMINI_API_KEY" ]; then echo "::error::Secret GEMINI_API_KEY requis"; exit 1; fi
-          python3 tools/gen_voix.py ${ONLY:+--only "$ONLY"} ${VOIX:+--voix "$VOIX"}
+          # d'abord les grandes histoires (Étoiles), puis leurs versions courtes (Lucioles)
+          python3 tools/gen_voix.py ${ONLY:+--only "$ONLY"} ${VOIX:+--voix "$VOIX"} || true
+          python3 tools/gen_voix.py --petits ${ONLY:+--only "$ONLY"} ${VOIX:+--voix "$VOIX"}
 
       - name: Committer les voix et republier le site
         if: always()
