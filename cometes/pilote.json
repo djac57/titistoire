@@ -1,11 +1,11 @@
 {
-  "sortie": "cometes/pilote",
+  "sortie": "cometes/pilote2",
   "style": "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes, gentle cartoon children with big friendly eyes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles. ",
   "personnages": {
     "colette": "one small seven-year-old girl, the smallest of the group, with fair freckled skin, big green eyes and a wild mop of curly bright ginger hair, wearing bright red dungarees over a white t-shirt and white sneakers",
-    "hector": "one stocky eight-year-old boy with warm brown skin, short black curly hair and round black glasses, wearing a turquoise sleeveless jacket with two big pockets over a cream jumper, brown shorts, and a short yellow pencil tucked behind one ear",
-    "ninon": "one small round seven-year-old girl with rosy pale skin, soft brown eyes and very fluffy cloud-like curly white-blond hair, wearing a violet pinafore dress over a white blouse and grey tights",
-    "ulysse": "one very tall thin eight-year-old boy, a full head taller than the other children, with tan skin, a long neck, dark eyes and straight jet black hair falling to his chin, wearing a short bright yellow raincoat with the hood down and navy trousers"
+    "hector": "one stocky eight-year-old boy with warm brown skin, short black curly hair and round black glasses, wearing a turquoise sleeveless jacket with two big pockets over a cream jumper, brown shorts, brown lace-up boots, and a short yellow pencil tucked behind one ear",
+    "ninon": "one small round seven-year-old girl with rosy pale skin, soft brown eyes and very fluffy cloud-like curly golden blond hair, wearing a violet pinafore dress over a white blouse and grey tights",
+    "ulysse": "one very tall thin eight-year-old boy, a full head taller than the other children, with tan skin, a long neck, dark eyes and short messy jet black hair with one tuft sticking up, wearing a short bright yellow raincoat with the hood down and navy trousers"
   },
   "scenes": {
     "1_quai": "On a sunny canal quay beside a green barge, in the morning, {ulysse} wobbles on an old blue bicycle, looking worried, while {hector} holds the back of the saddle with both hands, smiling. Exactly two children in the picture.",
