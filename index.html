@@ -617,9 +617,13 @@ async function generateFree(){
     if(it.sig) chercherVoix(it).catch(()=>{});             // la voix se prépare pendant que les images se dessinent
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
     const urls=it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)); let faites=0;
-    clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; }; maj();
-    const charge=u=>new Promise(res=>{ const im=new Image(); let n=0; im.onload=()=>{ faites++; maj(); res(); }; im.onerror=()=>{ if(n++<1) im.src=u+"&r=2"; else res(); }; im.src=u; });
-    await Promise.race([Promise.all(urls.map(charge)), new Promise(r=>setTimeout(r,100000))]);
+    clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; };
+    const charge=(u,compte)=>new Promise(res=>{ const im=new Image(); let n=0; im.onload=()=>{ if(compte){ faites++; maj(); } res(); }; im.onerror=()=>{ if(n++<1) im.src=u+"&r=2"; else res(); }; im.src=u; });
+    // D'abord les fiches des personnages (une image de référence chacun) : toutes les pages sont ensuite dessinées d'après elles.
+    if(Array.isArray(out.fiches)&&out.fiches.length){ gstatus('La conteuse dessine les personnages…'); fill.style.width='55%';
+      await Promise.race([Promise.all(out.fiches.map(u=>charge(AIW+u,false))), new Promise(r=>setTimeout(r,60000))]); }
+    maj();
+    await Promise.race([Promise.all(urls.map(u=>charge(u,true))), new Promise(r=>setTimeout(r,150000))]);
     gstatus(''); openFree(it,true);
   }catch(e){ gstatus('Raté ('+e.message+'). Réessaie.'); }
   finally{ endBar(); }

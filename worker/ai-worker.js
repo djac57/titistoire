@@ -35,7 +35,7 @@ export default {
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
     // Cache de bord : une même page lue ou une même image demandée deux fois n'est facturée qu'une fois.
-    const cachable = req.method === "GET" && (u.pathname.startsWith("/tts") || u.pathname.startsWith("/img")) && !u.searchParams.get("debug");
+    const cachable = req.method === "GET" && (u.pathname.startsWith("/tts") || u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) && !u.searchParams.get("debug");
     const ckey = new Request(u.toString(), { method: "GET" });
     if (cachable) { try { const hit = await caches.default.match(ckey); if (hit) return hit; } catch (e) {} }
     const keep = (resp, key = ckey) => { if (resp.ok) { try { ctx.waitUntil(caches.default.put(key, resp.clone())); } catch (e) {} } return resp; };
@@ -64,15 +64,38 @@ export default {
       }
 
       // ---------- IMAGE : uniquement pour une description SIGNÉE par /story ----------
-      if (u.pathname.startsWith("/img")) {
-        const p = (u.searchParams.get("p") || "").slice(0, 1500), s = u.searchParams.get("s") || "";
+      if (u.pathname.startsWith("/fiche")) {                 // fiche d'un personnage (image de référence), pour une description signée
+        const p = (u.searchParams.get("p") || "").slice(0, 1800), s = u.searchParams.get("s") || "";
         if (!p || !s || !cleSig || !(await signatureOK("img:" + p, s, cleSig))) return new Response("image non autorisée", { status: 403, headers: cors });
         if (!env.AI) return new Response("image indisponible", { status: 502, headers: cors });
-        const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p, steps: 8 });
-        if (!r || !r.image) return new Response("image indisponible", { status: 502, headers: cors });
-        const vue = await imageDouce(env, r.image);
+        const f = await ficheDe(env, ctx, p);
+        if (!f.img) return new Response("fiche indisponible : " + f.err, { status: f.refus ? 451 : 502, headers: cors });
+        return keep(new Response(f.img, { headers: { "content-type": typeImage(f.img), "cache-control": "public, max-age=31536000", ...cors } }));
+      }
+      if (u.pathname.startsWith("/img")) {
+        const p = (u.searchParams.get("p") || "").slice(0, 1800), s = u.searchParams.get("s") || "";
+        const fa = (u.searchParams.get("a") || "").slice(0, 1800), fb = (u.searchParams.get("b") || "").slice(0, 1800);   // fiches des personnages présents dans l'image
+        if (!p || !s || !cleSig || !(await signatureOK("img:" + p + (fa ? "|" + fa : "") + (fb ? "|" + fb : ""), s, cleSig))) return new Response("image non autorisée", { status: 403, headers: cors });
+        if (!env.AI) return new Response("image indisponible", { status: 502, headers: cors });
+        let b64 = null, par = "", journal = [];
+        if (fa || fb) {                                      // dessin d'après les fiches : mêmes personnages d'une page à l'autre
+          const refs = [];
+          for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
+          if (refs.length === [fa, fb].filter(Boolean).length) {
+            for (let essai = 0; essai < 2 && !b64; essai++) {
+              try { b64 = await flux2(env, MODELE_PAGE, p, refs); par = MODELE_PAGE; } catch (e) { journal.push(String(e).slice(0, 120)); }
+            }
+          }
+        }
+        if (!b64) {                                          // secours : ancien modèle, sans fiche (le texte décrit tout)
+          const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p.slice(0, 1500), steps: 8 });
+          b64 = r && r.image; par = "flux-1-schnell";
+        }
+        if (!b64) return new Response("image indisponible", { status: 502, headers: cors });
+        const vue = await imageDouce(env, b64);
         if (!vue.ok) return new Response("image écartée par le contrôle", { status: 451, headers: { "x-controle": encodeURIComponent(String(vue.raison || "").slice(0, 300)), "access-control-expose-headers": "x-controle", ...cors } });
-        return keep(new Response(octets(r.image), { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000", ...cors } }));
+        const img = octets(b64);
+        return keep(new Response(img, { headers: { "content-type": typeImage(img), "cache-control": "public, max-age=31536000", "x-dessin": par, "x-journal": encodeURIComponent(journal.join(" | ").slice(0, 300)), "access-control-expose-headers": "x-dessin, x-journal", ...cors } }));
       }
 
       // ---------- VOIX : uniquement pour un texte SIGNÉ par /story ----------
@@ -140,19 +163,31 @@ export default {
         retenu = retenu || secours;
         if (retenu) {
           const h = retenu.h, tableaux = [];
+          // FICHES : une image de référence par personnage, dessinée une fois ; chaque page est ensuite dessinée d'après elles.
+          const ficheP = d => d ? (STYLE + "Character reference sheet of one single character: " + d + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture.").slice(0, 1800) : "";
+          const fH = ficheP(h.heros), fA = ficheP(h.ami), fiches = [];
+          for (const fp of [fH, fA]) if (fp) fiches.push("/fiche?" + new URLSearchParams({ p: fp, s: await signer("img:" + fp, cleSig) }).toString());
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
             const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
             for (let k = 0; k < t.pages.length; k++) {
               const d = t.images[k] || t.images[t.images.length - 1] || "";
               if (!d) { imgs.push(null); continue; }
-              const p = (STYLE + decrire(d, h) + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + FIN).slice(0, 1500);
-              imgs.push("/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString());
+              const aH = /\bHERO\b/.test(d) && fH, aA = /\bFRIEND\b/.test(d) && fA; let n = 0;
+              const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same clothes and accessories)` : ""); }; };
+              const nomH = qui(h.heros, "the hero", aH), nomA = qui(h.ami, "the friend", aA);
+              const texte = d.replace(/\b(HERO|FRIEND)\b/g, m => m === "HERO" ? nomH() : nomA());      // l'ordre d'apparition donne le numéro de l'image de référence
+              const premierH = d.search(/\bHERO\b/), premierA = d.search(/\bFRIEND\b/);
+              const ordre = (aH && aA && premierA < premierH) ? [fA, fH] : [aH ? fH : "", aA ? fA : ""].filter(Boolean);
+              const p = (STYLE + texte + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + " Full detailed background scene filling the whole picture. Draw only the characters described here, each one exactly once, as separate individuals; do not add any extra animal, creature or person." + FIN).slice(0, 1800);
+              const q = { p }; if (ordre[0]) q.a = ordre[0]; if (ordre[1]) q.b = ordre[1];
+              q.s = await signer("img:" + p + (q.a ? "|" + q.a : "") + (q.b ? "|" + q.b : ""), cleSig);
+              imgs.push("/img?" + new URLSearchParams(q).toString());
             }
             tableaux.push({ pages: t.pages, imgs, img: imgs[0] });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
           if (!dbg) compter();                             // les essais de mise au point ne comptent pas dans le plafond du jour
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
         if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });
         return J({ error: "Conteuse indisponible", busy: occupe, detail: dbg ? journal : undefined }, 502);
@@ -166,6 +201,33 @@ export default {
 };
 
 const propre = s => String(s || "").replace(/[\u0000-\u001f<>{}`]/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
+
+/* ===================== dessin d'après fiches (FLUX.2) ===================== */
+const MODELE_PAGE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_FICHE = "@cf/black-forest-labs/flux-2-klein-9b";
+const typeImage = o => (o && o[0] === 0x89 && o[1] === 0x50) ? "image/png" : (o && o[0] === 0x52 && o[1] === 0x49) ? "image/webp" : "image/jpeg";
+/** -> image en base64. `refs` : images de référence (octets), dans l'ordre « image 1, image 2 » du texte. */
+async function flux2(env, modele, prompt, refs = [], cote = 768) {
+  const form = new FormData(); form.append("prompt", prompt); form.append("width", String(cote)); form.append("height", String(cote));
+  refs.forEach((o, i) => form.append("input_image_" + i, new Blob([o], { type: typeImage(o) }), "ref" + i + ".jpg"));
+  const rq = new Request("https://form.invalid/", { method: "POST", body: form });
+  const r = await env.AI.run(modele, { multipart: { body: rq.body, contentType: rq.headers.get("content-type") } });
+  if (!r || !r.image) throw new Error("pas d'image : " + JSON.stringify(r || null).slice(0, 100));
+  return r.image;
+}
+/** Fiche d'un personnage : dessinée une fois, contrôlée par le modèle de vision, puis gardée en cache de bord. */
+async function ficheDe(env, ctx, p) {
+  const h = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(p)))].map(b => b.toString(16).padStart(2, "0")).join("");
+  const cle = new Request("https://cache.titistoire/fiche/" + h, { method: "GET" });
+  try { const hit = await caches.default.match(cle); if (hit) return { img: new Uint8Array(await hit.arrayBuffer()) }; } catch (e) {}
+  let b64 = null, err = "";
+  for (let essai = 0; essai < 3 && !b64; essai++) { try { b64 = await flux2(env, MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); } }
+  if (!b64) return { err };
+  const vue = await imageDouce(env, b64);
+  if (!vue.ok) return { err: "écartée par le contrôle", refus: true };
+  const img = octets(b64);
+  try { await caches.default.put(cle, new Response(img, { headers: { "content-type": typeImage(img), "cache-control": "public, max-age=31536000" } })); } catch (e) {}
+  return { img };
+}
 
 /* ===================== signatures ===================== */
 async function signer(texte, cle) {
@@ -246,9 +308,14 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Histoire pour tout-petits : aucune violence, aucune blessure, aucune mort, aucune arme, rien d'effrayant, aucun gros mot. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
 
 FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait DEUX ou TROIS phrases complètes (15 à 40 mots), qui se terminent par un point, jamais un simple bout de phrase. Vocabulaire simple, guillemets français « » pour les dialogues.
-Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Dans ces descriptions, écris HERO pour le héros et FRIEND pour le deuxième personnage (jamais leur prénom), sans aucun texte écrit ni bulle, avec deux personnages au plus par image.
-"heros" et "ami" décrivent EN ANGLAIS leur apparence en 12 à 20 mots (espèce, couleurs, un accessoire reconnaissable).
-"lieu" décrit EN ANGLAIS le décor en 8 à 15 mots (il sera rappelé dans chaque illustration).
+Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
+  * écris HERO pour le héros et FRIEND pour le deuxième personnage, jamais leur prénom, et ne redécris PAS leur apparence (elle est fixée par "heros" et "ami") ;
+  * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte la page, pas la page d'avant ni celle d'après ;
+  * deux personnages au plus par image ; si un figurant est indispensable, donne son espèce précise et son nombre ("one green frog"), jamais "friends", "others", "animals", "everyone", et jamais la même espèce que HERO ou FRIEND ;
+  * un objet important de l'histoire est décrit avec EXACTEMENT les mêmes mots (couleur, forme) à chaque image où il apparaît ;
+  * rien d'écrit dans l'image : pas de panneau, lettre, livre ouvert, bulle ; pas d'humain ; pas de métaphore ni d'expression imagée.
+"heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots : UNE espèce animale précise (deux espèces DIFFÉRENTES, faciles à distinguer), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Commence par "one small ...".
+"lieu" décrit EN ANGLAIS le décor en 12 à 20 mots : l'endroit, deux ou trois éléments fixes reconnaissables, le moment de la journée et les couleurs (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
 {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["...","...","..."]}]}`;
 }
