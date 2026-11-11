@@ -310,6 +310,11 @@ const AGES = {
 };
 function consigneHistoire(hero, lieu, lecon, age = "moyen") {
   const A = AGES[age] || AGES.moyen;
+  A.langue = age === "petit"
+    ? `- UNE LANGUE TOUTE SIMPLE ET JOLIE : des mots que dit un enfant de 2-3 ans (pas de mots savants comme « grève », « réplique », « tout de go »), des phrases courtes, sujet-verbe-complément. Les verbes de parole restent simples et variés (demande, répond, crie, chuchote, rit) ; « dit » au plus cinq fois.`
+    : `- UNE LANGUE RICHE ET SOIGNÉE, celle des beaux albums qu'un parent a plaisir à lire : le mot juste plutôt que le mot vague (« il trottine », « il se faufile », « il dégringole » plutôt que « il va » ; « une brindille », « un talus », « une ribambelle » plutôt que « un truc », « plein de »). Dans chaque tableau, glisse un ou deux beaux mots qu'un enfant ne connaît peut-être pas encore mais comprend grâce à la phrase (« il grelotte de froid », « elle est penaude, les oreilles toutes basses »).
+- Les verbes de parole sont VARIÉS et disent l'émotion : répond, demande, s'étonne, s'écrie, murmure, chuchote, ajoute, soupire, bougonne, marmonne, propose, annonce, s'exclame, proteste, avoue, promet, réplique… « dit » apparaît AU PLUS TROIS FOIS dans toute l'histoire, jamais deux fois de suite. Souvent, pas de verbe de parole du tout : un geste suffit (« Nina hausse les épaules. "Bof." »).
+- Des phrases de longueurs différentes : une longue qui déroule, puis une toute courte qui claque. Ne commence pas deux phrases de suite par le prénom du héros ni par « Il » ou « Elle ».`;
   return `Tu es une autrice d'albums jeunesse pour ${A.qui} (dans l'esprit des histoires Lunii et des albums de l'École des loisirs). ${A.ton} Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
 Héros : ${hero || "un petit animal attachant"}. Lieu : ${lieu || "un endroit qui fait rêver"}. Ce dont l'histoire parle, en profondeur : ${lecon || "la gentillesse"}.
 
@@ -318,15 +323,13 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
 - Un problème CONCRET qu'un enfant comprend. Des péripéties qui surprennent : évite le schéma mécanique « trois essais ratés puis la solution ». Chaque tentative est différente, l'une d'elles tourne autrement que prévu, quelqu'un change d'avis, un détail du début resservira à la fin. Le héros doute, puis fait LUI-MÊME un choix qui change tout.
 - Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses.
-- UNE LANGUE RICHE ET SOIGNÉE, celle des beaux albums qu'un parent a plaisir à lire : le mot juste plutôt que le mot vague (« il trottine », « il se faufile », « il dégringole » plutôt que « il va » ; « une brindille », « un talus », « une ribambelle » plutôt que « un truc », « plein de »). Dans chaque tableau, glisse un ou deux beaux mots qu'un enfant ne connaît peut-être pas encore mais comprend grâce à la phrase (« il grelotte de froid », « elle est penaude, les oreilles toutes basses »).
-- Les verbes de parole sont VARIÉS et disent l'émotion : répond, demande, s'étonne, s'écrie, murmure, chuchote, ajoute, soupire, bougonne, marmonne, propose, annonce, s'exclame, proteste, avoue, promet, réplique… « dit » apparaît AU PLUS TROIS FOIS dans toute l'histoire, jamais deux fois de suite. Souvent, pas de verbe de parole du tout : un geste suffit (« Nina hausse les épaules. "Bof." »).
-- Des phrases de longueurs différentes : une longue qui déroule, puis une toute courte qui claque. Ne commence pas deux phrases de suite par le prénom du héros ni par « Il » ou « Elle ».
+${A.langue}
 - Chaque page fait avancer l'histoire : pas de remplissage, pas de phrase qui répète la précédente avec d'autres mots.
 - Le PREMIER tableau est une vraie ouverture d'album : il présente le héros par son prénom, dit qui il est, où il vit et ce qu'il aime, AVANT que le problème arrive. On ne commence jamais au milieu de l'action.
 - L'histoire se passe du début à la fin dans le lieu demandé (ou y revient).
 - Un vrai moment d'émotion, dit simplement. La fin fait écho au début et laisse une image douce.
 - N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours".
-- Histoire pour tout-petits : aucune violence, aucune blessure, aucune mort, aucune arme, rien d'effrayant, aucun gros mot. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
+- Histoire douce, qui sera relue par un contrôleur très strict : aucune violence, aucune blessure, aucune mort, aucune arme, aucun gros mot, et AUCUN DANGER PHYSIQUE ni scène inquiétante (pas de noyade, de chute, d'eau glacée ou sombre, d'orage menaçant, d'enfant perdu la nuit, de créature qui fait peur). Le suspense vient des sentiments et des malentendus, jamais d'un péril. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
 
 FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
 Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
@@ -367,7 +370,8 @@ function redacteurs(env, GKEY, forceIA) {
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json", ...(/lite/.test(modele) ? {} : { thinkingConfig: { thinkingBudget: 0 } }) } }) });
       const gd = await gr.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
       const c = t && extraireJSON(t); if (c) return { txt: c };
-      return { err: ((gd && gd.error && gd.error.message) || "réponse vide").slice(0, 120), busy: true };
+      const c0 = gd && gd.candidates && gd.candidates[0];
+      return { err: ((gd && gd.error && gd.error.message) || ("réponse vide" + (c0 ? " (" + (c0.finishReason || "?") + ", " + String(t || "").length + " car.)" : (gd && gd.promptFeedback ? " (" + JSON.stringify(gd.promptFeedback).slice(0, 60) + ")" : "")))).slice(0, 120), busy: true };
     } catch (e) { return { err: String(e).slice(0, 100), busy: true }; } finally { clearTimeout(to); }
   };
   const openrouter = modele => async prompt => {
