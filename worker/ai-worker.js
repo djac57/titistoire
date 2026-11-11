@@ -71,7 +71,7 @@ export default {
         const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p, steps: 8 });
         if (!r || !r.image) return new Response("image indisponible", { status: 502, headers: cors });
         const vue = await imageDouce(env, r.image);
-        if (!vue.ok) return new Response("image écartée par le contrôle", { status: 451, headers: { "x-controle": encodeURIComponent(String(vue.raison || "").slice(0, 80)), ...cors } });
+        if (!vue.ok) return new Response("image écartée par le contrôle", { status: 451, headers: { "x-controle": encodeURIComponent(String(vue.raison || "").slice(0, 300)), "access-control-expose-headers": "x-controle", ...cors } });
         return keep(new Response(octets(r.image), { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000", ...cors } }));
       }
 
@@ -183,18 +183,26 @@ async function controle(env, texte, quoi) {
   } catch (e) { return { ok: false, raison: "contrôle en erreur : " + String(e).slice(0, 80) }; }
 }
 
-/** Dernier filet : un modèle de vision regarde l'image avant qu'elle parte. */
+/** Dernier filet : un modèle de vision regarde l'image avant qu'elle parte.
+    On essaie plusieurs modèles ; le premier qui répond décide ; si aucun ne répond, l'image est écartée.
+    (llama-3.2-11b-vision est volontairement absent : sa licence exclut les utilisateurs de l'Union européenne.) */
+const QUESTION_VISION = "This image will be shown to a 3-year-old child. Is it a gentle, friendly picture-book illustration, with NO violence, blood, weapons, injuries, nudity, sexual content, frightening or disturbing imagery, and no readable rude words? Answer with one word: YES or NO.";
 async function imageDouce(env, b64) {
-  try {
-    const r = await env.AI.run("@cf/meta/llama-3.2-11b-vision-instruct", {
-      messages: [{ role: "user", content: [
-        { type: "text", text: "This image will be shown to a 3-year-old child. Is it a gentle, friendly picture-book illustration, with NO violence, blood, weapons, injuries, nudity, sexual content, frightening or disturbing imagery, and no readable rude words? Answer with one word: YES or NO." },
-        { type: "image_url", image_url: { url: "data:image/jpeg;base64," + b64 } }
-      ] }], max_tokens: 8, temperature: 0
-    });
-    const t = String((r && r.response) || "").trim();
-    return /^YES\b/i.test(t) ? { ok: true } : { ok: false, raison: "vision : " + (t || "sans réponse") };
-  } catch (e) { return { ok: false, raison: "vision en erreur : " + String(e).slice(0, 60) }; }
+  const essais = [
+    ["@cf/mistralai/mistral-small-3.1-24b-instruct", () => ({ messages: [{ role: "user", content: [{ type: "text", text: QUESTION_VISION }, { type: "image_url", image_url: { url: "data:image/jpeg;base64," + b64 } }] }], max_tokens: 8, temperature: 0 })],
+    ["@cf/google/gemma-3-12b-it", () => ({ messages: [{ role: "user", content: [{ type: "text", text: QUESTION_VISION }, { type: "image_url", image_url: { url: "data:image/jpeg;base64," + b64 } }] }], max_tokens: 8, temperature: 0 })],
+    ["@cf/llava-hf/llava-1.5-7b-hf", () => ({ image: [...octets(b64)], prompt: QUESTION_VISION, max_tokens: 8 })],
+  ];
+  const erreurs = [];
+  for (const [modele, entree] of essais) {
+    try {
+      const r = await env.AI.run(modele, entree());
+      const t = String((r && (r.response || r.description || (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content))) || "").trim();
+      if (!t) { erreurs.push(modele.split("/").pop() + " : vide"); continue; }
+      return /^\W*YES\b/i.test(t) ? { ok: true, par: modele } : { ok: false, raison: "vision (" + modele.split("/").pop() + ") : " + t.slice(0, 30) };
+    } catch (e) { erreurs.push(modele.split("/").pop() + " : " + String(e).slice(0, 50)); }
+  }
+  return { ok: false, raison: "vision indisponible — " + erreurs.join(" | ") };
 }
 
 /* ===================== écriture de l'histoire ===================== */
