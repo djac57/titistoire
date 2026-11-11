@@ -22,7 +22,8 @@ import argparse, base64, difflib, io, json, os, pathlib, re, shutil, subprocess,
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import titi
 
-OUT = titi.ROOT / "assets" / "voix"
+BASE = titi.ROOT / "assets" / "voix"
+OUT = BASE            # dossier de la voix en cours : assets/voix/<Voix>/ (réglé dans main)
 MODELES = [m.strip() for m in os.environ.get("TITI_TTS_MODELES", "gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview,gemini-2.5-flash-preview-tts").split(",") if m.strip()]
 VOIX_DEFAUT = "Sulafat"
 # Format « profil + notes + TRANSCRIPT » : seul le texte sous TRANSCRIPT est lu.
@@ -261,20 +262,12 @@ def main():
     ap.add_argument("--essai", default="")
     ap.add_argument("--refaire", action="store_true")
     a = ap.parse_args()
-    # La voix choisie est mémorisée dans assets/voix/voix.txt : les passages automatiques la reprennent.
-    fv = OUT / "voix.txt"
-    if a.voix and not a.essai:
-        OUT.mkdir(parents=True, exist_ok=True); fv.write_text(a.voix.strip() + "\n")
-    # voix.txt : 1re ligne = voix par défaut ; lignes « heros=Voix » = voix propre aux histoires de ce héros
-    par_heros, defaut = {}, ""
-    for l in (fv.read_text().split("\n") if fv.exists() else []):
-        l = l.strip()
-        if "=" in l:
-            k, _, v = l.partition("="); par_heros[k.strip()] = v.strip()
-        elif l and not defaut:
-            defaut = l
-    forcee = a.voix
-    voix_de = lambda s: forcee or par_heros.get(s["hero"]) or defaut or VOIX_DEFAUT
+    # assets/voix/voix.txt : les voix proposées dans l'appli, une par ligne. La 1re est celle par défaut ;
+    # elle est enregistrée pour TOUTES les histoires avant qu'on passe à la suivante.
+    fv = BASE / "voix.txt"
+    liste = [l.strip() for l in (fv.read_text().split("\n") if fv.exists() else []) if l.strip()] or [VOIX_DEFAUT]
+    if a.voix:
+        liste = [a.voix]
     key = cle()
     stories = titi.load()
     dispo = list(MODELES)                               # modèles dont le quota du jour n'est pas épuisé
@@ -298,15 +291,17 @@ def main():
         return
 
     # Une histoire garde le MÊME modèle du début à la fin (timbre constant).
+    global OUT
     fait = saute = 0
-    for s in stories:
+    for voix, s in [(v, s) for v in liste for s in stories]:
+        a.voix = voix
+        OUT = BASE / voix
         if a.only and not s["id"].startswith(a.only):
             continue
         if not dispo:
             break
         fj = OUT / f"{s['id']}.json"
         meta = json.loads(fj.read_text()) if fj.exists() else {}
-        a.voix = voix_de(s)
         if a.refaire or meta.get("voix") != a.voix:
             meta = {"voix": a.voix, "sc": {}}
         manque = [i for i, sc in enumerate(s["scenes"], 1)
@@ -364,8 +359,9 @@ def hash_txt(pages):
 
 def bilan(stories, fait, saute):
     total = sum(len(s["scenes"]) for s in stories)
-    pret = len(list(OUT.glob("*.m4a"))) if OUT.exists() else 0
-    print(f"Voix : {fait} générées, {saute} déjà là — {pret} / {total} pistes prêtes.")
+    print(f"Voix : {fait} pistes générées cette fois.")
+    for d in sorted(x for x in BASE.iterdir() if x.is_dir()) if BASE.exists() else []:
+        print(f"  {d.name} : {len(list(d.glob('*.m4a')))} / {total} pistes")
 
 
 if __name__ == "__main__":

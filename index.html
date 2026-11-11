@@ -469,7 +469,7 @@ function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
 
 function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
-  $('voiceWrap').style.display=(book.voix&&allTracks())?'none':'';       // le choix de voix ne sert que pour la lecture en direct
+  $('voiceWrap').style.display=book.id?'':'none';                       // voix enregistrées : seulement pour les histoires du recueil
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
 async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
@@ -477,8 +477,15 @@ async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u
   book={id:sid,titre:st.t,pages,sc,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,libre:null};
   showBook();
   const pb=$('playBtn'); pb.disabled=true;                      // le temps de savoir si la voix enregistrée existe (fichier local, très rapide)
-  try{ const r=await fetch(`assets/voix/${sid}.json`,{cache:'no-cache'}); if(r.ok){ const v=await r.json(); if(book&&book.id===sid&&v&&v.sc){ book.voix=v; $('voiceWrap').style.display=allTracks()?'none':''; } } }catch(e){}
+  await loadVoix(sid);
   pb.disabled=false;
+}
+async function loadVoix(sid){
+  const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
+  for(const v of ordre){
+    try{ const r=await fetch(`assets/voix/${v}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
+      if(book&&book.id===sid&&j&&j.sc){ j.dir=v; book.voix=j; } return; }catch(e){}
+  }
 }
 function showEnd(){ ended=true; markHeard(book.id); clearHi();
   $('ptext').innerHTML=`<div class="fin"><h3>Fin</h3><p>${book.id?'Et si on en écoutait une autre ?':'Une belle histoire, rien que pour toi.'}</p></div>`;
@@ -513,7 +520,7 @@ function playTrack(s,fromPage){
     if(next<book.pages.length) setTimeout(()=>{ if(my===playToken) turnTo(next,()=>{ if(my===playToken) startAt(next); }); },450); else showEnd(); };
   player.onerror=()=>{ if(my!==playToken) return; book.voix.sc[s]=null; readPage(fromPage); };       // piste absente -> lecture en direct
   if(trackSc===s&&player.src&&player.readyState>=1) begin();
-  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=`assets/voix/${book.id}_${s}.m4a`; player.load(); }
+  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=`assets/voix/${book.voix.dir}/${book.id}_${s}.m4a`; player.load(); }
 }
 function startAt(i){ if(book.voix&&book.sc&&book.voix.sc[sceneOf(i)]) playTrack(sceneOf(i),i); else readPage(i); }
 
@@ -622,16 +629,17 @@ function renderSaved(){ const a=savedAll(), el=$('savedList');
     row.appendChild(open); row.appendChild(del); el.appendChild(row); });
 }
 
-/* ===== voix de la lecture en direct (ElevenLabs, voix gratuites) ===== */
-const VOICES=[["Xb7hH8MSUJpSbSDYk0k2","Alice"],["IKne3meq5aSn9XLyUdCD","Charlie"]];
-let voiceId="";
-function curVoice(){ return voiceId||VOICES[0][0]; }
+/* ===== voix =====
+   CONTEURS : voix enregistrées (assets/voix/<Nom>/), la 1re par défaut. Si l'histoire n'est pas encore
+   enregistrée dans la voix choisie, on prend une autre voix disponible, sinon la lecture en direct. */
+const CONTEURS=[["Sulafat","Conteuse chaleureuse"],["Vindemiatrix","Conteuse toute douce"],["Algieba","Conteur"]];
+function conteur(){ let v=''; try{v=localStorage.getItem('titi_conteur')||'';}catch(e){} return CONTEURS.some(c=>c[0]===v)?v:CONTEURS[0][0]; }
+function curVoice(){ return "Xb7hH8MSUJpSbSDYk0k2"; }      // lecture en direct (ElevenLabs, voix gratuite « Alice »)
 (function initVoice(){ const sel=$('voiceSel');
-  try{ voiceId=localStorage.getItem('titi_voice')||''; }catch(e){}
-  if(!VOICES.some(v=>v[0]===voiceId)) voiceId='';
-  VOICES.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
-  sel.value=curVoice();
-  sel.addEventListener('change',()=>{ voiceId=sel.value; try{localStorage.setItem('titi_voice',voiceId);}catch(e){} stopAudio(); resetPlay(); });
+  CONTEURS.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
+  sel.value=conteur();
+  sel.addEventListener('change',async()=>{ try{localStorage.setItem('titi_conteur',sel.value);}catch(e){}
+    stopAudio(); resetPlay(); if(book&&book.id){ book.voix=null; const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; } });
 })();
 
 renderHome();
