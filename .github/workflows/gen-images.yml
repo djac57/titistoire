@@ -1,14 +1,8 @@
 name: Générer les illustrations (FLUX)
 
 on:
-  schedule:
-    # Le quota Cloudflare (10 000 neurons ≈ 100 images) repart à 00:00 UTC. GitHub lance les crons
-    # avec parfois plusieurs heures de retard (le 11/11 : 09h27 UTC au lieu de 02h20, quota déjà
-    # consommé -> 0 image). Donc 3 créneaux tôt : le 1er qui passe prend la ration du jour,
-    # les suivants ne trouvent plus de quota et s'arrêtent en quelques secondes.
-    - cron: "7 0 * * *"
-    - cron: "37 1 * * *"
-    - cron: "7 4 * * *"
+  # Pas de passage automatique pour l'instant : les illustrations sont en cours de reprise (relecture du 11/11),
+  # on ne regénère que sur demande (fichier .github/gen-images.run ou lancement manuel).
   push:                       # lancement à la demande : modifier la date dans .github/gen-images.run
     branches: [main]
     paths: ['.github/gen-images.run']

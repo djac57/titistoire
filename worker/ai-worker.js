@@ -262,7 +262,7 @@ function redacteurs(env, GKEY, forceIA) {
     } catch (e) { return { err: String(e).slice(0, 120) }; }
   };
   const gemini = modele => async prompt => {
-    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 30000);
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 20000);
     try {
       const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
@@ -284,7 +284,8 @@ function redacteurs(env, GKEY, forceIA) {
   };
   if (forceIA) return [[forceIA, forceIA.startsWith("@cf/") ? ia(forceIA) : gemini(forceIA)]];
   const L = [];
-  if (GKEY) for (const m of ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"]) L.push([m, gemini(m)]);
+  // flash-lite d'abord : c'est celui qui répond en pratique sur le palier gratuit, et son texte est bon
+  if (GKEY) for (const m of ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash"]) L.push([m, gemini(m)]);
   if (env.OPENROUTER_KEY) for (const m of ["nvidia/nemotron-3-ultra-550b-a55b:free", "google/gemma-4-31b-it:free"]) L.push(["or:" + m, openrouter(m)]);
   if (GKEY) L.push(["gemini-flash-lite-latest (2e essai)", gemini("gemini-flash-lite-latest")]);
   if (env.AI) for (const m of ["@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"]) L.push([m, ia(m)]);
