@@ -53,6 +53,9 @@ jobs:
           for V in ${VOIX:-$(cat assets/voix/voix.txt)}; do
             python3 tools/gen_voix.py --voix "$V" ${ONLY:+--only "$ONLY"} || true
             python3 tools/gen_voix.py --petits --voix "$V" ${ONLY:+--only "$ONLY"} || true
+            for REC in cometes galaxies; do     # puis les recueils des grands (histoires longues, lues en plusieurs morceaux)
+              if [ -d "$REC/histoires" ]; then python3 tools/gen_voix.py --recueil "$REC" --voix "$V" ${ONLY:+--only "$ONLY"} || true; fi
+            done
           done
 
       - name: Committer les voix et republier le site

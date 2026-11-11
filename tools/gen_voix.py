@@ -258,7 +258,7 @@ def coupes(pcm, rate, bornes):
     return out
 
 
-def produire_histoire(s, voix, key, modele):
+def produire_histoire(s, voix, key, modele, decal=0):
     """Lit toute l'histoire en UNE requête, aligne, découpe en 8 pistes. -> {n°: minutage} ou lève Quota."""
     pages = [p for sc in s["scenes"] for p in sc["pages"]]
     texte = "\n\n\n".join("\n\n".join(sc["pages"]) for sc in s["scenes"])
@@ -289,8 +289,8 @@ def produire_histoire(s, voix, key, modele):
             ia, ib = int(a * rate) * 2, int(b * rate) * 2
             wav = pathlib.Path(td) / f"{i}.wav"
             ecrire_wav(pcm[ia:ib], rate, wav)
-            encoder(wav, OUT / f"{s['id']}_{i}.m4a")
-            res[str(i)] = {"d": round(b - a, 2), "w": [[round(max(0.0, t - a), 2) for t in pg] for pg in par_sc[i - 1]],
+            encoder(wav, OUT / f"{s['id']}_{i + decal}.m4a")       # decal : numéro du premier tableau du morceau (histoires longues lues en plusieurs requêtes)
+            res[str(i + decal)] = {"d": round(b - a, 2), "w": [[round(max(0.0, t - a), 2) for t in pg] for pg in par_sc[i - 1]],
                            "sig": signature(sc["pages"])}
     return res, qual, duree
 
@@ -307,6 +307,7 @@ def main():
     ap.add_argument("--essai", default="")
     ap.add_argument("--refaire", action="store_true")
     ap.add_argument("--petits", action="store_true", help="versions Lucioles (1-3 ans) : histoires/petits/, pistes dans assets/voix/<Voix>/petits/")
+    ap.add_argument("--recueil", default="", help="recueil des grands (cometes, galaxies) : <recueil>/histoires/, pistes dans assets/voix/<Voix>/<recueil>/")
     a = ap.parse_args()
     # assets/voix/voix.txt : les voix proposées dans l'appli, une par ligne. La 1re est celle par défaut ;
     # elle est enregistrée pour TOUTES les histoires avant qu'on passe à la suivante.
@@ -315,7 +316,11 @@ def main():
     if a.voix:
         liste = [a.voix]
     key = cle()
-    stories = titi.load_petits() if a.petits else titi.load()
+    if a.recueil:
+        import recueil as _rec
+        stories = _rec.load(a.recueil)
+    else:
+        stories = titi.load_petits() if a.petits else titi.load()
     dispo = list(MODELES)                               # modèles dont le quota du jour n'est pas épuisé
 
     if a.essai:                                         # banc d'essai de voix
@@ -341,7 +346,7 @@ def main():
     fait = saute = 0
     for voix, s in [(v, s) for v in liste for s in stories]:
         a.voix = voix
-        OUT = BASE / voix / "petits" if a.petits else BASE / voix
+        OUT = BASE / voix / a.recueil if a.recueil else (BASE / voix / "petits" if a.petits else BASE / voix)
         if a.only and not s["id"].startswith(a.only):
             continue
         if not dispo:
@@ -352,7 +357,7 @@ def main():
             meta = {"voix": a.voix, "sc": {}}
         manque = [i for i, sc in enumerate(s["scenes"], 1)
                   if not (meta["sc"].get(str(i), {}).get("sig") == signature(sc["pages"]) and (OUT / f"{s['id']}_{i}.m4a").exists())]
-        saute += 8 - len(manque)
+        nsc = len(s["scenes"]); saute += nsc - len(manque)
         if not manque:
             continue
         if a.limit and fait >= a.limit:
@@ -362,26 +367,38 @@ def main():
             OUT.mkdir(parents=True, exist_ok=True)
             fj.write_text(json.dumps(meta, ensure_ascii=False, separators=(",", ":")))
 
-        if len(manque) == 8:                            # histoire entière en une requête
+        if len(manque) * 2 > nsc:                       # l'essentiel est à (re)faire : histoire entière, en une requête — ou en quelques morceaux si elle est longue
             payant = os.environ.get("TITI_PAYANT") == "1"      # niveau payant : un 429 est une limite de débit, on patiente
-            for essai in range(8 if payant else 2):
-                if not dispo:
+            morceaux, cur_, car = [], [], 0                   # morceaux de tableaux consécutifs d'au plus ~4 500 caractères (ce que le modèle lit bien d'une traite)
+            for k, sc in enumerate(s["scenes"]):
+                c = sum(len(p) for p in sc["pages"])
+                if cur_ and car + c > 4500: morceaux.append(cur_); cur_, car = [], 0
+                cur_.append(k); car += c
+            if cur_: morceaux.append(cur_)
+            tout, ok = {}, True
+            for mor in morceaux:
+                sous = {"id": s["id"], "scenes": [s["scenes"][k] for k in mor]}; fait_mor = False
+                for essai in range(8 if payant else 2):
+                    if not dispo:
+                        break
+                    modele = dispo[0]
+                    try:
+                        res, qual, duree = produire_histoire(sous, a.voix, key, modele, decal=mor[0])
+                    except QuotaJour:
+                        print(f"⛔ Plafond quotidien atteint sur {modele} : la suite demain", flush=True); dispo.pop(0); continue
+                    except Quota as q:
+                        if payant:
+                            print(f"  …limite de débit, pause 45 s ({str(q)[:80]})", flush=True); time.sleep(45); continue
+                        print(f"⛔ Quota du jour atteint sur {modele}", flush=True); dispo.pop(0); continue
+                    except Exception as e:
+                        print(f"  ❌ {s['id']} ({modele}) : {str(e)[:200]}", flush=True); time.sleep(5); continue
+                    tout.update(res); fait_mor = True; fait += len(mor)
+                    print(f"  ✅ {s['id']} — tableaux {mor[0] + 1} à {mor[-1] + 1} ({duree:.0f} s, qualité {qual:.3f}, {modele})", flush=True)
                     break
-                modele = dispo[0]
-                try:
-                    res, qual, duree = produire_histoire(s, a.voix, key, modele)
-                except QuotaJour:
-                    print(f"⛔ Plafond quotidien atteint sur {modele} : la suite demain", flush=True); dispo.pop(0); continue
-                except Quota as q:
-                    if payant:
-                        print(f"  …limite de débit, pause 45 s ({str(q)[:80]})", flush=True); time.sleep(45); continue
-                    print(f"⛔ Quota du jour atteint sur {modele}", flush=True); dispo.pop(0); continue
-                except Exception as e:
-                    print(f"  ❌ {s['id']} ({modele}) : {str(e)[:200]}", flush=True); time.sleep(5); continue
-                meta.update({"m": modele, "sc": res}); sauver(); fait += 8
-                print(f"  ✅ {s['id']} — 8 pistes ({duree:.0f} s, qualité {qual:.3f}, {modele})", flush=True)
-                break
-            time.sleep(float(os.environ.get("TITI_TTS_PAUSE", "8")))
+                time.sleep(float(os.environ.get("TITI_TTS_PAUSE", "8")))
+                if not fait_mor: ok = False; break
+            if tout:                                         # ce qui est enregistré est gardé, même si l'histoire n'est pas finie (reprise au passage suivant)
+                meta.update({"m": modele}); meta["sc"] = {**{k: v for k, v in meta.get("sc", {}).items() if v.get("sig") == signature(s["scenes"][int(k) - 1]["pages"])}, **tout}; sauver()
             continue
 
         modele = meta.get("m") or dispo[0]               # histoire commencée : on complète tableau par tableau, même modèle
@@ -398,7 +415,7 @@ def main():
                 print(f"  ❌ {s['id']} tableau {i} : {e}", flush=True); continue
             r.pop("m", None); r.pop("q", None); r["sig"] = signature(sc["pages"])
             meta["sc"][str(i)] = r; sauver(); fait += 1
-            print(f"  ✅ {s['id']} {i}/8 ({r['d']} s)", flush=True)
+            print(f"  ✅ {s['id']} {i}/{nsc} ({r['d']} s)", flush=True)
             time.sleep(float(os.environ.get("TITI_TTS_PAUSE", "8")))
     bilan(stories, fait, saute)
 
