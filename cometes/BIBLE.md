@@ -1,5 +1,7 @@
 # Les Comètes — la bible
 
+> **Décisions du propriétaire (11/11/2026)** — personnages HUMAINS ; douze histoires à écouter dans l'ordre de l'année ; récit au **PASSÉ SIMPLE** (tranché à l'écoute, sur le premier tableau enregistré dans les deux versions : `essais-voix/temps/`). Le passé simple vaut aussi pour Les Galaxies.
+
 Recueil d'histoires audio illustrées pour les 6-8 ans (Titistoire).
 Ce document fixe **tout ce qui doit être décidé avant d'écrire une ligne ou de dessiner une image** : la promesse, le format, la ville, les personnages, les objets, le style, les douze sujets, les règles d'écriture. Ordre de travail imposé par le premier recueil : bible validée → histoires → fiches de référence → images → voix.
 
