@@ -614,6 +614,7 @@ async function generateFree(){
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
     if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');
     const it={titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig};
+    if(it.sig) chercherVoix(it).catch(()=>{});             // la voix se prépare pendant que les images se dessinent
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
     const urls=it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)); let faites=0;
     clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; }; maj();
@@ -631,16 +632,28 @@ function openFree(it,fresh){
         libre:fresh?it:null,src:it};
   showBook(); preparerVoix();
 }
-/* La voix d'une histoire inventée : demandée au worker (texte signé), gardée dans le navigateur pour les réécoutes. */
+/* La voix d'une histoire inventée : demandée au worker (texte signé), gardée dans le navigateur pour les réécoutes.
+   La demande part dès que le texte est écrit (pendant que les illustrations se dessinent) ; une seule demande par histoire et par voix. */
+const voixEnCours={};
+function chercherVoix(it){
+  const voix=conteur(), cle=AIW+"/gtts/"+voix+"/"+it.sig;
+  if(voixEnCours[cle]) return voixEnCours[cle];
+  const p=(async()=>{
+    let cache=null;
+    try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) return await hit.arrayBuffer(); }catch(e){}
+    const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig})});
+    if(!r.ok) throw new Error('voix '+r.status);
+    const buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){}
+    return buf;
+  })();
+  voixEnCours[cle]=p; p.catch(()=>{ delete voixEnCours[cle]; });
+  return p;
+}
 async function preparerVoix(){
   const it=book&&book.src; if(!it||!it.sig||!it.tableaux) return;
-  const moi=book, voix=conteur(), pb=$('playBtn'), corps=JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig});
-  const cle=AIW+"/gtts/"+voix+"/"+it.sig; pb.disabled=true; pb.textContent='La conteuse se prépare…';
+  const moi=book, pb=$('playBtn'); pb.disabled=true; pb.textContent='La conteuse se prépare…';
   try{
-    let buf=null, cache=null;
-    try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) buf=await hit.arrayBuffer(); }catch(e){}
-    if(!buf){ const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:corps}); if(!r.ok) throw new Error('voix '+r.status);
-      buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){} }
+    const buf=await chercherVoix(it);
     const n=new DataView(buf).getUint32(0,true), meta=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,4,n)));
     if(book!==moi) return;
     if(meta.pages&&meta.pages.length===book.pages.length) book.piste={url:URL.createObjectURL(new Blob([new Uint8Array(buf,4+n)],{type:'audio/wav'})),pages:meta.pages,mots:meta.mots};
