@@ -412,8 +412,8 @@ function renderRecueil(){ const g=groupe(), box=$('recueil'), rec=(g==='cometes'
   ['modeHero','modeSubject','modeRandom'].forEach(id=>{ $(id).style.display=rec?'none':''; });
   box.hidden=!rec; if(!rec) return;
   const grid=$('recGrid'), heard=heardAll(); grid.innerHTML='';
-  $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le feuilleton';
-  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Une grande aventure en épisodes : commence par le premier.';
+  $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
+  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Un feuilleton en huit épisodes, sur l\'île de Lodenn : commence par le premier.';
   Object.keys(RECUEILS[rec]).forEach((id,k)=>{ const st=RECUEILS[rec][id], b=document.createElement('button'); b.className='card';
     b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
       +`<span class="lab">${esc(st.t)}</span><span class="sm">${esc(st.u||('Épisode '+(k+1)))}</span>`;
