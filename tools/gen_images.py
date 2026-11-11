@@ -61,6 +61,20 @@ def gen_worker(prompt):
     return data
 
 
+def alleger(data, cote=832, qualite=82):
+    """Réduit l'image (1024 px, ~400 Ko) à 832 px en JPEG ~100 Ko : bien plus léger sur téléphone."""
+    try:
+        import io
+        from PIL import Image
+    except ImportError:
+        return data
+    im = Image.open(io.BytesIO(data)).convert("RGB")
+    if max(im.size) > cote:
+        im = im.resize((cote, cote * im.size[1] // im.size[0]), Image.LANCZOS)
+    out = io.BytesIO(); im.save(out, "JPEG", quality=qualite, optimize=True, progressive=True)
+    return out.getvalue()
+
+
 def est_image(data):
     return len(data) > 8000 and (data[:3] == b"\xff\xd8\xff" or data[:8] == b"\x89PNG\r\n\x1a\n")
 
@@ -131,7 +145,7 @@ def main():
                 continue
         except Quota as q:
             print(f"⛔ Quota Cloudflare du jour atteint (reprise demain) : {str(q)[:160]}", flush=True); break
-        f.write_bytes(data); ok += 1; rate = 0
+        data = alleger(data); f.write_bytes(data); ok += 1; rate = 0
         if nom:
             sigs[nom] = sig; fsig.write_text(json.dumps(sigs, separators=(",", ":"), sort_keys=True))
         print(f"  ✅ {f.name} ({len(data) // 1024} Ko)", flush=True)

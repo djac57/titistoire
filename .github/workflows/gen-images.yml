@@ -36,6 +36,8 @@ jobs:
         with:
           python-version: "3.12"
 
+      - run: pip install --quiet pillow
+
       - name: Générer les illustrations manquantes (reprise automatique)
         env:
           TITI_IMG_SRC: cf
