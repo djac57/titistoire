@@ -270,6 +270,7 @@
           <span>lent <input type="range" id="rate" min="0.8" max="1.15" step="0.05" value="1"> vite</span>
           <span id="voiceWrap">voix <select id="voiceSel"></select></span>
         </div>
+        <p id="voixNote" style="margin:8px 0 0;font-size:.85rem;font-weight:600"></p>
       </details>
     </div>
   </section>
@@ -481,8 +482,9 @@ async function loadVoix(sid){
   const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
   for(const v of ordre){
     try{ const r=await fetch(`assets/voix/${v}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
-      if(book&&book.id===sid&&j&&j.sc){ j.dir=v; book.voix=j; } return; }catch(e){}
+      if(book&&book.id===sid&&j&&j.sc){ j.dir=v; book.voix=j; } noteVoix(); return; }catch(e){}
   }
+  noteVoix();
 }
 function showEnd(){ ended=true; markHeard(book.id); clearHi();
   $('ptext').innerHTML=`<div class="fin"><h3>Fin</h3><p>${book.id?'Et si on en écoutait une autre ?':'Une belle histoire, rien que pour toi.'}</p></div>`;
@@ -635,7 +637,7 @@ async function preparerVoix(){
     if(book!==moi) return;
     if(meta.pages&&meta.pages.length===book.pages.length) book.piste={url:URL.createObjectURL(new Blob([new Uint8Array(buf,4+n)],{type:'audio/wav'})),pages:meta.pages,mots:meta.mots};
   }catch(e){}                                              // pas de voix de conteuse (quota du jour…) : lecture en direct à la place
-  if(book===moi){ pb.disabled=false; setPlay(false); }
+  if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); }
 }
 $('genBtn').addEventListener('click',generateFree);
 
@@ -662,7 +664,15 @@ function renderSaved(){ const a=savedAll(), el=$('savedList');
    enregistrée dans la voix choisie, on prend une autre voix disponible, sinon la lecture en direct. */
 const CONTEURS=[["Sulafat","Conteuse chaleureuse"],["Vindemiatrix","Conteuse toute douce"],["Algieba","Conteur"]];
 function conteur(){ let v=''; try{v=localStorage.getItem('titi_conteur')||'';}catch(e){} return CONTEURS.some(c=>c[0]===v)?v:CONTEURS[0][0]; }
-function curVoice(){ return "Xb7hH8MSUJpSbSDYk0k2"; }      // lecture en direct (ElevenLabs, voix gratuite « Alice »)
+// lecture en direct provisoire (ElevenLabs gratuit) : voix d'homme « Charlie » si on a choisi le Conteur, sinon « Alice »
+function curVoice(){ return conteur()==="Algieba"?"IKne3meq5aSn9XLyUdCD":"Xb7hH8MSUJpSbSDYk0k2"; }
+/* Dit clairement quelle voix on va entendre : la voix choisie n'est pas forcément déjà enregistrée pour cette histoire. */
+function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v=>(CONTEURS.find(c=>c[0]===v)||[0,v])[1];
+  if(!book.id){ n.textContent=book.piste?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
+  const d=book.voix&&book.voix.dir, complet=d&&book.sc.every(x=>book.voix.sc[x]);
+  n.textContent = complet&&d===conteur() ? '' :
+    complet ? `« ${nom(conteur())} » n'est pas encore enregistrée pour cette histoire : tu entendras « ${nom(d)} ».` :
+    `Cette histoire n'est pas encore enregistrée : lecture provisoire, la belle voix arrive dans quelques jours.`; }
 (function initVoice(){ const sel=$('voiceSel');
   CONTEURS.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
   sel.value=conteur();
