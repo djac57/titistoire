@@ -1,5 +1,5 @@
 /**
- * titistoire — Cloudflare Worker (voix + images + histoires mode libre). [auto-deploy actif · libre-lock]
+ * titistoire — Cloudflare Worker (voix + images + histoires mode libre). [auto-deploy actif · libre-lock2]
  * Routes :
  *   /tts?t=<texte>&lang=fr            -> audio MP3 (ElevenLabs si ELEVEN_KEY, sinon melotts)
  *   /img?p=<prompt>&seed=<n>&steps=<n>-> image JPEG (flux-1-schnell via binding AI)
