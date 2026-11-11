@@ -74,6 +74,31 @@ export default {
         return img(b64(r.image), cors);
       }
 
+      // ---------- IMAGE via Gemini (quota SÉPARÉ de Cloudflare, pour le mode libre) ----------
+      if (u.pathname.startsWith("/gimg")) {
+        const p = (u.searchParams.get("p") || "").slice(0, 1500);
+        if (!p) return new Response("manque ?p=", { status: 400, headers: cors });
+        const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
+        if (!GKEY) return new Response("GEMINI_KEY manquante", { status: 502, headers: cors });
+        const models = ["gemini-2.5-flash-image", "gemini-2.0-flash-preview-image-generation"];
+        let lastMsg = "échec";
+        for (const model of models) {
+          try {
+            const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GKEY)}`, {
+              method: "POST", headers: { "content-type": "application/json" },
+              body: JSON.stringify({ contents: [{ parts: [{ text: p }] }], generationConfig: { responseModalities: ["TEXT", "IMAGE"] } })
+            });
+            const d = await gr.json();
+            const parts = (d && d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts) || [];
+            const ip = parts.find(x => (x.inlineData && x.inlineData.data) || (x.inline_data && x.inline_data.data));
+            if (ip) { const data = (ip.inlineData || ip.inline_data).data; return new Response(b64(data), { headers: { "content-type": "image/png", "cache-control": "public, max-age=31536000", ...cors } }); }
+            lastMsg = (d && d.error && d.error.message) || "pas d'image";
+            if (u.searchParams.get("debug")) return new Response("Gemini img [" + model + "] : " + lastMsg.slice(0, 300), { status: 200, headers: { "content-type": "text/plain", ...cors } });
+          } catch (e) { lastMsg = String(e); }
+        }
+        return new Response("Gemini image indisponible : " + lastMsg.slice(0, 200), { status: 502, headers: cors });
+      }
+
       // ---------- HISTOIRE (mode libre, sans clé navigateur) ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
