@@ -105,10 +105,11 @@ def main():
             p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background. Draw only the characters described here, each one exactly once, as separate individuals that do not blend into each other; do not add any extra animal, creature or person." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
             try:
                 data = None
-                for essai in range(3):                      # le filtre du modèle bloque parfois une image au hasard : on retente
+                for essai in range(4):                      # filtre du modèle ou erreur de serveur passagère : on retente
                     try: data = appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, fichiers); break
                     except Exception as e:
-                        if "flagged" not in str(e) or essai == 2: raise
+                        if essai == 3 or not any(k in str(e) for k in ("flagged", "HTTP 5", "timed out", "Internal")): raise
+                        time.sleep(3)
                 dest.write_bytes(jpeg(data, 832)); n += 1
                 print(f"  ✅ {dest.name} ({len(jetons)} référence(s))", flush=True)
             except Exception as e:
