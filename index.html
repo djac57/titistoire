@@ -210,6 +210,11 @@
       <p id="seasonSub"></p>
       <div class="grid g4" id="seasonGrid"></div>
     </div>
+    <div class="season" id="recueil" hidden>
+      <h2 id="recTitle"></h2>
+      <p id="recSub"></p>
+      <div class="grid g4" id="recGrid"></div>
+    </div>
     <p class="sep" id="sepAll" hidden>Toutes les histoires</p>
     <div class="grid g4">
       <button class="card" id="modeHero"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5.5l5.4 11 12.1 1.8-8.8 8.5 2.1 12.1L24 33.2l-10.8 5.7 2.1-12.1-8.8-8.5 12.1-1.8z" fill="currentColor" fill-opacity=".18"/><circle cx="20" cy="22.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="28" cy="22.5" r="1.5" fill="currentColor" stroke="none"/><path d="M20.5 27.5c2 2 5 2 7 0"/></svg></div><span class="lab">Choisir un héros</span></button>
@@ -286,10 +291,14 @@
 </div>
 
 <script src="stories.js?v=1"></script>
+<script src="cometes/recueil.js?v=1"></script>
+<script src="galaxies/recueil.js?v=1"></script>
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
 const AIW = "https://titistoire-ai.djac-gene.workers.dev";
 const STORIES = window.TITI_STORIES || {};
+const RECUEILS = window.TITI_RECUEILS || {};       // recueils des grands : { cometes: {id: {t,u,s,sc,im}}, galaxies: {…} }
+const aRecueil=r=>!!(RECUEILS[r]&&Object.keys(RECUEILS[r]).length);
 
 /* ===== DONNÉES ===== */
 const PERSOS=[
@@ -385,17 +394,33 @@ const GROUPES=[
   ["etoiles","Étoiles","3-6 ans",ICO('<path d="M24 6l5.200 11.200 12.300 1.500-9.100 8.400 2.500 12.100L24 33.200l-10.900 6 2.500-12.100-9.100-8.400 12.300-1.500z"/><path d="M20.500 25c1.500 2.200 5.500 2.200 7 0"/>')],
   ["cometes","Comètes","6-8 ans",ICO('<circle cx="31" cy="17" r="8"/><path d="M24 22L7 39M27 26L14 42M21 18L6 29"/>'),true],
   ["galaxies","Galaxies","8-10 ans",ICO('<path d="M24 24c0-3 3-5 6-4 4 1 6 6 4 10-3 6-11 8-17 4-7-5-8-15-2-21 7-7 19-7 26 0"/><circle cx="24" cy="24" r="1.600"/><path d="M40 34l.100 0M8 38l.100 0M38 8l.100 0"/>'),true]];
-function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; }catch(e){} return 'etoiles'; }
+function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; if((g==='cometes'||g==='galaxies')&&aRecueil(g)) return g; }catch(e){} return 'etoiles'; }
 function renderGroupes(){ const box=$('groupes'); if(!box) return; box.innerHTML=''; const g0=groupe(), aLucioles=Object.values(STORIES).some(x=>x.p);
-  GROUPES.forEach(([id,nom,age,ico,bientot])=>{ const b=document.createElement('button'); const off=bientot||(id==='lucioles'&&!aLucioles);
+  GROUPES.forEach(([id,nom,age,ico,bientot])=>{ const b=document.createElement('button'); const off=(bientot&&!aRecueil(id))||(id==='lucioles'&&!aLucioles);
     b.className=id===g0?'on':''; b.disabled=!!off; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===g0?'true':'false');
     b.innerHTML=ico+`<b>${nom}</b><small>${off?'bientôt':age}</small>`;
-    b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderGroupes(); });
+    b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderHome(); });
     box.appendChild(b); });
   const fa=$('fAge'); if(fa&&!fa.dataset.choisi) fa.value=g0==='lucioles'?'petit':'moyen'; }
-function renderHome(){ renderGroupes();
+/* Recueils des grands (Comètes, Galaxies) : une liste d'histoires ou d'épisodes, dans l'ordre. */
+function renderRecueil(){ const g=groupe(), box=$('recueil'), rec=(g==='cometes'||g==='galaxies')?g:null;
+  ['modeHero','modeSubject','modeRandom'].forEach(id=>{ $(id).style.display=rec?'none':''; });
+  box.hidden=!rec; if(!rec) return;
+  const grid=$('recGrid'), heard=heardAll(); grid.innerHTML='';
+  $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le feuilleton';
+  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Une grande aventure en épisodes : commence par le premier.';
+  Object.keys(RECUEILS[rec]).forEach((id,k)=>{ const st=RECUEILS[rec][id], b=document.createElement('button'); b.className='card';
+    b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
+      +`<span class="lab">${esc(st.t)}</span><span class="sm">${esc(st.u||('Épisode '+(k+1)))}</span>`;
+    b.addEventListener('click',()=>openRecueil(rec,id)); grid.appendChild(b); });
+  armThumbs(grid); }
+async function openRecueil(rec,id){ const st=RECUEILS[rec][id]; if(!st) return;
+  const pages=[], sc=[], imgs=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); imgs.push(`${rec}/scenes/${id}_${st.im[k]}.jpg`); }));
+  book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':'🌌'},decor:null,voix:null,piste:null,libre:null};
+  showBook(); const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
+function renderHome(){ renderGroupes(); renderRecueil();
   const box=$('season');
-  if(SAISON){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
+  if(SAISON&&$('recueil').hidden){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
     $('seasonTitle').textContent=S.titre; $('seasonSub').textContent=S.sub;
     PERSOS.forEach(p=>{ const sid=p.id+'_'+SAISON; if(STORIES[sid]) g.appendChild(storyCard(sid)); });
     armThumbs(g); box.hidden=false; $('sepAll').hidden=false; }
@@ -453,7 +478,7 @@ function sceneOf(i){ return book.sc?book.sc[i]:0; }
 function sceneCandidates(){ const out=[];
   if(book.imgs&&book.imgs[cur]){ const u=book.imgs[cur]; out.push(u,u+"&r=2"); }   // histoire inventée : une image par page (2e essai si le 1er échoue)
   if(book.imgs){ for(let k=cur-1;k>=0;k--){ if(book.imgs[k]){ out.push(book.imgs[k]); break; } } }   // sinon on garde celle de la page d'avant
-  if(book.id){ const [h,u]=book.id.split('_'), s=sceneOf(cur), k=cur-book.sc.indexOf(s), L="abcdef"[k];
+  if(book.id&&!book.rec){ const [h,u]=book.id.split('_'), s=sceneOf(cur), k=cur-book.sc.indexOf(s), L="abcdef"[k];
     if(k>0&&book.im&&book.im[s-1]&&book.im[s-1].indexOf(L)>=0) out.push(`assets/scenes/${book.id}_${s}${L}.jpg`);   // image propre à cette page
     out.push(`assets/scenes/${book.id}_${s}.jpg`,`assets/${h}_${u}.png`); }
   if(book.decor) out.push(`assets/decor_${book.decor}.jpg`);
@@ -486,7 +511,7 @@ function setWord(i){ if(i>=0&&i<wordSpans.length&&wordSpans[i].el&&wordSpans[i].
   clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wordSpans[i].el.classList.add('on'); }
 /* changement de page : si l'illustration change aussi (nouveau tableau), on « tourne » */
 function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
-  const flip=!book.sc||sceneOf(i)!==sceneOf(cur)||!!(book.im&&book.im[sceneOf(i)-1])||!!book.imgs;   // l'image change aussi à l'intérieur du tableau
+  const flip=!book.sc||sceneOf(i)!==sceneOf(cur)||!!(book.im&&book.im[sceneOf(i)-1])||!!(book.imgs&&book.imgs[i]!==book.imgs[cur]);   // l'image change aussi à l'intérieur du tableau
   if(!flip){ renderPage(i); cb&&cb(); return; }
   frame.classList.remove('turning'); void frame.offsetWidth; frame.classList.add('turning');
   setTimeout(()=>renderPage(i),260); setTimeout(()=>{ frame.classList.remove('turning'); cb&&cb(); },560); }
@@ -511,8 +536,8 @@ function sigTexte(pages){ const t=pages.join("\n"), o=new TextEncoder().encode(t
 async function loadVoix(sid){
   const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
   for(const v of ordre){
-    const sous=book&&book.petit?'/petits':'';
-    try{ const r=await fetch(`assets/voix/${v}${sous}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
+    const sous=book&&book.rec?'/'+book.rec:(book&&book.petit?'/petits':''), fic=book&&book.rec?book.rid:sid;
+    try{ const r=await fetch(`assets/voix/${v}${sous}/${fic}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
       if(!(book&&book.id===sid&&j&&j.sc)) continue;
       // un enregistrement n'est gardé que s'il lit bien le texte affiché (signature du texte au moment de l'enregistrement)
       let bons=0; for(const k of Object.keys(j.sc)){ const m=j.sc[k]; if(m&&m.sig&&m.sig!==sigTexte(scenePages(+k).map(i=>book.pages[i]))) delete j.sc[k]; else if(m) bons++; }
@@ -554,7 +579,7 @@ function playTrack(s,fromPage){
     if(next<book.pages.length) setTimeout(()=>{ if(my===playToken) turnTo(next,()=>{ if(my===playToken) startAt(next); }); },450); else showEnd(); };
   player.onerror=()=>{ if(my!==playToken) return; book.voix.sc[s]=null; readPage(fromPage); };       // piste absente -> lecture en direct
   if(trackSc===s&&player.src&&player.readyState>=1) begin();
-  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=meta.url||`assets/voix/${book.voix.dir}/${book.id}_${s}.m4a`; player.load(); }
+  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=meta.url||`assets/voix/${book.voix.dir}/${book.rid||book.id}_${s}.m4a`; player.load(); }
 }
 /* --- A bis. histoire inventée : UNE piste pour toute l'histoire, avec le début de chaque page et de chaque mot --- */
 function playPiste(fromPage){
