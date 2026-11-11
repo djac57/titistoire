@@ -372,6 +372,7 @@ function sceneCandidates(){
     out.push(`assets/${h}_${u}.png`);                                                    // ambiance (repli)
   }
   if(choice.sceneImg) out.push(choice.sceneImg);                                         // ancienne image unique
+  if(u) out.push(`assets/filou_${u}.png`);                                               // dernier repli : une vraie illustration du décor (jamais d'emoji)
   return out;
 }
 function renderScene(){
@@ -413,8 +414,7 @@ function stopAudio(){
   if(rafId) cancelAnimationFrame(rafId); rafId=0;
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false;
   clearTimeout(loadTimer); document.getElementById('loading').classList.remove('on'); }
-function loader(on){ const el=document.getElementById('loading'); clearTimeout(loadTimer);
-  if(on){ loadTimer=setTimeout(()=>el.classList.add('on'),350); } else { el.classList.remove('on'); } }
+function loader(on){ const el=document.getElementById('loading'); if(el) el.classList.remove('on'); } // badge retiré (plus de rond qui clignote)
 
 function wordTimesFromAlignment(text,al){
   if(!al||!al.character_start_times_seconds) return null;
