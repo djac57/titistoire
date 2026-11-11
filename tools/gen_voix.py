@@ -24,7 +24,9 @@ import titi
 
 BASE = titi.ROOT / "assets" / "voix"
 OUT = BASE            # dossier de la voix en cours : assets/voix/<Voix>/ (réglé dans main)
-MODELES = [m.strip() for m in os.environ.get("TITI_TTS_MODELES", "gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview,gemini-2.5-flash-preview-tts").split(",") if m.strip()]
+MODELES = [m.strip() for m in os.environ.get("TITI_TTS_MODELES", "gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview").split(",") if m.strip()]
+# gemini-2.5-flash-preview-tts n'est pas utilisé ici : son quota (10/jour) est laissé aux histoires inventées,
+# et sa voix ralentit sur les longues lectures.
 VOIX_DEFAUT = "Sulafat"
 # Format « profil + notes + TRANSCRIPT » : seul le texte sous TRANSCRIPT est lu.
 # (Une consigne en phrase libre est LUE À VOIX HAUTE par gemini-3.x-tts ; systemInstruction est refusé.)

@@ -51,6 +51,18 @@ Deux actions GitHub (`gen-images.yml`, `gen-voix.yml`) tournent chaque jour, rep
 - Changer de voix : écouter `essais-voix/`, puis `python3 tools/gen_voix.py --voix Nom` (ou le champ *voix* de l'action).
 - Refaire une image ratée : action « Générer les illustrations », champ *refaire* (ex. `filou_pirates_3`).
 
-## Le worker (`worker/ai-worker.js`)
+## « J'invente la mienne » et le worker (`worker/`)
 
-Petit service Cloudflare, déployé automatiquement à chaque modification : il écrit les histoires du mode « J'invente la mienne », lit les pages en direct quand une voix n'est pas encore enregistrée, et dessine à la demande. Les clés sont des secrets GitHub / Cloudflare, jamais dans le code.
+Réservé (mot de passe), en Cloudflare payant à la demande. On décrit un héros, un lieu, un sujet ; le worker :
+
+1. **contrôle la demande** (liste de mots interdits, Llama Guard, puis un juge « est-ce que ça convient à un enfant de 3 ans ? ») ;
+2. **fait écrire l'histoire** en 8 tableaux, puis **contrôle le texte et les descriptions d'images** de la même façon ;
+3. **signe** ce qu'il a validé : les routes d'image et de voix refusent tout texte non signé ;
+4. **dessine** chaque tableau, et fait **regarder chaque image par un modèle de vision** avant de l'envoyer ;
+5. **fait lire** l'histoire par la voix choisie (Gemini TTS) et cale le texte mot à mot par reconnaissance vocale.
+
+Tout est fermé par défaut : au moindre doute ou à la moindre panne d'un contrôle, rien n'est affiché. Aucun filtre automatique n'étant infaillible, le mot de passe reste la première barrière.
+
+Tests hors ligne : `node tools/test_controle.mjs` (la liste de mots ne bloque aucune histoire du recueil et arrête les demandes déplacées), `node tools/test_voix.mjs <dossier>` (calage).
+
+Le worker est déployé automatiquement à chaque modification de `worker/`. Les clés sont des secrets GitHub / Cloudflare, jamais dans le code. Il sert aussi de lecture en direct de secours tant qu'une histoire du recueil n'a pas sa voix enregistrée.

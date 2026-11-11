@@ -279,10 +279,6 @@
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
 const AIW = "https://titistoire-ai.djac-gene.workers.dev";
-/* Images en direct du mode libre : coupées tant que les illustrations des histoires ne sont pas
-   toutes générées (même quota Cloudflare de 10 000 neurons/jour). Repasser à true ensuite. */
-const LIBRE_IMAGES = false;
-const LIBRE_STYLE = "Children's picture book illustration, flat 2D vector art in the Franco-Belgian 'ligne claire' tradition: clean thin dark outlines, flat soft pastel colours, simple rounded shapes, no gradients, no shading. A cute ";
 const STORIES = window.TITI_STORIES || {};
 
 /* ===== DONNÉES ===== */
@@ -430,7 +426,7 @@ let book=null, cur=0, wordSpans=[], ended=false;
 const frame=$('frame'), scene=$('scene');
 function sceneOf(i){ return book.sc?book.sc[i]:0; }
 function sceneCandidates(){ const out=[];
-  if(book.imgs&&book.imgs[cur]) out.push(book.imgs[cur]);
+  if(book.imgs&&book.imgs[sceneOf(cur)-1]){ const u=book.imgs[sceneOf(cur)-1]; out.push(u,u+"&r=2"); }   // mode libre : image du tableau (2e essai si le 1er échoue)
   if(book.id){ const [h,u]=book.id.split('_'), s=sceneOf(cur), k=cur-book.sc.indexOf(s), L="abcdef"[k];
     if(k>0&&book.im&&book.im[s-1]&&book.im[s-1].indexOf(L)>=0) out.push(`assets/scenes/${book.id}_${s}${L}.jpg`);   // image propre à cette page
     out.push(`assets/scenes/${book.id}_${s}.jpg`,`assets/${h}_${u}.png`); }
@@ -449,8 +445,8 @@ function renderScene(){
   })(0);
 }
 function preloadNext(){ if(!book) return;
-  if(book.id&&book.sc){ const s=sceneOf(cur)+1; if(s<=book.sc[book.sc.length-1]){ const pf=new Image(); pf.src=`assets/scenes/${book.id}_${s}.jpg`; } }
-  else if(book.imgs&&book.imgs[cur+1]){ const pf=new Image(); pf.src=book.imgs[cur+1]; } }
+  if(book.id){ const s=sceneOf(cur)+1; if(s<=book.sc[book.sc.length-1]){ const pf=new Image(); pf.src=`assets/scenes/${book.id}_${s}.jpg`; } }
+  if(book.imgs){ const u=book.imgs[sceneOf(cur)]; if(u){ const pf=new Image(); pf.src=u; } } }
 function renderWords(text){ wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g, el=$('ptext'); let m;
   while((m=re.exec(text))){ if(m[1])html+=' '; else { wordSpans.push({raw:m[2]}); html+=`<span class="word" data-i="${wordSpans.length-1}">${esc(m[2])}</span>`; } }
   el.innerHTML='<div>'+html+'</div>'; wordSpans.forEach((w,i)=>w.el=el.querySelector('.word[data-i="'+i+'"]')); }
@@ -471,12 +467,11 @@ function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
 
 function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
-  $('voiceWrap').style.display=book.id?'':'none';                       // voix enregistrées : seulement pour les histoires du recueil
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
 async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
   const pages=[], sc=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
-  book={id:sid,titre:st.t,pages,sc,im:st.im||null,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,libre:null};
+  book={id:sid,titre:st.t,pages,sc,im:st.im||null,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,piste:null,libre:null};
   showBook();
   const pb=$('playBtn'); pb.disabled=true;                      // le temps de savoir si la voix enregistrée existe (fichier local, très rapide)
   await loadVoix(sid);
@@ -501,7 +496,7 @@ function setPlay(on){ const b=$('playBtn'); b.textContent=on?'❚❚ Pause':'▶
 function resetPlay(){ auto=false; setPlay(false); }
 function stopAudio(){
   playToken++; trackSc=0;
-  try{ player.onended=player.onerror=player.onloadedmetadata=null; player.pause(); const s=player.src; if(s&&s.startsWith('blob:'))URL.revokeObjectURL(s); player.removeAttribute('src'); player.load(); }catch(e){}
+  try{ player.onended=player.onerror=player.onloadedmetadata=null; player.pause(); const s=player.src; if(s&&s.startsWith('blob:')&&!(book&&book.piste&&book.piste.url===s))URL.revokeObjectURL(s); player.removeAttribute('src'); player.load(); }catch(e){}
   if(rafId) cancelAnimationFrame(rafId); rafId=0;
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false; }
 
@@ -524,7 +519,22 @@ function playTrack(s,fromPage){
   if(trackSc===s&&player.src&&player.readyState>=1) begin();
   else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=`assets/voix/${book.voix.dir}/${book.id}_${s}.m4a`; player.load(); }
 }
-function startAt(i){ if(book.voix&&book.sc&&book.voix.sc[sceneOf(i)]) playTrack(sceneOf(i),i); else readPage(i); }
+/* --- A bis. histoire inventée : UNE piste pour toute l'histoire, avec le début de chaque page et de chaque mot --- */
+function playPiste(fromPage){
+  const my=++playToken, P=book.piste;
+  function begin(){ if(my!==playToken) return; try{ player.currentTime=fromPage>0?P.pages[fromPage]:0; }catch(e){} player.playbackRate=rate();
+    player.play().then(()=>{ if(my===playToken) tick(); }).catch(()=>{ if(my===playToken) resetPlay(); }); }
+  function tick(){ if(my!==playToken) return; if(!player.paused&&!player.ended){ const t=player.currentTime; let k=0;
+      for(let j=0;j<P.pages.length;j++){ if(P.pages[j]<=t+0.02) k=j; else break; }
+      if(k!==cur){ if(sceneOf(k)!==sceneOf(cur)) turnTo(k); else renderPage(k); }
+      const w=P.mots[k]||[]; let wi=-1; for(let j=0;j<w.length;j++){ if(w[j]<=t+0.05) wi=j; else break; } if(k===cur) setWord(wi); }
+    rafId=requestAnimationFrame(tick); }
+  player.onended=()=>{ if(my!==playToken) return; if(rafId) cancelAnimationFrame(rafId); showEnd(); };
+  player.onerror=()=>{ if(my!==playToken) return; book.piste=null; readPage(fromPage); };
+  if(trackSc===-1&&player.src===P.url&&player.readyState>=1) begin();
+  else { trackSc=-1; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=P.url; player.load(); }
+}
+function startAt(i){ if(book.piste) playPiste(i); else if(book.voix&&book.sc&&book.voix.sc[sceneOf(i)]) playTrack(sceneOf(i),i); else readPage(i); }
 
 /* --- B. lecture en direct page par page (mode libre, ou piste pas encore enregistrée) --- */
 function wordTimesFromAlignment(text,al){
@@ -584,33 +594,49 @@ function home(){ stopAudio(); resetPlay(); book=null; renderHome(); goto('s0'); 
 $('saveBtn').addEventListener('click',saveCurrent);
 $('homeBtn2').addEventListener('click',home);
 
-/* ===== MODE LIBRE (histoire inventée par le worker) ===== */
+/* ===== « J'INVENTE LA MIENNE » : histoire écrite, contrôlée et signée par le worker ===== */
 function gstatus(m){ $('genStatus').textContent=m||''; }
-function libreImgs(hero,lieu,pages){ if(!LIBRE_IMAGES) return null;
-  const desc=(hero||'little animal')+(lieu?(' '+lieu):'');
-  return pages.map(txt=> AIW+"/img?"+new URLSearchParams({p:LIBRE_STYLE+desc+". Scene: "+txt+" No text, no letters."}).toString()); }
 async function generateFree(){
   const hero=$('fHero').value.trim(),lieu=$('fLieu').value.trim(),lecon=$('fLecon').value.trim();
   const gb=$('genBar'), gbtn=$('genBtn'), fill=gb.firstElementChild;
   gstatus('La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true; fill.style.width='3%';
-  const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/9))).toFixed(1)+'%'; },200);
+  const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,pass:librePass()}).toString());
     if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
     const out=await r.json();
-    if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':('Raté ('+out.error+'). Réessaie.')); return; }
-    const pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); if(pages.length<3) throw new Error('histoire trop courte');
-    const it={titre:out.titre||'Mon histoire',decor:byId(UNIVERS,out.decor)?out.decor:'foret',emoji:(out.emoji&&[...out.emoji][0])||'🧒',hero:hero||'le héros',lieu,lecon,pages};
-    it.sceneImgs=libreImgs(hero,lieu,pages);
-    gstatus(''); openFree(it,true);
+    if(out.refuse){ gstatus("La conteuse ne raconte que des histoires toutes douces pour les petits. Essaie une autre idée !"); return; }
+    if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
+    if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');
+    gstatus(''); openFree({titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig},true);
   }catch(e){ gstatus('Raté ('+e.message+'). Réessaie.'); }
   finally{ endBar(); }
 }
 function openFree(it,fresh){
-  book={id:'',titre:it.titre||'Mon histoire',pages:(it.pages||[]).slice(),sc:null,imgs:(LIBRE_IMAGES&&it.sceneImgs&&it.sceneImgs.length)?it.sceneImgs.slice():null,
-        hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,libre:fresh?it:null};
-  showBook(); }
+  const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
+  if(tb.length){ tb.forEach((t,k)=>(t.pages||[]).forEach(x=>{ pages.push(x); sc.push(k+1); })); imgs=tb.map(t=>t.img?AIW+t.img:null); }
+  else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
+  book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,
+        libre:fresh?it:null,src:it};
+  showBook(); preparerVoix();
+}
+/* La voix d'une histoire inventée : demandée au worker (texte signé), gardée dans le navigateur pour les réécoutes. */
+async function preparerVoix(){
+  const it=book&&book.src; if(!it||!it.sig||!it.tableaux) return;
+  const moi=book, voix=conteur(), pb=$('playBtn'), corps=JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig});
+  const cle=AIW+"/gtts/"+voix+"/"+it.sig; pb.disabled=true; pb.textContent='La conteuse se prépare…';
+  try{
+    let buf=null, cache=null;
+    try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) buf=await hit.arrayBuffer(); }catch(e){}
+    if(!buf){ const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:corps}); if(!r.ok) throw new Error('voix '+r.status);
+      buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){} }
+    const n=new DataView(buf).getUint32(0,true), meta=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,4,n)));
+    if(book!==moi) return;
+    if(meta.pages&&meta.pages.length===book.pages.length) book.piste={url:URL.createObjectURL(new Blob([new Uint8Array(buf,4+n)],{type:'audio/wav'})),pages:meta.pages,mots:meta.mots};
+  }catch(e){}                                              // pas de voix de conteuse (quota du jour…) : lecture en direct à la place
+  if(book===moi){ pb.disabled=false; setPlay(false); }
+}
 $('genBtn').addEventListener('click',generateFree);
 
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
@@ -641,7 +667,9 @@ function curVoice(){ return "Xb7hH8MSUJpSbSDYk0k2"; }      // lecture en direct 
   CONTEURS.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
   sel.value=conteur();
   sel.addEventListener('change',async()=>{ try{localStorage.setItem('titi_conteur',sel.value);}catch(e){}
-    stopAudio(); resetPlay(); if(book&&book.id){ book.voix=null; const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; } });
+    stopAudio(); resetPlay(); if(!book) return;
+    if(book.id){ book.voix=null; const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
+    else { book.piste=null; preparerVoix(); } });
 })();
 
 renderHome();
