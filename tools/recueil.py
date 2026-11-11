@@ -115,7 +115,7 @@ def images(rec, a):
     for pid in sorted(utiles):
         f = refs / f"{pid}.jpg"
         if not f.exists():
-            p = style + "Character reference sheet of one single character: " + P[pid] + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture."
+            p = c.get("style_fiches", style) + "Character reference sheet of one single character: " + P[pid] + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture."
             try: f.write_bytes(g.jpeg(essais(a.modele_fiches, {"prompt": p, "width": "1024", "height": "1024"}, {}), 512)); print("📇", f.name, flush=True)
             except Exception as e: print("❌ fiche", pid, str(e)[:160], flush=True); continue
         fiche[pid] = f.read_bytes()
