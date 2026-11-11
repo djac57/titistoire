@@ -157,11 +157,13 @@ export default {
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
           for (const t of h.tableaux) t.images = t.images.map(d => motInterdit(d) ? "" : d);      // description douteuse : écartée, la page reprendra l'image voisine
           const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
-          const maigre = pg.length < 18 || moy < 68 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+          const tx = pg.join(" "), mots = tx.toLowerCase().match(/[a-zà-ÿœ']+/g) || [], dits = (tx.match(/(^|[^a-zà-ÿ])dit(?![a-zà-ÿ])/gi) || []).length;
+          const pauvre = dits > 5 || new Set(mots).size < mots.length * 0.36;       // « dit » partout, ou trop peu de mots différents
+          const maigre = pauvre || pg.length < 18 || moy < 68 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
           const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
           const c2 = await controle(env, tout, "histoire");
           if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
-          if (maigre && !forceIA) { journal.push(nom + ` : trop maigre (${pg.length} pages, ${Math.round(moy)} car./page)`); secours = secours || { h, nom }; continue; }
+          if (maigre && !forceIA) { journal.push(nom + ` : trop maigre (${pg.length} pages, ${Math.round(moy)} car./page, ${dits} « dit », ${new Set(mots).size}/${mots.length} mots différents)`); secours = secours || { h, nom }; continue; }
           retenu = { h, nom }; break;
         }
         retenu = retenu || secours;
@@ -305,6 +307,10 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
 - Un problème CONCRET qu'un enfant comprend. Le héros essaie, rate (souvent trois fois, avec de l'humour), doute, puis fait LUI-MÊME un choix difficile qui change tout.
 - Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses.
+- UNE LANGUE RICHE ET SOIGNÉE, celle des beaux albums qu'un parent a plaisir à lire : le mot juste plutôt que le mot vague (« il trottine », « il se faufile », « il dégringole » plutôt que « il va » ; « une brindille », « un talus », « une ribambelle » plutôt que « un truc », « plein de »). Dans chaque tableau, glisse un ou deux beaux mots qu'un enfant ne connaît peut-être pas encore mais comprend grâce à la phrase (« il grelotte de froid », « elle est penaude, les oreilles toutes basses »).
+- Les verbes de parole sont VARIÉS et disent l'émotion : répond, demande, s'étonne, s'écrie, murmure, chuchote, ajoute, soupire, bougonne, marmonne, propose, annonce, s'exclame, proteste, avoue, promet, réplique… « dit » apparaît AU PLUS TROIS FOIS dans toute l'histoire, jamais deux fois de suite. Souvent, pas de verbe de parole du tout : un geste suffit (« Nina hausse les épaules. "Bof." »).
+- Des phrases de longueurs différentes : une longue qui déroule, puis une toute courte qui claque. Ne commence pas deux phrases de suite par le prénom du héros ni par « Il » ou « Elle ».
+- Chaque page fait avancer l'histoire : pas de remplissage, pas de phrase qui répète la précédente avec d'autres mots.
 - Le PREMIER tableau est une vraie ouverture d'album : il présente le héros par son prénom, dit qui il est, où il vit et ce qu'il aime, AVANT que le problème arrive. On ne commence jamais au milieu de l'action.
 - L'histoire se passe du début à la fin dans le lieu demandé (ou y revient).
 - Un vrai moment d'émotion, dit simplement. La fin fait écho au début et laisse une image douce.
@@ -347,7 +353,7 @@ function redacteurs(env, GKEY, forceIA) {
     try {
       const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json" } }) });
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json", ...(/lite/.test(modele) ? {} : { thinkingConfig: { thinkingBudget: 0 } }) } }) });
       const gd = await gr.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
       const c = t && extraireJSON(t); if (c) return { txt: c };
       return { err: ((gd && gd.error && gd.error.message) || "réponse vide").slice(0, 120), busy: true };
