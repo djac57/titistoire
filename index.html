@@ -275,6 +275,7 @@
             <button class="btn play" id="playBtn">▶ Écouter</button>
             <button class="btn sec" id="replayBtn">↺ Début</button>
             <button class="btn sec" id="saveBtn" style="display:none">Garder</button>
+            <button class="btn sec" id="carteBtn" style="display:none">La carte</button>
           </div>
         </div>
       </div>
@@ -290,6 +291,10 @@
   </section>
 </div>
 
+<div id="carteVue" hidden style="position:fixed;inset:0;z-index:50;background:rgba(10,8,30,.92);overflow:auto;-webkit-overflow-scrolling:touch;cursor:zoom-in">
+  <img id="carteImg" alt="La carte du capitaine" style="display:block;width:100%;max-width:1200px;margin:0 auto">
+  <button id="carteFermer" class="btn sec" style="position:fixed;top:12px;right:12px">Fermer</button>
+</div>
 <script src="stories.js?v=1"></script>
 <script src="cometes/recueil.js?v=1"></script>
 <script src="galaxies/recueil.js?v=1"></script>
@@ -516,7 +521,10 @@ function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
   frame.classList.remove('turning'); void frame.offsetWidth; frame.classList.add('turning');
   setTimeout(()=>renderPage(i),260); setTimeout(()=>{ frame.classList.remove('turning'); cb&&cb(); },560); }
 
+/* Galaxies : la carte du capitaine, dans l'état où elle est à cet épisode (moitiés séparées, réunies, puis prolongée). */
+function etatCarte(){ const n=parseInt((book&&book.rid||'').replace(/\D/g,''),10)||1; return n<=2?1:(n<=6?2:3); }
 function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
+  $('carteBtn').style.display=book.rec==='galaxies'?'inline-flex':'none';
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
@@ -741,6 +749,9 @@ function preparerVoix(){
   P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
 }
 $('genBtn').addEventListener('click',generateFree);
+$('carteBtn').addEventListener('click',()=>{ const i=$('carteImg'); i.src=`galaxies/carte_${etatCarte()}.svg`; i.style.width='100%'; i.style.maxWidth='1200px'; $('carteVue').hidden=false; });
+$('carteFermer').addEventListener('click',e=>{ e.stopPropagation(); $('carteVue').hidden=true; });
+$('carteImg').addEventListener('click',()=>{ const i=$('carteImg'), grand=i.style.width==='240%'; i.style.width=grand?'100%':'240%'; i.style.maxWidth=grand?'1200px':'none'; $('carteVue').style.cursor=grand?'zoom-in':'zoom-out'; });   // un toucher : agrandir / réduire
 $('fAge').addEventListener('change',()=>{ $('fAge').dataset.choisi='1'; });       // sans choix explicite, l'âge suit le groupe choisi à l'accueil
 
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
