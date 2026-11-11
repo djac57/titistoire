@@ -156,7 +156,7 @@ export default {
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
           for (const t of h.tableaux) t.images = t.images.map(d => motInterdit(d) ? "" : d);      // description douteuse : écartée, la page reprendra l'image voisine
           const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
-          const maigre = pg.length < 18 || moy < 75 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+          const maigre = pg.length < 18 || moy < 68 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
           const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
           const c2 = await controle(env, tout, "histoire");
           if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
@@ -365,9 +365,10 @@ function redacteurs(env, GKEY, forceIA) {
   if (forceIA) return [[forceIA, forceIA.startsWith("@cf/") ? ia(forceIA) : gemini(forceIA)]];
   const L = [];
   // flash-lite d'abord : c'est celui qui répond en pratique sur le palier gratuit, et son texte est bon
-  if (GKEY) for (const m of ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash"]) L.push([m, gemini(m)]);
+  // (mesuré : flash-lite répond en ~10 s ; les deux autres Gemini dépassent souvent 45 s sur une histoire entière, on ne les tente qu'après un 2e essai de flash-lite)
+  if (GKEY) { L.push(["gemini-flash-lite-latest", gemini("gemini-flash-lite-latest")]); L.push(["gemini-flash-lite-latest (2e essai)", gemini("gemini-flash-lite-latest")]);
+    for (const m of ["gemini-flash-latest", "gemini-3.8-flash"]) L.push([m, gemini(m)]); }
   if (env.OPENROUTER_KEY) for (const m of ["nvidia/nemotron-3-ultra-550b-a55b:free", "google/gemma-4-31b-it:free"]) L.push(["or:" + m, openrouter(m)]);
-  if (GKEY) L.push(["gemini-flash-lite-latest (2e essai)", gemini("gemini-flash-lite-latest")]);
   if (env.AI) for (const m of ["@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"]) L.push([m, ia(m)]);
   return L;
 }
