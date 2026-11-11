@@ -8,19 +8,19 @@ famille: autres
 
 @ On a pirate ship deck with cream sails, {rosie} leaps over a barrel, {nestor-} watching
 Sur La Coquille, personne ne court plus vite que Rosie. Elle grimpe au mât en trois bonds, elle fait dix nœuds à la minute, et elle a toujours fini avant tout le monde.
-> On a pirate ship deck in the morning sun, {rosie} stands with paws on hips and chin up, boasting proudly to {nestor-} and {sardine}, who listen with amused faces, calm blue sea behind
+> On a pirate ship deck in the morning sun, {rosie} stands with paws on hips and chin up, boasting proudly to {nestor-} and to {sardine}, tiny, no taller than the rabbit's knee, who listen with amused faces, calm blue sea behind
 « Si c'était moi la capitaine, dit-elle souvent, on irait deux fois plus vite ! »
-> On a pirate ship deck, {mirabelle} lifts her big blue captain hat off her head and lowers it onto the long ears of a surprised {rosie}, a hammock hanging nearby, sunny morning sea
+> On a pirate ship deck, {mirabelle}, bare-headed, holds her big blue captain hat in both paws and lowers it onto the long ears of a surprised {rosie}, the only blue hat in the picture, a hammock hanging nearby, sunny morning sea
 Un matin, la capitaine Mirabelle l'entend. Elle ôte son grand chapeau bleu et le pose sur les oreilles de Rosie. « Chiche. Aujourd'hui, c'est toi qui commandes. Moi, je fais la sieste. »
 
-@ On a pirate ship deck, {rosie} wearing an oversized blue captain hat stands on a barrel shouting orders and pointing, while three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, run in all directions
+@ On a pirate ship deck, {rosie} wearing an oversized blue captain hat stands on a barrel shouting orders and pointing, while {nestor-}, a plump pink pig cook in a white apron and a spotted dog in a striped shirt run in all directions, sunny sea
 Rosie grimpe sur un tonneau. « Écoutez tous ! Cap sur l'île aux Ananas ! Un, deux, trois, PARTEZ ! »
-> On a pirate ship deck, {rosie} in a blue captain hat holds a mop beside a startled big brown bear sailor
+> On a pirate ship deck, {rosie} in an oversized blue captain hat snatches a mop from the paws of a startled spotted dog in a striped shirt, a bucket of soapy water beside them, cream sail and sunny sea behind
 « Toi, hisse la voile ! Plus vite ! Toi, frotte le pont ! Pas comme ça ! Et toi… pousse-toi, je vais le faire moi-même ! »
-> On a pirate ship deck, {rosie} in an oversized blue captain hat talks nonstop with eyes shut and mouth wide open, arms waving, while dizzy three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, carrying buckets and ropes bump into each other around her, sunny sea
+> On a pirate ship deck, {rosie} in an oversized blue captain hat talks nonstop with eyes shut and mouth wide open, arms waving, while around her {nestor-}, a plump pink pig cook in a white apron and a spotted dog in a striped shirt, carrying buckets and ropes, bump into each other
 L'équipage court dans tous les sens. Rosie donne trente ordres à la minute. Elle parle si vite qu'elle n'entend plus rien d'autre que sa propre voix.
 
-@ {rosie} in an oversized blue captain hat grips the ship's wheel looking straight ahead, ignoring {nestor-} raising his paw behind her and {sardine} waving from the top of the mast
+@ On the deck of a pirate ship, {rosie}, the only one wearing a blue captain hat, grips the ship's wheel alone and looks straight ahead, ignoring {nestor-}, bare-headed, raising one paw behind her, and a plump pink pig cook in a white apron holding a ladle
 « Capitaine Rosie, dit Nestor, le vent tourne, il faudrait peut-être… » « Pas le temps ! » « Capitaine Rosie, dit le cuisinier, pour le déjeuner… » « Plus tard ! »
 > At the top of the mast of a pirate ship, {sardine} leans out of the crow's nest, one paw shading her eyes and the other pointing ahead with a worried face, {rosie} tiny at the wheel far below, sunny sea
 Tout en haut du mât, une petite voix essaie aussi. C'est Sardine, la souris vigie. « Capitaine ! Je vois quelque chose devant ! »
@@ -34,32 +34,32 @@ La Coquille file comme une flèche. Rosie est ravie. Devant, il y a un gros nuag
 > {coquille} almost vanishes inside thick white fog on a very still sea, only the tip of the mast and the soft glow of a lantern still showing, everything pale, white and quiet
 Le brouillard avale le bateau. On ne voit plus le bout de son museau. Tout est blanc, tout est silencieux. Un peu trop silencieux.
 
-@ In thick fog, a small wooden pirate ship is stuck tilted between two big rocks, sailors tumbled on the deck, {rosie} with her blue captain hat askew looking shocked
+@ Close view of the deck of a wooden pirate ship stuck tilted between two big dark rocks in thick fog, {rosie} with an oversized blue captain hat askew sits fallen and shocked, {nestor-} and a spotted dog in a striped shirt tumbled on the planks beside her, animals only
 CRRRAC ! Tout le monde tombe par terre. La Coquille est coincée entre deux rochers, penchée comme une assiette qu'on a mal rangée.
-> In thick fog on a tilted pirate ship deck stuck between two big rocks, {rosie} with her blue captain hat askew spreads her arms in dismay, while {nestor-} and other three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, look at her in silence
+> In thick fog on a tilted pirate ship deck stuck between two big rocks, {rosie} with her blue captain hat askew spreads her arms in dismay, while {nestor-}, a plump pink pig cook in a white apron and a spotted dog in a striped shirt look at her in silence
 « Des rochers ! s'écrie Rosie. Mais pourquoi personne ne m'a rien dit ? » L'équipage la regarde. Personne ne répond.
-> In thick fog on a tilted pirate ship deck, tiny {sardine} stands in front of {rosie} and looks up shyly with one small paw raised, while the rabbit blushes, her long ears turning bright pink under the blue captain hat
+> In thick fog on a tilted pirate ship deck, {sardine}, tiny, no taller than the rabbit's knee and bare-headed, looks up shyly with one small paw raised at {rosie}, who looks embarrassed, not smiling, her long ears turning bright pink under the only blue captain hat
 C'est Sardine qui parle, toute petite : « J'ai essayé, capitaine. Deux fois. » Rosie sent ses grandes oreilles devenir très, très chaudes.
 
-@ On a tilted ship deck in the fog, {rosie} sits with a big blue captain hat fallen over her eyes, ears down, silent, {sardine} sitting near her
+@ On a tilted pirate ship deck in thick fog, {rosie} sits with the big blue captain hat fallen over her eyes, ears down, silent, {sardine}, tiny, no taller than her knee, sitting near her
 Rosie s'assoit sur le pont. Le grand chapeau lui tombe sur les yeux. Il est lourd, finalement. Beaucoup plus lourd qu'il n'en a l'air.
 > On a tilted pirate ship deck in the fog, {rosie} lifts the brim of the big blue captain hat with one paw and opens her mouth but stays silent, looking lost and unsure, {sardine} watching her kindly
 Elle voudrait crier un ordre. Mais lequel ? Elle ne sait pas quoi faire. Pour la première fois de sa vie, Rosie ne dit rien du tout.
-> In fog, {rosie} listens to {sardine} and {nestor-}
+> On a tilted pirate ship deck in thick fog, {rosie} sits holding up the brim of the big blue captain hat, one long ear cocked, listening to {nestor-} and tiny {sardine} whispering together beside her, a lantern glowing
 Et dans le silence, elle entend des choses. Le bois qui grince. L'eau qui clapote. Et son équipage qui chuchote : « Moi, j'ai une idée… » « Moi aussi… »
 
-@ On a ship deck, {rosie} holds the blue captain hat in her paws and listens carefully, long ears up, to a circle of three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, including a big brown bear and {sardine}, everyone sharing ideas
+@ On a foggy pirate ship deck, {rosie}, bare-headed, holds the big blue captain hat in her own paws and listens carefully, long ears up, to {nestor-}, tiny {sardine}, a plump pink pig cook in a white apron and a spotted dog in a striped shirt gathered in a circle around her
 Rosie enlève le chapeau. « Je vous écoute. » Ça lui fait tout drôle de dire ça. « Nestor ? » « Hmm. Si on pousse tous du même côté quand la vague arrive… »
-> On the left a plump pig cook in a white apron holds yellow butter, on the right {rosie} listens
+> On a foggy pirate ship deck, {rosie} listens with {sardine}, tiny, standing on her shoulder and pointing ahead between two dark rocks, while a plump pink pig cook in a white apron holds up a block of yellow butter
 « Sardine ? » « D'en haut, je vois un passage entre les rochers ! Je peux vous guider. » « Et moi, dit le cuisinier, j'ai du beurre pour faire glisser la coque. »
-> On a foggy ship deck, {rosie} and {nestor-} push hard against the rail, a wave behind
+> On a tilted pirate ship deck in the fog, {rosie}, {nestor-}, a plump pink pig cook in a white apron and a spotted dog in a striped shirt push together with all their paws against the same wooden rail, a big wave rising behind them
 Une vague arrive. « Tous ensemble ! dit Rosie. Un, deux, trois… POUSSEZ ! » Et scrouitch ! La Coquille glisse, se redresse, et flotte.
 
-@ {coquille} sails out of the fog into bright sunshine toward a green island covered with pineapples, {rosie} at the wheel and {sardine} at the top of the mast pointing the way, {mirabelle} winking from a hammock
+@ {coquille} sails out of the fog into bright sunshine toward a green island covered with pineapples, {rosie} at the ship's wheel on the deck and tiny {sardine} at the top of the mast pointing the way, the fog parting like a curtain behind
 « À gauche ! » crie Sardine. Rosie tourne à gauche. « Tout droit ! » Rosie va tout droit. Et le brouillard s'ouvre comme un rideau sur l'île aux Ananas.
 > On a sunny pirate ship deck near a green island covered with pineapples, {mirabelle} sits up in her hammock, stretching with one eye open and a knowing smile, looking at {rosie} who stands proudly by the ship's wheel
 La capitaine Mirabelle se réveille juste à ce moment-là. Enfin… peut-être qu'elle ne dormait pas vraiment. « Alors, capitaine Rosie ? C'est comment, de commander ? »
-> {rosie} and {mirabelle} laugh together
+> On a sunny pirate ship deck near a green island covered with pineapples, {rosie} hands the big blue captain hat back with both paws to {mirabelle}, bare-headed, both laughing, the rabbit's long ears standing free
 Rosie lui rend son chapeau. « C'est surtout avec les oreilles, dit-elle. Heureusement, j'en ai des grandes. »
 
 === rosie_dino
@@ -68,14 +68,14 @@ theme: ralentir ; ce qu'on ne voit pas en courant
 sujet: Ralentir
 famille: grandir
 
-@ In a prehistoric valley of giant ferns, {rosie} runs so fast she leaves a trail of dust, small dinosaurs watching her zoom by
+@ In a prehistoric valley of giant ferns, {rosie} runs so fast she leaves a trail of dust, two small yellow duck-billed dinosaurs and one purple pterodactyl watching her zoom by
 Dans la vallée des Fougères, Rosie fait tout en courant. Elle mange en courant, elle dit bonjour en courant, et il paraît même qu'elle dort en courant.
-> In a prehistoric valley of giant ferns in the morning, {rosie} stops and looks up excitedly at a distant blue hill dotted with pale closed flower buds, which two small dinosaurs point at, a volcano far away
+> In a prehistoric valley of giant ferns in the morning, {rosie} stops and looks up excitedly at a distant blue hill dotted with closed white flower buds, which two small yellow duck-billed dinosaurs point at, a volcano far away
 Ce matin, grande nouvelle : au sommet de la colline Bleue, les fleurs de lune vont s'ouvrir. Ça n'arrive qu'une fois par an, au coucher du soleil.
 > Among giant ferns, {rosie} pouts with drooping ears beside {dipla} smiling calmly
 « J'y serai la première ! Un, deux, trois… » « Attends, dit sa maman. Tu y vas avec Mamie Dipla. Elle connaît le chemin. » « Oh non… Pas Mamie Dipla ! »
 
-@ {dipla} walks slowly on four legs, {rosie} hopping impatiently around her big feet, giant ferns
+@ On a path among giant ferns, {dipla}, huge, walks slowly on four legs, while {rosie}, no taller than the dinosaur's ankle, hops impatiently around her big feet, sunny prehistoric valley
 Mamie Dipla est la plus vieille diplodocus de la vallée. Elle est très gentille. Et elle est très, très, très lente.
 > On a path among giant ferns, {dipla} slowly lifts one huge foot in the air, while {rosie} races round and round a tree trunk leaving a ring of dust, sunny prehistoric valley
 Elle lève une patte… Elle la pose… Elle lève l'autre patte… Pendant ce temps, Rosie a déjà fait douze fois le tour d'un arbre.
@@ -89,14 +89,14 @@ Au bout d'une heure, Rosie n'en peut plus. Le chemin se sépare en deux. « Je p
 > On a prehistoric path among giant ferns, {rosie} leaps in mid-air over a very wide brown muddy puddle, eyes widening as she sees she will fall short, two smaller puddles behind her
 Elle saute une flaque. Deux flaques. Une troisième flaque, plus grande, plus brune. Et celle-là… elle ne saute pas assez loin.
 
-@ {rosie} is stuck up to her belly in a brown sticky swamp, struggling, splashed with mud, frogs watching from lily pads, the sun getting low
+@ In a prehistoric valley of giant ferns, {rosie} is stuck up to her belly in a brown sticky swamp, struggling, splashed with mud, two green frogs watching from lily pads, the sun getting low
 SPLOTCH. Rosie est dans la boue jusqu'au ventre. C'est le marais Collant. Elle tire sur une patte : ça colle. Elle tire sur l'autre : ça colle encore plus.
-> In a brown sticky swamp among giant ferns, {rosie} stuck up to her belly thrashes her arms wildly, mud splashing everywhere as she sinks a little deeper, frogs on lily pads ducking the splashes, afternoon light
+> In a brown sticky swamp among giant ferns, {rosie} stuck up to her belly thrashes her arms with a panicked worried face, mouth open in effort, not smiling, mud splashing as she sinks deeper, two green frogs on lily pads ducking the splashes
 « Un, deux, trois… partez ! » Elle se débat, elle gigote, elle pédale. Plus elle va vite, plus elle s'enfonce.
-> In a brown sticky swamp, {rosie} stuck in mud up to her chest has stopped moving and looks sadly at the orange sun going down behind a distant blue hill, ears drooping, frogs watching quietly
+> In a brown sticky swamp, {rosie} stuck in mud up to her chest has stopped moving and looks sadly at the orange sun going down behind a distant blue hill, ears drooping, two green frogs on lily pads watching quietly
 Le soleil commence à descendre. Les fleurs de lune vont s'ouvrir sans elle. Et Rosie, la plus rapide de la vallée, ne peut plus bouger du tout.
 
-@ {dipla} lowers her very long neck over a muddy swamp like a gentle crane, and a muddy {rosie} holds on to her head, being lifted out
+@ In a brown sticky swamp among giant ferns at sunset, {dipla} lowers her very long neck down over the mud, her little spectacles glinting on her nose, toward {rosie}, covered in brown mud and stuck up to her belly, who looks up in surprise
 Boum… Boum… Un pas tranquille s'approche. Un long cou se penche au-dessus du marais, avec, tout au bout, de petites lunettes.
 > Over a muddy swamp at sunset, the kind smiling face of {dipla} comes down very close to a muddy {rosie} stuck in the mud, who reaches up with both paws toward her, relieved
 « Te voilà, ma puce. » Mamie Dipla ne dit pas « je te l'avais dit ». Elle descend sa tête, tout doucement. « Accroche-toi. Et ne gigote pas. »
@@ -110,16 +110,16 @@ Elle voit une libellule sécher ses ailes. Elle voit la rivière faire des boucl
 > {rosie} lying on her tummy on the long neck of {dipla} looks at her with curious eyes, the old dinosaur turning her head back with a tender smile, a winding river and a valley of ferns below, golden evening light
 « C'était là avant, tout ça ? » demande Rosie. « Depuis toujours, ma puce. Mais ça ne se voit pas en courant. »
 
-@ At sunset on a blue hill of closed white buds, {rosie} sits beside {dipla}
+@ At sunset on top of a blue hill covered only with closed white flower buds, {rosie} stands on tiptoe beside {dipla}, looking around anxiously, the orange sun touching the hill
 Le soleil touche presque la colline quand elles arrivent en haut. Rosie a le cœur qui bat. « On est en retard ? On a tout raté ? »
-> At sunset on top of a blue hill covered with closed flower buds, {dipla} lowers her head close to {rosie} with a calm hushing smile, the rabbit still standing on tiptoe and looking around anxiously, orange sky
+> At sunset on top of a blue hill covered only with closed white flower buds, no open flowers, {dipla} lowers her head close to {rosie} with a calm hushing smile, the rabbit still standing on tiptoe and looking around anxiously, orange sky
 « Chut, dit Mamie Dipla. Assieds-toi. Maintenant, il faut faire la chose la plus difficile du monde. » « Courir ? » « Non. Attendre. »
-> On a blue hill of closed white buds, {rosie} sits eyes shut, {dipla} watching
+> On top of a blue hill covered only with closed white flower buds under an orange sunset sky, {rosie} sits with eyes shut and paws on her knees, {dipla} watching her
 Rosie s'assoit. Ses pattes la démangent. Elle compte dans sa tête : un… deux… trois… Et elle ne part pas.
 
-@ At dusk, glowing white and blue flowers open around {rosie} and {dipla}
+@ At dusk on top of a blue hill, glowing white and blue moon flowers open one by one all around {rosie} and {dipla}, sitting side by side
 Alors, une par une, sans se presser, les fleurs de lune s'ouvrent. Elles sont blanches, elles sont bleues, elles brillent comme si chacune avait avalé une petite étoile.
-> At night on a hill covered with glowing white and blue moon flowers, close view of {rosie} sitting perfectly still with paws in her lap, the soft glow of one last opening flower lighting her amazed face, {dipla} beside her
+> At night on a hill covered with glowing white and blue moon flowers, close view of {rosie} sitting perfectly still with empty paws in her lap, one last opening flower growing in the ground in front of her lighting her amazed face, {dipla} close beside her
 Rosie ne bouge pas. Elle ne dit rien. Elle regarde jusqu'à la toute dernière fleur. C'est long. C'est merveilleux.
 > At night under a starry sky, {rosie} walks slowly side by side with {dipla} down a path among giant ferns, one paw lifted mid-step just like the dinosaur, glowing moon flowers on the hill behind them, fireflies
 Pour rentrer, elle marche à côté de Mamie Dipla. Une patte… puis l'autre… « Tu ne cours pas, ma puce ? » « Pas ce soir, dit Rosie. Ce soir, j'ai pas envie d'arriver. »
@@ -134,35 +134,35 @@ famille: grandir
 Au château de Hauteroche, chaque année, il y a la grande course des écuyers. Et chaque année, c'est Rosie qui gagne.
 > In a small castle bedroom in the evening, {rosie} carefully measures with her paws the empty space on a shelf next to three shining golden cups, a polishing cloth over her shoulder, warm candle light
 Elle a déjà trois coupes sur son étagère. Elle les frotte tous les soirs. Elle a même préparé la place de la quatrième.
-> In a sunny castle courtyard, {rosie} struts with her chin up and one paw on her chest, showing off in front of a few small animal squires who listen, some rolling their eyes, towers and flags behind
+> In a sunny castle courtyard, {rosie} struts with her chin up and one paw on her chest, showing off in front of two red squirrels and one grey mouse in small tunics who listen, rolling their eyes, towers and flags behind
 « Gagner, c'est facile, explique-t-elle à tout le monde. Il suffit d'être moi. »
 
-@ At a race starting line in front of a castle, {rosie} looks down smiling at {pepin}, a very small spiky hedgehog reaching only her knee, no other characters
+@ At a race starting line on a grass track in front of a castle, {rosie} bends down smiling at {pepin}, tiny, five times smaller than her and no taller than her knee, standing at her feet, no other characters
 Cette année, sur la ligne de départ, il y a un nouveau. C'est Pépin, le petit hérisson. Il a des pattes minuscules et il arrive à peine au genou de Rosie.
-> {pepin}, a very small spiky hedgehog only knee-high, looks up bravely at {rosie} who giggles behind her paw, on a grass track in front of a castle, two squirrels watching
+> On a grass track in front of a castle, {rosie} giggles behind her paw, looking down at {pepin}, tiny, five times smaller than her, standing at her feet and looking up bravely, two red squirrels watching
 « Tu vas courir, toi ? » ricane Rosie. « Je vais essayer, dit Pépin. Je me suis entraîné tout l'hiver. »
-> In front of a castle, {hermine} holds up a white handkerchief while {rosie} and {pepin}, a very small spiky hedgehog, crouch side by side ready to run
+> On a grass track in front of a castle, {hermine} holds up a white handkerchief, while {rosie} and {pepin}, tiny, no taller than the rabbit's knee, crouch side by side ready to run, standing apart as separate animals, each fully visible
 La reine Hermine lève son mouchoir. « Un… deux… trois… PARTEZ ! »
 
-@ On a grassy race track near a castle, {rosie} runs far ahead alone, waving proudly to a few small forest animals watching, one foot lifted in a little pirouette
+@ On a grassy race track near a castle, {rosie} runs far ahead alone, waving proudly to two red squirrels and one grey mouse watching from the side, one foot lifted in a little pirouette
 Rosie part comme une flèche. Elle est tellement en avance qu'elle salue la foule. Elle fait même une pirouette. « Regardez-moi ! »
-> At the top of a steep grassy slope on a race track near a castle, a tiny brown hedgehog far behind curls up into a spiky ball and starts to roll, while {rosie} running ahead turns her head, one ear cocked in surprise
+> At the top of a steep grassy slope on a dirt race track near a castle, {pepin}, far behind, is curled into a single small spiky ball rolling down the grass, while {rosie} running ahead turns her head, one ear cocked in surprise
 Mais dans la grande descente, elle entend un drôle de bruit derrière elle. Frrrrrrr… Pépin s'est mis en boule. Et une boule, dans une descente, ça roule.
-> Near a little stone bridge and a castle, a small round brown spiky ball rolls on the grass track just ahead of {rosie} who runs behind it, clearly separate, looking astonished
+> Near a little stone bridge and a castle, {pepin}, curled into a single small round spiky ball, rolls on the grass track just ahead of {rosie} who runs behind, clearly separate, looking astonished
 Frrrrrr-ZOUM ! La boule de piquants la dépasse, traverse le pont, et franchit la ligne d'arrivée. D'un tout petit nez.
 
-@ Near a castle, {pepin}, a very small spiky hedgehog, holds a golden cup, cheered by squirrels, mice and birds, while {rosie} stands apart frowning with red cheeks and stamps her foot
+@ On a grass track near a castle, {pepin}, tiny, holds exactly one golden cup, cheered by two red squirrels, two grey mice and one blue bird, while {rosie}, much taller, stands apart frowning with red cheeks and stamps her foot
 « Vainqueur : Pépin ! » La foule explose de joie. On porte le petit hérisson en triomphe. Enfin, on le porte avec des gants.
-> At a finish line near a castle, {rosie} stands frozen and alone on the line with a stunned face and drooping ears, while in the background a cheering crowd of animals wearing thick gloves carries {pepin} in triumph
+> At a finish line near a castle, {rosie} stands frozen and alone on the line with a stunned face and drooping ears, while in the background two red squirrels and two grey mice wearing thick gloves carry {pepin}, tiny, in triumph
 Rosie reste plantée sur la ligne. Deuxième. Elle n'a jamais été deuxième. Ça lui fait comme un caillou dans la chaussure, mais partout.
-> On a grass track near a castle, {rosie} hops on one leg holding her sore foot, frowning with red cheeks, pointing a paw at the sun, two small squirrels watching
+> On a grass track near a castle, {rosie} hops on one leg holding her sore foot, frowning with red cheeks, pointing a paw at the sun, two red squirrels watching
 « C'est de la triche ! Rouler, ça ne compte pas ! Le terrain était mouillé ! J'avais le soleil dans l'œil ! » Elle tape du pied si fort qu'elle se fait mal.
 
-@ {pepin}, holding a golden cup, kindly holds out his little paw to {rosie}, who turns away with her arms crossed and her nose in the air, castle behind
+@ On a grass track near a castle, {rosie} turns away with her arms crossed and her nose in the air, while {pepin}, tiny, no taller than her knee, hugs exactly one golden cup in one arm and kindly holds out his other little paw to her
 Pépin s'approche, sa coupe dans les bras. Il tend sa petite patte. « Bravo, Rosie. Tu cours drôlement bien. J'ai eu de la chance dans la descente. »
-> Near a castle, {rosie} walks away with arms crossed and nose in the air, while behind her {pepin}, facing us, holds a golden cup and still holds out one little paw
+> On a grass track near a castle, {rosie} walks away with arms crossed and nose in the air, while behind her {pepin}, tiny, no taller than her knee, facing us, hugs exactly one golden cup and still holds out one little paw
 Rosie regarde la patte. Elle croise les bras. « Je ne serre pas la patte des tricheurs. » Et elle s'en va, le nez en l'air.
-> On a grass track near a castle in late afternoon light, {pepin}, a very small spiky hedgehog, stands alone hugging a golden cup, eyes lowered and sad, nobody else around
+> On a grass track near a castle in late afternoon light, {pepin}, tiny, stands alone hugging exactly one golden cup, eyes lowered and sad, nobody else around
 Derrière elle, le sourire de Pépin s'éteint, comme une bougie qu'on souffle.
 
 @ At night in a castle bedroom, {rosie}, seen from behind, looks out of an arched window at a tiny lantern light glowing far below in the dark courtyard
@@ -172,18 +172,18 @@ Par la fenêtre, elle voit une petite lumière dans la cour. C'est Pépin. Il co
 > At night in a castle bedroom, {rosie} sits on her bed in the moonlight with a polishing cloth limp in her paws, looking thoughtfully from three golden cups on a shelf to the window, ears lowered
 « Tout l'hiver… », se souvient Rosie. Il s'est entraîné tout l'hiver. Pendant qu'elle frottait ses coupes.
 
-@ Morning in a castle courtyard, {rosie} sincerely shakes the paw of {pepin}, both smiling shyly
+@ Morning in a castle courtyard, {rosie} bends down and sincerely shakes the paw of {pepin}, tiny, no taller than her knee, both smiling shyly
 Le lendemain matin, Rosie traverse la cour. Ses pattes pèsent lourd. C'est plus dur que n'importe quelle course. « Pépin. »
 > Morning in a castle courtyard, {rosie} lowers her head and ears, looking sorry, and holds out her paw toward {pepin}, who looks up at her in surprise near a stone well
 « Hier, tu n'as pas triché. Tu as gagné. Et moi… j'ai été une mauvaise perdante. » Elle tend la patte. « Bravo. Pour de vrai. »
-> Morning in a castle courtyard, {rosie} giggles and shakes her slightly pricked paw, while {pepin} laughs and mimes a rolling ball with his little arms, both excited and friendly
+> Morning in a castle courtyard, {rosie} giggles and shakes her slightly pricked paw, while {pepin}, tiny, laughs and curls his little arms in a circle in front of him, holding nothing, no ball, both excited and friendly
 Pépin lui serre la patte. Ça pique un tout petit peu. « Tu m'apprends à rouler ? » demande Rosie. « Si tu m'apprends les virages ! Je me cogne partout. »
 
 @ On a green hill near a castle, {rosie} rolls down the grass laughing, ears flapping, while beside her, clearly separate, {pepin} rolls as a small brown spiky ball
 Tout le printemps, on les voit s'entraîner ensemble. Rosie roule très mal : ses oreilles dépassent. Pépin prend ses virages de mieux en mieux.
-> In front of a castle with flags, {rosie} and {pepin} run side by side through a red ribbon, both laughing with eyes closed, squirrels, mice and birds cheering
+> In front of a castle with flags, {rosie} and {pepin}, tiny, no taller than her knee, run side by side through a red ribbon, both laughing with eyes closed, two red squirrels, two grey mice and one blue bird cheering
 L'année suivante, qui a gagné la grande course ? Certains disent Rosie. D'autres disent Pépin. À vrai dire, ils riaient tellement en passant la ligne que personne n'a bien regardé.
-> In a small castle bedroom, {rosie} smiles at a wooden shelf holding exactly three golden cups and a small framed picture of a rabbit and a hedgehog, warm evening light, no writing
+> In a small castle bedroom, {rosie}, paws empty, smiles at a wooden shelf holding exactly three golden cups in a row and then one small framed child's drawing of a rabbit and a hedgehog rolling in grass, warm evening light
 Sur l'étagère de Rosie, il y a toujours trois coupes. Et à la place de la quatrième, un dessin. Un lapin et un hérisson, qui roulent dans l'herbe.
 
 === rosie_espace
@@ -194,7 +194,7 @@ famille: grandir
 
 @ Inside a rocket cockpit, {rosie} presses a big green button on the dashboard, with {bip} sitting in the seat next to her, only one robot
 Aujourd'hui, Rosie et Bip le robot partent pour la planète Guimauve. La fusée est prête, les ceintures sont attachées. Rosie appuie sur le bouton vert. « Un, deux, trois… décollage ! »
-> Inside a rocket cockpit, {rosie} stares puzzled at a big green button, one ear bent, while a tiny puff of grey smoke rises from the dashboard and {bip} tilts his head, stars through the round window
+> Inside a rocket cockpit, {rosie} stares puzzled at a big green button, one ear bent, while a tiny puff of grey smoke rises from the plain dashboard and {bip}, the only robot, sits in the seat beside her, no other machine with a face, stars through the round window
 Rien. La fusée fait « pout », et c'est tout.
 > Inside a rocket cockpit, {rosie} pushes a big green button hard with both paws, frowning, cheeks starting to turn pink, little puffs of grey smoke popping from the dashboard, {bip} strapped in the seat beside her
 Rosie réappuie. « Pout. » Elle appuie plus fort. « Pout, pout. » Dans son ventre, quelque chose commence à chauffer, comme une casserole sur le feu.
@@ -208,40 +208,40 @@ C'est la colère rouge. Quand elle arrive, Rosie ne peut plus rien arrêter. C'e
 
 @ Inside a rocket cockpit, a furious red-cheeked {rosie} bangs with both fists on a dashboard full of flashing coloured buttons, while {bip} raises his arms in alarm
 « MARCHE, STUPIDE FUSÉE ! » Bam ! Elle tape sur le tableau de bord. Bam ! Sur le bouton bleu, le jaune, le violet. Bam, bam, bam ! Sur tous les boutons à la fois.
-> Inside a rocket cockpit, {bip} spreads his two short arms in front of one big red button on the dashboard, while {rosie}, angry with red cheeks, raises one fist
+> Inside a rocket cockpit, {bip}, a bare ball with no suit and no body, spreads his two short arms in front of one big red button on the dashboard, while {rosie}, the only one in an astronaut suit, angry with red cheeks, raises one fist
 « Attention, dit Bip. Il ne faut surtout pas toucher le bouton rou… » BAM.
 > Inside a silent rocket cockpit, {rosie} freezes with a surprised face as her feet lift off the floor and her ears drift upward, a big red button glowing on the dashboard, {bip} starting to float too
 Il y a un petit clic. Puis un grand silence. Puis Rosie sent ses pattes quitter le sol.
 
 @ Zero gravity inside a rocket cabin: {rosie} floats upside down, surprised, among floating carrots, screwdrivers, socks and big orange bubbles of soup, {bip} floating too
 Elle a coupé la gravité. Tout s'envole : les carottes, les tournevis, les chaussettes, et la soupe de midi, qui flotte en grosses bulles orange.
-> Zero gravity inside a rocket cabin: {rosie} floats head down, frowning and kicking the empty air, carrots and socks drifting around, {bip}, the only robot, floating beside her
+> Zero gravity inside a rocket cabin: {rosie} floats upside down, feet toward the top of the picture and ears pointing down, frowning and kicking the empty air, carrots and socks drifting around, {bip}, the only robot, floating beside her
 Rosie tourne sur elle-même, la tête en bas. Elle veut taper encore, mais dans le vide, on ne peut taper sur rien. Sa colère pédale dans l'air.
-> Zero gravity inside a rocket cabin: an open toolbox floats and many little bolts drift everywhere, {bip} stretches his short arms to catch them, {rosie} floating behind him
+> Zero gravity inside a rocket cabin: an open toolbox floats and many little bolts drift everywhere, {bip} stretches his short arms to catch them, {rosie} floating upright behind him, fully visible in her astronaut suit
 Et pire que tout : la boîte à outils de Bip s'est ouverte. Ses boulons de rechange s'éparpillent partout. Bip tend ses petits bras. Il n'arrive pas à les rattraper.
 
-@ Floating inside a rocket cabin, {bip} looks sad with one arm hanging loose and little bolts drifting around him, while {rosie} floats nearby looking at him with regret
+@ Floating inside a rocket cabin, {bip} drifts with his left arm dangling bent and loose and little bolts floating around him, while {rosie} floats nearby looking at him with regret
 « Mes boulons… », dit Bip. Sa voix grésille. Dans la bagarre, une carotte a cogné son bras gauche. Il pend, tout de travers.
 > Floating inside a rocket cabin, {rosie} holds her paws over her mouth, eyes wide and sorry, looking at {bip}, the only robot, whose left arm hangs down crooked
 Rosie le regarde. La colère rouge est encore là, mais derrière elle, il y a autre chose qui arrive. Quelque chose de froid et de petit. « C'est moi qui ai fait ça ? »
-> Floating inside a rocket cabin, {bip}, one arm hanging down, raises his other short arm kindly toward {rosie}, who listens with lowered ears and a small hopeful smile
+> Floating inside a rocket cabin, {bip}, one arm hanging down, raises his other short arm kindly toward {rosie}, who listens with her two ears slightly tilted back and a small hopeful smile
 « Affirmatif, dit Bip. Mais tu n'étais pas vraiment toi. Tu étais la colère. Veux-tu que je te montre comment je refroidis mes circuits ? »
 
 @ Floating face to face inside a rocket cabin, {rosie} closes her eyes and blows air out slowly with puffed cheeks, calm, while {bip} shows her how, a tiny fan spinning on his back, soft blue light
 « Quand je chauffe trop, je souffle. Trois fois. Comme ça. » Bip fait pfffff. Un petit ventilateur tourne dans son dos.
 > Floating inside a rocket cabin, {rosie} with eyes closed rests both paws on her round tummy and breathes out a long soft stream of air, three small puffs drifting away, {bip} watching gently, soft blue light
 Rosie n'a pas de ventilateur. Mais elle a son ventre. Elle ferme les yeux. « Un… » Pfffff. « Deux… » Pfffff. « Trois… » Pfffffffff.
-> Floating inside a rocket cabin, a relaxed {rosie} with open paws, lowered ears and a peaceful smile watches a little pink cloud drift away through the round window into the stars, {bip} beside her, soft blue light
+> Floating inside a rocket cabin, a relaxed {rosie} with open paws, her two ears slightly tilted back and a peaceful smile watches a little pink cloud drift away through the round window into the stars, {bip} beside her, soft blue light
 Elle sent la casserole refroidir. Ses poings s'ouvrent. Ses oreilles redescendent. La colère rouge devient rose, puis toute petite, puis s'en va par le hublot.
 
-@ Floating inside a rocket cabin, {rosie} gently fixes the arm of {bip} with a small screwdriver, tongue out in concentration, a jar of collected bolts beside her
+@ Floating inside a rocket cabin, {rosie}, her tongue sticking out in concentration, gently fixes with a small screwdriver the arm of {bip}, who has no mouth, a jar of collected bolts beside her
 « Pardon, Bip. » Rosie attrape les boulons un par un, comme des papillons. Elle revisse le bras du robot, tout doucement, en tirant la langue.
 > Inside a rocket cabin, {rosie} presses a big red button and everything drops to the floor at once: carrots, socks, tools and a big splash of orange soup, {bip} landing on his feet, both looking surprised
 Puis elle réappuie sur le bouton rouge. Ploum ! Tout retombe. La soupe aussi. Tant pis : on mangera des carottes.
-> Inside a rocket cockpit, {bip} points one short arm at a big red lever pulled up beside the seat, while {rosie} laughs holding her tummy
+> Inside a rocket cockpit, {bip}, seen from the front, points one short arm at a big red lever pulled up beside the seat, while {rosie} laughs holding her tummy
 « Vérification terminée, dit Bip. La fusée ne démarrait pas, car le frein à main était serré. » Rosie éclate de rire. Tout ça pour un frein à main !
 
-@ {fusee} flies through starry space toward a soft pink planet that looks like a marshmallow, with {rosie} and {bip} smiling at the round window
+@ Close view of {fusee} flying through starry space toward a soft pink planet that looks like a marshmallow, the smiling faces of {rosie} and {bip} visible only inside its round window, nobody outside, nobody on the planet
 Elle desserre le frein. Elle appuie sur le bouton vert, d'un seul doigt. « Un, deux, trois… décollage ! » Et VROUM, la fusée s'envole vers la planète Guimauve.
 > In a cosy playroom with a starry window, {rosie} sits frowning with pink cheeks beside a toppled tower of wooden blocks, {bip}, the only robot, standing next to her
 La colère rouge est revenue, bien sûr. Elle revient toujours : quand un lacet se coince, quand une tour s'écroule, quand on perd aux petits chevaux.
@@ -254,60 +254,60 @@ theme: être grande sœur ; prendre soin du plus petit
 sujet: Petit frère, petite sœur
 famille: autres
 
-@ In a sunny forest, {rosie} hops along followed closely by {pompon} who copies her exact pose
+@ In a sunny forest, {rosie} hops along followed closely by {pompon}, half her size with very short ears, who copies her exact pose, standing apart as separate animals, each fully visible
 Rosie a un petit frère. Il s'appelle Pompon. Il est haut comme trois carottes, et il a une seule idée dans la vie : faire tout comme Rosie.
-> In a sunny forest, {rosie} scratches her ear with one paw and just behind her {pompon} scratches his ear in exactly the same way, the big sister glancing back suspiciously, the little one beaming
+> In a sunny forest, {rosie} scratches her ear with one paw and glances back suspiciously at {pompon}, half her size with very short ears, who scratches his ear in exactly the same way, beaming, standing apart as separate animals, each fully visible
 Si Rosie saute, Pompon saute. Si Rosie se gratte l'oreille, Pompon se gratte l'oreille. Si Rosie dit « Zut ! », Pompon dit « Zut ! », et c'est elle qui se fait gronder.
-> In a sunny forest clearing, {rosie} complains with arms spread toward {mamanlapin}, while {pompon} clings happily to his sister's leg with a delighted grin
+> In a sunny forest clearing, {rosie} complains with arms spread toward {mamanlapin}, while {pompon}, tiny, no taller than his sister's knee, clings happily to her leg with a delighted grin, standing apart as separate animals, each fully visible
 « Maman ! Il me colle ! C'est pas un frère, c'est un pot de colle ! » « Pot de colle ! » répète Pompon, ravi.
 
-@ In a forest, {rosie} rolls her eyes while {pompon}, half her size, hops happily around her, only these two rabbits on the path, a green hill far behind
+@ On a forest path, {rosie} rolls her eyes while {pompon}, half her size with very short ears, hops happily around her, standing apart as separate animals, each fully visible, only these two rabbits, a green hill far behind
 Aujourd'hui, Rosie a un projet de grande : avec Filou et Noisette, elle va grimper tout en haut de la colline aux Fraises, là où poussent les plus grosses fraises des bois.
-> In a forest, {rosie} crouches and shakes her head at {pompon}, who stands on tiptoe with both arms raised begging to come along, {filou-} and {noisette} waiting on the path behind
+> On a forest path, {rosie} crouches and shakes her head at {pompon}, half her size with very short ears, who stands on tiptoe with both arms raised begging to come along, {filou-} and {noisette} waiting on the path behind, each fully visible
 « Moi aussi ! Moi aussi ! » Pompon sautille autour d'elle. « Non, Pompon. C'est trop loin. Tu es trop petit. Tu marches trop lentement. »
-> At the edge of a forest, {mamanlapin} places the tiny paw of {pompon} into the paw of {rosie}, who looks up at the sky with a big sigh, the little one overjoyed
+> At the edge of a forest, {mamanlapin} places the tiny paw of {pompon}, half his sister's size with very short ears, into the paw of {rosie}, who looks up at the sky with a big sigh, standing apart as separate animals, each fully visible
 « Emmène ton frère, dit maman. Et tiens-lui bien la patte. » Rosie lève les yeux au ciel. Sa journée est fichue.
 
-@ On a forest path, {pompon}, half the size of his sister, crouches nose to nose with a snail, while just behind him {rosie} stands tapping her foot impatiently
+@ On a forest path, {pompon}, very small, half the size of his sister with very short ears, crouches nose to nose with a snail, while just behind him {rosie}, much taller, stands tapping her foot impatiently, standing apart as separate animals, each fully visible
 Sur le chemin, Pompon s'arrête à chaque pas. Pour un caillou. Pour une fourmi. Pour faire pipi. Pour dire bonjour à un escargot qui ne lui a rien demandé.
-> On a forest path going uphill, {rosie} stamps her feet impatiently and points ahead, while behind her {pompon}, an all-white baby rabbit half her size, sits admiring a pebble
+> On a forest path going uphill, {rosie} stamps her feet impatiently and points ahead, while behind her {pompon}, half her size with very short ears, sits admiring a pebble, standing apart as separate animals, each fully visible
 « Dépêche-toi ! » Filou et Noisette sont déjà loin devant. Rosie trépigne.
-> On a forest path, {rosie} with a sly little smile points {pompon} toward the trunk of a big oak tree, the little one clapping his paws with excitement, dappled afternoon light
+> On a forest path, {rosie} with a sly little smile points {pompon}, half her size with very short ears, toward the trunk of a big oak tree, the little one clapping his paws with excitement, dappled afternoon light
 Alors elle a une idée. Pas une très belle idée. « Pompon, on joue à cache-cache. Tu comptes jusqu'à dix, là, contre cet arbre. Et tu ne bouges pas. »
 
-@ In a forest, {pompon}, half the size of his sister, stands facing a big tree trunk with paws over his eyes, while behind him the taller {rosie} tiptoes away
+@ In a forest, {pompon}, half the size of his sister with very short ears, the only one wearing a blue bib, stands facing a big oak tree trunk with paws over his eyes, while behind him the taller {rosie}, in her red scarf and no bib, tiptoes away, standing apart as separate animals
 Pompon est fou de joie. Rosie joue avec lui ! Il cache ses yeux. « Un… deux… trois… cinq… »
-> On a forest path going uphill, {rosie} runs laughing with arms wide to catch up with {filou-} and {noisette}, while far behind in the distance a tiny white rabbit shape still stands against a big tree
+> On a forest path going uphill, {rosie} runs laughing with arms wide toward {filou-} and {noisette}, smaller and reddish-brown, who wait ahead, standing apart as separate animals, each fully visible, while far behind {pompon}, very tiny in the distance, still stands against a big oak tree
 Rosie file sur la pointe des pattes. Elle rattrape ses amis. Elle court, elle grimpe, elle rit. Enfin libre ! « Je reviendrai le chercher tout à l'heure. »
-> On a hilltop covered with wild strawberries, {rosie} sits with {filou-} and {noisette} among big red strawberries, holding a half-eaten one and suddenly looking thoughtful, juice on her chin, afternoon sun
+> On a hilltop covered with wild strawberries, {rosie} holds a half-eaten strawberry and suddenly looks thoughtful, juice on her chin, sitting between {filou-}, the same size as her, and {noisette}, smaller than both and reddish-brown, standing apart as separate animals, each fully visible
 Les fraises sont énormes, rouges, sucrées. Rosie en mange une, deux, dix. Mais c'est drôle : à la onzième, elle leur trouve un petit goût de rien.
 
-@ On a hilltop covered with wild strawberries under an orange evening sky, {rosie} holds a strawberry and looks back down at the big dark forest with a worried face
+@ On a hilltop covered with wild strawberries under an orange evening sky, {rosie}, the only rabbit in the picture, alone and seen from behind, holds a strawberry and looks down at the big dark forest far below, ears drooping
 Le ciel devient orange. « Il compte bien longtemps, ton frère », dit Noisette. Rosie regarde en bas. La forêt est grande. Et Pompon est très petit.
 > On a hilltop covered with wild strawberries under an orange evening sky, {rosie} holds her tummy with both paws, ears drooping and eyes sad, a dropped strawberry at her feet, {noisette} looking at her with concern
 Elle revoit sa tête, tout à l'heure. Tellement content de jouer. Dans son ventre, les fraises se changent en cailloux.
 > In a forest at dusk, {rosie} out of breath runs around the trunk of a big oak tree, searching with an alarmed face, nobody there, only flattened grass at the foot of the tree, long shadows
 Rosie dévale la colline. Elle n'a jamais couru aussi vite. Voilà l'arbre. Elle en fait le tour. Une fois. Deux fois. Personne.
 
-@ In a darkening forest at dusk, a frightened {rosie} holds a small blue bib found on a bramble bush, tiny paw prints on the ground leading toward a stream
+@ In a darkening forest at dusk, a frightened {rosie} stands alone among tall dark trees, calling out with both paws cupped around her mouth, tiny paw prints on the soft ground at her feet, long shadows
 « Pompon ? » Sa voix fait un petit bruit dans la grande forêt. « POMPON ! » Rien. Juste une chouette qui s'éveille.
-> In a darkening forest at dusk, {rosie} bends low to follow tiny paw prints winding across the soft ground toward a small stream, a scrap of blue cloth caught on a bramble bush ahead, a friendly owl on a branch
+> In a darkening forest at dusk, {rosie} bends low to follow tiny paw prints winding across the soft ground toward a small stream, a small flat light blue cloth bib caught on a bramble bush ahead, a friendly owl on a branch
 Par terre, il y a des traces de pattes, toutes petites. Rosie les suit. Elles tournent, elles hésitent, elles vont vers le ruisseau. Et sur une ronce, un bout de tissu bleu. Son bavoir.
-> In a forest at dusk beside a small stream, {rosie} hugs a small blue bib tightly against her chest with eyes shut, a tear on her cheek and ears flat, first stars showing between the trees
+> In a forest at dusk beside a small stream, {rosie} hugs a small flat light blue cloth bib tightly against her chest with eyes shut, a tear on her cheek, exactly two ears, both lowered backwards, first stars showing between the trees
 Rosie le serre contre elle. « C'est pas un pot de colle, dit-elle tout haut. C'est mon frère. » Et elle a très, très peur.
 
-@ Under a big fern at dusk, {rosie} hugs a tiny baby white rabbit tightly, the little one holding out a small wild strawberry in his paw
+@ Under a big fern in a forest at dusk, {rosie} kneels and hugs {pompon}, tiny, half her size with very short ears, who holds out a very small wild strawberry in his paw, standing apart as separate animals, each fully visible
 Un petit bruit. Snif. Sous une grande fougère, il y a une boule blanche qui tremble. « Dix ! J'ai compté jusqu'à dix, dit Pompon. Plein de fois. Mais tu venais pas. Alors je t'ai cherchée. »
-> Under a big fern at dusk, {rosie} kneels and squeezes a tiny baby white rabbit in a very tight hug, her eyes closed with a tear of relief, the little one squished with puffed cheeks, soft evening light
+> Under a big fern in a forest at dusk, {rosie} kneels and squeezes {pompon}, tiny, half her size with very short ears, in a very tight hug, her eyes closed with a tear of relief, the little one squished with puffed cheeks, soft evening light
 Rosie le serre si fort qu'il fait « couic ». « Pardon, Pompon. C'était pas du cache-cache. Je t'ai laissé. C'était méchant. Je ne le ferai plus jamais. »
-> Under a big fern at dusk, {rosie} eats one very small squashed wild strawberry with a blissful tender smile, while a tiny baby white rabbit watches her proudly with his little paw still open
+> Under a big fern in a forest at dusk, {rosie} eats one very tiny squashed wild strawberry with a blissful tender smile, while {pompon}, tiny, half her size with very short ears, in his light blue bib and no scarf, watches her proudly with his little paw still open
 Pompon ouvre sa patte. Dedans, il y a une fraise des bois, toute petite, tout écrasée. « Je l'ai trouvée. C'est pour toi. » C'est la meilleure fraise que Rosie ait jamais mangée.
 
-@ At nightfall in a forest with fireflies and first stars, {rosie} walks home giving a piggyback ride to {pompon}, who sleeps on her back with his muzzle against her neck
+@ At nightfall in a forest with fireflies and first stars, {rosie} walks home giving a piggyback ride to {pompon}, half her size with very short ears, who sleeps on her back with his muzzle against her neck
 Elle le ramène sur son dos. Il s'endort avant la maison, le museau dans son cou. Il est lourd, finalement, pour trois carottes.
-> On a sunny forest path, {rosie} crouches patiently next to {pompon} as they both look closely at a snail and a line of ants, a hill covered with wild strawberries in the distance
+> On a sunny forest path, {rosie} crouches patiently next to {pompon}, half her size with very short ears, as they both look closely at a snail and a line of ants, standing apart as separate animals, a hill covered with wild strawberries in the distance
 Le dimanche suivant, Rosie retourne à la colline aux Fraises. Lentement. Avec des arrêts pour les cailloux, les fourmis et les escargots.
-> On a sunny forest path, {rosie} proudly holds the paw of {pompon} and stands protectively in front of a curious small brown hedgehog passing by, the little rabbit smiling up at his big sister
+> On a sunny forest path, {rosie} proudly holds the paw of {pompon}, half her size with very short ears, and stands protectively in front of one curious small brown hedgehog passing by, the little rabbit smiling up at his big sister
 « C'est qui, le petit qui te suit partout ? » demande un hérisson qui passe. Rosie prend la patte de Pompon. « Lui ? C'est mon pot de colle. Et personne d'autre n'a le droit de l'appeler comme ça. »
 
 === rosie_ocean
@@ -316,32 +316,32 @@ theme: tenir sa promesse ; réparer quand on ne l'a pas tenue
 sujet: Tenir sa promesse
 famille: coeur
 
-@ Underwater on a colourful coral reef, {rosie} watches {perle} twirl and dance making spirals of bubbles
+@ Underwater on a colourful coral reef, {rosie} watches {perle}, tiny, no bigger than the rabbit's paw, twirl and dance making spirals of bubbles
 Au fond de l'océan, sur le récif des Mille-Bulles, Rosie a une amie minuscule : Perle, l'hippocampe. Perle est si timide qu'elle devient rose vif dès qu'on la regarde.
-> Underwater on a colourful coral reef, {perle} shyly peeks from behind a coral branch at a small empty stage made of big seashells with a seaweed curtain, {rosie} encouraging her with a warm smile
+> Underwater on a colourful coral reef, {perle}, tiny, no bigger than the rabbit's paw, shyly peeks from behind a coral branch at a small empty stage made of big seashells with a seaweed curtain, {rosie} encouraging her with a warm smile
 Pourtant, Perle a un secret : elle danse. Elle tourne, elle ondule, elle fait des boucles de bulles. Et samedi, pour la première fois, elle dansera devant tout le récif.
-> Underwater on a colourful coral reef, {rosie} places one paw on her heart and raises the other in a solemn promise, facing a worried {perle} who looks up at her hopefully, soft blue light
+> Underwater on a colourful coral reef, {rosie} places one paw on her heart and raises the other in a solemn promise, facing a worried {perle}, tiny, no bigger than her paw, who looks up at her hopefully, soft blue light
 « J'ai tellement peur, Rosie. Tu viendras ? Si tu es au premier rang, j'y arriverai. » « Promis, juré ! Je serai là avant tout le monde ! »
 
-@ Underwater, three playful dolphins block the way of {rosie} and invite her to race, showing a crown made of red coral
+@ Underwater near a coral reef, exactly three playful grey dolphins block the way of {rosie}, who wears no crown, and invite her to race, one dolphin holding up a red coral crown in its fin
 Samedi arrive. Rosie nage vers le récif quand trois dauphins lui coupent la route. « Hé, la rapide ! Grande course des Courants ! Le vainqueur gagne une couronne de corail ! »
 > Underwater near a coral reef, {rosie} hesitates and points back toward a distant seashell stage, her feet wiggling eagerly, while three playful dolphins circle her with teasing grins
 Une course ! Les pattes de Rosie frétillent toutes seules. « C'est que… j'ai promis à une amie… » « Ça dure cinq minutes ! Tu as peur de perdre ? »
 > Underwater near a coral reef, {rosie} crouches at a starting line of seaweed beside three playful dolphins, with a determined grin, ready to shoot forward, bright yellow light coming from the surface
 Peur de perdre, elle ? « Cinq minutes, se dit Rosie. J'ai bien le temps. Un, deux, trois… »
 
-@ Underwater, {rosie} races joyfully through swirling currents ahead of three dolphins, a red coral crown between her ears, the light from the surface turning orange
+@ Underwater near a coral reef, {rosie}, wearing no crown, races joyfully through swirling currents just ahead of three playful grey dolphins, bubbles streaming behind her, the light from the surface turning orange
 Zoum ! Les courants l'emportent. C'est comme un toboggan qui ne finit jamais. Elle double un dauphin, puis deux. « Encore un tour ! » crient-ils.
 > Underwater in swirling currents, {rosie} proudly places a red coral crown between her long ears, chest puffed out, while three playful dolphins clap their fins around her, golden light from the surface
 Encore un tour. Puis la revanche. Puis la revanche de la revanche. Rosie gagne la couronne de corail. Elle la pose entre ses oreilles, très fière.
 > Underwater, {rosie} wearing a red coral crown looks up startled at the orange evening light coming from the surface, paws on her cheeks, three playful dolphins swimming away behind her
 C'est là qu'elle voit la lumière, là-haut, à la surface. Elle n'est plus jaune. Elle est orange. Le soir tombe. « Le spectacle ! »
 
-@ On an underwater stage made of big seashells with a seaweed curtain, tiny {perle} stands alone looking pale and scared at an empty shell seat in the front row, an audience of fish behind
+@ Seen from the audience, on an underwater stage made of big seashells with an open seaweed curtain, {perle}, very tiny, stands alone in the middle of the stage looking pale and scared, five striped fish seated in shell seats in the foreground, one empty shell seat in the front row
 Pendant ce temps, sur le récif, tout le monde est installé. Le rideau d'algues s'ouvre. Perle avance sur la scène, minuscule.
-> On an underwater stage made of big seashells, tiny {perle} stretches up to look over an audience of fish, searching row after row, one empty shell seat in the front row, her face growing worried
+> On an underwater stage made of big seashells, {perle}, very tiny, stretches up to look over five striped fish seated in shell seats, searching row after row, one empty shell seat in the front row, her face growing worried
 Elle cherche au premier rang. Il y a un coquillage vide. Elle cherche au deuxième. Au dernier. Rosie n'est pas là.
-> On an underwater stage made of big seashells, {perle} turned very pale hides trembling behind a big yellow sea sponge at the side of the stage, peeking out sadly, the audience of fish looking puzzled
+> On an underwater stage made of big seashells, {perle}, very tiny and turned very pale, hides trembling behind a big yellow sea sponge at the side of the stage, peeking out sadly, five striped fish in shell seats looking puzzled
 La musique commence. Perle essaie de tourner. Mais ses nageoires tremblent trop. Elle devient toute pâle. Et elle se cache derrière une éponge, sans avoir dansé.
 
 @ Underwater, {rosie} with a red coral crown on her head arrives out of breath at an empty seashell theatre, where {octave} sweeps the stage with brooms in three of his arms
@@ -351,23 +351,23 @@ Rosie nage à s'en couper le souffle. Quand elle arrive, les coquillages sont vi
 > Underwater at an empty seashell theatre, {rosie} alone droops under a red coral crown that seems far too heavy, head bowed and ears pressed down, staring at an empty shell seat in the front row, dim evening light
 La couronne pèse soudain très lourd sur la tête de Rosie.
 
-@ Underwater, {perle}, clearly visible and sad, sits among the tentacles of a pink sea anemone facing away, while {rosie} holds out a red coral crown, ears down
+@ Underwater on a coral reef, {rosie}, ears down, holds out a red coral crown toward a pink sea anemone where {perle}, very tiny, ten times smaller than her, sits deep among the tentacles, turned away and sad, not smiling
 Elle trouve Perle tout au fond d'une anémone. « Perle ! Regarde, j'ai gagné une couronne, je te la donne ! » Perle ne se retourne pas.
-> Underwater, {perle} half turns inside a sea anemone and looks at {rosie} with big sad eyes, hurt but not angry, while the rabbit lowers a red coral crown to her side, crestfallen
+> Underwater on a coral reef, {perle}, very tiny, half turns inside a pink sea anemone and looks at {rosie} with big sad eyes, hurt but not angry, while the rabbit, ten times bigger, lowers a red coral crown to her side, crestfallen
 « Je ne veux pas de couronne. Je voulais que tu sois là. Tu avais dit promis, juré. » Sa petite voix ne crie pas. C'est pire.
-> Underwater beside a sea anemone, {rosie} sits on the sand hugging her knees and looking ashamed, a red coral crown lying beside her, {perle} still tucked inside the anemone, dim blue light
+> Underwater beside a pink sea anemone, {rosie} sits on the sand hugging her knees and looking ashamed, a red coral crown lying beside her, {perle}, the only seahorse in the picture, very tiny, still tucked inside the anemone, dim blue light
 Rosie voudrait expliquer. Les dauphins, les cinq minutes, la revanche. Mais elle sent bien que toutes ses raisons sont plus petites que sa promesse.
 
-@ Underwater beside a sea anemone at dusk, {rosie} kneels on the sand with ears down and one paw on her heart, speaking gently to {perle} who looks at her
+@ Underwater beside a pink sea anemone at dusk, {rosie} kneels on the sand with ears down and one paw on her heart, speaking gently to {perle}, very tiny, who looks at her from inside the anemone
 « Tu as raison. Une promesse, ce n'est pas “si j'ai le temps”. J'ai eu tort, Perle. Je ne peux pas rattraper samedi. Mais est-ce que je peux essayer de réparer ? »
 > At night underwater, {rosie} swims fast between glowing coral caves, waving to a round moonfish and an old sea turtle who peek out of their homes, tiny glowing plankton lighting the dark water
 Toute la nuit, Rosie nage de grotte en grotte. Elle frappe chez les crabes, chez les poissons-lunes, chez la vieille tortue. « Demain soir ! Revenez ! S'il vous plaît ! »
 > Underwater in the evening, {rosie} sits alone and very still in the front row shell seat of an empty seashell theatre, paws folded, eyes fixed on the closed seaweed curtain, while three playful dolphins swim past behind her
 Octave remonte le rideau avec ses huit bras. Et Rosie arrive deux heures en avance. Elle s'assoit au premier rang. Elle ne bouge plus. Même quand trois dauphins passent en sifflant.
 
-@ On an underwater seashell stage, {perle} dances gracefully drawing glowing spirals of bubbles, while {rosie} claps in the front row among a delighted audience of fish, a red coral crown hanging above the stage
+@ On an underwater seashell stage with an open seaweed curtain, {perle}, very tiny, looks down from the middle of the stage at {rosie}, who sits in a shell seat in the front row below, wearing no crown and waving both paws, five striped fish seated around her, a single red coral crown hanging above the stage
 Le rideau s'ouvre. Perle avance, minuscule. Elle cherche au premier rang… et elle trouve deux grandes oreilles, et deux pattes qui lui font coucou.
-> Above an underwater seashell stage, {perle} spins high leaving a tall glowing spiral of bubbles rising toward the surface, the audience of fish gazing up open-mouthed, {rosie} clapping wildly with both paws above her head
+> Above an underwater seashell stage, {perle}, very tiny, spins high leaving a tall glowing spiral of bubbles rising toward the surface, five striped fish gazing up open-mouthed from shell seats, {rosie} in the front row below clapping wildly with both paws above her head
 Alors Perle danse. Elle tourne, elle ondule, elle dessine des boucles de bulles jusqu'en haut de la mer. Tout le récif retient son souffle. Rosie applaudit à s'en faire mal aux pattes.
-> Underwater in front of a seashell stage, {rosie} smiles with eyes closed as {perle}, no bigger than her paw, nestles against her cheek, a red coral crown hanging above
+> Underwater in front of a seashell stage, {rosie}, wearing no crown, smiles with eyes closed as {perle}, no bigger than her paw, nestles against her cheek, a single red coral crown hanging high above the stage
 La couronne de corail ? Rosie l'a accrochée au-dessus de la scène. Et depuis ce jour, quand elle dit « promis », elle ne dit plus « juré ». Elle n'en a plus besoin.
