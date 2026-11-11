@@ -608,6 +608,7 @@ async function generateFree(){
     const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,pass:librePass()}).toString());
     if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
     const out=await r.json();
+    if(out.plafond){ gstatus("C'est tout pour aujourd'hui : "+out.max+" histoires inventées, la conteuse se repose. À demain !"); return; }
     if(out.refuse){ gstatus("La conteuse ne raconte que des histoires toutes douces pour les petits. Essaie une autre idée !"); return; }
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
     if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');

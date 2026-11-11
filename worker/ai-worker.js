@@ -111,6 +111,14 @@ export default {
         if (!c1.ok) return J({ error: "refus", refuse: true, etape: "demande", detail: dbg ? c1.raison : undefined });
         if (u.searchParams.get("controle")) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
 
+        // PLAFOND DE DÉPENSE : au plus N histoires inventées par jour (défaut 10). Comme seule une histoire
+        // validée ici peut ensuite faire dessiner (8 images) ou lire (1 voix), ce plafond borne tout le coût payant.
+        const MAXJ = Math.max(1, parseInt(env.LIBRE_MAX_JOUR || "10", 10) || 10);
+        const cleJour = new Request("https://cache.titistoire/compteur/" + new Date().toISOString().slice(0, 10), { method: "GET" });
+        let fait = 0; try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {}
+        if (fait >= MAXJ) return J({ error: "plafond", plafond: true, max: MAXJ }, 429);
+        const compter = () => { try { ctx.waitUntil(caches.default.put(cleJour, new Response(String(fait + 1), { headers: { "cache-control": "public, max-age=172800" } }))); } catch (e) {} };
+
         // 2. écriture, puis contrôle de ce qui a été écrit (une seconde chance, sinon refus)
         let dernier = null, occupe = false;
         for (let essai = 0; essai < 2; essai++) {
@@ -128,7 +136,8 @@ export default {
             tableaux.push({ pages: t.pages, img: t.image ? "/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString() : null });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, modele: dbg ? brut.modele : undefined, journal: dbg ? brut.journal : undefined });
+          compter();
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, reste: MAXJ - fait - 1, modele: dbg ? brut.modele : undefined, journal: dbg ? brut.journal : undefined });
         }
         if (dernier && dernier.startsWith("contrôle")) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? dernier : undefined });
         return J({ error: "Conteuse indisponible", busy: occupe, detail: dernier }, 502);
