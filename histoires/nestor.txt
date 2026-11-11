@@ -52,7 +52,7 @@ Mais dans son ventre, il y a autre chose. Une petite boule dure, qui dit que ce 
 Griffard n'a jamais vu un ourson aussi grand. Il recule, il glisse, il saute dans sa barque et rame si vite qu'il oublie une de ses bottes.
 > At night on a pirate ship deck, two animal sailors in pyjamas and nightcaps, one white goat on the left and one spotted dog on the right, hold lanterns around {nestor} in the middle, who hangs his head and looks at his feet, worried, a golden key around his neck, wooden door behind; exactly three characters
 Tout l'équipage accourt en pyjama. Nestor baisse la tête. « J'ai crié… J'ai dit non… Vous êtes fâchés ? »
-> At night on a pirate ship deck lit by lanterns, {mirabelle} in a nightgown rests one paw on the arm of {nestor}, who lifts his head with a relieved shy smile, one spotted dog sailor in pyjamas cheering behind them, golden coins glinting behind the wooden door; exactly three characters: one otter, one bear, one dog
+> At night on the deck of a pirate ship lit by lanterns, {mirabelle} on the left, in a white nightgown, rests one paw on the shoulder of {nestor} on the right, who lifts his head with a relieved smile. Exactly two characters in the picture: one otter and one bear.
 La capitaine Mirabelle pose la patte sur son épaule. « Fâchés ? Moussaillon, ton non vaut de l'or. C'est grâce à lui qu'on en a encore, d'ailleurs. »
 
 @ Sunny morning on a pirate ship deck, {nestor} sits peacefully eating a slice of bread with honey and watching dolphins jump in the blue sea, {sardine}, tiny, no bigger than the bear's paw, beside him scratching her own back with a fork
@@ -222,7 +222,7 @@ Dans le noir, quelque chose brille doucement. C'est le ventre de la chose : rond
 
 @ In a dark rocket cabin softly lit by the glowing belly of {gloup}, {nestor-} wearing blue striped pyjamas sits beside him and shares a biscuit broken in two, both looking calmer
 Nestor n'en revient pas. Un monstre… qui a peur du noir ? « Moi aussi, dit-il. J'avais sept veilleuses. » « Je sais, dit Gloup. Elles étaient très bonnes. Pardon. »
-> In a dark rocket cabin, {nestor-} wearing blue striped pyjamas and {gloup}, with exactly ONE single big eye in the middle of the face, not two eyes, sit side by side against the bunk, munching quietly with full cheeks, crumbs falling, softly lit by the glowing violet belly of the little monster
+> In a dark rocket cabin, {nestor-} in blue striped pyjamas sits on the left and {gloup}, with exactly one single big eye in the middle of the face, sits on the right, each munching half a biscuit, lit by the monster's glowing belly. Exactly two characters in the picture: one bear and one monster.
 Nestor sort un biscuit de sa poche. Il le casse en deux. Ils mâchent en silence, à la lueur du ventre de Gloup.
 > In a dark rocket cabin, {nestor-} wearing blue striped pyjamas points gently toward a round porthole showing an almost empty dark sky, while {gloup} stops chewing, his big eye wide and thoughtful, his belly glowing softly
 « Mais dis donc, Gloup. Si tu manges toutes les étoiles… il fera encore plus noir. Pour tout le monde. Et pour toi aussi. » Gloup n'y avait jamais pensé.
@@ -293,7 +293,7 @@ Nestor sent quelque chose se serrer dans sa poitrine. « Demain, dit-il, tu vien
 Le lendemain, quand ils arrivent à la clairière, c'est la panique. « LE LOUP ! » Noisette grimpe à son arbre. Margot s'envole. Les lapins plongent dans leurs terriers.
 > In a forest clearing, {loupiot} turns back toward a dark fir path with ears flat and tail low, but the big paw of {nestor} gently holds his shoulder to keep him there, empty grass and rabbit burrows around them
 Loupiot baisse les oreilles. « Tu vois… » Il fait déjà demi-tour. Mais une grosse patte le retient.
-> In a forest clearing, {nestor} hugs {loupiot}, while {noisette} peers from the left tree, exactly one squirrel in the whole picture
+> In a sunny forest clearing by day, {nestor} in the middle stands tall and speaks bravely, one arm around the shoulders of {loupiot} on the right, while {noisette} listens from a branch of the single oak tree on the left. Exactly three characters in the picture: one bear, one wolf cub, one squirrel.
 Nestor n'aime pas parler devant tout le monde. Sa voix tremble un peu. « Vous l'avez déjà vu mordre ? Non. Vous lui avez déjà parlé ? Non plus. Moi, oui. Il s'appelle Loupiot. Et c'est mon ami. »
 
 @ In a forest clearing, {loupiot} lies flat in the grass while {pompon} touches his nose and laughs, tall trees behind
@@ -344,11 +344,11 @@ Le lendemain, Nestor a un plan. Il apporte la plus longue corde du monde. Il en 
 > Near a beach, {ondine} stays in the sea, body lying horizontally in the water, no legs, only her head and big gentle eye near the shore, close to {nestor-} standing on the sand beside a big rock and a very long rope, the bear cub listening with a softening face, cold grey sky
 « Petit ours. Si je reste, l'eau gèlera autour de moi. Et là-bas, dans les mers chaudes, il y a un bébé baleine qui attend de naître. Le mien. »
 
-@ At dusk on a beach, {nestor-} unties a very long rope from a big rock with tears in his eyes, while {ondine} floats horizontally in the sea close to the shore, half submerged, no legs, not on the sand, watching him tenderly
+@ At dusk on a beach, {nestor-} stands on the left beside a big rock, holding a long rope tied to it, crying, looking at {ondine} on the right, floating horizontally in the sea, half under water, far bigger than the bear. Exactly two characters in the picture: one bear and one whale.
 Nestor regarde la corde. Il regarde son amie. Il regarde la mer, très loin, là où l'eau est chaude.
 > At dusk on a beach, close view of the big paws of {nestor-} slowly loosening a knot of rope around a big rock, his face scrunched with sadness, the tail of {ondine} resting in the shallow water behind
 Ses pattes défont le nœud. C'est le nœud le plus difficile qu'il ait jamais défait, et pourtant il n'était pas serré.
-> At dusk by a beach, {nestor-} stands in shallow water crying big tears, pressing his cheek against the side of {ondine}, who floats horizontally in the sea, no legs, an untied very long rope lying loose on the sand
+> At dusk at the edge of a beach, {nestor-} on the left stands knee-deep in the shallow sea, crying, his cheek pressed against the side of {ondine} on the right, floating horizontally in the sea, half under water, far bigger than the bear. Exactly two characters in the picture: one bear and one whale.
 « J'ai pas envie que tu partes », dit-il. Et cette fois il pleure pour de bon, sans bouder. Ondine le laisse pleurer. Elle reste tout près, jusqu'au bout.
 
 @ At sunset on a calm sea, {nestor-}, his blue scarf still around his neck, sits on the back of {ondine}, who floats horizontally, leaning forward with one paw cupped to his ear to listen, soft rings of ripples spreading far across the water

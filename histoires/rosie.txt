@@ -50,7 +50,7 @@ Et dans le silence, elle entend des choses. Le bois qui grince. L'eau qui clapot
 
 @ On a foggy pirate ship deck, {rosie} in the middle, bare-headed, holds the big blue captain hat in her own paws and listens, long ears up, to {nestor-} on the left, a brown bear with brown arms wearing only his blue scarf, and to {sardine} on the right, tiny, no taller than the rabbit's knee; exactly three characters: one rabbit, one bear, one mouse
 Rosie enlève le chapeau. « Je vous écoute. » Ça lui fait tout drôle de dire ça. « Nestor ? » « Hmm. Si on pousse tous du même côté quand la vague arrive… »
-> On a foggy pirate ship deck, {rosie} listens with {sardine}, tiny, standing on her shoulder and pointing ahead between two dark rocks, while a plump pink pig cook in a white apron holds up a block of yellow butter
+> On the deck of a pirate ship in thick fog, {rosie} on the left listens, {sardine} standing on her shoulder, tiny, pointing ahead, while on the right one pink pig cook in a white apron holds up a block of butter. Exactly three characters in the picture: one rabbit, one mouse, one pig.
 « Sardine ? » « D'en haut, je vois un passage entre les rochers ! Je peux vous guider. » « Et moi, dit le cuisinier, j'ai du beurre pour faire glisser la coque. »
 > On a tilted pirate ship deck in the fog, side by side in a row, {rosie}, {nestor-}, one plump pink pig cook in a white apron and one spotted dog in a striped shirt push together with all their paws against the same wooden rail, a big wave rising behind them; exactly four characters: one rabbit, one bear, one pig, one dog
 Une vague arrive. « Tous ensemble ! dit Rosie. Un, deux, trois… POUSSEZ ! » Et scrouitch ! La Coquille glisse, se redresse, et flotte.
@@ -208,7 +208,7 @@ C'est la colère rouge. Quand elle arrive, Rosie ne peut plus rien arrêter. C'e
 
 @ Inside a rocket cockpit, a furious red-cheeked {rosie} bangs with both fists on a dashboard full of flashing coloured buttons, while {bip} raises his arms in alarm, the robot keeps its single blue eye and has no mouth
 « MARCHE, STUPIDE FUSÉE ! » Bam ! Elle tape sur le tableau de bord. Bam ! Sur le bouton bleu, le jaune, le violet. Bam, bam, bam ! Sur tous les boutons à la fois.
-> Inside a rocket cockpit, {bip}, a bare ball with no suit and no body, spreads his two short arms in front of one big red button on the dashboard, while {rosie}, the only one in an astronaut suit, angry with red cheeks, raises one fist
+> Inside a rocket cockpit, {bip} on the left, a bare white ball robot with one single blue eye, no mouth, no suit, spreads his arms in front of one big red button, while {rosie} on the right, angry with red cheeks, raises one fist. Exactly two characters in the picture: one robot and one rabbit.
 « Attention, dit Bip. Il ne faut surtout pas toucher le bouton rou… » BAM.
 > Inside a silent rocket cockpit, {rosie} freezes with a surprised face as her feet lift off the floor and her ears drift upward, a big red button glowing on the dashboard, {bip} starting to float too
 Il y a un petit clic. Puis un grand silence. Puis Rosie sent ses pattes quitter le sol.
@@ -277,7 +277,7 @@ Alors elle a une idée. Pas une très belle idée. « Pompon, on joue à cache-c
 
 @ In a forest, {pompon}, half the size of his sister with very short ears, the only one wearing a blue bib, stands facing a big oak tree trunk with paws over his eyes, while behind him the taller {rosie}, in her red scarf and no bib, tiptoes away, standing apart as separate animals
 Pompon est fou de joie. Rosie joue avec lui ! Il cache ses yeux. « Un… deux… trois… cinq… »
-> On a forest path going uphill, three separate animals standing side by side with space between them: {rosie}, a rabbit with a tiny round tail, laughing with arms wide, {filou-}, the fox with a straight white-tipped tail, and {noisette}, the smaller squirrel with a curled bushy tail; exactly three characters: one rabbit, one fox, one squirrel
+> On a forest path going uphill by day, {rosie} in the middle runs laughing with arms wide toward {filou-}, who waits on the right, while {noisette} climbs the trunk of a tree on the far left. Exactly three characters in the picture: one rabbit, one fox, one squirrel.
 Rosie file sur la pointe des pattes. Elle rattrape ses amis. Elle court, elle grimpe, elle rit. Enfin libre ! « Je reviendrai le chercher tout à l'heure. »
 > On a hilltop covered with wild strawberries, {rosie} holds a half-eaten strawberry and suddenly looks thoughtful, juice on her chin, sitting between {filou-}, the same size as her, and {noisette}, smaller than both and reddish-brown, standing apart as separate animals, each fully visible; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
 Les fraises sont énormes, rouges, sucrées. Rosie en mange une, deux, dix. Mais c'est drôle : à la onzième, elle leur trouve un petit goût de rien.

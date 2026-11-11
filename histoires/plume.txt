@@ -238,7 +238,7 @@ Dans le noir, il y a pourtant quelqu'un qui n'a besoin d'aucune lampe pour se fa
 Zig s'allume. Fort. Plus fort qu'une veilleuse, plus fort qu'un phare. « Suivez-le ! » dit Plume. « Mais on ne comprend rien à ce qu'il dit ! » « Moi, si. »
 > In a dark metal space station corridor during a blackout, {zig}, whose whole jelly body is now bright red instead of green, stops in front, just before a metal step, {plume} beside him raises one wing to say stop, then {filou} and {nestor} follow behind in a line holding paws; exactly four characters: one alien, one owl, one fox, one bear
 Zig devient vert. « Vert : on avance ! » Rouge. « Rouge : stop, il y a une marche. » Bleu qui tourne. « À gauche ! » Et toute la file suit la petite lumière, en se tenant par la patte.
-> In a brightly lit space station room with metal walls and round portholes showing stars, exactly four characters in the room: one alien, one owl, one fox, one bear; {zig}, whose whole jelly body now shimmers in many rainbow colours instead of green, floats proudly in the middle of the room, in front of the others, not in the porthole, {plume} beside him, {filou} on the left and {nestor} on the right cheering behind
+> In a brightly lit space station room with metal walls, just as the lights come back, {zig} floats in the middle, his body shimmering in rainbow colours instead of green, {plume} on the right watching him fondly, {filou} on the left cheering. Exactly three characters in the picture: one alien, one owl, one fox.
 Ils arrivent dans la grande salle juste quand le courant revient. Tout le monde est là. Zig clignote d'une couleur que même Plume ne connaît pas. Elle devine : il est fier.
 
 @ In a space station room with metal walls and round portholes showing stars, brightly lit, {filou} with a square of yellow paper stuck on his forehead and {nestor} holding an orange cake with dots greet {zig}, with {plume} close beside him, standing apart as separate animals, each fully visible
@@ -367,7 +367,7 @@ Plume ne crie pas. Elle pose le filet devant lui, et elle raconte. La tortue. L'
 
 @ Underwater, in the foreground {plume} swims down toward a coral reef full of bright colours again, welcomed happily by {octave} on the left and by {perle} on the right, who is tiny, no bigger than the owl's beak; exactly three characters: one owl, one octopus, one seahorse
 L'été suivant, quand Plume enfile son casque et plonge, elle a un peu peur de ce qu'elle va trouver.
-> Underwater on a coral reef bright with pinks and oranges again, clownfish carrying tiny bundles swim back into a wide open orange anemone waving its tentacles, {plume} and {perle}, who is tiny, no bigger than the owl's beak, watching with delight
+> Underwater on a coral reef bright with pinks and oranges, {plume} on the left, facing the viewer with two big round eyes, smiles at an open orange anemone in the middle full of small striped fish, {perle} on the right, tiny. Exactly two characters in the picture: one owl and one seahorse.
 Mais le récif des Mille-Bulles a retrouvé ses roses, ses orange, ses rayures de bonbon. Les poissons-clowns ont réemménagé. L'anémone s'ouvre en grand pour dire bonjour.
 > Underwater, on the sandy sea floor of a bright coral reef stands {plume}, looking up; far above her, one small green baby sea turtle with a plain turtle head, no helmet, no scarf, swims toward one sinking plastic bottle
 Il retombe encore une bouteille, de temps en temps. Alors le premier qui la voit la ramasse. « Une de moins », dit-il. C'est devenu la devise du récif.

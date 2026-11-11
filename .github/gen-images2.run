@@ -1,5 +1,5 @@
-Wed Nov 11 18:08:33 UTC 2026
+Wed Nov 11 18:14:22 UTC 2026
 parallele=1
 refaire=.github/refaire.txt
-modele=@cf/black-forest-labs/flux-2-klein-9b
-sortie=assets/scenes-c
+modele=@cf/black-forest-labs/flux-2-dev
+sortie=assets/scenes-d
