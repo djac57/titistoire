@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Titistoire — essais de voix</title>
+<style>
+  body{margin:0;padding:24px 16px 60px;font-family:ui-rounded,system-ui,sans-serif;background:#2d2570;color:#f3f1ff;display:flex;justify-content:center;}
+  main{width:100%;max-width:640px;}
+  h1{color:#ffcb4d;font-size:1.6rem;margin:0 0 6px;}
+  p{color:#b9b1e4;line-height:1.5;margin:0 0 18px;}
+  blockquote{margin:0 0 22px;padding:14px 16px;background:#fdfaf3;color:#3a3160;border-radius:16px;line-height:1.6;}
+  .v{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:12px 14px;margin-bottom:12px;}
+  .v b{font-size:1.1rem;} .v span{color:#b9b1e4;font-size:.9rem;margin-left:8px;}
+  audio{width:100%;margin-top:8px;}
+  code{background:rgba(255,255,255,.12);padding:2px 6px;border-radius:6px;}
+</style>
+</head>
+<body>
+<main>
+  <h1>Quelle voix pour Titistoire ?</h1>
+  <p>Le même passage, lu par sept voix. Choisis à l'oreille, puis donne-moi le nom : toutes les histoires seront enregistrées avec.</p>
+  <blockquote>Sur la mer toute bleue file La Coquille, le plus petit bateau pirate du monde. Et à l'avant, le museau au vent, il y a Filou. Filou est un renard qui sait tout faire. Du moins… c'est ce qu'il dit. « Grimper au mât ? Facile ! Faire des nœuds ? Facile ! Parler aux mouettes ? Fa-ci-le ! »</blockquote>
+  <div id="l"></div>
+  <p>Voix actuelle des histoires : <code>Sulafat</code>. Pour en changer : <code>python3 tools/gen_voix.py --voix Nom</code> (ou l'action « Enregistrer les voix » sur GitHub, champ <i>voix</i>).</p>
+</main>
+<script>
+const V=[["Sulafat","femme, chaleureuse"],["Gacrux","femme, mûre, façon grand-mère conteuse"],["Vindemiatrix","femme, très douce"],["Achernar","femme, feutrée"],["Aoede","femme, légère et vive"],["Algieba","homme, voix veloutée"],["Achird","homme, amical"]];
+document.getElementById('l').innerHTML=V.map(([n,d])=>`<div class="v"><b>${n}</b><span>${d}</span><audio controls preload="none" src="${n}.m4a"></audio></div>`).join('');
+</script>
+</body>
+</html>

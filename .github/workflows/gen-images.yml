@@ -2,17 +2,25 @@ name: Générer les illustrations (FLUX)
 
 on:
   schedule:
-    - cron: "20 2 * * *"      # chaque jour ~03h20 (après le reset quotidien du quota Cloudflare) : génère la ration du jour
+    # Le quota Cloudflare (10 000 neurons ≈ 100 images) repart à 00:00 UTC. GitHub lance les crons
+    # avec parfois plusieurs heures de retard (le 11/11 : 09h27 UTC au lieu de 02h20, quota déjà
+    # consommé -> 0 image). Donc 3 créneaux tôt : le 1er qui passe prend la ration du jour,
+    # les suivants ne trouvent plus de quota et s'arrêtent en quelques secondes.
+    - cron: "7 0 * * *"
+    - cron: "37 1 * * *"
+    - cron: "7 4 * * *"
   workflow_dispatch:
     inputs:
-      mode:
-        description: "ce qu'on génère"
-        default: "scenes"
-        type: choice
-        options: [scenes, ambiances, all, test]
+      only:
+        description: "Limiter à une histoire (ex. filou_pirates) — vide = tout ce qui manque"
+        default: ""
+      refaire:
+        description: "Images à regénérer (ex. filou_pirates_3,nestor_dino_1)"
+        default: ""
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: gen-images
@@ -21,48 +29,39 @@ concurrency:
 jobs:
   gen:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Générer les illustrations (reprise auto, saute les existantes)
-        id: gen
-        continue-on-error: true            # quota/temps atteint -> on committe quand même ce qui est fait
+      - name: Générer les illustrations manquantes (reprise automatique)
         env:
-          TITI_IMG_SRC: cf                 # API Cloudflare directe (flux-1-schnell)
+          TITI_IMG_SRC: cf
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          ONLY: ${{ github.event.inputs.only }}
+          REFAIRE: ${{ github.event.inputs.refaire }}
         run: |
           if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ACCOUNT_ID" ]; then
             echo "::error::Secrets CF_ACCOUNT_ID + CF_API_TOKEN requis (Workers AI)"; exit 1
           fi
-          case "${{ github.event.inputs.mode }}" in
-            test)      python3 tools/gen_images.py scenes test ;;
-            ambiances) python3 tools/gen_images.py ambiances ;;
-            all)       python3 tools/gen_images.py all ;;
-            *)         python3 tools/gen_images.py scenes ;;
-          esac
+          python3 tools/gen_images.py ${ONLY:+--only "$ONLY"} ${REFAIRE:+--refaire "$REFAIRE"}
 
-      - name: Committer les images générées (même si partiel)
+      - name: Committer les images et republier le site
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "titistoire-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/ || true
+          git add assets/
           if git diff --cached --quiet; then
-            echo "Rien de nouveau à committer."
+            echo "Rien de nouveau."
           else
-            N=$(git diff --cached --name-only | wc -l | tr -d ' ')
-            git commit -m "Illustrations FLUX générées en CI ($N fichier(s))"
-            git push
+            git commit -m "Illustrations : $(git diff --cached --name-only | wc -l | tr -d ' ') image(s)"
+            for i in 1 2 3; do git pull --rebase && git push && break || sleep 5; done
+            # un push fait par une Action ne déclenche pas le déploiement Pages : on le lance explicitement
+            gh workflow run deploy.yml --ref main
           fi
-
-      - name: Bilan
-        if: always()
-        run: |
-          echo "Ambiances : $(ls assets/*.png 2>/dev/null | wc -l | tr -d ' ') / 24"
-          echo "Scènes    : $(ls assets/scenes/*.png 2>/dev/null | wc -l | tr -d ' ') / 576"
-          echo "(Relance le workflow pour continuer là où il s'est arrêté si le quota a coupé.)"

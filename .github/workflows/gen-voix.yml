@@ -1,0 +1,64 @@
+name: Enregistrer les voix (Gemini TTS)
+
+on:
+  schedule:
+    # Palier gratuit Gemini TTS : 10 requêtes par jour et par modèle, remis à zéro à minuit
+    # (heure du Pacifique, soit 08h00 UTC). Une histoire entière = 1 requête -> ~10 histoires par jour.
+    - cron: "40 8 * * *"
+    - cron: "40 14 * * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Limiter à une histoire (ex. filou_pirates) — vide = tout ce qui manque"
+        default: ""
+      voix:
+        description: "Nom de la voix Gemini (vide = voix actuelle)"
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: gen-voix
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - run: pip install --quiet faster-whisper
+
+      - name: Enregistrer les histoires manquantes (reprise automatique)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ONLY: ${{ github.event.inputs.only }}
+          VOIX: ${{ github.event.inputs.voix }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then echo "::error::Secret GEMINI_API_KEY requis"; exit 1; fi
+          python3 tools/gen_voix.py ${ONLY:+--only "$ONLY"} ${VOIX:+--voix "$VOIX"}
+
+      - name: Committer les voix et republier le site
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "titistoire-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/voix/
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau."
+          else
+            git commit -m "Voix : $(git diff --cached --name-only | grep -c m4a) piste(s)"
+            for i in 1 2 3; do git pull --rebase && git push && break || sleep 5; done
+            gh workflow run deploy.yml --ref main
+          fi

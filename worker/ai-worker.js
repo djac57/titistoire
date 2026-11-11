@@ -13,7 +13,7 @@
  *   • Variables and Secrets → GEMINI_KEY   = <clé Google Gemini>(mode libre sans clé navigateur)
  */
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ctx) {
     const u = new URL(req.url);
     const cors = {
       "access-control-allow-origin": "*",
@@ -21,6 +21,11 @@ export default {
       "access-control-allow-headers": "content-type",
     };
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
+    // Cache de bord : une même page lue ou une même image demandée deux fois n'est facturée qu'une fois.
+    const cachable = req.method === "GET" && (u.pathname.startsWith("/tts") || u.pathname.startsWith("/img")) && !u.searchParams.get("debug");
+    const ckey = new Request(u.toString(), { method: "GET" });
+    if (cachable) { try { const hit = await caches.default.match(ckey); if (hit) return hit; } catch (e) {} }
+    const keep = (resp) => { if (cachable && resp.ok) { try { ctx.waitUntil(caches.default.put(ckey, resp.clone())); } catch (e) {} } return resp; };
     try {
       // ---------- VOIX ----------
       if (u.pathname.startsWith("/tts")) {
@@ -47,7 +52,7 @@ export default {
           if (r.ok) {
             const j = await r.json();
             const out = { audio_base64: j.audio_base64, alignment: j.alignment || j.normalized_alignment || null };
-            return new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": "public, max-age=31536000", ...cors } });
+            return keep(new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": "public, max-age=31536000", ...cors } }));
           }
           // échec ElevenLabs : si ?debug=1, on renvoie la raison au lieu de basculer en secours
           if (u.searchParams.get("debug")) {
@@ -71,7 +76,7 @@ export default {
         const steps = Math.max(1, Math.min(8, parseInt(u.searchParams.get("steps") || "8", 10) || 8));
         // NB: flux-1-schnell (Workers AI) n'accepte PAS de paramètre seed -> on ne le passe pas.
         const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p, steps });
-        return img(b64(r.image), cors);
+        return keep(img(b64(r.image), cors));
       }
 
       // ---------- IMAGE via Gemini (quota SÉPARÉ de Cloudflare, pour le mode libre) ----------
@@ -117,12 +122,20 @@ export default {
         const models = forced ? [forced]
           : (env.GEMINI_MODEL ? [env.GEMINI_MODEL]
             : ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"]);
-        const prompt = `Tu es une conteuse pour enfants de 3 à 6 ans. Invente une vraie petite histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
-          + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
-          + `Structure-la comme un album jeunesse : incipit (présente le héros et son petit monde), un élément perturbateur, une rencontre qui aide, des péripéties, une résolution où le héros met en pratique la leçon, et une conclusion heureuse. `
-          + `Soigne le style : phrases vivantes et imagées, un peu de dialogue, du rythme, de la douceur et un brin d'humour. Entre 18 et 22 pages, UNE à DEUX phrases courtes et simples par page. `
-          + `TRÈS IMPORTANT : n'énonce JAMAIS la morale explicitement (interdit : "la morale de l'histoire", "cette histoire montre que", "la leçon est"...). La leçon doit se ressentir à travers les actions. La dernière page est une jolie phrase de conclusion qui réchauffe le cœur, sans donner de leçon. `
-          + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...", "...", "..."]}`;
+        const prompt = `Tu es une autrice d'albums jeunesse pour les 3-6 ans (dans l'esprit des histoires Lunii et des albums de l'École des loisirs). Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
+Héros : ${hero || "un petit animal attachant"}. Lieu : ${lieu || "un endroit qui fait rêver"}. Ce dont l'histoire parle, en profondeur : ${lecon || "la gentillesse"}.
+
+CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
+- Le héros a un caractère : une envie forte et un petit défaut touchant. Donne-lui une expression à lui, qui revient.
+- Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
+- Un problème CONCRET et des enjeux qu'un enfant comprend. Le héros essaie, rate (souvent trois fois, avec de l'humour), doute, puis fait LUI-MÊME un choix difficile qui change tout.
+- Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses ni de généralités.
+- Un vrai moment d'émotion, dit simplement.
+- La fin fait écho au début et laisse une image douce.
+- N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours". Tout passe par ce que les personnages font.
+
+FORME : au présent. Entre 22 et 24 pages. Sur chaque page, UNE à TROIS phrases courtes (40 mots au maximum). Vocabulaire simple, guillemets français « » pour les dialogues.
+Réponds UNIQUEMENT par cet objet JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","pages":["...","..."]}`;
         async function askGemini(model){
           const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000); // échoue vite si ça rame
           try {
@@ -153,7 +166,7 @@ export default {
                 headers:{ "Authorization":"Bearer "+key, "content-type":"application/json", "HTTP-Referer":"https://djac57.github.io/titistoire/", "X-Title":"Titistoire" },
                 body: JSON.stringify({ model,
                   messages:[{role:"system",content:"Tu es une conteuse pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour."},{role:"user",content:prompt}],
-                  max_tokens:3000 }) });
+                  max_tokens:4000 }) });
               const d = await r.json();
               let raw = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
               if (raw) { const a = raw.indexOf("{"), b = raw.lastIndexOf("}"); if (a >= 0 && b > a) { const c = raw.slice(a, b + 1); try { JSON.parse(c); return { txt: c, model }; } catch (e) {} } }
@@ -191,7 +204,7 @@ export default {
         try {
           const obj = JSON.parse(txt);
           if (obj && Array.isArray(obj.pages)) {
-            const moralRe = /morale de l'histoire|la le[çc]on\b|cette (petite )?histoire (nous )?(montre|apprend|enseigne|rappelle)|retiens bien que|il faut (toujours )?(se rappeler|retenir)/i;
+            const moralRe = /\bla morale\b|la le[çc]on (de|à retenir)|cette (petite |belle )?histoire (nous )?(montre|apprend|enseigne|rappelle)|retiens bien que|il faut (toujours )?(se rappeler|retenir)/i;
             const cleaned = obj.pages.map(x => String(x).trim()).filter(x => x && !moralRe.test(x));
             if (cleaned.length >= 3) { obj.pages = cleaned; txt = JSON.stringify(obj); }
           }

@@ -1,195 +1,144 @@
 #!/usr/bin/env python3
-# Illustrations "ligne claire 50-60" pour titistoire.
-#
-# Deux jeux d'images :
-#   • ambiances  : assets/<hero>_<univ>.png                 (page 1 / couverture de chaque histoire)
-#   • scenes     : assets/scenes/<hero>_<univ>_<moral>_pN.png (une par page de l'histoire, N=2..7)
-#
-# Source d'image (par ordre, selon l'env) :
-#   • worker (DÉFAUT)   : appelle le worker Cloudflare /img (flux-1-schnell, gratuit, même DA).
-#                         Nécessite le binding "AI" actif sur le worker. URL via TITI_WORKER.
-#   • cf                : API Cloudflare directe si CF_ACCOUNT_ID + CF_API_TOKEN.
-#   • poll              : Pollinations/turbo (secours, qualité médiocre).
-# Forcer avec TITI_IMG_SRC=worker|cf|poll.
-#
-# Usage :
-#   python3 tools/gen_images.py ambiances            # 24 ambiances (héros x univers)
-#   python3 tools/gen_images.py scenes test          # 1 histoire complète (6 scènes) pour validation
-#   python3 tools/gen_images.py scenes               # TOUTES les scènes manquantes (576)
-#   python3 tools/gen_images.py all                  # ambiances + toutes les scènes
-# Reprend toujours là où il s'est arrêté (saute les fichiers déjà bons).
-import os, sys, json, time, base64, zlib, urllib.parse, urllib.request, pathlib
+"""Illustrations des histoires : une image par tableau, décrite dans histoires/*.txt (lignes « @ »).
+
+    assets/scenes/<heros>_<univers>_<n>.jpg      n = 1..8
+
+Source (TITI_IMG_SRC) :
+  • cf      : API Cloudflare Workers AI directe (CF_ACCOUNT_ID + CF_API_TOKEN) — utilisée en CI
+  • worker  : le worker /img (même modèle flux-1-schnell, même quota de 10 000 neurons/jour)
+
+    python3 tools/gen_images.py                 # toutes les images manquantes (reprend où il s'est arrêté)
+    python3 tools/gen_images.py --only filou_pirates
+    python3 tools/gen_images.py --limit 8
+    python3 tools/gen_images.py --refaire filou_pirates_3     # regénère une image qui ne plaît pas
+
+Les histoires sont illustrées une par une, en entier : d'abord les 24 histoires de base,
+puis les histoires de saison en commençant par la saison qui arrive.
+"""
+import argparse, base64, datetime, json, os, pathlib, sys, time, urllib.error, urllib.parse, urllib.request, zlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import titi
 
 WORKER = os.environ.get("TITI_WORKER", "https://titistoire-ai.djac-gene.workers.dev").rstrip("/")
 CF_ACCOUNT = os.environ.get("CF_ACCOUNT_ID", "").strip()
-CF_TOKEN   = os.environ.get("CF_API_TOKEN", "").strip()
+CF_TOKEN = os.environ.get("CF_API_TOKEN", "").strip()
 SRC = os.environ.get("TITI_IMG_SRC", "").strip() or ("cf" if (CF_ACCOUNT and CF_TOKEN) else "worker")
+OUT = titi.ROOT / "assets" / "scenes"
+SAISONS = {"noel": (12, 1), "ski": (2, 1), "mer": (7, 1), "halloween": (10, 15)}   # début approximatif
 
-HEROS = {
-    "filou":  "a cute little mischievous red fox cub with orange fur, a white belly and a friendly smile",
-    "nestor": "a cute soft brown teddy bear cub, round and gentle",
-    "rosie":  "a cute little white bunny rabbit with long ears and big soft eyes",
-    "plume":  "a cute little beige owl with round eyes, curious and sweet",
-}
-# graine fixe par héros -> l'apparence reste cohérente de page en page
-HERO_SEED = {"filou": 1111, "nestor": 2222, "rosie": 3333, "plume": 4444}
 
-UNIV = {
-    "pirates":    "on a friendly wooden pirate ship sailing on a calm blue sea near a treasure island",
-    "dino":       "in a sunny prehistoric jungle with friendly gentle dinosaurs and a distant volcano",
-    "chevaliers": "in a cheerful medieval kingdom with a castle, towers and colourful flags",
-    "espace":     "in outer space among planets, bright stars, a little rocket and the moon",
-    "foret":      "in an enchanted forest with tall trees, soft grass and flowers",
-    "ocean":      "deep under the sea among colourful corals and friendly fish",
-}
+class Quota(Exception):
+    pass
 
-# 6 illustrations par histoire = une par ÉTAPE du récit (schéma narratif),
-# alignées sur STORY_BEATS de buildStory() dans index.html :
-#   b1 incipit · b2 élément perturbateur · b3 adjuvant · b4 péripéties · b5 résolution · b6 conclusion
-MORALS = {
-    "partage": [
-        "happily enjoying fruits and treats, a cheerful little gourmand, daily life",
-        "discovering a huge wicker basket overflowing with golden fruit, tarts and treats, eyes sparkling",
-        "talking with a kind wise old friend sitting by the water, who smiles gently",
-        "seeing little friends with empty hungry tummies looking sad",
-        "opening the big basket wide and giving a piece of fruit to each friend",
-        "all the friends feasting together joyfully, a warm happy group",
-    ],
-    "courage": [
-        "a gentle little one, a bit afraid of the dark, hiding under a cozy blanket at night",
-        "hearing a tiny cry for help in the dark night, worried, with a pounding heart",
-        "a glowing little firefly appears like a star, lighting the way, reassuring",
-        "bravely taking small steps into the dark, following the firefly's gentle light",
-        "gently cradling a tiny fallen baby bird, bringing it to safety and warmth",
-        "falling asleep proud and peaceful, no longer afraid of the dark, cozy and happy",
-    ],
-    "amitie": [
-        "alone with lots of toys but no one to play with, looking wistful at the clouds",
-        "discovering a small sad someone crying behind a big rock",
-        "sitting beside the sad little one, shyly offering a paw to play together",
-        "two of them playing joyfully together, building a little hut, running and laughing",
-        "two friends side by side watching a warm pink sunset",
-        "two best friends together, holding hands, a glowing little heart, friends forever",
-    ],
-    "verite": [
-        "a joyful playful little one bouncing around near a pretty precious vase",
-        "a vase falling and shattering into pieces, the little one frozen in shock",
-        "guiltily hiding the broken pieces under a rug, looking worried",
-        "sitting sad with a heavy worry, unable to enjoy playing anymore",
-        "bravely confessing to its mother and being hugged warmly and forgiven",
-        "feeling light and happy again, relieved, smiling under a bright sky",
-    ],
-}
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "assets"
-SCN = OUT / "scenes"
-OUT.mkdir(exist_ok=True); SCN.mkdir(exist_ok=True)
-
-STYLE = ("Flat 2D vector illustration in the Belgian 'ligne claire' comic style of Tintin and Herge: "
-         "bold uniform black outlines, flat pastel colours, NO gradients, NO shading, NO texture, NO photorealism. "
-         "Charming clean vintage 1950s-1960s children's picture-book background, simple geometric shapes. ")
-TAIL = " Friendly animal character, expressive, no humans, no text, no letters, no watermark."
-
-def prompt_ambiance(h, u):
-    return STYLE + f"A cute {HEROS[h]} {UNIV[u]}." + TAIL
-
-def prompt_scene(h, u, m, idx):
-    return STYLE + f"A cute {HEROS[h]} {MORALS[m][idx]}, {UNIV[u]}." + TAIL
-
-# ---------- sources ----------
-def gen_worker(prompt, seed):
-    q = urllib.parse.urlencode({"p": prompt, "seed": seed, "steps": 8})
-    req = urllib.request.Request(WORKER + "/img?" + q, headers={"User-Agent": "titistoire-gen/1.0"})
-    with urllib.request.urlopen(req, timeout=180) as r:
-        data = r.read()
-    if data[:10].lstrip()[:9] == b"Erreur AI" or (len(data) < 3000 and b"indisponible" in data):
-        raise RuntimeError("worker: " + data[:160].decode("utf-8", "replace"))
-    return data
-
-def gen_cf(prompt, seed):
+def gen_cf(prompt):
     url = f"https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT}/ai/run/@cf/black-forest-labs/flux-1-schnell"
-    body = json.dumps({"prompt": prompt, "steps": 8}).encode()  # flux-1-schnell n'accepte pas de seed
-    req = urllib.request.Request(url, data=body, headers={"Authorization": "Bearer " + CF_TOKEN, "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=180) as r:
-        d = json.load(r)
+    req = urllib.request.Request(url, data=json.dumps({"prompt": prompt, "steps": 8}).encode(),
+                                 headers={"Authorization": "Bearer " + CF_TOKEN, "Content-Type": "application/json"})
+    try:
+        d = json.load(urllib.request.urlopen(req, timeout=180))
+    except urllib.error.HTTPError as e:
+        msg = e.read().decode("utf-8", "replace")[:300]
+        if e.code == 429 or "neurons" in msg:
+            raise Quota(msg)
+        raise RuntimeError(f"HTTP {e.code} {msg}")
     im = (d.get("result") or {}).get("image")
     if not im:
-        raise RuntimeError("CF: pas d'image (" + json.dumps(d)[:200] + ")")
+        raise RuntimeError("pas d'image : " + json.dumps(d)[:200])
     return base64.b64decode(im)
 
-def gen_poll(prompt, seed):
-    url = ("https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt)
-           + f"?width=1024&height=576&nologo=true&model=turbo&seed={seed}&referrer=titistoire")
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "titistoire/1.0"}), timeout=240) as r:
-        return r.read()
 
-def gen(prompt, seed):
-    if SRC == "cf":   return gen_cf(prompt, seed)
-    if SRC == "poll": return gen_poll(prompt, seed)
-    return gen_worker(prompt, seed)
+def gen_worker(prompt):
+    req = urllib.request.Request(WORKER + "/img?" + urllib.parse.urlencode({"p": prompt, "steps": 8, "frais": int(time.time())}),
+                                 headers={"User-Agent": "titistoire-gen/2.0"})
+    try:
+        data = urllib.request.urlopen(req, timeout=180).read()
+    except urllib.error.HTTPError as e:
+        msg = e.read().decode("utf-8", "replace")[:300]
+        if "neurons" in msg or e.code == 429:
+            raise Quota(msg)
+        raise RuntimeError(f"HTTP {e.code} {msg}")
+    return data
 
-def good(f): return f.exists() and f.stat().st_size > 5000
 
-def make(f, prompt, seed):
-    if good(f): return "skip"
-    for attempt in range(1, 4):
-        try:
-            data = gen(prompt, seed + attempt)
-            if len(data) < 3000: raise RuntimeError(f"trop petit/{len(data)}o")
-            f.write_bytes(data)
-            return "ok"
-        except Exception as e:
-            print(f"    …essai {attempt} {f.name}: {str(e)[:140]}")
-            time.sleep(3 * attempt)
-    return "fail"
+def est_image(data):
+    return len(data) > 8000 and (data[:3] == b"\xff\xd8\xff" or data[:8] == b"\x89PNG\r\n\x1a\n")
 
-# ---------- plans ----------
-def plan_ambiances():
-    return [(OUT / f"{h}_{u}.png", prompt_ambiance(h, u), HERO_SEED[h]) for h in HEROS for u in UNIV]
 
-def plan_scenes():
+def ordre(stories):
+    """Histoires de base d'abord (un univers après l'autre), puis les saisons, la plus proche en premier."""
+    auj = datetime.date.today()
+    def delai(u):
+        m, j = SAISONS[u]
+        d = datetime.date(auj.year, m, j)
+        if d < auj:
+            d = datetime.date(auj.year + 1, m, j)
+        return (d - auj).days
+    base = [s for s in stories if s["univ"] not in SAISONS]
+    sais = sorted((s for s in stories if s["univ"] in SAISONS), key=lambda s: (delai(s["univ"]), s["id"]))
+    return base + sais
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", default="")
+    ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--refaire", default="", help="ids d'images à regénérer, séparés par des virgules (ex. filou_pirates_3)")
+    a = ap.parse_args()
+    OUT.mkdir(parents=True, exist_ok=True)
+    refaire = {x.strip() for x in a.refaire.split(",") if x.strip()}
     jobs = []
-    for h in HEROS:
-        for u in UNIV:
-            for m in MORALS:
-                for idx in range(6):            # 6 étapes du récit : b1..b6
-                    f = SCN / f"{h}_{u}_{m}_b{idx+1}.png"
-                    jobs.append((f, prompt_scene(h, u, m, idx), HERO_SEED[h]))
-    return jobs
+    c = titi.cast()
+    if not a.only:                                      # 10 décors sans personnage (repli du mode libre et des vignettes)
+        for u, d in c["decors"].items():
+            f = titi.ROOT / "assets" / f"decor_{u}.jpg"
+            if f"decor_{u}" in refaire or not (f.exists() and f.stat().st_size > 8000):
+                jobs.append((f, c["style"] + "A wide landscape with no characters: " + d + ". No animals, no people, no text, no letters, no watermark.", None, None))
+    # empreinte de la description de chaque image : une description retouchée -> image refaite
+    fsig = OUT / "_descriptions.json"
+    sigs = json.loads(fsig.read_text()) if fsig.exists() else {}
+    for s in ordre(titi.load()):
+        if a.only and not s["id"].startswith(a.only):
+            continue
+        for i, sc in enumerate(s["scenes"], 1):
+            nom = f"{s['id']}_{i}"
+            f = OUT / f"{nom}.jpg"
+            sig = zlib.crc32(sc["desc"].encode("utf-8"))
+            if nom in refaire or not (f.exists() and f.stat().st_size > 8000) or sigs.get(nom, sig) != sig:
+                jobs.append((f, sc["prompt"], nom, sig))
+    total = len(list(titi.load())) * 8
+    print(f"🎨 Source : {SRC} — {len(jobs)} image(s) à faire", flush=True)
+    ok = rate = 0
+    for f, prompt, nom, sig in jobs:
+        if a.limit and ok >= a.limit:
+            break
+        try:
+            data = None
+            for essai in range(3):
+                try:
+                    data = gen_cf(prompt) if SRC == "cf" else gen_worker(prompt)
+                    if est_image(data):
+                        break
+                    data = None
+                except Quota:
+                    raise
+                except Exception as e:
+                    print(f"    …essai {essai + 1} {f.name} : {str(e)[:140]}", flush=True); time.sleep(4 * (essai + 1))
+            if data is None:
+                rate += 1; print(f"  ❌ {f.name}", flush=True)
+                if rate >= 6:
+                    print("⛔ Trop d'échecs d'affilée, arrêt."); break
+                continue
+        except Quota as q:
+            print(f"⛔ Quota Cloudflare du jour atteint (reprise demain) : {str(q)[:160]}", flush=True); break
+        f.write_bytes(data); ok += 1; rate = 0
+        if nom:
+            sigs[nom] = sig; fsig.write_text(json.dumps(sigs, separators=(",", ":"), sort_keys=True))
+        print(f"  ✅ {f.name} ({len(data) // 1024} Ko)", flush=True)
+        time.sleep(0.4)
+    print(f"Images : {ok} générées — {len(list(OUT.glob('*.jpg')))} / {total} prêtes.")
+    # code de sortie 0 même si le quota a coupé : ce n'est pas une erreur, la suite se fait le lendemain
 
-MAX_CONSEC_FAIL = int(os.environ.get("TITI_MAX_FAIL", "12"))  # arrêt si quota/API en rade
 
-def run(jobs, label):
-    print(f"🎨 Source : {SRC} ({WORKER if SRC=='worker' else ''}) — {label} : {len(jobs)} cible(s)", flush=True)
-    ok = sk = fa = consec = 0
-    for i, (f, p, seed) in enumerate(jobs, 1):
-        r = make(f, p, seed)
-        if r == "ok":   ok += 1; consec = 0; print(f"  [{i}/{len(jobs)}] ✅ {f.name} ({f.stat().st_size//1024} Ko)", flush=True)
-        elif r == "skip": sk += 1
-        else:
-            fa += 1; consec += 1; print(f"  [{i}/{len(jobs)}] ❌ {f.name} (échec)", flush=True)
-            if consec >= MAX_CONSEC_FAIL:
-                print(f"⛔ {consec} échecs d'affilée — quota/API probablement épuisé, arrêt (reprise plus tard).", flush=True)
-                break
-        if r == "ok": time.sleep(0.5)
-    print(f"Fini {label} : {ok} générées, {sk} déjà là, {fa} échecs.", flush=True)
-    return fa
-
-mode = sys.argv[1] if len(sys.argv) > 1 else "scenes"
-sub  = sys.argv[2] if len(sys.argv) > 2 else ""
-fails = 0
-if mode in ("ambiances", "all"):
-    fails += run(plan_ambiances(), "ambiances")
-if mode in ("scenes", "all"):
-    jobs = plan_scenes()
-    if sub == "test":
-        jobs = [j for j in jobs if j[0].name.startswith("filou_foret_partage_")]
-    else:
-        lim = int(os.environ.get("TITI_LIMIT", "0"))
-        if lim > 0:  # ne garder qu'un lot de N manquantes (pour committer par paquets)
-            jobs = [j for j in jobs if not good(j[0])][:lim]
-    fails += run(jobs, "scenes" + (" (test)" if sub == "test" else ""))
-if mode not in ("ambiances", "scenes", "all"):
-    print("Usage: gen_images.py ambiances | scenes [test] | all")
-sys.exit(1 if fails else 0)
+if __name__ == "__main__":
+    main()
