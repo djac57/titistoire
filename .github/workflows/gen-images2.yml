@@ -1,4 +1,4 @@
-name: Illustrations FLUX.2 avec références (essai)
+name: Illustrations FLUX.2 avec références
 
 on:
   push:
@@ -33,7 +33,8 @@ jobs:
           MODELE=$(sed -n 's/^modele=//p' .github/gen-images2.run | head -1)
           SORTIE=$(sed -n 's/^sortie=//p' .github/gen-images2.run | head -1)
           FICHES=$(sed -n 's/^fiches=//p' .github/gen-images2.run | head -1)
-          python3 tools/gen_images2.py ${ONLY:+--only "$ONLY"} ${FICHES:+--fiches} ${MODELE:+--modele "$MODELE"} ${SORTIE:+--sortie "$SORTIE"}
+          TOUT=$(sed -n 's/^tout=//p' .github/gen-images2.run | head -1)
+          python3 tools/gen_images2.py ${ONLY:+--only "$ONLY"} ${FICHES:+--fiches} ${TOUT:+--tout} ${MODELE:+--modele "$MODELE"} ${SORTIE:+--sortie "$SORTIE"}
       - name: Committer
         if: always()
         env:

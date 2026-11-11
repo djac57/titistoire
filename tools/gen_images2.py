@@ -47,6 +47,7 @@ def jpeg(data, cote, q=84):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default=""); ap.add_argument("--sortie", default="assets/scenes2")
+    ap.add_argument("--tout", action="store_true", help="redessiner même les images déjà présentes")
     ap.add_argument("--fiches", action="store_true", help="ne dessiner que les fiches de personnages de toutes les histoires")
     ap.add_argument("--modele", default="@cf/black-forest-labs/flux-2-klein-4b"); ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
@@ -85,7 +86,7 @@ def main():
                 for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
                     if m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}: fiche(m.group(1), s["univ"])
                 continue
-            if dest.exists(): continue
+            if dest.exists() and not a.tout: continue
             if a.limit and n >= a.limit: break
             jetons = []
             for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
