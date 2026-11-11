@@ -345,11 +345,18 @@ Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 m
 Réponds UNIQUEMENT par cet objet JSON :
 {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["...","...","..."]}]}`;
 }
+// Forme imposée à la réponse de Gemini : sans elle, les histoires longues reviennent parfois dans un JSON invalide (guillemets non échappés).
+const SCHEMA_HISTOIRE = { type: "OBJECT", required: ["titre", "decor", "emoji", "heros", "ami", "lieu", "tableaux"], properties: {
+  titre: { type: "STRING" }, decor: { type: "STRING" }, emoji: { type: "STRING" }, heros: { type: "STRING" }, ami: { type: "STRING" }, lieu: { type: "STRING" },
+  tableaux: { type: "ARRAY", items: { type: "OBJECT", required: ["pages", "images"], properties: { pages: { type: "ARRAY", items: { type: "STRING" } }, images: { type: "ARRAY", items: { type: "STRING" } } } } } } };
 function extraireJSON(raw) {
   if (typeof raw !== "string") raw = JSON.stringify(raw || "");
   const a = raw.indexOf("{"), b = raw.lastIndexOf("}");
   if (a < 0 || b <= a) return null;
-  const c = raw.slice(a, b + 1); try { JSON.parse(c); return c; } catch (e) { return null; }
+  const c = raw.slice(a, b + 1); try { JSON.parse(c); return c; } catch (e) {}
+  // secours : retours à la ligne bruts dans les chaînes, virgule en trop avant une fermeture
+  const d = c.replace(/[\u0000-\u001f]+/g, " ").replace(/,\s*([\]}])/g, "$1");
+  try { JSON.parse(d); return d; } catch (e) { return null; }
 }
 /** Rédacteurs, du meilleur au moins bon (jugé sur essais : Gemini écrit nettement mieux que les modèles Workers AI). */
 function redacteurs(env, GKEY, forceIA) {
@@ -368,7 +375,7 @@ function redacteurs(env, GKEY, forceIA) {
     try {
       const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json", ...(/lite/.test(modele) ? {} : { thinkingConfig: { thinkingBudget: 0 } }) } }) });
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json", responseSchema: SCHEMA_HISTOIRE, ...(/lite/.test(modele) ? {} : { thinkingConfig: { thinkingBudget: 0 } }) } }) });
       const gd = await gr.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
       const c = t && extraireJSON(t); if (c) return { txt: c };
       const c0 = gd && gd.candidates && gd.candidates[0];
