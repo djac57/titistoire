@@ -55,6 +55,10 @@ class Quota(Exception):
     pass
 
 
+class QuotaJour(Quota):
+    """Plafond QUOTIDIEN atteint (même en niveau payant : 100 requêtes par jour et par modèle) : inutile d'insister avant demain."""
+
+
 def tts(texte, voix, modele, key):
     """-> PCM 16 bits mono, fréquence.
     Niveau payant (TITI_PAYANT=1) : la limite de débit est basse ; plusieurs enregistrements lancés en parallèle
@@ -64,6 +68,7 @@ def tts(texte, voix, modele, key):
     if os.environ.get("TITI_TTS_ESPACE") == "0":          # débit suffisant : appels en parallèle, simple patience sur un 429
         for essai in range(6):
             try: return _tts(texte, voix, modele, key)
+            except QuotaJour: raise
             except Quota: time.sleep(30)
         raise Quota("limite de débit persistante")
     import fcntl
@@ -98,7 +103,7 @@ def _tts(texte, voix, modele, key):
     except urllib.error.HTTPError as e:
         msg = e.read().decode("utf-8", "replace")
         if e.code == 429:
-            raise Quota(re.sub(r"\s+", " ", msg)[:400])
+            raise (QuotaJour if "PerDay" in msg else Quota)(re.sub(r"\s+", " ", msg)[:400])
         raise RuntimeError(f"HTTP {e.code} {msg[:200]}")
     try:
         part = d["candidates"][0]["content"]["parts"][0]["inlineData"]
@@ -364,6 +369,8 @@ def main():
                 modele = dispo[0]
                 try:
                     res, qual, duree = produire_histoire(s, a.voix, key, modele)
+                except QuotaJour:
+                    print(f"⛔ Plafond quotidien atteint sur {modele} : la suite demain", flush=True); dispo.pop(0); continue
                 except Quota as q:
                     if payant:
                         print(f"  …limite de débit, pause 45 s ({str(q)[:80]})", flush=True); time.sleep(45); continue

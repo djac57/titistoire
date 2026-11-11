@@ -1,8 +1,11 @@
 name: Enregistrer les voix (Gemini TTS)
 
 on:
-  # Plus de passage automatique : depuis le 11/11 la clé Gemini est en niveau payant et les voix sont
-  # enregistrées d'un coup à la demande (sinon chaque passage serait facturé).
+  # Niveau payant Gemini : le meilleur modèle est plafonné à 100 requêtes par jour (remise à zéro vers 08h UTC).
+  # Ces passages terminent les enregistrements manquants, puis ne font plus rien (et ne coûtent plus rien).
+  schedule:
+    - cron: "20 8 * * *"
+    - cron: "20 13 * * *"
   workflow_dispatch:
     inputs:
       only:
@@ -23,7 +26,7 @@ concurrency:
 jobs:
   gen:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 340
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,6 +41,10 @@ jobs:
       - name: Enregistrer les histoires manquantes (reprise automatique)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TITI_PAYANT: "1"
+          TITI_TTS_ESPACE: "0"
+          TITI_TTS_MODELES: gemini-3.8-flash-tts
+          TITI_TTS_PAUSE: "1"
           ONLY: ${{ github.event.inputs.only }}
           VOIX: ${{ github.event.inputs.voix }}
         run: |
