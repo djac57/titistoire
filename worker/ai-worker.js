@@ -114,7 +114,7 @@ export default {
         // 2. écriture, puis contrôle de ce qui a été écrit (une seconde chance, sinon refus)
         let dernier = null, occupe = false;
         for (let essai = 0; essai < 2; essai++) {
-          const brut = await ecrire(env, GKEY, hero, lieu, lecon);
+          const brut = await ecrire(env, GKEY, hero, lieu, lecon, dbg ? u.searchParams.get("ia") : null);
           if (!brut.txt) { dernier = brut.err; occupe = occupe || !!brut.busy; continue; }
           const h = normaliser(brut.txt);
           if (!h) { dernier = "histoire illisible"; continue; }
@@ -128,7 +128,7 @@ export default {
             tableaux.push({ pages: t.pages, img: t.image ? "/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString() : null });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, modele: dbg ? brut.modele : undefined });
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, sig, modele: dbg ? brut.modele : undefined, journal: dbg ? brut.journal : undefined });
         }
         if (dernier && dernier.startsWith("contrôle")) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? dernier : undefined });
         return J({ error: "Conteuse indisponible", busy: occupe, detail: dernier }, 502);
@@ -223,9 +223,16 @@ function extraireJSON(raw) {
   if (a < 0 || b <= a) return null;
   const c = raw.slice(a, b + 1); try { JSON.parse(c); return c; } catch (e) { return null; }
 }
-async function ecrire(env, GKEY, hero, lieu, lecon) {
+async function ecrire(env, GKEY, hero, lieu, lecon, forceIA) {
   const prompt = consigneHistoire(hero, lieu, lecon), sys = "Tu es une autrice pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour.";
   let err = "aucun modèle disponible", busy = false;
+  const journal = [];
+  if (forceIA) {                                 // essai d'un modèle Workers AI précis (mise au point)
+    try { const ar = await env.AI.run(forceIA, { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
+      const c = extraireJSON(ar && (ar.response || ar.result || (ar.choices && ar.choices[0] && ar.choices[0].message && ar.choices[0].message.content)));
+      return c ? { txt: c, modele: forceIA } : { err: "illisible : " + JSON.stringify(ar).slice(0, 300) };
+    } catch (e) { return { err: String(e).slice(0, 300) }; }
+  }
   if (env.OPENROUTER_KEY) {                       // modèles gratuits d'OpenRouter, le premier qui répond
     const modeles = env.OPENROUTER_MODEL ? [env.OPENROUTER_MODEL] : ["nvidia/nemotron-3-ultra-550b-a55b:free", "nvidia/nemotron-3.5-super-vl:free", "google/gemma-4-31b-it:free"];
     for (const model of modeles) {
@@ -238,6 +245,7 @@ async function ecrire(env, GKEY, hero, lieu, lecon) {
         if (c) return { txt: c, modele: "or:" + model };
         err = "OpenRouter : " + ((d && d.error && (d.error.message || JSON.stringify(d.error))) || "réponse illisible").slice(0, 160);
       } catch (e) { err = "OpenRouter : " + String(e).slice(0, 100); } finally { clearTimeout(to); }
+      journal.push(model + " -> " + err);
     }
   }
   if (GKEY) for (const model of (env.GEMINI_MODEL ? [env.GEMINI_MODEL] : ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"])) {
@@ -251,10 +259,11 @@ async function ecrire(env, GKEY, hero, lieu, lecon) {
       const msg = (gd && gd.error && gd.error.message) || "réponse vide"; err = "Gemini : " + msg.slice(0, 140);
       if (/high demand|overloaded|unavailable|503|429|quota|rate/i.test(msg)) busy = true;
     } catch (e) { err = "Gemini : " + String(e).slice(0, 100); busy = true; } finally { clearTimeout(to); }
+    journal.push(model + " -> " + err);
   }
   if (env.AI) try {                               // dernier recours : Llama sur Workers AI
     const ar = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
-    const c = extraireJSON(ar && (ar.response || ar.result)); if (c) return { txt: c, modele: "workers-ai-llama" };
+    const c = extraireJSON(ar && (ar.response || ar.result)); if (c) return { txt: c, modele: "workers-ai-llama", journal };
     err = "Llama : réponse illisible";
   } catch (e) { err = "Llama : " + String(e).slice(0, 100); }
   return { err, busy };
