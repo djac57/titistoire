@@ -256,9 +256,12 @@ function extraireJSON(raw) {
 function redacteurs(env, GKEY, forceIA) {
   const sys = "Tu es une autrice pour enfants. Réponds UNIQUEMENT par un objet JSON valide, sans texte autour.";
   const ia = modele => async prompt => {
-    try { const ar = await env.AI.run(modele, { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 4096 });
-      const c = extraireJSON(ar && (ar.response || ar.result || (ar.choices && ar.choices[0] && ar.choices[0].message && ar.choices[0].message.content)));
-      return c ? { txt: c } : { err: "réponse illisible" };
+    try { const ar = await env.AI.run(modele, { messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 9000 });
+      // selon le modèle : { response } (texte ou objet déjà analysé), ou format « choices » ; les modèles à raisonnement mettent la réponse dans content
+      let brut = ar && (ar.response ?? ar.result ?? (ar.choices && ar.choices[0] && ar.choices[0].message && (ar.choices[0].message.content || ar.choices[0].message.reasoning_content)));
+      if (brut && typeof brut === "object") brut = JSON.stringify(brut);
+      const c = extraireJSON(String(brut || "").replace(/<think>[\s\S]*?<\/think>/g, ""));
+      return c ? { txt: c } : { err: "réponse illisible : " + JSON.stringify(ar).slice(0, 260) };
     } catch (e) { return { err: String(e).slice(0, 120) }; }
   };
   const gemini = modele => async prompt => {
