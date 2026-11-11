@@ -1,11 +1,8 @@
 name: Enregistrer les voix (Gemini TTS)
 
 on:
-  schedule:
-    # Palier gratuit Gemini TTS : 10 requêtes par jour et par modèle, remis à zéro à minuit
-    # (heure du Pacifique, soit 08h00 UTC). Une histoire entière = 1 requête -> ~10 histoires par jour.
-    - cron: "40 8 * * *"
-    - cron: "40 14 * * *"
+  # Plus de passage automatique : depuis le 11/11 la clé Gemini est en niveau payant et les voix sont
+  # enregistrées d'un coup à la demande (sinon chaque passage serait facturé).
   workflow_dispatch:
     inputs:
       only:

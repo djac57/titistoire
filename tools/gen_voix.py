@@ -319,13 +319,16 @@ def main():
             fj.write_text(json.dumps(meta, ensure_ascii=False, separators=(",", ":")))
 
         if len(manque) == 8:                            # histoire entière en une requête
-            for essai in range(2):
+            payant = os.environ.get("TITI_PAYANT") == "1"      # niveau payant : un 429 est une limite de débit, on patiente
+            for essai in range(8 if payant else 2):
                 if not dispo:
                     break
                 modele = dispo[0]
                 try:
                     res, qual, duree = produire_histoire(s, a.voix, key, modele)
-                except Quota:
+                except Quota as q:
+                    if payant:
+                        print(f"  …limite de débit, pause 45 s ({str(q)[:80]})", flush=True); time.sleep(45); continue
                     print(f"⛔ Quota du jour atteint sur {modele}", flush=True); dispo.pop(0); continue
                 except Exception as e:
                     print(f"  ❌ {s['id']} ({modele}) : {str(e)[:200]}", flush=True); time.sleep(5); continue
