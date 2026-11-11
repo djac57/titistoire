@@ -82,8 +82,10 @@ export default {
           const refs = [];
           for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
           if (refs.length === [fa, fb].filter(Boolean).length) {
-            for (let essai = 0; essai < 3 && !b64; essai++) {         // le modèle renvoie parfois une erreur interne passagère : on attend un peu et on retente
-              try { b64 = await flux2(env, MODELE_PAGE, p, refs); par = MODELE_PAGE; } catch (e) { journal.push(String(e).slice(0, 120)); await new Promise(r => setTimeout(r, 1200 * (essai + 1))); }
+            // le modèle renvoie souvent une erreur interne passagère : on retente, en alternant avec sa petite variante, qui dessine aussi d'après les fiches
+            const ordreM = [MODELE_PAGE, MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE];
+            for (let essai = 0; essai < ordreM.length && !b64; essai++) {
+              try { b64 = await flux2(env, ordreM[essai], p, refs); par = ordreM[essai]; } catch (e) { journal.push(String(e).slice(0, 60)); await new Promise(r => setTimeout(r, 700 + 500 * essai)); }
             }
           }
         }
@@ -152,6 +154,7 @@ export default {
           if (!r.txt) { journal.push(nom + " : " + r.err); occupe = occupe || !!r.busy; continue; }
           const h = normaliser(r.txt);
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
+          for (const t of h.tableaux) t.images = t.images.map(d => motInterdit(d) ? "" : d);      // description douteuse : écartée, la page reprendra l'image voisine
           const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
           const maigre = pg.length < 18 || moy < 75 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
           const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
@@ -170,7 +173,7 @@ export default {
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
             const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
             for (let k = 0; k < t.pages.length; k++) {
-              const d = t.images[k] || t.images[t.images.length - 1] || "";
+              const d = t.images[k] || t.images.slice(0, k).reverse().find(Boolean) || t.images.find(Boolean) || "";
               if (!d) { imgs.push(null); continue; }
               const aH = /\bHERO\b/.test(d) && fH, aA = /\bFRIEND\b/.test(d) && fA; let n = 0;
               const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same clothes and accessories)` : ""); }; };
@@ -203,7 +206,7 @@ export default {
 const propre = s => String(s || "").replace(/[\u0000-\u001f<>{}`]/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
 
 /* ===================== dessin d'après fiches (FLUX.2) ===================== */
-const MODELE_PAGE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_FICHE = "@cf/black-forest-labs/flux-2-klein-9b";
+const MODELE_PAGE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_FICHE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_SECOURS = "@cf/black-forest-labs/flux-2-klein-4b";
 const typeImage = o => (o && o[0] === 0x89 && o[1] === 0x50) ? "image/png" : (o && o[0] === 0x52 && o[1] === 0x49) ? "image/webp" : "image/jpeg";
 /** -> image en base64. `refs` : images de référence (octets), dans l'ordre « image 1, image 2 » du texte. */
 async function flux2(env, modele, prompt, refs = [], cote = 768) {
@@ -220,7 +223,7 @@ async function ficheDe(env, ctx, p) {
   const cle = new Request("https://cache.titistoire/fiche/" + h, { method: "GET" });
   try { const hit = await caches.default.match(cle); if (hit) return { img: new Uint8Array(await hit.arrayBuffer()) }; } catch (e) {}
   let b64 = null, err = "";
-  for (let essai = 0; essai < 4 && !b64; essai++) { try { b64 = await flux2(env, MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); await new Promise(r => setTimeout(r, 1200 * (essai + 1))); } }
+  for (let essai = 0; essai < 6 && !b64; essai++) { try { b64 = await flux2(env, essai % 3 === 2 ? MODELE_SECOURS : MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); await new Promise(r => setTimeout(r, 700 + 500 * essai)); } }
   if (!b64) return { err };
   const vue = await imageDouce(env, b64);
   if (!vue.ok) return { err: "écartée par le contrôle", refus: true };
@@ -313,6 +316,7 @@ Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 m
   * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte la page, pas la page d'avant ni celle d'après ;
   * deux personnages au plus par image ; si un figurant est indispensable, donne son espèce précise et son nombre ("one green frog"), jamais "friends", "others", "animals", "everyone", et jamais la même espèce que HERO ou FRIEND ;
   * un objet important de l'histoire est décrit avec EXACTEMENT les mêmes mots (couleur, forme) à chaque image où il apparaît ;
+  * mots simples et doux : jamais "dead", "scary", "dark creature", "skeleton", "weapon" (dis "bare tree", "dry leaves", "shadow") ;
   * rien d'écrit dans l'image : pas de panneau, lettre, livre ouvert, bulle ; pas d'humain ; pas de métaphore ni d'expression imagée.
 "heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots : UNE espèce animale précise (deux espèces DIFFÉRENTES, faciles à distinguer), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Commence par "one small ...".
 "lieu" décrit EN ANGLAIS le décor en 12 à 20 mots : l'endroit, deux ou trois éléments fixes reconnaissables, le moment de la journée et les couleurs (il sera rappelé dans chaque illustration).
@@ -338,7 +342,7 @@ function redacteurs(env, GKEY, forceIA) {
     } catch (e) { return { err: String(e).slice(0, 120) }; }
   };
   const gemini = modele => async prompt => {
-    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 20000);
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), /lite/.test(modele) ? 25000 : 45000);
     try {
       const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
