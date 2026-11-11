@@ -82,8 +82,8 @@ export default {
           const refs = [];
           for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
           if (refs.length === [fa, fb].filter(Boolean).length) {
-            for (let essai = 0; essai < 2 && !b64; essai++) {
-              try { b64 = await flux2(env, MODELE_PAGE, p, refs); par = MODELE_PAGE; } catch (e) { journal.push(String(e).slice(0, 120)); }
+            for (let essai = 0; essai < 3 && !b64; essai++) {         // le modèle renvoie parfois une erreur interne passagère : on attend un peu et on retente
+              try { b64 = await flux2(env, MODELE_PAGE, p, refs); par = MODELE_PAGE; } catch (e) { journal.push(String(e).slice(0, 120)); await new Promise(r => setTimeout(r, 1200 * (essai + 1))); }
             }
           }
         }
@@ -220,7 +220,7 @@ async function ficheDe(env, ctx, p) {
   const cle = new Request("https://cache.titistoire/fiche/" + h, { method: "GET" });
   try { const hit = await caches.default.match(cle); if (hit) return { img: new Uint8Array(await hit.arrayBuffer()) }; } catch (e) {}
   let b64 = null, err = "";
-  for (let essai = 0; essai < 3 && !b64; essai++) { try { b64 = await flux2(env, MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); } }
+  for (let essai = 0; essai < 4 && !b64; essai++) { try { b64 = await flux2(env, MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); await new Promise(r => setTimeout(r, 1200 * (essai + 1))); } }
   if (!b64) return { err };
   const vue = await imageDouce(env, b64);
   if (!vue.ok) return { err: "écartée par le contrôle", refus: true };
