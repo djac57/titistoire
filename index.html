@@ -499,7 +499,7 @@ function setPlay(on){ const b=$('playBtn'); b.textContent=on?'❚❚ Pause':'▶
 function resetPlay(){ auto=false; setPlay(false); }
 function stopAudio(){
   playToken++; trackSc=0;
-  try{ player.onended=player.onerror=player.onloadedmetadata=null; player.pause(); const s=player.src; if(s&&s.startsWith('blob:')&&!(book&&book.piste&&book.piste.url===s))URL.revokeObjectURL(s); player.removeAttribute('src'); player.load(); }catch(e){}
+  try{ player.onended=player.onerror=player.onloadedmetadata=null; player.pause(); const s=player.src; if(s&&s.startsWith('blob:')&&!blobsGardes.has(s)&&!(book&&book.piste&&book.piste.url===s))URL.revokeObjectURL(s); player.removeAttribute('src'); player.load(); }catch(e){}
   if(rafId) cancelAnimationFrame(rafId); rafId=0;
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false; }
 
@@ -520,7 +520,7 @@ function playTrack(s,fromPage){
     if(next<book.pages.length) setTimeout(()=>{ if(my===playToken) turnTo(next,()=>{ if(my===playToken) startAt(next); }); },450); else showEnd(); };
   player.onerror=()=>{ if(my!==playToken) return; book.voix.sc[s]=null; readPage(fromPage); };       // piste absente -> lecture en direct
   if(trackSc===s&&player.src&&player.readyState>=1) begin();
-  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=`assets/voix/${book.voix.dir}/${book.id}_${s}.m4a`; player.load(); }
+  else { trackSc=s; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=meta.url||`assets/voix/${book.voix.dir}/${book.id}_${s}.m4a`; player.load(); }
 }
 /* --- A bis. histoire inventée : UNE piste pour toute l'histoire, avec le début de chaque page et de chaque mot --- */
 function playPiste(fromPage){
@@ -537,7 +537,13 @@ function playPiste(fromPage){
   if(trackSc===-1&&player.src===P.url&&player.readyState>=1) begin();
   else { trackSc=-1; player.onloadedmetadata=()=>{ player.onloadedmetadata=null; begin(); }; player.src=P.url; player.load(); }
 }
-function startAt(i){ if(book.piste) playPiste(i); else if(book.voix&&book.sc&&book.voix.sc[sceneOf(i)]) playTrack(sceneOf(i),i); else readPage(i); }
+function startAt(i){ const s=book.sc?sceneOf(i):0;
+  if(book.piste) playPiste(i);
+  else if(book.voix&&book.sc&&book.voix.sc[s]) playTrack(s,i);
+  else if(book.vp&&book.vp[s]){                              // histoire inventée : la piste de ce tableau arrive, on l'attend plutôt que de changer de voix
+    const my=++playToken, moi=book; $('voixNote').textContent='La conteuse prépare la suite…';
+    book.vp[s].then(()=>{ if(my!==playToken||book!==moi) return; noteVoix(); if(book.voix&&book.voix.sc[s]) playTrack(s,i); else readPage(i); }); }
+  else readPage(i); }
 
 /* --- B. lecture en direct page par page (mode libre, ou piste pas encore enregistrée) --- */
 function wordTimesFromAlignment(text,al){
@@ -614,7 +620,7 @@ async function generateFree(){
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
     if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');
     const it={titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig};
-    if(it.sig) chercherVoix(it).catch(()=>{});             // la voix se prépare pendant que les images se dessinent
+    if(it.sig) lancerVoix(it);                              // la voix se prépare pendant que les images se dessinent
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
     const urls=it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)); let faites=0;
     clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; };
@@ -638,31 +644,40 @@ function openFree(it,fresh){
 }
 /* La voix d'une histoire inventée : demandée au worker (texte signé), gardée dans le navigateur pour les réécoutes.
    La demande part dès que le texte est écrit (pendant que les illustrations se dessinent) ; une seule demande par histoire et par voix. */
-const voixEnCours={};
-function chercherVoix(it){
-  const voix=conteur(), cle=AIW+"/gtts/"+voix+"/"+it.sig;
+const voixEnCours={}, voixFiles={}, blobsGardes=new Set();
+function chercherVoix(it,n){                                 // -> promesse { w: débuts des mots par page, url } pour le tableau n
+  const voix=conteur(), cle=AIW+"/gtts/"+voix+"/"+it.sig+"/"+n;
   if(voixEnCours[cle]) return voixEnCours[cle];
   const p=(async()=>{
-    let cache=null;
-    try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) return await hit.arrayBuffer(); }catch(e){}
-    const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig})});
-    if(!r.ok) throw new Error('voix '+r.status);
-    const buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){}
-    return buf;
+    let cache=null, buf=null;
+    try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) buf=await hit.arrayBuffer(); }catch(e){}
+    if(!buf){ const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig,n})});
+      if(!r.ok) throw new Error('voix '+r.status);
+      buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){} }
+    const m=new DataView(buf).getUint32(0,true), meta=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,4,m)));
+    if(!Array.isArray(meta.mots)||meta.mots.length!==it.tableaux[n-1].pages.length) throw new Error('voix mal calée');
+    const url=URL.createObjectURL(new Blob([new Uint8Array(buf,4+m)],{type:'audio/wav'})); blobsGardes.add(url);
+    return {w:meta.mots,url};
   })();
   voixEnCours[cle]=p; p.catch(()=>{ delete voixEnCours[cle]; });
   return p;
 }
-async function preparerVoix(){
+/* Les tableaux sont lus un par un, deux demandes à la fois, dans l'ordre : on peut écouter dès que le premier est prêt
+   (une quinzaine de secondes), les suivants arrivent pendant qu'on écoute. -> { n: promesse de la piste, ou null si elle a échoué } */
+function lancerVoix(it){
+  const cle=conteur()+"/"+it.sig; if(voixFiles[cle]) return voixFiles[cle];
+  const N=it.tableaux.length, res={}, P={}; for(let n=1;n<=N;n++) P[n]=new Promise(r=>res[n]=r);
+  let next=1; const suivant=()=>{ if(next>N) return; const n=next++;
+    chercherVoix(it,n).then(v=>res[n](v),()=>{ delete voixFiles[cle]; res[n](null); }).then(suivant); };
+  suivant(); suivant();
+  return voixFiles[cle]=P;
+}
+function preparerVoix(){
   const it=book&&book.src; if(!it||!it.sig||!it.tableaux) return;
-  const moi=book, pb=$('playBtn'); pb.disabled=true; pb.textContent='La conteuse se prépare…';
-  try{
-    const buf=await chercherVoix(it);
-    const n=new DataView(buf).getUint32(0,true), meta=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,4,n)));
-    if(book!==moi) return;
-    if(meta.pages&&meta.pages.length===book.pages.length) book.piste={url:URL.createObjectURL(new Blob([new Uint8Array(buf,4+n)],{type:'audio/wav'})),pages:meta.pages,mots:meta.mots};
-  }catch(e){}                                              // pas de voix de conteuse (quota du jour…) : lecture en direct à la place
-  if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); }
+  const moi=book, pb=$('playBtn'), P=lancerVoix(it); pb.disabled=true; pb.textContent='La conteuse se prépare…';
+  book.voix={dir:null,sc:{}}; book.vp=P;
+  Object.keys(P).forEach(n=>P[n].then(v=>{ if(book===moi&&v) book.voix.sc[n]=v; }));
+  P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
 }
 $('genBtn').addEventListener('click',generateFree);
 
@@ -693,7 +708,7 @@ function conteur(){ let v=''; try{v=localStorage.getItem('titi_conteur')||'';}ca
 function curVoice(){ return conteur()==="Algieba"?"IKne3meq5aSn9XLyUdCD":"Xb7hH8MSUJpSbSDYk0k2"; }
 /* Dit clairement quelle voix on va entendre : la voix choisie n'est pas forcément déjà enregistrée pour cette histoire. */
 function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v=>(CONTEURS.find(c=>c[0]===v)||[0,v])[1];
-  if(!book.id){ n.textContent=book.piste?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
+  if(!book.id){ n.textContent=(book.piste||(book.voix&&book.voix.sc[1]))?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
   const d=book.voix&&book.voix.dir, complet=d&&book.sc.every(x=>book.voix.sc[x]);
   n.textContent = complet&&d===conteur() ? '' :
     complet ? `« ${nom(conteur())} » n'est pas encore enregistrée pour cette histoire : tu entendras « ${nom(d)} ».` :
@@ -704,7 +719,7 @@ function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v
   sel.addEventListener('change',async()=>{ try{localStorage.setItem('titi_conteur',sel.value);}catch(e){}
     stopAudio(); resetPlay(); if(!book) return;
     if(book.id){ book.voix=null; const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
-    else { book.piste=null; preparerVoix(); } });
+    else { book.piste=null; book.voix=null; preparerVoix(); } });
 })();
 
 renderHome();

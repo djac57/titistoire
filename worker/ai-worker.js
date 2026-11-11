@@ -109,11 +109,12 @@ export default {
         const texteSig = tb.map(t => t.join("\n")).join("\n\n");
         if (!cleSig || !(await signatureOK("txt:" + texteSig, String(b.sig || ""), cleSig))) return J({ error: "texte non autorisé" }, 403);
         const voix = VOIX.includes(b.voix) ? b.voix : VOIX[0];
-        const cle2 = new Request("https://cache.titistoire/gtts/" + voix + "/" + b.sig, { method: "GET" });
+        const n = parseInt(b.n, 10), unTableau = n >= 1 && n <= tb.length;       // n : un seul tableau (le livre peut commencer sans attendre toute l'histoire)
+        const cle2 = new Request("https://cache.titistoire/gtts/" + voix + "/" + b.sig + (unTableau ? "/" + n : ""), { method: "GET" });
         try { const hit = await caches.default.match(cle2); if (hit) return hit; } catch (e) {}
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
         if (!GKEY) return J({ error: "voix indisponible" }, 502);
-        const out = await voixConteuse(env, GKEY, tb, voix);
+        const out = await voixConteuse(env, GKEY, unTableau ? [tb[n - 1]] : tb, voix);
         if (out.error) return J(out, out.quota ? 429 : 502);
         const meta = new TextEncoder().encode(JSON.stringify(out.meta)), w = wav(out.pcm, out.rate);
         const corps = new Uint8Array(4 + meta.length + w.length);                 // [longueur du JSON sur 4 octets][JSON][WAV]
