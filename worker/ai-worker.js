@@ -102,7 +102,9 @@ export default {
       // ---------- HISTOIRE (mode libre, sans clé navigateur) ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
-        if (u.searchParams.get("diag")) return new Response(JSON.stringify({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY||env.ELEVENLABS_KEY), hasAI: !!env.AI }), { headers: { "content-type": "application/json", ...cors } });
+        if (u.searchParams.get("diag")) return new Response(JSON.stringify({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY||env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: !!env.LIBRE_PASS }), { headers: { "content-type": "application/json", ...cors } });
+        // Verrou du mode libre (réservé à l'user + ses amis) : actif seulement si LIBRE_PASS est défini
+        if (env.LIBRE_PASS && u.searchParams.get("pass") !== env.LIBRE_PASS) return new Response(JSON.stringify({ error: "locked" }), { status: 403, headers: { "content-type": "application/json", ...cors } });
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
@@ -115,8 +117,9 @@ export default {
             : ["gemini-flash-latest", "gemini-3.8-flash", "gemini-flash-lite-latest"]);
         const prompt = `Tu es une conteuse pour enfants de 3 à 6 ans. Invente une vraie petite histoire en FRANÇAIS, douce, rassurante, à la fin heureuse. `
           + `Héros : ${hero || "un petit personnage attachant"}. Lieu : ${lieu || "un endroit magique"}. Leçon : ${lecon || "la gentillesse"}. `
-          + `Structure-la comme un album jeunesse (schéma narratif) : incipit (on présente le héros et son petit monde), un élément perturbateur, une rencontre qui aide (un adjuvant), des péripéties, une résolution où le héros met en pratique la leçon, puis une conclusion heureuse. `
-          + `Entre 18 et 22 pages. UNE à DEUX phrases courtes et simples par page. La TOUTE DERNIÈRE page est la morale et commence EXACTEMENT par "La morale de l'histoire :". `
+          + `Structure-la comme un album jeunesse : incipit (présente le héros et son petit monde), un élément perturbateur, une rencontre qui aide, des péripéties, une résolution où le héros met en pratique la leçon, et une conclusion heureuse. `
+          + `Soigne le style : phrases vivantes et imagées, un peu de dialogue, du rythme, de la douceur et un brin d'humour. Entre 18 et 22 pages, UNE à DEUX phrases courtes et simples par page. `
+          + `TRÈS IMPORTANT : n'énonce JAMAIS la morale explicitement (interdit : "la morale de l'histoire", "cette histoire montre que", "la leçon est"...). La leçon doit se ressentir à travers les actions. La dernière page est une jolie phrase de conclusion qui réchauffe le cœur, sans donner de leçon. `
           + `Réponds UNIQUEMENT en JSON : {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino","emoji":"un seul emoji","pages":["...", "...", "..."]}`;
         async function askGemini(model){
           const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 12000); // échoue vite si ça rame

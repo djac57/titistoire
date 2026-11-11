@@ -71,6 +71,8 @@
   .freeform input{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
   .freeform input:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
+  #libreForm{display:flex;flex-direction:column;gap:16px;}
+  #libreLock{display:flex;flex-direction:column;}
   .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
   .genbar[hidden]{display:none;}
   .genbar span{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));transition:width .25s ease;}
@@ -153,12 +155,20 @@
     <button class="back" data-go="s0">⬅️ Retour</button>
     <h2 class="q">Raconte ton histoire ✏️</h2>
     <div class="freeform">
-      <label>🦸 Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
-      <label>🗺️ Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
-      <label>🌟 La leçon<input id="fLecon" placeholder="ex : il faut être patient"></label>
-      <button class="btn play" id="genBtn" style="align-self:center">✨ Invente l'histoire</button>
-      <div id="genStatus" class="genstatus"></div>
-      <div id="genBar" class="genbar" hidden><span></span></div>
+      <div id="libreLock">
+        <p style="text-align:center;font-weight:700;color:var(--ink);margin:2px 0 14px">🔒 Mode réservé — entre le mot de passe pour inventer tes histoires.</p>
+        <input id="librePass" type="password" placeholder="mot de passe" style="width:100%">
+        <button class="btn play" id="libreUnlock" style="align-self:center;margin-top:14px">🔓 Déverrouiller</button>
+        <div id="lockMsg" class="genstatus"></div>
+      </div>
+      <div id="libreForm" hidden>
+        <label>🦸 Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
+        <label>🗺️ Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
+        <label>🌟 La leçon<input id="fLecon" placeholder="ex : il faut être patient"></label>
+        <button class="btn play" id="genBtn" style="align-self:center">✨ Invente l'histoire</button>
+        <div id="genStatus" class="genstatus"></div>
+        <div id="genBar" class="genbar" hidden><span></span></div>
+      </div>
     </div>
   </section>
 
@@ -237,95 +247,95 @@ function buildStory(p,u,v){
   let pages;
   if(v.id==='partage') pages=[
     `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
-    `Chaque matin, ${H} se réveillait avec le sourire et saluait le grand soleil.`,
-    `${H} adorait par-dessus tout les bonnes choses : les fruits, les gâteaux, les noisettes.`,
-    `Mais ${H} avait un petit défaut : ${il} n'aimait pas beaucoup partager.`,
-    `Un beau jour, en se promenant, ${H} trouva un immense panier posé sur le chemin.`,
-    `Le panier débordait de fruits dorés, de tartes et de mille friandises !`,
-    `« Oh là là ! Tout ça rien que pour moi ! » s'écria ${H}, les yeux brillants.`,
-    `Vite, ${il} serra le panier très fort et courut se cacher pour tout garder.`,
-    `En chemin, ${H} croisa un vieil ami très sage, assis au bord de l'eau.`,
-    `« Pourquoi caches-tu ce beau panier ? » demanda doucement le sage.`,
-    `« Parce qu'il est à moi, à moi tout seul ! » répondit ${H} en baissant les yeux.`,
-    `Le sage sourit : « Le bonheur gardé pour soi tout seul devient vite tout petit. »`,
-    `${H} repartit en réfléchissant à ces drôles de mots.`,
-    `Un peu plus loin, ${il} vit des amis au ventre tout vide qui soupiraient.`,
-    `Leur petit ventre faisait « grrrr », et leurs yeux étaient tout tristes.`,
-    `${H} regarda son panier, puis ses amis… et son cœur se serra très fort.`,
-    `Alors ${H} prit une grande respiration et ouvrit tout grand le panier.`,
-    `${Il} offrit un fruit à l'un, une tarte à l'autre, une friandise à chacun.`,
-    `Et là, chose étonnante : plus ${il} donnait, plus ${il} se sentait ${p.f?'heureuse':'heureux'} !`,
-    `Tout le monde se régala ensemble en riant : ce fut le plus joyeux des goûters.`,
-    `La morale de l'histoire : quand on partage, la joie devient deux fois plus grande.`,
+    `Le matin, ${il} comptait ses noisettes une à une : « Une pour moi… et encore une pour moi ! »`,
+    `${H} aimait tout garder : ses jouets, ses goûters, ses plus jolis cailloux.`,
+    `« Ce qui est à moi est à moi ! » répétait-${il} en serrant bien fort son petit trésor.`,
+    `Un matin de grand soleil, au bout du chemin, ${H} trouva un panier plus grand que lui.`,
+    `Dedans : des pommes dorées, des gâteaux tout moelleux, des bonbons qui brillaient.`,
+    `« Ooooh ! » Les yeux de ${H} devinrent ronds comme deux billes.`,
+    `Vite, vite, ${il} tira le panier jusqu'à sa cachette secrète.`,
+    `Au bord de la rivière, une vieille tortue le regardait passer en souriant.`,
+    `« Où cours-tu si vite, petit ? » demanda-t-elle de sa voix toute douce.`,
+    `« C'est mon trésor, rien qu'à moi ! » souffla ${H}, soudain un peu ${p.f?'gênée':'gêné'}.`,
+    `La tortue cligna de l'œil : « Un trésor gardé tout seul s'ennuie très vite, tu sais. »`,
+    `${H} repartit… mais les mots de la tortue trottaient dans sa tête.`,
+    `Plus loin, trois petits amis étaient assis, le ventre vide et les yeux tristes.`,
+    `« Grrrrouuu », faisaient leurs petits bidons tout affamés.`,
+    `${H} regarda son panier. Puis ses amis. Puis son panier encore. Et son cœur fit toc-toc.`,
+    `Alors, tout doucement, ${il} souleva le couvercle et tendit une belle pomme.`,
+    `Puis un gâteau, puis un bonbon — un cadeau pour chacun, avec un grand sourire.`,
+    `Et plus ${il} donnait, plus son cœur devenait chaud et léger, comme un petit soleil.`,
+    `Ce soir-là, ils partagèrent le plus joyeux des goûters, à rire sous les étoiles.`,
+    `Et ${H} l'avait compris : le bonheur est bien meilleur quand on le partage.`,
   ];
   else if(v.id==='courage') pages=[
     `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
-    `${H} était ${p.f?'douce et gentille':'doux et gentil'}, mais une chose lui faisait très peur : le noir.`,
-    `Dès que le soir tombait, ${H} se cachait sous sa couverture en tremblant.`,
-    `« Un jour, se disait-${il}, j'aimerais être aussi ${p.f?'courageuse':'courageux'} qu'un grand héros. »`,
-    `Un soir, alors que la nuit était tombée, ${H} entendit un tout petit cri.`,
-    `« Au secours ! Au secours ! » pleurait une minuscule voix dans le noir.`,
-    `Le cœur de ${H} se mit à battre très fort : boum… boum… boum…`,
-    `« Oh non, il fait si sombre… est-ce que j'ose y aller ? » se demanda ${H}.`,
-    `C'est alors qu'une petite luciole apparut, brillant comme une étoile.`,
-    `« N'aie pas peur, dit-elle, je vais éclairer ton chemin. »`,
-    `« Le courage, ce n'est pas de ne jamais avoir peur, chuchota la luciole. »`,
-    `« C'est d'avancer quand même, un tout petit pas après l'autre. »`,
-    `Alors ${H} prit une grande respiration et fit un premier pas dans le noir.`,
-    `Puis un deuxième, puis un troisième, en suivant la lumière de la luciole.`,
-    `Le vent soufflait et les ombres dansaient, mais ${H} continua bravement.`,
-    `Enfin, ${il} arriva près d'un buisson d'où venaient les petits pleurs.`,
-    `Un tout petit oiseau était tombé du nid et tremblait de froid.`,
-    `Avec douceur, ${H} ${lo} prit dans ses bras et ${lo} ramena bien au chaud.`,
-    `« Merci ! Tu es ${p.f?'la plus courageuse':'le plus courageux'} de tous ! » pépia l'oiseau.`,
-    `Ce soir-là, ${H} s'endormit ${p.f?'fière':'fier'} : ${il} n'avait plus peur du noir.`,
-    `La morale de l'histoire : le courage, c'est oser aider même quand on a un peu peur.`,
+    `${H} était ${p.f?'douce et rieuse':'doux et rieur'}… sauf quand venait la nuit.`,
+    `Car dès que le noir arrivait, ${il} se cachait sous sa couverture, tout tremblant.`,
+    `« Le noir, c'est trop grand et trop sombre », pensait-${il}, le cœur serré.`,
+    `Une nuit, alors que tout dormait, un petit cri perça le silence.`,
+    `« Au secours… au secours… » pleurait une toute petite voix, dehors.`,
+    `Le cœur de ${H} se mit à galoper : boum-boum, boum-boum, boum-boum.`,
+    `« Sortir ? Dans le noir ? Oh non… » murmura-t-${il} en frissonnant.`,
+    `Soudain, une petite lumière dansa près de lui : une luciole dorée !`,
+    `« N'aie pas peur, dit-elle. Je reste avec toi, et j'éclaire le chemin. »`,
+    `« Mais… j'ai peur », avoua ${H} tout bas.`,
+    `« Être courageux, chuchota la luciole, ce n'est pas ne pas avoir peur. C'est y aller quand même. »`,
+    `Alors ${H} respira un grand coup et posa une patte dehors. Un pas.`,
+    `Puis deux. Puis trois. La luciole brillait, et le noir semblait déjà moins noir.`,
+    `Le vent chuchotait, les ombres dansaient, mais ${H} avançait, tout doucement.`,
+    `Au bout du chemin, derrière un buisson, les pleurs se firent tout proches.`,
+    `Un petit oiseau était tombé de son nid et grelottait de froid.`,
+    `Avec mille précautions, ${H} ${lo} recueillit au creux de ses pattes, bien au chaud.`,
+    `« Merci… tu es ${p.f?'la plus brave':'le plus brave'} ! » pépia l'oiseau, et ${H} se sentit tout fier.`,
+    `Ensemble, ils replacèrent l'oiseau dans son nid, sous la grande lune ronde.`,
+    `Et depuis cette nuit-là, ${H} sait qu'on peut être tout petit et très courageux à la fois.`,
   ];
   else if(v.id==='amitie') pages=[
     `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
-    `${H} avait une jolie maison et plein de jouets… mais personne avec qui jouer.`,
-    `Le matin, ${il} jouait ${seul}. Le soir, ${il} dînait ${seul}.`,
-    `« Comme j'aimerais avoir un ami… » soupirait ${H} en regardant les nuages.`,
-    `Un jour, un drôle de bruit vint de derrière un grand rocher : « Snif… snif… »`,
-    `${H} s'approcha tout doucement et découvrit un petit être qui pleurait.`,
-    `« Je suis perdu et je n'ai aucun ami… » dit le petit être en reniflant.`,
-    `${H} sentit son cœur se serrer : ${il} aussi connaissait bien cette tristesse.`,
-    `${H} s'assit tout près et proposa, un peu timide : « Veux-tu jouer avec moi ? »`,
-    `Le petit être releva la tête, les yeux encore mouillés, et fit oui.`,
-    `D'abord, ils ne savaient pas trop quoi faire et se regardaient en silence.`,
-    `Puis ${H} inventa un jeu rigolo, et un premier sourire apparut.`,
-    `Ils coururent, sautèrent, et construisirent une belle cabane de branches.`,
-    `Ils inventèrent un langage secret, rien que pour eux deux.`,
-    `Quand l'un tombait, l'autre l'aidait gentiment à se relever.`,
-    `Le temps passa si vite que le soleil commença déjà à se coucher.`,
-    `Assis côte à côte, ils regardèrent le ciel devenir tout rose.`,
-    `« Avant, j'étais ${seul}, dit ${H}. Maintenant, j'ai un ami. »`,
-    `« Moi aussi ! » répondit le petit être en lui serrant la patte très fort.`,
-    `Et depuis ce jour, ${H} ne fut plus jamais ${seul}.`,
-    `La morale de l'histoire : un ami, c'est le plus joli des trésors.`,
+    `${H} avait une belle maison, plein de jouets… et pourtant, quelque chose manquait.`,
+    `Le matin, ${il} jouait ${seul}. Le soir, ${il} regardait les nuages, ${seul} aussi.`,
+    `« Si seulement j'avais un ami… », soupirait-${il} tout bas.`,
+    `Un jour, derrière un grand rocher, ${H} entendit : « snif… snif… »`,
+    `Tout doucement, ${il} s'approcha. Un petit bonhomme tout rond pleurait.`,
+    `« Je suis perdu, et je n'ai personne… », hoqueta-t-il entre deux larmes.`,
+    `${H} sentit son cœur se serrer : ce chagrin-là, ${il} le connaissait bien.`,
+    `${H} s'assit tout près et proposa, un peu timide : « Tu veux jouer avec moi ? »`,
+    `Le petit bonhomme releva la tête, les yeux encore mouillés… et sourit.`,
+    `D'abord, ils ne savaient pas quoi dire, et se regardaient sans un mot.`,
+    `Puis ${H} inventa une grimace rigolote — et ce fut le premier éclat de rire.`,
+    `Alors ils coururent, sautèrent, roulèrent dans l'herbe fraîche.`,
+    `Ensemble, ils bâtirent une cabane de branches rien que pour eux deux.`,
+    `Quand l'un tombait, l'autre le relevait. Le temps filait comme le vent.`,
+    `Ils inventèrent un langage secret et des rires qui n'appartenaient qu'à eux.`,
+    `Le soleil se coucha, et le ciel devint tout rose, tout doux.`,
+    `Épaule contre épaule, ils regardèrent les premières étoiles s'allumer.`,
+    `« Avant, j'étais ${seul}, dit ${H}. Maintenant, j'ai toi. »`,
+    `« Moi aussi ! » répondit le petit bonhomme en lui serrant fort la patte.`,
+    `Et ce jour-là, ${H} découvrit qu'un ami, c'est le plus doux des trésors.`,
   ];
   else pages=[
     `Il était une fois ${H}, ${desc}, qui vivait ${place}.`,
-    `${H} était ${p.f?'joyeuse et pleine':'joyeux et plein'} de vie, et adorait sauter partout.`,
-    `Dans la maison trônait un très joli vase, celui que tout le monde admirait.`,
-    `« Surtout, ne jouez pas près du vase ! » répétait toujours Maman.`,
-    `Mais un jour, en jouant au ballon, ${H} s'approcha bien trop près…`,
-    `Patatras ! Le vase tomba et se brisa en mille morceaux : CRAC !`,
-    `${H} resta ${p.f?'figée':'figé'}, le cœur battant, à fixer les morceaux par terre.`,
-    `« Oh non… si je le dis, je vais être ${p.f?'grondée':'grondé'}… » pensa ${H}.`,
-    `${H} eut très envie de cacher les morceaux et de ne rien dire du tout.`,
-    `Tout doucement, ${il} poussa les bouts de vase sous le tapis.`,
+    `${H} était ${p.f?'joyeuse et pleine':'joyeux et plein'} de vie, et bondissait partout du matin au soir.`,
+    `Dans la maison trônait un vase bleu, le plus joli de tous, le préféré de Maman.`,
+    `« Surtout, on ne joue PAS près du vase ! » rappelait Maman chaque matin.`,
+    `Mais un jour, ${p.f?'emportée':'emporté'} par son ballon, ${H} s'approcha trop, trop près…`,
+    `CRAC ! Le vase bleu tomba et se brisa en mille petits morceaux.`,
+    `${H} resta ${p.f?'figée':'figé'}, le souffle coupé, devant les éclats par terre.`,
+    `« Oh non… si je le dis, Maman va être si triste… »`,
+    `Alors, tout doucement, ${il} poussa les morceaux sous le grand tapis.`,
+    `« Voilà. Personne ne saura », se dit-${il} en filant jouer dehors.`,
     `Mais au fond de son ventre, une petite boule toute lourde apparut.`,
-    `Cette petite boule ${lo} chatouillait et l'empêchait même de jouer.`,
-    `${H} essaya de penser à autre chose, mais la boule grossissait encore.`,
-    `Même ses jeux préférés n'étaient plus rigolos du tout.`,
-    `« Un secret trop lourd, ça pèse sur le cœur », se souvint ${H}.`,
-    `Alors ${il} rassembla tout son courage et alla retrouver Maman.`,
-    `« Maman… c'est moi qui ai cassé le vase. Je suis vraiment ${p.f?'désolée':'désolé'}. »`,
-    `Maman ${lo} regarda, puis ${lo} serra tendrement dans ses bras.`,
-    `« Merci d'avoir dit la vérité, mon trésor. Ça, c'est être courageux. »`,
-    `Aussitôt, la petite boule lourde s'envola, et ${H} se sentit tout ${p.f?'légère':'léger'}.`,
-    `La morale de l'histoire : dire la vérité rend le cœur tout léger.`,
+    `Elle grossissait, grossissait, et l'empêchait même de s'amuser.`,
+    `Ses jeux préférés n'avaient plus aucun goût. La boule pesait trop lourd.`,
+    `${H} repensa au vase, au tapis, au secret caché dessous.`,
+    `« Un secret trop lourd, c'est comme un caillou dans le cœur », comprit-${il}.`,
+    `Alors ${H} prit une grande respiration et alla retrouver Maman.`,
+    `« Maman… c'est moi qui ai cassé ton vase. Je suis vraiment ${p.f?'désolée':'désolé'}. »`,
+    `Maman ${lo} regarda longuement… puis ${lo} serra tout fort dans ses bras.`,
+    `« Merci de me l'avoir dit, mon trésor. Un vase, ça se recolle. La confiance, c'est plus précieux. »`,
+    `Et d'un coup, la petite boule lourde s'envola — pfft ! — comme une bulle de savon.`,
+    `Ce soir-là, ${H} s'endormit le cœur tout léger, parce que la vérité, ça rend libre.`,
   ];
   return {pages, beats:STORY_BEATS};
 }
@@ -351,7 +361,16 @@ function fillGrid(id,items,onPick,thumb){ const gEl=document.getElementById(id);
 
 const choice={perso:null,univers:null,valeur:null};
 document.getElementById('modeGuided').addEventListener('click',()=>goto('s1'));
-document.getElementById('modeFree').addEventListener('click',()=>goto('sFree'));
+function librePass(){ try{return localStorage.getItem('titi_libre_pass')||'';}catch(e){return '';} }
+function showLibreGate(){ const unl=!!librePass(); const lk=document.getElementById('libreLock'), fm=document.getElementById('libreForm');
+  if(lk) lk.hidden=unl; if(fm) fm.hidden=!unl; const lm=document.getElementById('lockMsg'); if(lm&&!unl) lm.textContent=''; }
+document.getElementById('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
+document.getElementById('libreUnlock').addEventListener('click',()=>{
+  const v=document.getElementById('librePass').value.trim();
+  if(!v){ document.getElementById('lockMsg').textContent='Entre un mot de passe.'; return; }
+  try{ localStorage.setItem('titi_libre_pass',v); }catch(e){}
+  showLibreGate();
+});
 document.getElementById('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
 fillGrid('grid1',PERSOS, it=>{ choice.perso=it;
     fillGrid('grid2',UNIVERS, u=>{choice.univers=u;goto('s3');}, u=>`assets/${it.id}_${u.id}.png`); // vignettes avec LE héros choisi
@@ -498,7 +517,8 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/7))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon}).toString());
+    const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,pass:librePass()}).toString());
+    if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); const lm=document.getElementById('lockMsg'); if(lm) lm.textContent='🔒 Mot de passe incorrect.'; return; }
     const out=await r.json();
     if(out.error){ gstatus(out.busy?'🌙 La conteuse est très demandée en ce moment. Réessaie dans un instant !':('😅 Raté ('+out.error+'). Réessaie.')); return; }
     pages=(out.pages||[]).map(x=>String(x).trim()).filter(Boolean); pageBeats=[]; if(pages.length<3) throw new Error('histoire trop courte');
