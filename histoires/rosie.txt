@@ -6,21 +6,21 @@ theme: commander, c'est d'abord écouter
 sujet: Écouter les autres
 famille: autres
 
-@ On a pirate ship deck with cream sails, {rosie} leaps over a barrel, a big brown bear sailor watching
+@ On a pirate ship deck with cream sails, {rosie} leaps over a barrel, {nestor-} watching
 Sur La Coquille, personne ne court plus vite que Rosie. Elle grimpe au mât en trois bonds, elle fait dix nœuds à la minute, et elle a toujours fini avant tout le monde.
-> On a pirate ship deck in the morning sun, {rosie} stands with paws on hips and chin up, boasting proudly to a big brown bear sailor and {sardine}, who listen with amused faces, calm blue sea behind
+> On a pirate ship deck in the morning sun, {rosie} stands with paws on hips and chin up, boasting proudly to {nestor-} and {sardine}, who listen with amused faces, calm blue sea behind
 « Si c'était moi la capitaine, dit-elle souvent, on irait deux fois plus vite ! »
 > On a pirate ship deck, {mirabelle} lifts her big blue captain hat off her head and lowers it onto the long ears of a surprised {rosie}, a hammock hanging nearby, sunny morning sea
 Un matin, la capitaine Mirabelle l'entend. Elle ôte son grand chapeau bleu et le pose sur les oreilles de Rosie. « Chiche. Aujourd'hui, c'est toi qui commandes. Moi, je fais la sieste. »
 
-@ On a pirate ship deck, {rosie} wearing an oversized blue captain hat stands on a barrel shouting orders and pointing, while three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, run in all directions
+@ On a pirate ship deck, {rosie} wearing an oversized blue captain hat stands on a barrel shouting orders and pointing, while three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, run in all directions
 Rosie grimpe sur un tonneau. « Écoutez tous ! Cap sur l'île aux Ananas ! Un, deux, trois, PARTEZ ! »
 > On a pirate ship deck, {rosie} in a blue captain hat holds a mop beside a startled big brown bear sailor
 « Toi, hisse la voile ! Plus vite ! Toi, frotte le pont ! Pas comme ça ! Et toi… pousse-toi, je vais le faire moi-même ! »
-> On a pirate ship deck, {rosie} in an oversized blue captain hat talks nonstop with eyes shut and mouth wide open, arms waving, while dizzy three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, carrying buckets and ropes bump into each other around her, sunny sea
+> On a pirate ship deck, {rosie} in an oversized blue captain hat talks nonstop with eyes shut and mouth wide open, arms waving, while dizzy three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, carrying buckets and ropes bump into each other around her, sunny sea
 L'équipage court dans tous les sens. Rosie donne trente ordres à la minute. Elle parle si vite qu'elle n'entend plus rien d'autre que sa propre voix.
 
-@ {rosie} in an oversized blue captain hat grips the ship's wheel looking straight ahead, ignoring a big brown bear sailor raising his paw behind her and {sardine} waving from the top of the mast
+@ {rosie} in an oversized blue captain hat grips the ship's wheel looking straight ahead, ignoring {nestor-} raising his paw behind her and {sardine} waving from the top of the mast
 « Capitaine Rosie, dit Nestor, le vent tourne, il faudrait peut-être… » « Pas le temps ! » « Capitaine Rosie, dit le cuisinier, pour le déjeuner… » « Plus tard ! »
 > At the top of the mast of a pirate ship, {sardine} leans out of the crow's nest, one paw shading her eyes and the other pointing ahead with a worried face, {rosie} tiny at the wheel far below, sunny sea
 Tout en haut du mât, une petite voix essaie aussi. C'est Sardine, la souris vigie. « Capitaine ! Je vois quelque chose devant ! »
@@ -36,7 +36,7 @@ Le brouillard avale le bateau. On ne voit plus le bout de son museau. Tout est b
 
 @ In thick fog, a small wooden pirate ship is stuck tilted between two big rocks, sailors tumbled on the deck, {rosie} with her blue captain hat askew looking shocked
 CRRRAC ! Tout le monde tombe par terre. La Coquille est coincée entre deux rochers, penchée comme une assiette qu'on a mal rangée.
-> In thick fog on a tilted pirate ship deck stuck between two big rocks, {rosie} with her blue captain hat askew spreads her arms in dismay, while a big brown bear sailor and other three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, look at her in silence
+> In thick fog on a tilted pirate ship deck stuck between two big rocks, {rosie} with her blue captain hat askew spreads her arms in dismay, while {nestor-} and other three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, look at her in silence
 « Des rochers ! s'écrie Rosie. Mais pourquoi personne ne m'a rien dit ? » L'équipage la regarde. Personne ne répond.
 > In thick fog on a tilted pirate ship deck, tiny {sardine} stands in front of {rosie} and looks up shyly with one small paw raised, while the rabbit blushes, her long ears turning bright pink under the blue captain hat
 C'est Sardine qui parle, toute petite : « J'ai essayé, capitaine. Deux fois. » Rosie sent ses grandes oreilles devenir très, très chaudes.
@@ -45,14 +45,14 @@ C'est Sardine qui parle, toute petite : « J'ai essayé, capitaine. Deux fois. �
 Rosie s'assoit sur le pont. Le grand chapeau lui tombe sur les yeux. Il est lourd, finalement. Beaucoup plus lourd qu'il n'en a l'air.
 > On a tilted pirate ship deck in the fog, {rosie} lifts the brim of the big blue captain hat with one paw and opens her mouth but stays silent, looking lost and unsure, {sardine} watching her kindly
 Elle voudrait crier un ordre. Mais lequel ? Elle ne sait pas quoi faire. Pour la première fois de sa vie, Rosie ne dit rien du tout.
-> In fog, {rosie} listens to {sardine} and a big brown bear sailor
+> In fog, {rosie} listens to {sardine} and {nestor-}
 Et dans le silence, elle entend des choses. Le bois qui grince. L'eau qui clapote. Et son équipage qui chuchote : « Moi, j'ai une idée… » « Moi aussi… »
 
-@ On a ship deck, {rosie} holds the blue captain hat in her paws and listens carefully, long ears up, to a circle of three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, including a big brown bear and {sardine}, everyone sharing ideas
+@ On a ship deck, {rosie} holds the blue captain hat in her paws and listens carefully, long ears up, to a circle of three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, including a big brown bear and {sardine}, everyone sharing ideas
 Rosie enlève le chapeau. « Je vous écoute. » Ça lui fait tout drôle de dire ça. « Nestor ? » « Hmm. Si on pousse tous du même côté quand la vague arrive… »
 > On the left a plump pig cook in a white apron holds yellow butter, on the right {rosie} listens
 « Sardine ? » « D'en haut, je vois un passage entre les rochers ! Je peux vous guider. » « Et moi, dit le cuisinier, j'ai du beurre pour faire glisser la coque. »
-> On a foggy ship deck, {rosie} and a big brown bear sailor push hard against the rail, a wave behind
+> On a foggy ship deck, {rosie} and {nestor-} push hard against the rail, a wave behind
 Une vague arrive. « Tous ensemble ! dit Rosie. Un, deux, trois… POUSSEZ ! » Et scrouitch ! La Coquille glisse, se redresse, et flotte.
 
 @ {coquille} sails out of the fog into bright sunshine toward a green island covered with pineapples, {rosie} at the wheel and {sardine} at the top of the mast pointing the way, {mirabelle} winking from a hammock
@@ -263,7 +263,7 @@ Si Rosie saute, Pompon saute. Si Rosie se gratte l'oreille, Pompon se gratte l'o
 
 @ In a forest, {rosie} rolls her eyes while {pompon}, half her size, hops happily around her, only these two rabbits on the path, a green hill far behind
 Aujourd'hui, Rosie a un projet de grande : avec Filou et Noisette, elle va grimper tout en haut de la colline aux Fraises, là où poussent les plus grosses fraises des bois.
-> In a forest, {rosie} crouches and shakes her head at {pompon}, who stands on tiptoe with both arms raised begging to come along, a small red fox and {noisette} waiting on the path behind
+> In a forest, {rosie} crouches and shakes her head at {pompon}, who stands on tiptoe with both arms raised begging to come along, {filou-} and {noisette} waiting on the path behind
 « Moi aussi ! Moi aussi ! » Pompon sautille autour d'elle. « Non, Pompon. C'est trop loin. Tu es trop petit. Tu marches trop lentement. »
 > At the edge of a forest, a grown-up white mother rabbit in an apron places the tiny paw of {pompon} into the paw of {rosie}, who looks up at the sky with a big sigh, the little one overjoyed
 « Emmène ton frère, dit maman. Et tiens-lui bien la patte. » Rosie lève les yeux au ciel. Sa journée est fichue.
@@ -277,9 +277,9 @@ Alors elle a une idée. Pas une très belle idée. « Pompon, on joue à cache-c
 
 @ In a forest, {pompon}, half the size of his sister, stands facing a big tree trunk with paws over his eyes, while behind him the taller {rosie} tiptoes away
 Pompon est fou de joie. Rosie joue avec lui ! Il cache ses yeux. « Un… deux… trois… cinq… »
-> On a forest path going uphill, {rosie} runs laughing with arms wide to catch up with a small red fox and {noisette}, while far behind in the distance a tiny white rabbit shape still stands against a big tree
+> On a forest path going uphill, {rosie} runs laughing with arms wide to catch up with {filou-} and {noisette}, while far behind in the distance a tiny white rabbit shape still stands against a big tree
 Rosie file sur la pointe des pattes. Elle rattrape ses amis. Elle court, elle grimpe, elle rit. Enfin libre ! « Je reviendrai le chercher tout à l'heure. »
-> On a hilltop covered with wild strawberries, {rosie} sits with a small red fox and {noisette} among big red strawberries, holding a half-eaten one and suddenly looking thoughtful, juice on her chin, afternoon sun
+> On a hilltop covered with wild strawberries, {rosie} sits with {filou-} and {noisette} among big red strawberries, holding a half-eaten one and suddenly looking thoughtful, juice on her chin, afternoon sun
 Les fraises sont énormes, rouges, sucrées. Rosie en mange une, deux, dix. Mais c'est drôle : à la onzième, elle leur trouve un petit goût de rien.
 
 @ On a hilltop covered with wild strawberries under an orange evening sky, {rosie} holds a strawberry and looks back down at the big dark forest with a worried face

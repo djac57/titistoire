@@ -29,7 +29,7 @@ Et dans le brouillard, elle voit une ombre. Une ombre noire, sans lumière, qui 
 
 @ At night below deck, {plume} whispers anxiously near the ear of {mirabelle} who sleeps soundly in a hammock, snoring
 Le cœur de Plume bat à toute vitesse. Elle descend du mât et vole jusqu'au hamac de la capitaine. « Hou… capitaine… il y a un… »
-> Below deck at night, {nestor} sleeps smiling in a hammock, while one small beige owl flutters beside him
+> Below deck at night, {nestor} sleeps smiling in a hammock, while {plume-} flutters beside him
 « Rrrron… pchiii… » La capitaine se retourne. Plume essaie avec Nestor. « Hou… s'il te plaît… » Nestor sourit dans son sommeil. Il rêve de miel.
 > On a foggy pirate ship deck at night, {plume} freezes with wide eyes, staring at the rail where the dark bow of another ship looms very close and grey cat claws scratch the wood
 Le bateau noir est tout près maintenant. Plume entend les griffes de Griffard qui raclent le bois. Scriiitch.
@@ -50,14 +50,14 @@ La capitaine tombe de son hamac. Nestor bondit. Sardine attrape une fourchette. 
 
 @ At night, {griffard} falls into the sea with a big splash beside {coquille}, lanterns glowing on deck
 Griffard n'a jamais eu aussi peur. Il croit qu'un fantôme hurle dans les voiles. Il lâche prise, plouf ! Il regagne son bateau à la nage, trempé jusqu'aux moustaches.
-> At night on a pirate ship, close view of small {plume} perched high on the mast, timidly raising one wing, while far below {mirabelle} and three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, with lanterns look at one another, puzzled
+> At night on a pirate ship, close view of small {plume} perched high on the mast, timidly raising one wing, while far below {mirabelle} and three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, with lanterns look at one another, puzzled
 « Qui a donné l'alerte ? demande la capitaine. Quelle voix ! Quel coffre ! » Tout le monde se regarde. Et là-haut, une petite chouette lève une aile.
-> At night on a pirate ship deck, {mirabelle} and three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, stand perfectly still and silent, lanterns raised, all gazing up with admiration at {plume} on the mast, who smiles shyly, the fog clearing to show stars
+> At night on a pirate ship deck, {mirabelle} and three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, stand perfectly still and silent, lanterns raised, all gazing up with admiration at {plume} on the mast, who smiles shyly, the fog clearing to show stars
 « C'est moi… » Elle l'a dit doucement. Mais cette fois, il y a un grand silence sur le pont, et tout le monde l'entend.
 
-@ Sunny day on a pirate ship deck, {plume} perched on the shoulder of {mirabelle} points a wing toward the horizon, while three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, lean in quietly to listen to her
+@ Sunny day on a pirate ship deck, {plume} perched on the shoulder of {mirabelle} points a wing toward the horizon, while three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, lean in quietly to listen to her
 Depuis cette nuit-là, Plume est la vigie officielle de La Coquille. Elle n'a pas besoin de crier. Quand elle lève l'aile, les matelots s'arrêtent de chanter et tendent l'oreille.
-> Sunny day on a pirate ship deck, {plume} points a wing at a plate holding only cake crumbs, while {mirabelle} blushes with crumbs on her white whiskers and three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, giggle behind their paws
+> Sunny day on a pirate ship deck, {plume} points a wing at a plate holding only cake crumbs, while {mirabelle} blushes with crumbs on her white whiskers and three animal sailors, {nestor-}, a white goat and a spotted dog in striped shirts, giggle behind their paws
 « La corde est mal attachée. » « Il y a un banc de sable à gauche. » « Capitaine, c'est encore vous qui avez fini le gâteau. »
 > On a calm starry night at sea, {plume} alone at the very top of a pirate ship mast, wings spread and beak open in a joyful hoot, eyes closed with pleasure, the moon shining on the water
 Sa voix est toujours petite et douce. Mais on se penche pour l'écouter. Et certaines nuits, tout en haut du mât, elle pousse un grand « Houuuu ! » pour personne. Juste pour le plaisir.
@@ -196,56 +196,56 @@ famille: autres
 À la station des Trois Lunes, un nouveau vient d'arriver. Il s'appelle Zig. Il vient d'une planète si lointaine qu'elle n'est sur aucune carte.
 > In a space station hall with a big window showing three moons, close view of {zig}, soft and wobbly, alone, shy, each eye looking a different way, nobody else in the picture
 Zig est vert et mou comme de la gelée. Il a trois yeux au bout de trois tiges. Et surtout, Zig ne parle pas. Pas un mot.
-> In a space station, a little jelly alien with three eyes on stalks with yellow, blue and pink patches, {plume}
+> In a space station, {zig} with yellow, blue and pink patches, {plume}
 À la place, il s'allume. Du jaune, du bleu, du rose, qui lui passent sur le corps comme des petits nuages.
 
-@ In a space station, a little jelly alien with three eyes on stalks glowing yellow by a window, {plume} watching
+@ In a space station, {zig} glowing yellow by a window, {plume} watching
 « Bonjour ! dit Filou. Tu joues ? » Zig devient jaune. « Il ne répond pas. Il est bizarre. » « Tu veux un biscuit ? » demande Nestor. Zig devient orange, avec des points.
-> In a space station, three young animal astronauts, a fox cub, a bear cub and a rabbit in white space suits, play ball together in the background with their backs turned, while in the foreground a little jelly alien with three eyes on stalks sits alone, his body a fading dull orange
+> In a space station, three young animal astronauts, a fox cub, a bear cub and a rabbit in white space suits, play ball together in the background with their backs turned, while in the foreground {zig} sits alone, his body a fading dull orange
 « Il ne dit même pas merci ! » Au bout d'une semaine, plus personne ne lui parle. « Laisse, il ne comprend rien. »
-> By a starry window, a little jelly alien with three eyes on stalks, dull grey-blue, curled up, {plume} behind
+> By a starry window, {zig}, dull grey-blue, curled up, {plume} behind
 Zig reste dans son coin, près du grand hublot. Il est d'un bleu-gris tout terne. Personne ne se demande ce que ça veut dire. Personne, sauf Plume.
 
-@ In a space station, {plume} takes notes, a little jelly alien with three eyes on stalks glowing yellow
+@ In a space station, {plume} takes notes, {zig} glowing yellow
 Plume ne parle pas beaucoup non plus. Mais elle regarde. Et elle a remarqué quelque chose : les couleurs de Zig ne viennent pas au hasard.
-> In a space station, a little jelly alien with three eyes on stalks turned violet by a slamming door, {plume}
+> In a space station, {zig} turned violet by a slamming door, {plume}
 Quand le ballon passe près de lui : jaune. Quand ça sent le gâteau : orange à points. Quand la porte claque : violet, d'un seul coup.
-> In a space station, {plume} holding a notebook, a little jelly alien with three eyes on stalks behind her
+> In a space station, {plume} holding a notebook, {zig} behind her
 Plume sort son petit carnet. Elle écrit : « Jaune, content ? Orange, miam ? Violet, peur ? » Et elle revient le lendemain. Et le jour d'après.
 
-@ In a space station, {plume} sits quietly beside a little jelly alien with three eyes on stalks glowing pale violet
+@ In a space station, {plume} sits quietly beside {zig} glowing pale violet
 Un matin, elle s'assoit à côté de lui, sans rien dire. Zig devient violet, un peu. Elle attend. Le violet s'en va.
-> In a space station, {plume} shines a yellow flashlight, a little jelly alien with three eyes on stalks beside her
+> In a space station, {plume} shines a yellow flashlight, {zig} beside her
 Alors Plume prend sa lampe de poche, glisse devant un papier jaune, et l'allume. Jaune. Les trois yeux de Zig se tournent vers elle, d'un seul coup.
-> In a space station, a little jelly alien with three eyes on stalks blazes bright yellow with sparkles, flooding the whole room with golden light, while {plume} opens her wings in delight, her notebook dropped on the floor
+> In a space station, {zig} blazes bright yellow with sparkles, flooding the whole room with golden light, while {plume} opens her wings in delight, her notebook dropped on the floor
 Il regarde la lampe. Il regarde Plume. Et tout son corps s'allume d'un jaune éclatant, avec des étincelles. Ça, ce n'est pas dans le carnet. Mais Plume comprend très bien.
 
-@ In a space station, {plume} holds coloured papers and a flashlight while a little jelly alien with three eyes on stalks glows soft pink and snuggles against her, both happy
+@ In a space station, {plume} holds coloured papers and a flashlight while {zig} glows soft pink and snuggles against her, both happy
 Tous les jours, ils se parlent. Plume avec ses papiers de couleur, Zig avec sa peau. Bleu clair : « ça va ? » Rose : « je t'aime bien. » Vert qui clignote : « tu me chatouilles ! »
-> By a starry window, a little jelly alien with three eyes on stalks glowing blue and gold, {plume} beside him
+> By a starry window, {zig} glowing blue and gold, {plume} beside him
 Zig lui apprend des couleurs qu'elle n'avait jamais vues. Il y en a une, entre le bleu et le doré, qui veut dire : « ma maison me manque ». Plume la trouve très belle et très triste.
-> In a space station, {plume} and a little jelly alien with three eyes on stalks glowing soft pink sit by a big starry window, seen from behind, leaning against each other, her wing around him
+> In a space station, {plume} and {zig} glowing soft pink sit by a big starry window, seen from behind, leaning against each other, her wing around him
 Elle lui répond en rose. Zig se serre contre elle. Il est tiède, comme une bouillotte.
 
 @ A dark space station corridor during a blackout, frightened three young animal astronauts, a fox cub, a bear cub and a rabbit in white space suits, huddle together in the dark, only stars visible through a window
 Un soir, toute la station s'éteint. Clac ! Plus de lumière. Plus de radio. Une panne géante. Les petits astronautes se cognent dans le noir. « J'ai peur ! » « Où est la sortie ? »
 > In a long dark space station corridor during a blackout, three young animal astronauts, a fox cub, a bear cub and a rabbit in white space suits, call out with paws cupped around their mouths, facing different directions, looking lost, faint starlight from a small window
 On crie, mais dans les longs couloirs, les voix se perdent. Personne ne sait où aller.
-> In a dark corridor, a little jelly alien with three eyes on stalks glowing softly, {plume} beside him
+> In a dark corridor, {zig} glowing softly, {plume} beside him
 Dans le noir, il y a pourtant quelqu'un qui n'a besoin d'aucune lampe pour se faire comprendre.
 
-@ In a dark corridor, a little jelly alien with three eyes on stalks glowing bright green, {plume} pointing ahead
+@ In a dark corridor, {zig} glowing bright green, {plume} pointing ahead
 Zig s'allume. Fort. Plus fort qu'une veilleuse, plus fort qu'un phare. « Suivez-le ! » dit Plume. « Mais on ne comprend rien à ce qu'il dit ! » « Moi, si. »
-> In a dark corridor, a little jelly alien with three eyes on stalks glowing red, {plume} raising one wing
+> In a dark corridor, {zig} glowing red, {plume} raising one wing
 Zig devient vert. « Vert : on avance ! » Rouge. « Rouge : stop, il y a une marche. » Bleu qui tourne. « À gauche ! » Et toute la file suit la petite lumière, en se tenant par la patte.
-> In a bright hall, a little jelly alien with three eyes on stalks shimmering in many colours, {plume} beside him
+> In a bright hall, {zig} shimmering in many colours, {plume} beside him
 Ils arrivent dans la grande salle juste quand le courant revient. Tout le monde est là. Zig clignote d'une couleur que même Plume ne connaît pas. Elle devine : il est fier.
 
-@ In a bright hall, a little jelly alien with three eyes on stalks glowing rainbow colours, {plume} close beside him
+@ In a bright hall, {zig} glowing rainbow colours, {plume} close beside him
 Le lendemain, Filou arrive avec un papier jaune collé sur le front. « Ça veut bien dire bonjour ? » Nestor a préparé un gâteau orange à points.
 > In a bright hall, {zig} blows a bubble toward {plume}
 Maintenant, à la station des Trois Lunes, tout le monde parle un peu le Zig. Et Zig a appris un mot. Un seul. Il le dit tout doucement, avec une voix de bulle : « Plume. »
-> In a bright hall, a little jelly alien with three eyes on stalks glowing rosy pink, {plume} wing on him
+> In a bright hall, {zig} glowing rosy pink, {plume} wing on him
 Et quand il le dit, il devient rose.
 
 === plume_foret
@@ -277,7 +277,7 @@ Le premier jour, elles boudent très bien. C'est même assez agréable, de boude
 
 @ {plume} looks sadly at a snail wearing a little mushroom hat, a wooden hut behind her
 Le deuxième jour, Plume voit un escargot qui porte un champignon sur la tête, comme un chapeau. Elle se retourne pour le dire à Noisette… Ah non. C'est vrai.
-> Inside a small wooden hut with a line drawn on the floor, {noisette} holds a heart-shaped hazelnut and half turns toward the back of a small beige owl on the other side, mouth open, then hesitates, looking sad
+> Inside a small wooden hut with a line drawn on the floor, {noisette} holds a heart-shaped hazelnut and half turns toward the back of {plume-} on the other side, mouth open, then hesitates, looking sad
 De l'autre côté du trait, Noisette trouve une noisette en forme de cœur. Elle ouvre la bouche… et la referme.
 > In the evening inside a small wooden hut with a line drawn on the floor, {plume} on one side gazes at a snail wearing a little mushroom hat and {noisette} on the other at a heart-shaped hazelnut, both lonely and quiet
 C'est fou tout ce qu'on a à raconter à quelqu'un, quand on ne lui parle plus.

@@ -46,7 +46,8 @@ def jpeg(data, cote, q=84):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", required=True); ap.add_argument("--sortie", default="assets/scenes2")
+    ap.add_argument("--only", default=""); ap.add_argument("--sortie", default="assets/scenes2")
+    ap.add_argument("--fiches", action="store_true", help="ne dessiner que les fiches de personnages de toutes les histoires")
     ap.add_argument("--modele", default="@cf/black-forest-labs/flux-2-klein-4b"); ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
     if not (ACC and TOK): sys.exit("CF_ACCOUNT_ID + CF_API_TOKEN requis")
@@ -67,7 +68,7 @@ def main():
         return f.read_bytes(), court
 
     for s in titi.load():
-        if not any(s["id"].startswith(x.strip()) for x in a.only.split(",") if x.strip()): continue
+        if not a.fiches and a.only and not any(s["id"].startswith(x.strip()) for x in a.only.split(",") if x.strip()): continue
         # on relit le fichier source pour retrouver les jetons de chaque ligne d'image (titi.load les a déjà développés)
         brut = {}; sid = None; sc = pg = 0
         for f in sorted(titi.SRC.glob("*.txt")):
@@ -80,6 +81,10 @@ def main():
         for nom, ligne in brut.items():
             if not nom.startswith(s["id"] + "_"): continue
             dest = out / f"{nom}.jpg"
+            if a.fiches:
+                for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
+                    if m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}: fiche(m.group(1), s["univ"])
+                continue
             if dest.exists(): continue
             if a.limit and n >= a.limit: break
             jetons = []
@@ -90,7 +95,7 @@ def main():
                 data, court = fiche(j, s["univ"]); fichiers[f"input_image_{k}"] = data
                 texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1})")
             texte = titi.expand(texte, s["univ"], c)        # jetons restants (au-delà de 4) : description en clair
-            p = style + texte + "." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
+            p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
             try:
                 dest.write_bytes(jpeg(appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, fichiers), 832)); n += 1
                 print(f"  ✅ {dest.name} ({len(jetons)} référence(s))", flush=True)
