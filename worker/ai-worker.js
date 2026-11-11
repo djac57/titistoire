@@ -83,7 +83,7 @@ export default {
           for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
           if (refs.length === [fa, fb].filter(Boolean).length) {
             // le modèle renvoie souvent une erreur interne passagère : on retente, en alternant avec sa petite variante, qui dessine aussi d'après les fiches
-            const ordreM = [MODELE_PAGE, MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE];
+            const ordreM = [MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_SECOURS];
             for (let essai = 0; essai < ordreM.length && !b64; essai++) {
               try { b64 = await flux2(env, ordreM[essai], p, refs); par = ordreM[essai]; } catch (e) { journal.push(String(e).slice(0, 60)); await new Promise(r => setTimeout(r, 700 + 500 * essai)); }
             }
