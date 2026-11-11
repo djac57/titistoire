@@ -64,7 +64,13 @@ def main():
         f = REFS / (nu + ("_" + univ if cos else "") + ".jpg")
         if not f.exists():
             p = style + "Character reference sheet of one single character: " + desc + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture."
-            f.write_bytes(jpeg(appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, {}), 512))
+            data = None
+            for essai in range(4):                          # filtre du modèle ou erreur passagère : on retente
+                try: data = appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, {}); break
+                except Exception as e:
+                    print(f"  …fiche {f.stem}, essai {essai + 1} : {str(e)[:120]}", flush=True); time.sleep(3)
+            if data is None: raise RuntimeError(f"fiche {f.stem} impossible à dessiner")
+            f.write_bytes(jpeg(data, 512))
             print(f"  📇 fiche {f.name}", flush=True)
         court = re.sub(r"^(one|the only \w+ in the picture)\s*,?\s*", "", desc.split(",")[0]).strip() or desc.split(",")[1].strip()
         return f.read_bytes(), court
@@ -89,7 +95,9 @@ def main():
             dest = out / f"{nom}.jpg"
             if a.fiches:
                 for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
-                    if m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}: fiche(m.group(1), s["univ"])
+                    if m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}:
+                        try: fiche(m.group(1), s["univ"])
+                        except Exception as e: print(f"  ⚠️ {e}", flush=True)
                 continue
             if cible and nom not in cible: continue
             if dest.exists() and not a.tout and not cible: continue
@@ -98,9 +106,12 @@ def main():
             for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
                 if m.group(1) not in jetons and m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}: jetons.append(m.group(1))
             jetons = jetons[:4]; fichiers = {}; texte = ligne
-            for k, j in enumerate(jetons):
-                data, court = fiche(j, s["univ"]); fichiers[f"input_image_{k}"] = data
-                texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1})")
+            k = 0
+            for j in jetons:
+                try: data, court = fiche(j, s["univ"])
+                except Exception as e: print(f"  ⚠️ {e}", flush=True); continue
+                fichiers[f"input_image_{k}"] = data
+                texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1})"); k += 1
             texte = titi.expand(texte, s["univ"], c)        # jetons restants (au-delà de 4) : description en clair
             p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background. Draw only the characters described here, each one exactly once, as separate individuals that do not blend into each other; do not add any extra animal, creature or person." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
             try:
