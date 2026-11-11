@@ -431,7 +431,9 @@ const frame=$('frame'), scene=$('scene');
 function sceneOf(i){ return book.sc?book.sc[i]:0; }
 function sceneCandidates(){ const out=[];
   if(book.imgs&&book.imgs[cur]) out.push(book.imgs[cur]);
-  if(book.id){ const [h,u]=book.id.split('_'); out.push(`assets/scenes/${book.id}_${sceneOf(cur)}.jpg`,`assets/${h}_${u}.png`); }
+  if(book.id){ const [h,u]=book.id.split('_'), s=sceneOf(cur), k=cur-book.sc.indexOf(s), L="abcdef"[k];
+    if(k>0&&book.im&&book.im[s-1]&&book.im[s-1].indexOf(L)>=0) out.push(`assets/scenes/${book.id}_${s}${L}.jpg`);   // image propre à cette page
+    out.push(`assets/scenes/${book.id}_${s}.jpg`,`assets/${h}_${u}.png`); }
   if(book.decor) out.push(`assets/decor_${book.decor}.jpg`);
   return out; }
 let shownKey='';
@@ -462,7 +464,7 @@ function setWord(i){ if(i>=0&&i<wordSpans.length&&wordSpans[i].el&&wordSpans[i].
   clearHi(); if(i>=0&&i<wordSpans.length&&wordSpans[i].el) wordSpans[i].el.classList.add('on'); }
 /* changement de page : si l'illustration change aussi (nouveau tableau), on « tourne » */
 function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
-  const flip=!book.sc||sceneOf(i)!==sceneOf(cur);
+  const flip=!book.sc||sceneOf(i)!==sceneOf(cur)||!!(book.im&&book.im[sceneOf(i)-1]);   // l'image change aussi à l'intérieur du tableau
   if(!flip){ renderPage(i); cb&&cb(); return; }
   frame.classList.remove('turning'); void frame.offsetWidth; frame.classList.add('turning');
   setTimeout(()=>renderPage(i),260); setTimeout(()=>{ frame.classList.remove('turning'); cb&&cb(); },560); }
@@ -474,7 +476,7 @@ function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.i
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
 async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
   const pages=[], sc=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
-  book={id:sid,titre:st.t,pages,sc,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,libre:null};
+  book={id:sid,titre:st.t,pages,sc,im:st.im||null,imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,libre:null};
   showBook();
   const pb=$('playBtn'); pb.disabled=true;                      // le temps de savoir si la voix enregistrée existe (fichier local, très rapide)
   await loadVoix(sid);
