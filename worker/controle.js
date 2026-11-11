@@ -17,10 +17,13 @@ export function normaliser(txt) {
   if (!o || typeof o !== "object") return null;
   const chaine = (x, n) => String(x == null ? "" : x).replace(/\s+/g, " ").trim().slice(0, n);
   const moral = /\bla morale\b|la le[çc]on (de|à retenir)|cette (petite |belle )?histoire (nous )?(montre|apprend|enseigne|rappelle)|retiens bien que|il faut (toujours )?(se rappeler|retenir)/i;
-  let tb = Array.isArray(o.tableaux) ? o.tableaux.map(t => ({ image: chaine(t && t.image, 400), pages: (Array.isArray(t && t.pages) ? t.pages : []).map(p => chaine(p, 420)).filter(p => p && !moral.test(p)) })) : [];
+  let tb = Array.isArray(o.tableaux) ? o.tableaux.map(t => {
+    const images = (Array.isArray(t && t.images) ? t.images : [t && t.image]).map(x => chaine(x, 400)).filter(Boolean);   // "image" unique accepté aussi
+    return { images, image: images[0] || "", pages: (Array.isArray(t && t.pages) ? t.pages : []).map(p => chaine(p, 420)).filter(p => p && !moral.test(p)) };
+  }) : [];
   if (!tb.length && Array.isArray(o.pages)) {                 // ancien format : pages à plat -> tableaux de 3 pages, sans image
     const pg = o.pages.map(p => chaine(p, 420)).filter(p => p && !moral.test(p));
-    for (let i = 0; i < pg.length; i += 3) tb.push({ image: "", pages: pg.slice(i, i + 3) });
+    for (let i = 0; i < pg.length; i += 3) tb.push({ image: "", images: [], pages: pg.slice(i, i + 3) });
   }
   tb = tb.filter(t => t.pages.length).slice(0, 10);
   if (tb.length < 4 || tb.reduce((a, t) => a + t.pages.length, 0) < 9) return null;

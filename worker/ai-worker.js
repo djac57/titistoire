@@ -131,7 +131,7 @@ export default {
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
           const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
           const maigre = pg.length < 18 || moy < 75 || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
-          const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.map(t => t.image)).join("\n");
+          const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
           const c2 = await controle(env, tout, "histoire");
           if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
           if (maigre && !forceIA) { journal.push(nom + ` : trop maigre (${pg.length} pages, ${Math.round(moy)} car./page)`); secours = secours || { h, nom }; continue; }
@@ -141,8 +141,14 @@ export default {
         if (retenu) {
           const h = retenu.h, tableaux = [];
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
-            const p = (STYLE + decrire(t.image, h) + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + FIN).slice(0, 1500);
-            tableaux.push({ pages: t.pages, img: t.image ? "/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString() : null });
+            const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
+            for (let k = 0; k < t.pages.length; k++) {
+              const d = t.images[k] || t.images[t.images.length - 1] || "";
+              if (!d) { imgs.push(null); continue; }
+              const p = (STYLE + decrire(d, h) + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + FIN).slice(0, 1500);
+              imgs.push("/img?" + new URLSearchParams({ p, s: await signer("img:" + p, cleSig) }).toString());
+            }
+            tableaux.push({ pages: t.pages, imgs, img: imgs[0] });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
           if (!dbg) compter();                             // les essais de mise au point ne comptent pas dans le plafond du jour
@@ -240,11 +246,11 @@ CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Histoire pour tout-petits : aucune violence, aucune blessure, aucune mort, aucune arme, rien d'effrayant, aucun gros mot. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
 
 FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait DEUX ou TROIS phrases complètes (15 à 40 mots), qui se terminent par un point, jamais un simple bout de phrase. Vocabulaire simple, guillemets français « » pour les dialogues.
-Pour chaque tableau, "image" décrit EN ANGLAIS (20 à 40 mots) ce qu'on voit : qui est là, ce qu'ils font, leur expression, le lieu, la lumière. Dans "image", écris HERO pour le héros et FRIEND pour le deuxième personnage (jamais leur prénom), sans aucun texte écrit ni bulle.
+Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Dans ces descriptions, écris HERO pour le héros et FRIEND pour le deuxième personnage (jamais leur prénom), sans aucun texte écrit ni bulle, avec deux personnages au plus par image.
 "heros" et "ami" décrivent EN ANGLAIS leur apparence en 12 à 20 mots (espèce, couleurs, un accessoire reconnaissable).
 "lieu" décrit EN ANGLAIS le décor en 8 à 15 mots (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
-{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"image":"...","pages":["...","...","..."]}]}`;
+{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["...","...","..."]}]}`;
 }
 function extraireJSON(raw) {
   if (typeof raw !== "string") raw = JSON.stringify(raw || "");
