@@ -36,6 +36,11 @@ jobs:
           SORTIE=$(sed -n 's/^sortie=//p' .github/gen-images2.run | head -1)
           FICHES=$(sed -n 's/^fiches=//p' .github/gen-images2.run | head -1)
           TOUT=$(sed -n 's/^tout=//p' .github/gen-images2.run | head -1)
+          PILOTE=$(sed -n 's/^pilote=//p' .github/gen-images2.run | head -1)
+          if [ -n "$PILOTE" ]; then      # essai d'images d'un nouveau recueil : pilote=cometes/pilote.json
+            if [ "${{ matrix.lot }}" = "filou_" ]; then python3 tools/pilote_images.py "$PILOTE"; fi
+            exit 0
+          fi
           COMPARER=$(sed -n 's/^comparer=//p' .github/gen-images2.run | head -1)
           if [ -n "$COMPARER" ]; then     # même histoire dessinée par plusieurs modèles : comparer=modele1,modele2
             for M in $(echo "$COMPARER" | tr ',' ' '); do python3 tools/gen_images2.py --only "$ONLY" --tout --modele "$M" --sortie "assets/essai-$(basename $M)" || true; done
@@ -50,7 +55,7 @@ jobs:
         run: |
           git config user.name "titistoire-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/
+          git add assets/ cometes/ galaxies/ 2>/dev/null || git add assets/
           if git diff --cached --quiet; then echo "Rien de nouveau."; else
             git commit -m "Illustrations FLUX.2 : $(git diff --cached --name-only | wc -l | tr -d ' ') fichier(s)"
             for i in 1 2 3 4 5 6; do git pull --rebase && git push && break || sleep $((RANDOM % 20 + 5)); done

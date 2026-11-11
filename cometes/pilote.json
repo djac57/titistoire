@@ -1,0 +1,18 @@
+{
+  "sortie": "cometes/pilote",
+  "style": "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes, gentle cartoon children with big friendly eyes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles. ",
+  "personnages": {
+    "colette": "one small seven-year-old girl, the smallest of the group, with fair freckled skin, big green eyes and a wild mop of curly bright ginger hair, wearing bright red dungarees over a white t-shirt and white sneakers",
+    "hector": "one stocky eight-year-old boy with warm brown skin, short black curly hair and round black glasses, wearing a turquoise sleeveless jacket with two big pockets over a cream jumper, brown shorts, and a short yellow pencil tucked behind one ear",
+    "ninon": "one small round seven-year-old girl with rosy pale skin, soft brown eyes and very fluffy cloud-like curly white-blond hair, wearing a violet pinafore dress over a white blouse and grey tights",
+    "ulysse": "one very tall thin eight-year-old boy, a full head taller than the other children, with tan skin, a long neck, dark eyes and straight jet black hair falling to his chin, wearing a short bright yellow raincoat with the hood down and navy trousers"
+  },
+  "scenes": {
+    "1_quai": "On a sunny canal quay beside a green barge, in the morning, {ulysse} wobbles on an old blue bicycle, looking worried, while {hector} holds the back of the saddle with both hands, smiling. Exactly two children in the picture.",
+    "2_classe": "Inside a bright old-fashioned classroom with wooden desks and a blank blackboard, {colette} stands on a chair with her arms spread wide, telling a tall tale with puffed cheeks, while {ninon} sits at a desk listening with wide eyes. Exactly two children in the picture.",
+    "3_preau": "In a school playground under grey rain, {ulysse} stands holding his yellow raincoat open like a tent, {ninon} on his left and {colette} on his right huddle under it, all three laughing. Exactly three children in the picture.",
+    "4_butte": "On a green hill under a big linden tree at sunset, {colette} kneels beside a small hole in the ground holding a rusty tin box, {hector} crouches next to her writing in a small notebook. Exactly two children in the picture.",
+    "5_peniche": "At night on the flat roof of a green barge moored on a calm river, under a sky full of stars, {ulysse} sits pointing up at the stars, {hector} lies on his back beside him looking up, {ninon} sits wrapped in a blanket. Exactly three children in the picture.",
+    "6_bazar": "Inside a cosy cluttered toy and hardware shop with shelves of jars of marbles, {ninon} stands on tiptoe at the wooden counter holding one coin, {colette} beside her points at a jar of marbles. Exactly two children in the picture."
+  }
+}
