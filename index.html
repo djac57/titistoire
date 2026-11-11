@@ -27,17 +27,23 @@
     --sh-sm:0 4px 16px rgba(8,5,35,.32); --sh:0 16px 40px rgba(8,5,35,.42); --sh-lg:0 24px 56px rgba(8,5,35,.5);
     --radius:20px;
   }
-  /* habillages de saison : seules les couleurs de fond et d'accent changent */
-  :root[data-saison="noel"]{ --bg1:#2f6a5c; --bg2:#1f4d44; --bg3:#153530; --halo1:#c0392b; --halo2:#2e8b6f; --gold:#ffd166; --gold-d:#f3b63a; --pur:#e2574c; --pur-d:#c8443a; --ink2:#bfe0d6; }
-  :root[data-saison="halloween"]{ --bg1:#57306e; --bg2:#3a1d4d; --bg3:#22102e; --halo1:#ff8a2b; --halo2:#7a3fa6; --gold:#ffa23f; --gold-d:#f08a1c; --pur:#b06be0; --pur-d:#9550c8; --ink2:#d7bfe8; }
-  :root[data-saison="ski"]{ --bg1:#4f86c6; --bg2:#2f5f9e; --bg3:#1d3f73; --halo1:#9fd3ff; --halo2:#5b8fd6; --gold:#ffe08a; --gold-d:#f6c84f; --pur:#6fb1f0; --pur-d:#4d95dc; --ink2:#cfe2f7; }
-  :root[data-saison="mer"]{ --bg1:#1c9aa6; --bg2:#0f7482; --bg3:#0a5262; --halo1:#ffd166; --halo2:#27b8c4; --gold:#ffd95e; --gold-d:#f5c12e; --pur:#ff8f6b; --pur-d:#f07550; --ink2:#c4ecee; }
+  /* MODE JOUR : ciel clair et nuages (le mode nuit, étoilé, reste celui par défaut le soir) */
+  :root[data-mode="jour"]{ --bg1:#bfe6ff; --bg2:#9fd4fa; --bg3:#84c1f1; --halo1:#fff3c4; --halo2:#ffffff;
+    --ink:#2b2a5c; --ink2:#4a5788; --gold:#f08a1c; --gold-d:#d97706;
+    --card:rgba(255,255,255,.62); --card-bd:rgba(255,255,255,.95);
+    --sh-sm:0 4px 14px rgba(40,80,140,.16); --sh:0 14px 34px rgba(40,80,140,.2); --sh-lg:0 22px 50px rgba(40,80,140,.26); }
+  /* en saison : seule la couleur des halos change (le fond reste nuit étoilée ou ciel de jour) */
+  :root[data-saison="noel"]{ --halo1:#d8473b; --halo2:#2e9b78; }
+  :root[data-saison="halloween"]{ --halo1:#ff8a2b; --halo2:#9a4fd0; }
+  :root[data-saison="ski"]{ --halo1:#9fd3ff; --halo2:#ffffff; }
+  :root[data-saison="mer"]{ --halo1:#ffd166; --halo2:#27c4c4; }
 
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html{background:var(--bg3);}
+  /* le fond est porté par <html> : les étoiles et halos (z-index négatif) restent ainsi visibles par-dessus */
+  html{background:radial-gradient(130% 90% at 50% -10%, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%) fixed var(--bg3);}
   html,body{height:100%;}
   body{ margin:0; color:var(--ink); font-family:var(--font-t); font-weight:600;
-    background:radial-gradient(130% 90% at 50% -10%, var(--bg1) 0%, var(--bg2) 45%, var(--bg3) 100%) fixed;
+    background:transparent;
     min-height:100%; position:relative; overflow-x:hidden; -webkit-font-smoothing:antialiased;
     display:flex; flex-direction:column; align-items:center;
     padding:calc(18px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)); }
@@ -50,6 +56,13 @@
   .stars b.fall{animation:fall linear infinite;opacity:.7;top:-5%;}
   @keyframes fall{to{transform:translateY(112vh) translateX(24px) rotate(160deg)}}
   .stars b.rise{animation:rise linear infinite;opacity:.35;bottom:-5%;top:auto;}
+  .stars b.drift{animation:drift ease-in-out infinite alternate;opacity:.9;line-height:1;}
+  @keyframes drift{from{transform:translateX(-28px)}to{transform:translateX(28px)}}
+  :root[data-mode="jour"] .stars b.fall{color:#fff;opacity:.95;text-shadow:0 0 3px rgba(60,110,170,.55);}
+  :root[data-mode="jour"] h1{text-shadow:0 2px 0 rgba(255,255,255,.7);}
+  :root[data-mode="jour"] .thumb{background:rgba(255,255,255,.4);}
+  .modebtn{position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid var(--card-bd);background:var(--card);color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-sm);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .modebtn svg{width:24px;height:24px;}
   @keyframes rise{to{transform:translateY(-112vh) translateX(-18px)}}
   @media (prefers-reduced-motion:reduce){.stars b{animation:none!important;}}
 
@@ -62,7 +75,7 @@
   .screen{display:none;animation:pop .45s cubic-bezier(.2,.7,.3,1);}
   .screen.show{display:block;}
   @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
-  .q{text-align:center;font-size:clamp(1.3rem,4.8vw,1.7rem);font-weight:600;margin:4px 0 20px;color:#fff;}
+  .q{text-align:center;font-size:clamp(1.3rem,4.8vw,1.7rem);font-weight:600;margin:4px 0 20px;color:var(--ink);}
 
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .card{background:var(--card);border:1px solid var(--card-bd);border-radius:var(--radius);box-shadow:var(--sh-sm);cursor:pointer;overflow:hidden;position:relative;
@@ -175,6 +188,7 @@
 </head>
 <body>
 <div class="stars" id="stars"></div>
+<button class="modebtn" id="modeBtn" aria-label="Mode jour ou nuit"></button>
 <header>
   <h1>Titistoire</h1>
   <p class="sub" id="sub">De belles histoires à écouter et à regarder</p>
@@ -312,16 +326,26 @@ const byId=(a,id)=>a.find(x=>x.id===id);
 const $=id=>document.getElementById(id);
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-/* ===== décor de fond (étoiles, flocons, bulles) + habillage de saison ===== */
-(function(){
+/* ===== décor de fond : MODE NUIT (étoiles, « histoire du soir ») ou MODE JOUR (ciel et nuages) =====
+   Sans choix de l'utilisateur : nuit de 18 h à 7 h, jour sinon. En saison, flocons ou bulles s'ajoutent au décor. */
+const ICON_SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3L7 7M17 17l1.7 1.7M5.3 18.7L7 17M17 7l1.7-1.7"/></svg>';
+const ICON_MOON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"/></svg>';
+function modeChoisi(){ let m=''; try{m=localStorage.getItem('titi_mode')||'';}catch(e){} if(m==='jour'||m==='nuit') return m;
+  const h=new Date().getHours(); return (h>=18||h<7)?'nuit':'jour'; }
+function decor(){
+  const mode=modeChoisi(), R=Math.random; document.documentElement.dataset.mode=mode;
   if(SAISON) document.documentElement.dataset.saison=SAISON;
-  const [glyph,anim,n]=SAISON?SAISONS[SAISON].deco:['✦','tw',22]; let h='';
-  for(let i=0;i<n;i++){ const x=(Math.random()*100).toFixed(1), y=(Math.random()*100).toFixed(1), d=(Math.random()*8).toFixed(1), sz=(8+Math.random()*10).toFixed(0);
-    if(anim==='tw') h+=`<b style="left:${x}%;top:${y}%;animation-delay:${d}s">${glyph}</b>`;
-    else h+=`<b class="${anim}" style="left:${x}%;font-size:${sz}px;animation-duration:${(9+Math.random()*10).toFixed(1)}s;animation-delay:-${(Math.random()*18).toFixed(1)}s">${glyph}</b>`; }
+  let h='';
+  if(mode==='nuit') for(let i=0;i<26;i++) h+=`<b style="left:${(R()*100).toFixed(1)}%;top:${(R()*100).toFixed(1)}%;font-size:${(8+R()*7).toFixed(0)}px;animation-delay:${(R()*5).toFixed(1)}s">✦</b>`;
+  else for(let i=0;i<6;i++) h+=`<b class="drift" style="left:${(i*17+R()*8-6).toFixed(0)}%;top:${(3+R()*80).toFixed(0)}%;font-size:${(54+R()*64).toFixed(0)}px;animation-duration:${(14+R()*14).toFixed(0)}s;animation-delay:-${(R()*20).toFixed(0)}s">☁</b>`;
+  if(SAISON){ const [glyph,anim,n]=SAISONS[SAISON].deco;
+    if(anim!=='tw') for(let i=0;i<n;i++) h+=`<b class="${anim}" style="left:${(R()*100).toFixed(1)}%;font-size:${(8+R()*10).toFixed(0)}px;animation-duration:${(9+R()*10).toFixed(1)}s;animation-delay:-${(R()*18).toFixed(1)}s">${glyph}</b>`; }
   $('stars').innerHTML=h;
-  const tc={noel:'#1f4d44',halloween:'#3a1d4d',ski:'#2f5f9e',mer:'#0f7482'}[SAISON]; if(tc) document.querySelector('meta[name=theme-color]').content=tc;
-})();
+  document.querySelector('meta[name=theme-color]').content=mode==='nuit'?'#2d2570':'#9fd4fa';
+  const b=$('modeBtn'); b.innerHTML=mode==='nuit'?ICON_SUN:ICON_MOON; b.title=mode==='nuit'?'Passer en mode jour':'Passer en mode nuit';
+}
+$('modeBtn').addEventListener('click',()=>{ try{localStorage.setItem('titi_mode',modeChoisi()==='nuit'?'jour':'nuit');}catch(e){} decor(); });
+decor();
 
 /* ===== histoires écoutées (petite coche sur les vignettes) ===== */
 function heardAll(){ try{return JSON.parse(localStorage.getItem('titi_heard')||'[]');}catch(e){return [];} }
@@ -346,6 +370,8 @@ function goto(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.t
   $('wrap').classList.toggle('wide',id==='s4'||id==='s0'||id==='s1'||id==='s2'||id==='sSubj'); window.scrollTo({top:0,behavior:'smooth'}); stopAudio(); }
 document.querySelectorAll('.back[data-go]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.go)));
 
+/* une histoire de saison n'est proposée que pendant sa période */
+function enSaison(sid){ const u=byId(UNIVERS,sid.split('_')[1]); return !u.saison||u.id===SAISON; }
 function renderHome(){
   const box=$('season');
   if(SAISON){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
@@ -361,12 +387,12 @@ function renderHeroes(){ const g=$('grid1'); g.innerHTML='';
   armThumbs(g); }
 function renderPlaces(p){ const g=$('grid2'); g.innerHTML=''; $('q2').textContent=`Où part ${p.nom} ?`;
   const us=UNIVERS.slice().sort((a,b)=>((b.id===SAISON)-(a.id===SAISON)));     // la saison en cours passe en premier
-  us.forEach(u=>{ const sid=p.id+'_'+u.id; if(!STORIES[sid]) return;
+  us.forEach(u=>{ const sid=p.id+'_'+u.id; if(!STORIES[sid]||!enSaison(sid)) return;
     g.appendChild(storyCard(sid,{lab:u.nom,sm:STORIES[sid].t,badge:u.id===SAISON?'de saison':''})); });
   armThumbs(g); }
 function renderSubjects(){ const root=$('fams'); root.innerHTML=''; const heard=heardAll();
   FAMILLES.forEach(([fid,fnom])=>{ const box=document.createElement('div'); box.className='fam'; box.innerHTML=`<h3>${fnom}</h3>`;
-    Object.keys(STORIES).filter(sid=>STORIES[sid].f===fid).sort((a,b)=>STORIES[a].s.localeCompare(STORIES[b].s,'fr')).forEach(sid=>{
+    Object.keys(STORIES).filter(sid=>STORIES[sid].f===fid&&enSaison(sid)).sort((a,b)=>STORIES[a].s.localeCompare(STORIES[b].s,'fr')).forEach(sid=>{
       const st=STORIES[sid], h=sid.split('_')[0], b=document.createElement('button'); b.className='card subj';
       b.innerHTML=`<span class="av"><img alt="" src="assets/${h}_foret.png" onerror="this.remove()"></span><span><b>${esc(st.s)}</b><small>${esc(st.t)}</small></span>`+(heard.includes(sid)?'<span class="ok">✓</span>':'');
       b.addEventListener('click',()=>openStory(sid)); box.appendChild(b); });
@@ -374,7 +400,7 @@ function renderSubjects(){ const root=$('fams'); root.innerHTML=''; const heard=
 $('modeHero').addEventListener('click',()=>{ renderHeroes(); goto('s1'); });
 $('modeSubject').addEventListener('click',()=>{ renderSubjects(); goto('sSubj'); });
 $('modeRandom').addEventListener('click',()=>{ const all=Object.keys(STORIES), heard=heardAll(); let pool=all.filter(s=>!heard.includes(s)); if(!pool.length) pool=all;
-  const hors=pool.filter(s=>{ const u=byId(UNIVERS,s.split('_')[1]); return !u.saison||u.id===SAISON; }); if(hors.length) pool=hors;   // pas de Noël en plein été
+  pool=pool.filter(enSaison); if(!pool.length) pool=all.filter(enSaison);
   openStory(pool[Math.floor(Math.random()*pool.length)]); });
 $('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
 
