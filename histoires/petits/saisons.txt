@@ -9,7 +9,7 @@ Boum ! Le traîneau du Père Noël est en panne. Le renne a mal à la patte.
 « Facile ! » dit Filou. Il tire le traîneau dans la neige. Han ! Han !
 Chut… Filou pose un cadeau près de Noisette. Elle dort. Ça fait chaud au cœur.
 Oh non ! Il manque un cadeau pour le petit loup. Il reste celui de Filou.
-Filou regarde son gros cadeau. Il le donne au petit loup. Tiens, Loupiot !
+Filou regarde son gros cadeau. Puis la maison du petit loup. Ce sera pour Loupiot !
 Le matin, Filou trouve une petite cloche dorée. Cling, cling ! Filou est content. Joyeux Noël !
 
 === nestor_noel
@@ -19,15 +19,15 @@ Pour ne pas dormir, Nestor met de la neige dans son cou. Brrr !
 Nestor décore le grand sapin. Il bâille encore. « Hmm… j'ai sommeil. »
 Rrrron… Nestor dort près du feu. Ses amis l'appellent. Nestor dort, dort, dort.
 Ses amis le tirent sur la luge, jusqu'à son lit. Dors bien, Nestor !
-Chut ! Ses amis posent un petit sapin et des cadeaux près de son lit.
-C'est le printemps. Nestor se réveille. Oh ! Un sapin, des cadeaux, du gâteau !
+Chut ! Ses amis posent un petit sapin tout près de son lit. Nestor dort toujours.
+C'est le printemps. Les fleurs sont là. Nestor se réveille. « Oh ! J'ai raté Noël ! »
 Ses amis l'attendent avec des bougies. Joyeux Noël, Nestor ! Nestor est tout content.
 
 === rosie_noel
 titre: Rosie et l'écharpe trop longue
 Rosie regarde la théière dorée. Elle brille ! C'est pour maman. Mais Rosie n'a pas de sous.
 Alors Rosie tricote une écharpe rouge. « Un, deux, trois, partez ! » Clic, clic, clic !
-L'écharpe est longue, longue, longue. Il y a un trou. Rosie est triste.
+L'écharpe est longue, longue, longue ! Elle fait tout le tour de la chambre. Oh là là !
 Rosie cache l'écharpe derrière son dos. Elle la trouve trop moche.
 C'est Noël ! Pompon donne un dessin à maman. Rosie, elle, n'a rien dans les pattes.
 Maman trouve l'écharpe rouge. Oh ! Elle la serre contre sa joue. Elle est si douce !
@@ -58,7 +58,7 @@ Les amis partagent les bonbons autour de la grosse citrouille. Miam ! Filou rit 
 
 === nestor_halloween
 titre: Nestor et la maison qui craque
-C'est Halloween. Nestor est une citrouille. Là-haut, il y a une vieille maison qui craque.
+C'est Halloween. Nestor est déguisé en citrouille. Là-haut, il y a une vieille maison qui craque.
 Criiic ! Les amis entrent. Il fait tout noir. « Hmm… » fait Nestor. Ses genoux tremblent.
 Boum, boum ! Hoooou ! Il y a du bruit en haut de l'escalier.
 Nestor s'arrête. « Moi, j'ai peur », dit Nestor tout doucement.
@@ -82,7 +82,7 @@ Le soir, Rosie prend son bain. L'eau est toute verte. Rosie est contente.
 titre: Plume et la plus grosse citrouille
 Plume plante une graine. Noisette plante une graine. Pousse, pousse, petite citrouille !
 La citrouille de Noisette est énorme ! Celle de Plume est toute petite. « Et pourquoi ? »
-Plume boude. Elle a un pincement dans le ventre. Elle tourne le dos à Noisette.
+Plume boude. Ça la pince dans son ventre. Elle tourne le dos à Noisette.
 La nuit, Plume regarde la grosse citrouille. Non, non, non ! Plume ne la pousse pas.
 Plume tremble sur la barrière. Voilà Noisette, avec sa petite bougie.
 « Je suis jalouse », dit Plume tout bas. « Moi aussi, un peu », répond Noisette.
@@ -96,7 +96,7 @@ Filou n'écoute pas. Il regarde la grande piste, tout là-haut.
 Filou monte tout en haut. Oh là là ! C'est haut, haut, haut.
 Zou ! Filou glisse vite, trop vite ! Il ne sait pas freiner. Aaaah !
 Paf ! Filou tombe dans la neige. Il a froid. Il est tout seul.
-Triiit ! Voilà Monsieur Cabri. Il aide Filou. Il lui rend son ski.
+Triiit ! Voilà Monsieur Cabri. Il enlève la neige de Filou. Ouf, Filou n'est plus seul.
 Filou fait un triangle avec ses skis. Il descend doucement, tout doucement.
 Maintenant, Filou sait freiner. Bravo, Filou ! La grande piste, ce sera pour plus tard.
 
@@ -120,7 +120,7 @@ Monsieur Cabri lui apporte un chocolat chaud. « Tout le monde tombe, au début,
 Rosie recommence. Boum ! Boum ! Puis elle glisse un peu. « Tu as vu ? »
 Rosie tombe. Nestor lui tend la patte. Hop ! Rosie se relève. Merci, Nestor !
 Rosie est en haut de la piste. Son cœur fait boum-boum. Elle descend tout doucement.
-Une petite marmotte tombe. Boum ! Rosie va l'aider. Elles rient toutes les deux.
+Une petite marmotte tombe. Boum ! Elle pleure. Rosie va l'aider. Bientôt, elles riront !
 
 === plume_ski
 titre: Plume et la première nuit loin du nid
@@ -128,10 +128,10 @@ Plume part à la neige sans maman. Un gros câlin. Au revoir, maman !
 Quelle belle journée ! Plume fait un bonhomme de neige avec ses amis.
 C'est la nuit. Les amis dorment. Plume, elle, a les yeux grands ouverts.
 Plume regarde la nuit par la fenêtre. Une larme coule. Sa maison est loin, si loin.
-« Plume ? » C'est Nestor. Il a un doudou, lui aussi. Plume montre le sien : Chiffon.
-Monsieur Cabri vient avec sa lanterne. « Je pleure. Et pourquoi ? » « Parce que tu aimes ta maison, Plume. »
+« Plume ? Tu pleures ? » demande Nestor l'ourson. Vite, Plume cache son doudou, Chiffon.
+Monsieur Cabri vient avec sa lanterne. « Et pourquoi je pleure ? » demande Plume. « Parce que tu aimes ta maison. »
 Plume regarde la lune toute ronde. Maman la regarde aussi. Bonne nuit, maman.
-Les autres nuits, Plume regarde la lune avec Chiffon. Et bientôt, elle retrouve maman. Quel câlin !
+Les autres nuits, Plume regarde la lune avec Chiffon. Elle n'a plus peur. Bientôt, elle reverra maman.
 
 === filou_mer
 titre: Filou et le plus beau château de sable
@@ -172,7 +172,7 @@ Plume est à la plage. Elle ne connaît personne. Là-bas, des enfants jouent au
 Plume fait trois petits pas. Son cœur fait boum-boum. Elle n'ose pas.
 Plume ramasse des coquillages tout près. Les enfants ne la voient pas. « Et pourquoi ? »
 Clac ! La ficelle casse. Le cerf-volant s'envole, haut, haut, haut. Oh non !
-Le cerf-volant est coincé dans l'arbre. La petite loutre est triste. Plume se lève.
+La petite loutre est assise au pied de l'arbre. Elle est toute triste. Plume se lève.
 Plume ouvre ses ailes. Elle vole, elle vole, jusqu'en haut du grand arbre !
 « Tiens ! » Plume rend le cerf-volant. « Tu joues avec nous ? » « Oui ! » dit Plume.
 Plume fait voler le cerf-volant. Ses nouveaux amis rient. Quelles belles vacances !

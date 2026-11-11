@@ -4,7 +4,7 @@
 titre: Rosie, capitaine d'un jour
 Rosie court sur le bateau. Hop, hop ! Rosie va vite, très vite.
 Rosie a le grand chapeau bleu. « Un, deux, trois, partez ! » crie Rosie.
-Rosie tient la barre. Elle n'écoute pas Nestor. Elle n'écoute personne.
+Rosie tient la barre. Elle n'écoute pas Nestor l'ourson. Elle n'écoute personne.
 Oh ! Un gros nuage blanc sur la mer. « Attention, Rosie ! » crie la petite souris.
 Crac ! Le bateau est coincé. Boum ! Rosie tombe sur les fesses.
 Rosie s'assoit. Le chapeau tombe sur ses yeux. Chut… Rosie ne crie plus.
@@ -29,16 +29,16 @@ Voici Pépin, le petit hérisson. Il est tout petit, tout petit. Rosie rigole.
 « Un, deux, trois, partez ! » Rosie court devant. Coucou, tout le monde !
 Mais Pépin roule, roule… et il gagne la coupe ! Rosie est fâchée. Elle tape du pied.
 Pépin tend sa petite patte. Mais Rosie boude. Elle croise les bras. Non, non, non !
-C'est la nuit. Rosie regarde par la fenêtre. Oh ! En bas, Pépin court encore.
+C'est la nuit. Rosie regarde par la fenêtre. Oh ! Une petite lumière, en bas. C'est Pépin !
 Le matin, Rosie serre la patte de Pépin. « Bravo, Pépin ! » Ça pique un peu.
-Rosie et Pépin roulent dans l'herbe. Roule, roule ! Ils rient. Ils sont amis.
+Rosie court, Pépin roule dans l'herbe. Roule, roule, Pépin ! Ils rient. Ils sont amis.
 
 === rosie_espace
 titre: Rosie et la colère rouge
 Rosie appuie sur le bouton vert. « Un, deux, trois, partez ! » Pout. La fusée ne part pas.
 Rosie n'est pas contente. Ses joues sont rouges, rouges. Rosie est en colère !
 Bam, bam, bam ! Rosie tape sur tous les boutons. « Oh là là ! » fait Bip le robot.
-Oh ! Tout s'envole. Les carottes, les chaussettes, la soupe… et Rosie, la tête en bas !
+Oh ! Tout s'envole. Les carottes, les chaussettes, la soupe… et Rosie aussi !
 Aïe ! Le bras de Bip est tout cassé. Rosie est triste, très triste.
 Bip souffle : pfff. Rosie souffle aussi : pfff, pfff, pfff. La colère s'en va.
 « Pardon, Bip. » Rosie répare le bras de Bip. Tout doucement. Voilà, c'est réparé !
@@ -53,15 +53,15 @@ Pompon cache ses yeux contre l'arbre. « Un, deux, trois, partez ! » Rosie s'en
 Rosie mange des fraises, tout là-haut. Mais où est Pompon ? Le ciel devient orange.
 « Pompon ! Pompon ! » Rosie cherche dans la forêt. Pas de Pompon. Où est-il ?
 Snif ! Pompon est là, sous la fougère. Rosie le serre fort. « Pardon, Pompon. »
-Rosie porte Pompon sur son dos. Pompon dort. Bonne nuit, petit pot de colle.
+Rosie porte Pompon sur son dos. Pompon dort. Bonne nuit, petit frère.
 
 === rosie_ocean
 titre: Rosie et la promesse à Perle
-Perle danse. Blub, blub, des bulles ! « Je viendrai te voir danser. Promis ! » dit Rosie.
+Perle, le petit hippocampe, danse. Blub, blub ! « Je viendrai te voir danser. Promis ! » dit Rosie.
 Trois dauphins arrivent. « Rosie, tu viens faire la course ? » Oh oui, une course !
 « Un, deux, trois, partez ! » Zoum ! Rosie nage vite, vite. Elle oublie Perle.
 Perle est toute seule sur la scène. Où est Rosie ? Rosie n'est pas là.
-Rosie arrive enfin. Trop tard ! Il n'y a plus personne. Le poulpe balaie.
+Rosie arrive avec sa couronne. Trop tard ! Il n'y a plus personne. Le poulpe balaie.
 Rosie donne sa couronne. Perle n'en veut pas. Perle est triste. « Pardon, Perle. »
 « Demain, je serai là. Promis », dit Rosie tout doucement. Perle la regarde.
 Rosie est là, au premier rang. Coucou, Perle ! Alors Perle danse, danse, danse. Bravo !

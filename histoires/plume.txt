@@ -6,9 +6,9 @@ theme: oser se faire entendre
 sujet: Oser parler
 famille: oser
 
-@ At night, {plume} sits in the crow's nest at the top of the mast of {coquille} with a tiny lantern, her big eyes wide open, starry sky and glowing fish in the sea below
+@ At night, {plume} sits in the crow's nest at the very top of the mast of {coquille}, high above the sail, with a tiny lantern, her big eyes wide open, the empty deck far below her, starry sky and glowing fish in the sea below. Exactly one character in the picture: one owl.
 Sur La Coquille, quand la nuit tombe, tout l'équipage s'endort. Tout l'équipage, sauf Plume, perchée en haut du mât avec sa lanterne. Une chouette, la nuit, ça voit tout.
-> At night on a pirate ship deck under a shooting star, {mirabelle} tiptoes holding a slice of cake, seen from above, glowing fish in the sea
+> At night on a dry wooden pirate ship deck under a shooting star, {mirabelle} tiptoes holding a slice of cake, seen from above; glowing fish swim in the dark sea beyond the ship's rail, no water and no fish on the deck. Exactly one character in the picture: one otter.
 De là-haut, elle voit les poissons qui scintillent sous la coque. Elle voit les étoiles filantes rayer le ciel. Et elle voit même la capitaine se relever sur la pointe des pattes pour finir le gâteau.
 > At night in the crow's nest of a pirate ship, {plume} hunches shyly with her beak closed and her wings folded tight, looking down with worried eyes, a tiny lantern beside her, quiet starry sky
 Plume voit tout. Mais elle n'en souffle pas un mot. Sa voix est si petite, si fluette, qu'elle a peur qu'on ne l'entende pas. Ou pire : qu'on l'entende, et qu'on se moque.
@@ -31,7 +31,7 @@ Et là, au milieu de tout ce gris, elle aperçoit une ombre. Une grande ombre no
 Le cœur de Plume tambourine. Vite, elle dévale le mât et volette jusqu'au hamac de la capitaine. « Hou… capitaine… il y a un… », chuchote-t-elle au creux de son oreille.
 > Below deck at night, {nestor} sleeps smiling in a hammock, while {plume} hovers in the air next to the hammock, whispering toward the sleeping bear's ear, apart as separate animals, each fully visible
 « Rrrron… pchiii… » La capitaine se retourne sans ouvrir un œil. Plume essaie avec Nestor. « Hou… s'il te plaît… » Le gros ours sourit aux anges, sans se réveiller. Il rêve de miel.
-> On a foggy pirate ship deck at night, {plume} freezes with wide eyes, staring at the rail where the dark bow of another ship looms very close and two small soft grey cat paws grip the wood
+> On a foggy pirate ship deck at night, {plume} stands frozen in the middle of the deck with wide eyes and her wings at her sides, staring at the rail far from her on the right, where the dark bow of another ship looms very close and two small grey cat paws coming from outside grip the top of the rail; the paws are far from the owl and not attached to her. Exactly one character in the picture: one owl.
 Sur le pont, Plume se fige. Le bateau noir est tout près, maintenant. Si près qu'elle entend les griffes de Griffard racler le bois. Scriiitch.
 
 @ On a foggy pirate ship deck at night, {plume} trembles beside a big brass bell far too heavy for her
@@ -55,7 +55,7 @@ Griffard n'a jamais eu aussi peur de sa vie. Un fantôme hurle dans les voiles, 
 > At night on a pirate ship deck, {mirabelle} on the left and {nestor} on the right stand perfectly still and silent, lanterns raised, gazing up with admiration at {plume} on the mast in the middle, who smiles shyly, the fog clearing to show stars; exactly three characters: one owl, one otter, one bear
 « C'est moi… » Ce n'est qu'un murmure. Mais cette fois, un grand silence se pose sur le pont, et tout le monde l'entend.
 
-@ Sunny day on a pirate ship deck, {plume} perched on a barrel in the middle points a wing toward the horizon; a white goat with two small horns on the left and a spotted dog with floppy ears on the right, both in plain blue shirts, lean in quietly to listen; exactly three characters: one owl, one goat, one dog; the dog has no horns and no bandana
+@ Sunny day on a pirate ship deck, {plume} perched on a barrel in the middle points a wing toward the horizon; a white goat with two small horns on the left and a spotted dog with floppy ears on the right, both standing upright on two legs and both in plain blue shirts, lean in quietly to listen; exactly three characters: one owl, one goat, one dog; the dog has no horns and no bandana
 Depuis cette nuit-là, Plume est la vigie officielle de La Coquille. Nul besoin de crier : dès qu'elle lève l'aile, les matelots s'arrêtent net de chanter et tendent l'oreille.
 > Sunny day on a pirate ship deck, in the foreground {plume}, standing on a barrel, points a wing at a plate holding only cake crumbs, while {mirabelle} on the left blushes with crumbs on her white whiskers and {nestor} on the right giggles behind his paw; exactly three characters: one owl, one otter, one bear
 « La corde est mal attachée. » « Il y a un banc de sable à gauche. » « Capitaine, c'est encore vous qui avez fini le gâteau. » Mirabelle rougit, des miettes aux moustaches.
@@ -96,11 +96,11 @@ Mamie Dipla abaisse son long, long cou jusqu'au rocher. « Hé hé. Donne-les-mo
 > In a prehistoric valley of giant ferns, {plume} on a rock waves both wings wide as she tells her story, while {dipla} listens with a serious look, her small round gold spectacles sitting low on her snout, a steaming river behind
 Plume raconte tout, à grands battements d'ailes. Les oiseaux. Les grenouilles. L'eau tiède. Mamie Dipla écoute sans l'interrompre. Et plus elle écoute, plus ses lunettes glissent au bout de son nez.
 
-@ {dipla} and {plume} look up, alarmed, at a big volcano sending a straight column of black smoke into the sky above the valley of ferns
+@ In a prehistoric valley of giant ferns by day, {dipla} on the left and {plume} on the right look up, alarmed, at a big volcano sending a straight column of black smoke into the sky; tiny round gold spectacles clearly visible on the diplodocus's nose. Exactly two characters in the picture: one diplodocus and one owl.
 « L'eau tiède… Les oiseaux… marmonne la vieille dame. Ma grand-mère me racontait ça, quand j'étais haute comme une fougère. » Lentement, elle lève la tête vers la montagne.
 > Above a prehistoric valley of giant ferns, a big volcano sends a thick straight column of black smoke high into the sky, seen from behind the small silhouettes of {dipla} and {plume} looking up
 Le Grand Ronfleur, le vieux volcan, ne ronfle plus. Il fume. Un panache de fumée noire, tout droit dans le ciel. « Il va se réveiller, ma puce, murmure Mamie Dipla. Ce soir, peut-être. »
-> In a prehistoric valley of giant ferns, {dipla} bends her long neck to nuzzle {plume} proudly, the little owl looking surprised and pleased, a volcano with a column of black smoke behind them
+> In a prehistoric valley of giant ferns, {dipla} bends her long neck to nuzzle {plume} proudly, the little owl looking surprised and pleased, a volcano with a column of black smoke behind them; tiny round gold spectacles clearly visible on the diplodocus's nose. Exactly two characters in the picture: one diplodocus and one owl.
 Elle frôle Plume du bout du museau. « Tout le monde a vu les oiseaux partir. Mais personne n'a demandé pourquoi. Personne, sauf toi. »
 
 @ {plume}, the only owl, perches on top of the head of {tric} and stretches one wing toward a steaming river; the triceratops lies with all four legs folded under him, eyes closed, not pointing, a smoking volcano behind
@@ -111,7 +111,7 @@ Il faut prévenir toute la vallée ! Mamie Dipla est bien trop lente. Alors c'es
 Tric trempe une patte. Ouille, c'est chaud ! Il regarde la fumée, il regarde Plume, et ses yeux s'arrondissent. « GRONDAR ! Debout ! Plume avait raison ! »
 
 @ At sunset, walking in a line up a blue hill to safety: {plume} flying in the air at the front of the line, wings spread, leading; behind her {dipla} with two tiny green baby dinosaurs riding on her back, then {grondar}, huge, gently carrying three speckled eggs in his mouth; no other flying animal in the sky, a volcano erupting with sparks far behind
-Toute la vallée se met en marche vers la colline Bleue. Grondar transporte les œufs dans sa grande gueule, délicatement, sans en fêler un seul. Mamie Dipla a hissé les petits sur son dos. Et tout devant, Plume ouvre le chemin.
+Toute la vallée se met en marche vers la colline Bleue. Grondar porte les œufs tout contre lui, délicatement, sans en fêler un seul. Mamie Dipla a hissé les petits sur son dos. Et tout devant, Plume ouvre le chemin.
 > At sunset on a blue hilltop, {plume} sits on a rock beside {tric} and one tiny green baby dinosaur, all three watching a distant volcano throw sparks and slow red lava
 Ils atteignent le sommet juste quand le soleil se couche. Et là… BROUM ! Le Grand Ronfleur crache une gerbe d'étincelles. La lave coule, rouge et lente, là où ils dormaient encore ce matin.
 > At dusk on a blue hilltop in a warm red glow, {grondar}, huge, on the left gently sets three speckled eggs down in the grass, {dipla} on the right with one tiny green baby dinosaur snuggled against her, and {plume} sitting on top of the diplodocus's head, all silent and awed
@@ -146,7 +146,7 @@ Plume recommence. Pouf ! Cette fois, un nuage crève au-dessus de sa tête : il 
 
 @ In a wizard's tower room, the only owl in the picture, a small round owl, entirely bright blue, blue head, blue face and blue wings, no beige feathers at all, with big round dark eyes, a little yellow scarf and a plain yellow medieval tunic, sits sadly beside a sausage and a sock on a table, her little wooden wand lying next to them
 Le mardi, elle rate neuf fois. La plume devient une saucisse, un nuage, une chaussette. Le mercredi, elle rate dix-sept fois. Et le jeudi, catastrophe, elle se rate elle-même : la voilà bleue de la tête aux pattes.
-> In a medieval castle courtyard, one pink pig and one white goose in simple medieval clothes shelter under a small cloud raining soup, laughing and pointing up at a leaning tower, while {gontran} sings with one wing raised theatrically; exactly three characters: one pig, one goose, one peacock
+> In a medieval castle courtyard, one pink pig in a plain blue tunic and one white goose without clothes shelter under a small cloud raining soup, laughing and pointing up at a leaning tower, while {gontran} sings with one wing raised theatrically; exactly three characters: one pig, one goose, one peacock
 En bas, dans la cour, on commence à ricaner. « Tiens, il pleut de la soupe ! C'est encore la petite chouette ! » Sire Gontran, le paon, en fait même une chanson, qu'il claironne à qui veut l'entendre.
 > In the evening in a wizard's tower room, the only owl in the picture, a small round owl, entirely bright blue, blue head, blue face and blue wings, no beige feathers at all, with big round dark eyes, a little yellow scarf and a plain yellow medieval tunic, sits alone turned toward the window with her head down, her little wooden wand left on the table behind her, sunset light
 Le soir, Plume abandonne sa baguette sur la table. « Je suis nulle, renifle-t-elle. Je n'y arriverai jamais. Les vrais magiciens, eux, ils ne se trompent pas. »
@@ -162,7 +162,7 @@ Plume hésite. Un coffre secret ? Et pourquoi ? C'est plus fort qu'elle : elle r
 Le couvercle grince. Dedans, pas de trésor. Des cahiers. Des dizaines de vieux cahiers écornés, griffonnés d'une écriture maladroite, avec des taches plein les pages.
 > By lantern light in a tower room, {plume}, alone in the room, holds open an old stained notebook showing only clumsy little drawings of a feather on fire and a teapot in a wizard hat, her beak open in surprise, a big old wooden chest behind her
 À la lueur de la lanterne, Plume déchiffre : « Essai numéro 1 : raté. La plume a pris feu. Essai numéro 2 : raté. J'ai transformé mon maître en théière. Essai numéro 212 : raté, mais moins. »
-> By lantern light in a tower room, {plume} stares amazed at a closed old stained notebook in her wings, beside a big old wooden chest standing open
+> By lantern light in a tower room, {plume} holds one closed old stained notebook in her wings and stares amazed at its cover, beside a big old wooden chest standing open and full to the top with old stained notebooks. Exactly one character in the picture: one owl.
 Elle tourne les pages. Raté. Raté. Raté. Puis elle referme le cahier. Sur la couverture, un nom, tracé par un tout petit corbeau : Balthazar.
 
 @ In a tower room at night, {balthazar}, wearing a long white nightshirt, puts a gentle wing on the shoulder of {plume}, both looking at an old stained notebook open on little drawings only, a big old wooden chest beside them
@@ -179,9 +179,9 @@ Essai 32 : la plume frémit. Essai 40 : elle se soulève d'un doigt, hésite, et
 > In a sunny wizard's tower room, {plume} lifts her wings in joy, one single little wooden wand held in her right wing only, left wing empty, as a white feather twirls high near the ceiling in a sunbeam, {balthazar} clapping his wings in the doorway
 Et un matin… « Abracadabri, abracadabra. » La plume se soulève. Elle monte, elle tournoie, elle danse dans un rayon de soleil, sous les yeux de Maître Balthazar. Ça y est. Elle vole.
 
-@ Thousands of white feathers swirl like summer snow above a medieval castle; two birds side by side in a tower window, {plume} in front and {balthazar} behind her, watching happily; below in the courtyard, one pink pig and one white goose in simple medieval clothes look up amazed
+@ By day, a great cloud of white feathers swirls like summer snow in the sky above a medieval castle; in the open window of a leaning stone tower, {plume} on the left leans out happily, and {balthazar} stands just behind her on the right, inside the same window, the raven the same size as the owl; the courtyard far below is empty. Exactly two characters in the picture: one owl and one raven.
 Plume ouvre la fenêtre. La plume s'échappe, et derrière elle cent autres, mille autres, qui tourbillonnent au-dessus du château comme une neige d'été.
-> In a medieval castle courtyard, one pink pig and one white goose in simple medieval clothes stare up with open mouths at white feathers swirling in the sky, while one tall blue peacock with a small blue crest and a shiny silver breastplate, with no tail feathers at all, a plain bare rump with three thin bare sticks, looks over his shoulder, baffled, at his bare rump; exactly three characters: one pig, one goose, one peacock
+> In a medieval castle courtyard by day, one pink pig in a plain blue tunic on the left and one white goose without clothes in the middle stare up with open mouths at white feathers swirling in the sky, while on the right one blue peacock with a small blue crest and a shiny silver breastplate, whose tail is completely gone, no tail feathers, no train, no fan, only a small round bare rump, twists his neck to look back, baffled, at his bare rump; exactly three characters: one pig, one goose, one peacock
 En bas, plus personne ne chante. On regarde, bouche bée. Même Sire Gontran. Surtout Sire Gontran, qui se tord le cou pour comprendre où sont passées les belles plumes de sa queue.
 > In the evening in a wizard's tower room, {plume} draws a little star in her brand new notebook by candlelight, smiling quietly, one white feather floating beside her, the first stars in the window
 Ce soir-là, à la lueur de la bougie, Plume écrit dans son cahier : « Essai numéro 58 : réussi. » Elle dessine une petite étoile. Puis elle ajoute, en plus petit : « Demain, j'essaie quelque chose que je ne sais pas faire. »
@@ -234,9 +234,9 @@ On s'appelle, on crie, mais dans les longs couloirs les voix s'égarent. Personn
 > In a dark metal space station corridor during a blackout, {zig} glows softly green, the only light in the darkness, while {plume} stands calmly beside him
 Pourtant, au fond du noir, une lueur verte palpite. Il y a là quelqu'un qui n'a besoin d'aucune lampe pour se faire comprendre.
 
-@ In a dark metal space station corridor during a blackout, {zig} shines very brightly like a small lighthouse, lighting up the metal walls, while {plume} points a wing ahead and {filou} and {nestor} look on, surprised, standing apart as separate animals, each fully visible
+@ In a dark metal space station corridor during a blackout, {zig} in the middle shines very brightly like a small lighthouse, lighting up the metal walls, while {plume} on the left points a wing ahead and {filou} on the right looks on, surprised, standing apart as separate animals, each fully visible. Exactly three characters in the picture: one alien, one owl, one fox.
 Zig s'allume. Fort. Plus fort qu'une veilleuse, plus fort qu'un phare. « Suivez-le ! » ordonne Plume. « Mais on ne comprend rien à ce qu'il raconte ! » proteste Filou. « Moi, si. »
-> In a dark metal space station corridor during a blackout, {zig}, whose whole jelly body is now bright red instead of green, stops in front, just before a metal step, {plume} beside him raises one wing to say stop, then {filou} and {nestor} follow behind in a line holding paws; exactly four characters: one alien, one owl, one fox, one bear
+> In a dark metal space station corridor during a blackout, {zig}, whose whole jelly body is now bright red instead of green, stops in front on the right, just before a metal step, {plume} in the middle raises one wing to say stop, and {filou} follows behind on the left, holding the owl's other wing; exactly one orange fox tail in the picture, on the fox. Exactly three characters in the picture: one alien, one owl, one fox.
 Zig devient vert. « Vert : on avance ! » traduit Plume. Rouge. « Rouge : stop, il y a une marche. » Bleu qui tourne. « À gauche ! » Et toute la file suit la petite lumière, à la queue leu leu, en se tenant par la patte.
 > In a brightly lit space station room with metal walls, just as the lights come back, {zig} floats in the middle, his body shimmering in rainbow colours instead of green, {plume} on the right watching him fondly, {filou} on the left cheering. Exactly three characters in the picture: one alien, one owl, one fox.
 Ils débouchent dans la grande salle juste quand le courant revient. Tout le monde est là, sain et sauf. Zig scintille de toutes les couleurs à la fois, un mélange que même Plume ne connaît pas. Elle devine : il est fier.
@@ -256,22 +256,22 @@ famille: autres
 
 @ High in a big oak tree, {plume} holds a plan drawn on a leaf while {noisette} carries branches to build a wooden treehouse high up in the branches of a big oak, both happy
 Dans la forêt des Quatre-Chênes, Plume la chouette et Noisette l'écureuil sont amies depuis toujours. Depuis bien avant de savoir voler pour l'une, et grimper pour l'autre.
-> In the morning sun, {noisette} climbs the trunk with her arms full of branches, while {plume} perched above points a wing to show where they go, a plan drawn on a leaf under her other wing, beside a half-built wooden treehouse high up in the branches of a big oak
+> In the morning sun, {noisette} climbs the trunk with her arms full of branches, while {plume} perched above points a wing to show where they go, a plan drawn on a leaf under her other wing, beside a half-built wooden treehouse high up in the branches of a big oak, leaves and sky all around, no house on the ground, no grass. Exactly two characters in the picture: one squirrel and one owl.
 Cet été, elles ont un grand projet : bâtir la plus belle cabane de la forêt, tout là-haut dans le vieux chêne. Noisette grimpe, les bras chargés de branches. Plume dessine les plans.
 > In golden evening light, {plume} and {noisette} sit on the floor of an almost finished wooden treehouse high up in the branches of a big oak, laughing so hard they hold their bellies, eyes squeezed shut
 Du matin au soir, elles s'affairent. Elles ont même un mot de passe secret : « Carabistouille ! » Rien que de le prononcer, elles pouffent, elles gloussent, elles en ont mal au ventre.
 
-@ In front of the door of a wooden treehouse high up in the branches of a big oak, {plume} and {noisette} angrily pull on the same little flag stick from each side, frowning at each other
+@ By day, on the wooden platform in front of the door of a wooden treehouse high up in the branches of a big oak, leaves and sky all around, no grass, no ground, {plume} on the left and {noisette} on the right angrily pull on the same little flag stick from each side, frowning at each other. Exactly two characters in the picture: one owl and one squirrel.
 Un jour, la cabane est presque finie. Il n'y manque plus que le drapeau. « On met une feuille rouge, décide Plume. C'était mon idée, la cabane. »
-> In front of the door of a wooden treehouse high up in the branches of a big oak, {plume} holding a red leaf and {noisette} holding one blue feather face each other, both frowning
+> By day, on the wooden platform in front of the door of a wooden treehouse high up in the branches of a big oak, leaves and sky all around, no grass, no ground, {plume} on the left holding a red leaf and {noisette} on the right holding one blue feather face each other, both frowning. Exactly two characters in the picture: one owl and one squirrel.
 « Ton idée ? s'indigne Noisette. C'est moi qui ai porté toutes les branches ! On met une plume de geai, bleue comme le ciel. » « Mon idée ! » « Mes branches ! »
-> In front of the door of a wooden treehouse high up in the branches of a big oak, {plume} and {noisette} each hold one short broken half of a snapped wooden stick, clearly two separate pieces, a torn little flag on one half, both shocked
+> By day, on the wooden platform in front of the door of a wooden treehouse high up in the branches of a big oak, leaves and sky all around, no grass, no ground, {plume} on the left and {noisette} on the right each hold one short broken half of a snapped wooden stick, clearly two separate pieces, a torn little flag on one half, both shocked. Exactly two characters in the picture: one owl and one squirrel.
 Chacune tire de son côté. Crac. Le bâton se brise net. « T'es plus ma copine ! » « Toi non plus ! » C'est sorti si vite que les mots restent suspendus en l'air, entre elles, tout étonnés.
 
 @ Inside a wooden treehouse high up in the branches of a big oak, {noisette} draws one single straight white line across the floor (not a cross) between herself and {plume}, who sulks with her wings crossed, each on her own side
 Noisette trace un trait blanc par terre, en plein milieu de la cabane. « Ça, c'est mon côté. » « Très bien, réplique Plume en croisant les ailes. Et ça, c'est le mien. Tu n'as pas le droit de regarder par ma fenêtre. »
 > Inside a wooden treehouse high up in the branches of a big oak, {plume} on the left faces left and {noisette} on the right faces right, their backs turned to each other, both sulking, with one single straight white line across the floor (not a cross) between them
-Les voilà assises dos à dos, chacune dans sa moitié. Plume a les plans, mais plus de branches. Noisette a les branches, mais plus de plans.
+Les voilà plantées face à face, chacune dans sa moitié, sans un mot. Plume a les plans, mais plus de branches. Noisette a les branches, mais plus de plans.
 > Inside a wooden treehouse high up in the branches of a big oak, with one single straight white line across the floor (not a cross) between them, {plume} and {noisette} sit far apart on each side, chins up, eyes closed, cheeks puffed, each with a proud little sulky smile, sunshine outside the windows
 Le premier jour, elles boudent à merveille, menton levé, joues gonflées. C'est même assez agréable, de bouder. Au début.
 
@@ -284,7 +284,7 @@ C'est fou tout ce qu'on a à raconter à quelqu'un, quand on ne lui parle plus.
 
 @ On the ground below a wooden treehouse high up in the branches of a big oak, {mathurine} walks slowly past and looks up kindly at {plume}, who sits at the treehouse window pretending not to listen, evening light
 « C'est à elle de dire pardon, rumine Plume à sa fenêtre. C'est elle qui a crié la première. » « C'est à elle de dire pardon, rumine Noisette à la sienne. C'est elle qui a commencé. »
-> In evening light on the ground below a wooden treehouse high up in the branches of a big oak, {mathurine} stops and raises her head with a gentle knowing smile, while up in the treehouse {plume} at one window and {noisette} at another both look away
+> In evening light on the ground below a wooden treehouse high up in the branches of a big oak, {mathurine} stops and raises her head with a gentle knowing smile, while up in the treehouse {plume} alone at the left window looks away to the left and {noisette} alone at a separate right window, far apart from the owl, looks away to the right, both sulking. Exactly three characters in the picture: one tortoise, one owl, one squirrel.
 La vieille tortue Mathurine passe par là, à tout petits pas. Elle lève le nez. « Tiens ! Deux demi-cabanes. Et deux demi-sourires. Quel dommage, ça faisait un entier. »
 > At night inside a wooden treehouse high up in the branches of a big oak, with one single straight white line across the floor (not a cross), {plume} lies wide awake on her side, looking thoughtfully at the moon through the window, while {noisette} sleeps curled up far away on the other side
 Plume fait mine de ne rien entendre. Mais elle y pense toute la nuit, les yeux grands ouverts.
@@ -316,16 +316,16 @@ theme: prendre soin de son monde ; chaque petit geste compte
 sujet: Prendre soin de la nature
 famille: coeur
 
-@ {plume} swims happily underwater over a very colourful coral reef with five striped fish and orange anemones, beside {perle}, who is tiny, no bigger than the owl's beak
+@ {plume} swims happily underwater over a very colourful coral reef with five striped fish and orange anemones, beside {perle}, who is extremely tiny, ten times smaller than the owl, no bigger than the owl's beak
 Chaque été, Plume enfile son petit casque de verre et plonge retrouver ses amis du récif des Mille-Bulles. De tous les endroits du monde, c'est le plus coloré.
-> {plume} swims underwater over a colourful coral reef with pink corals and five striped fish, following {perle}, who is tiny, no bigger than the owl's beak and leads the way
+> {plume} swims underwater over a colourful coral reef with pink corals and five striped fish, following {perle}, who is extremely tiny, ten times smaller than the owl, no bigger than the owl's beak, and leads the way
 On y trouve des coraux roses, des anémones orange qui ondulent, des poissons rayés comme des bonbons. Et Perle l'hippocampe, toute menue, qui lui sert de guide.
 > {plume} and {perle}, who is tiny, no bigger than the owl's beak, float underwater above one continuous coral reef on the sea floor: the corals on the left are bright pink and orange, the corals on the right are pale grey and colourless, normal blue water background, no colour blocks
 Mais cet été, quand Plume arrive, quelque chose cloche. Elle cherche, elle plisse les yeux. Et pourquoi ce coin-là est-il si pâle ? Soudain elle comprend : il manque des couleurs.
 
 @ Underwater, {plume} and {perle}, who is tiny, no bigger than the owl's beak, look sadly at a corner of coral reef turned grey and dull, littered with a bottle, a tin can and an old shoe, a plastic bag floating like a jellyfish
 Tout un coin du récif est devenu gris, terne comme de la cendre. Entre les coraux traînent des choses qui ne poussent pas dans la mer. Une bouteille. Une boîte de conserve. Un vieux soulier.
-> Underwater on a grey dull coral reef, {perle}, tiny, no bigger than the owl's beak, sighs and points her snout at a pale closed anemone, while two clownfish swim away carrying tiny bundles and {plume} listens sadly, a bottle lying in the sand
+> Underwater on a grey dull coral reef, {perle}, extremely tiny, ten times smaller than the owl, no bigger than the owl's beak, a seahorse without arms and without hands, sighs and points with her snout only at a pale closed anemone, while two clownfish swim away carrying tiny bundles and {plume} listens sadly, a bottle lying in the sand
 « Ça dégringole d'en haut, soupire Perle. Tous les jours un peu plus. Les poissons-clowns ont déménagé avec leurs baluchons. Et l'anémone ne s'ouvre plus. »
 > Underwater near a grey coral reef, a small baby sea turtle swims curiously toward a floating plastic bag that looks like a jellyfish, mouth just opening, while {plume} in the background notices with alarm
 Un sac flotte entre deux eaux, tout gonflé, comme une méduse. Mais ce n'est pas une méduse. Une petite tortue s'approche, gourmande, et ouvre déjà le bec pour y goûter…
@@ -344,11 +344,11 @@ Plume ne trouve rien à répondre. C'est vrai qu'elle est petite. C'est vrai qu'
 > Underwater on a grey littered coral reef, {plume} holds up a small net bag with one single tin can inside, smiling modestly but firmly, while {octave} raises an eyebrow behind his glasses and three small striped fish stare
 Alors elle la ramasse et la glisse dans son filet. « Voilà, annonce-t-elle tranquillement. Il y en a une de moins. »
 
-@ Underwater, {plume}, tired, rests beside a small cleaned patch of reef where one coral has turned pink again, her full small net bag lying on the sand next to her, while {perle}, tiny, no bigger than the owl's beak, arrives carrying one small round bottle cap
-Elle en ramasse une autre. Puis une autre. Toute la matinée, toute seule, elle remplit son filet sous l'œil des poissons. « Elle n'y arrivera jamais », chuchotent-ils derrière leurs nageoires.
+@ Underwater, {plume}, tired, rests beside a small cleaned patch of reef where one coral has turned pink again, her full small net bag lying on the sand next to her, while {perle}, extremely tiny, ten times smaller than the owl, no bigger than the owl's beak, arrives carrying one small round bottle cap
+Elle en ramasse une autre. Puis une autre. Toute la matinée, sans se décourager, elle remplit son filet sous l'œil des poissons. « Elle n'y arrivera jamais », chuchotent-ils derrière leurs nageoires.
 > Underwater on a grey coral reef, {plume} bends happily over a small round clean patch of sand where one small coral glows pink again in the middle, her full small net bag lying beside her, three small striped fish watching from afar
 À midi, Plume a nettoyé un coin grand comme une assiette. C'est tout petit, une assiette. Mais au beau milieu, un corail a retrouvé un peu de rose aux joues.
-> Underwater on a grey reef, {perle}, extremely tiny, no bigger than the owl's beak, carries one small round bottle cap toward {plume}, who holds a small net bag
+> Underwater on a grey reef, {perle}, extremely tiny, ten times smaller than the owl, no bigger than the owl's beak, carries one small round bottle cap toward {plume}, who holds a small net bag
 Perle s'approche. Minuscule comme elle est, elle ne peut porter qu'un bouchon. Elle le porte quand même, vaillamment. « Deux de moins », déclare-t-elle.
 
 @ Underwater on a grey littered reef, {octave} in the middle, glasses on his nose, holds one bottle in each tentacle, {plume} on the left with a small net bag, and one small red crab on the right carrying a tin can on its back; exactly three characters: one octopus, one owl, one crab
@@ -360,14 +360,14 @@ Plus personne ne soupire « on est trop petits ». On n'a pas le temps. On compt
 
 @ On a beach at sunset, {plume-} stands beside a small net bag full of litter and talks to {morse} who holds a bottle and looks embarrassed, a picnic blanket nearby
 Le soir, Plume remonte à la surface en traînant son filet plein à craquer. Sur la plage, un gros morse en maillot rayé termine son pique-nique. Le voilà qui lève sa bouteille vide, prêt à la lancer dans les vagues.
-> On a beach at sunset, {morse} stares at the bottle in his flipper, his cheeks turned bright red, while {plume-} beside a net full of litter gently points a wing toward the sea
+> On a beach at sunset, {morse}, still wearing his blue and white striped swimsuit, stares at the bottle in his flipper, his cheeks turned bright red, while {plume-} beside a net full of litter gently points a wing toward the sea
 Plume ne crie pas. Elle pose le filet devant lui, et elle raconte. La tortue. L'anémone. Le corail gris. Le morse baisse les yeux sur sa bouteille. Ses grosses joues deviennent toutes rouges.
 > On a sunny beach in the morning, {morse} drops a bottle into a large bin decorated with a drawing of a fish, while {plume-} watches from the sand, pleased, gentle waves behind
 « Je ne savais pas que ça allait quelque part », bredouille-t-il, tout penaud. Et il la remporte chez lui. Le lendemain, sur la plage, quelqu'un a installé une grande poubelle. Avec un poisson dessiné dessus.
 
-@ Underwater, in the foreground {plume} swims down toward a coral reef full of bright colours again, welcomed happily by {octave} on the left and by {perle} on the right, who is tiny, no bigger than the owl's beak; exactly three characters: one owl, one octopus, one seahorse
-L'été suivant, quand Plume enfile son casque et plonge, son cœur bat un peu trop vite. Que va-t-elle trouver, tout en bas ?
-> Underwater on a coral reef bright with pinks and oranges, {plume} on the left, facing the viewer with two big round eyes, smiles at an open orange anemone in the middle full of small striped fish, {perle} on the right, tiny. Exactly two characters in the picture: one owl and one seahorse.
+@ Underwater, in the foreground {plume} swims down toward a coral reef full of bright colours again, welcomed happily by {octave} on the left and by {perle} on the right, who is extremely tiny, ten times smaller than the owl, no bigger than the owl's beak; exactly three characters: one owl, one octopus, one seahorse
+L'été suivant, quand Plume enfile son casque et plonge, son cœur bat un peu trop vite. Et si tout était redevenu gris ? Tout en bas, Perle et Octave l'attendent déjà.
+> Underwater on a coral reef bright with pinks and oranges, {plume} on the left, facing the viewer with two big round eyes, smiles at an open orange anemone in the middle full of small striped fish, {perle} on the right, extremely tiny, ten times smaller than the owl, no bigger than the owl's beak. Exactly two characters in the picture: one owl and one seahorse.
 Mais le récif des Mille-Bulles a retrouvé ses roses, ses orange, ses rayures de bonbon. Les poissons-clowns ont réemménagé. Et l'anémone s'épanouit en grand, comme pour dire bonjour.
 > Underwater, on the sandy sea floor of a bright coral reef stands {plume}, looking up; far above her, one small green baby sea turtle with a plain turtle head, no helmet, no scarf, swims toward one sinking plastic bottle
 Il retombe encore une bouteille, de temps en temps. Alors le premier qui l'aperçoit file la ramasser. « Une de moins ! » chantonne-t-il. C'est devenu la devise du récif.
