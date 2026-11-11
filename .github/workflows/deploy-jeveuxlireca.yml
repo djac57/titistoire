@@ -1,0 +1,41 @@
+name: Déployer le worker jeveuxlireca
+
+# Le dépôt jeveuxlireca n'a pas de jeton Cloudflare : on déploie son worker d'ici, avec le jeton
+# de Titistoire (droit « Workers Scripts : Edit » sur tout le compte).
+# Pour redéployer après une modification de jeveuxlireca : changer la date dans .github/jeveuxlireca.deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-jeveuxlireca.yml'
+      - '.github/jeveuxlireca.deploy'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      MDP: ${{ secrets.JVL_MDP }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: djac57/jeveuxlireca
+      - name: Vérifier le mot de passe
+        run: |
+          if [ -z "$MDP" ]; then echo "::error::Secret JVL_MDP manquant dans le dépôt titistoire (Settings > Secrets and variables > Actions)"; exit 1; fi
+      - name: Déployer le worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: deploy
+      - name: Poser le mot de passe APRÈS le deploy (sinon deploy l'efface)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          secrets: |
+            MDP
