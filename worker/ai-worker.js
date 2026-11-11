@@ -185,6 +185,15 @@ export default {
           } catch (e) { lastErr = lastErr || ("WorkersAI: " + String(e)); }
         }
         if (!txt) return new Response(JSON.stringify({ error: "Conteuse indisponible", busy, detail: lastErr, tried: models.concat(["workers-ai-llama"]) }), { status: 502, headers: { "content-type": "application/json", ...cors } });
+        // Nettoyage : les modèles remettent souvent "La morale de l'histoire…" malgré la consigne -> on retire ces pages
+        try {
+          const obj = JSON.parse(txt);
+          if (obj && Array.isArray(obj.pages)) {
+            const moralRe = /morale de l'histoire|la le[çc]on\b|cette (petite )?histoire (nous )?(montre|apprend|enseigne|rappelle)|retiens bien que|il faut (toujours )?(se rappeler|retenir)/i;
+            const cleaned = obj.pages.map(x => String(x).trim()).filter(x => x && !moralRe.test(x));
+            if (cleaned.length >= 3) { obj.pages = cleaned; txt = JSON.stringify(obj); }
+          }
+        } catch (e) {}
         if (u.searchParams.get("debug")) return new Response(JSON.stringify({ usedModel, txt }), { headers: { "content-type": "application/json", ...cors } });
         // on renvoie tel quel le JSON du modèle (le navigateur le parse)
         return new Response(txt, { headers: { "content-type": "application/json", "cache-control": "no-store", ...cors } });
