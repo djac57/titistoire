@@ -17,21 +17,21 @@ Jeanne regarda le plan dans un sens, puis dans l'autre. On n'y voyait ni crocodi
 « La lave, ça brûlerait la coque. » Il souffla sur la sciure. Puis, sans lever le nez : « On n'a plus l'âge, Jeanne. » Il avait lâché cela doucement, comme on referme une porte.
 « Plus l'âge ? » Ils étaient nés la même semaine, sur la même berge. S'il n'avait plus l'âge, elle non plus, et personne ne l'avait prévenue. « … lâge ! » fit Titou. Elle tourna les talons.
 
-@ In {cour} on a bright May midday, the cherry tree in full green leaf with small green cherries: {jeanne} on the left stretches her arms wide, cheeks puffed out, eyes shining, while {gaspard} on the right sits on the low stone wall his eyes fixed on a folded sheet of paper. Exactly two characters in the picture.
+@ In {cour} on a bright May midday, the big old tree with fresh green leaves: {jeanne} on the left stretches her arms wide, cheeks puffed out, eyes shining, while {gaspard} on the right sits on the low stone wall his eyes fixed on a folded sheet of paper. Exactly two characters in the picture.
 Le lendemain, dans la cour, sous le cerisier aux cerises encore vertes, elle revint à la charge. Quand une histoire ne prenait pas, c'était qu'elle était trop petite. Il suffisait de trouver plus gros.
 « Vous n'allez pas me croire ! Cette nuit, il y avait une baleine dans la Flânette ! » Gaspard ne leva pas les yeux. « La Flânette a un mètre vingt de fond. J'ai mesuré. »
 « Justement ! Elle était coincée ! Il a fallu… » Jeanne retint son souffle. Ses joues s'arrondirent. « … trente mariniers pour la pousser ! Et un éléphant ! Un très gros ! »
 Avant, il aurait demandé d'où sortait l'éléphant. Il aurait compté les défenses. Cette fois, il plia son plan en quatre. « Il me reste neuf planches à clouer. »
 Jeanne resta seule sous le cerisier, sa baleine sur les bras. Une histoire que personne ne discutait, c'était un cerf-volant sans vent. Bon. Puisqu'il n'aimait plus que les chiffres, elle lui en donnerait.
 
-@ At {moulin} on a May afternoon: {jeanne} on the left, a pencil tucked behind her ear, measures a long pale plank with her forearm, very sure of herself, a folding ruler opened in a zigzag at her feet, while {gaspard} on the right pushes up his glasses with a weary sigh. Exactly two characters in the picture.
+@ At {moulin} on a May afternoon: {jeanne} and {gaspard}, two small children of the same height, stand side by side at the long workbench, which reaches up to their chests. Jeanne on the left, a pencil tucked behind her ear, lays her forearm along a long pale plank resting on the workbench, measuring it, very sure of herself, a folding ruler opened in a zigzag at her feet; Gaspard on the right pushes up his glasses with a weary sigh. Exactly two characters in the picture.
 Le samedi, elle se présenta au moulin, un crayon sur l'oreille, comme lui. « Je viens mesurer. » Elle empoigna le mètre pliant et le déplia à l'envers, en accordéon, avec beaucoup d'assurance.
 « Cette planche fait quatorze. » « Quatorze quoi ? » « Quatorze ! » Elle mesura la suivante avec son avant-bras, puis avec sa chaussure. « Six bras et deux pieds. Donc à peu près un kilomètre. »
 Gaspard essuya ses lunettes. « Premièrement, on ne mélange pas les bras et les pieds. Deuxièmement… » « Deuxièmement, ton bateau mesure sept Titou de long ! C'est plus pratique : on a toujours un Titou sous la main ! »
 Il ne rit pas. Avant, il aurait ri, et noté « sept Titou » dans son carnet, pour vérifier. Il replia le mètre dans le bon sens. « Tu me fais perdre du temps, Jeanne. »
 Elle rentra à la maison haute la tête droite et le cœur de travers. Dans l'entrée, Titou trônait dans sa charrette. Il lui tendit les bras. Lui, au moins, la trouvait intéressante.
 
-@ On {butte} on a clear May morning, tall grass and buttercups: {jeanne} on the left stands on the wooden bench, pointing at the horizon like an explorer, her other fist on her hip, while {titou} on the right laughs and waves both arms in the air. Exactly two characters in the picture.
+@ On {butte} on a clear May morning, tall grass and buttercups, one single iron street lamp with a dark glass lantern beside the bench: {jeanne} on the left stands on the wooden bench, pointing at the horizon like an explorer, her other fist on her hip, while {titou} on the right laughs and waves both arms in the air. Exactly two characters in the picture.
 Voilà quelqu'un qui ne changerait jamais. Titou avait quatorze mois, une seule boucle sur la tête, et il vivait assis. Il ne mesurait rien. Il ne clouait rien. C'était le compagnon rêvé.
 Dès le dimanche, l'Expédition repartit, à deux. La butte aux Alouettes devint une montagne de glace. « Et alors, soudain… un ours blanc ! Grand comme le beffroi ! » « … froi ! » cria Titou, ravi.
 Il était parfait. Il ne demandait jamais si c'était possible. Il riait aux bons endroits, tapait des mains aux mauvais, et réclamait toujours la suite.
@@ -52,7 +52,7 @@ Suzie enroula une boucle autour de son doigt. « Il veut peut-être descendre ?�
 Alors Jeanne alla chercher deux gros coussins. Elle en cala un à gauche, un à droite, et son frère au milieu, comme un œuf dans sa boîte. Il ne pouvait plus remuer que les sourcils.
 Elle posa ses deux mains sur ses épaules, et appuya. « Voilà. Reste comme tu es. » Suzie ne répondit ni oui, ni oui oui. Elle regardait Jeanne d'un drôle d'air.
 
-@ In front of {maisonhaute} on a still May morning, the wash-house water smooth as glass: {jeanne} in the middle kneels beside the cart at the water's edge, turning her head towards the water, startled, {titou} on the right sits wedged between two big cushions, sulky, and {suzie} stands quietly on the left. Exactly three characters in the picture.
+@ In front of {maisonhaute} on a still May morning, the wash-house water smooth as glass. Only three characters: one single {suzie} stands quietly on the left; {jeanne} kneels in the middle on the stone edge of the wash-house, looking down, startled, at her own reflection in the still water; on the right {titou}, the bald baby in green, sits in his cart, which stands on the stone edge and is as big as a wheelbarrow, squeezed between two big cushions, sulky. Exactly three characters in the picture.
 Le vent était tombé. Dans le bassin, l'eau s'était faite lisse comme une vitre. Jeanne se pencha pour reprendre son naufrage, et quelque chose, dans l'eau, arrêta son regard.
 Il y avait là une fille rousse, les sourcils froncés, les deux mains plantées sur les épaules d'un bébé. Elle appuyait. Le bébé ne riait plus. Il regardait ailleurs, la bouche serrée.
 Jeanne connaissait cet air-là. L'air de dire : ne bouge pas, ne change rien, reste où je t'ai rangé. Elle ne l'avait jamais vu sur sa propre figure. Il ne lui allait pas du tout.

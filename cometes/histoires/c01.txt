@@ -3,14 +3,14 @@ titre: Le vélo sur le toit
 sous: Septembre
 sujet: Être jaloux du nouveau
 
-@ At {ecluse} on a misty early morning in September, a dark green barge glides between the lock gates with {velo} tied down on its flat roof with thick rope. {gaspard} stands on the left bank, shrugging with a doubtful frown, while {eclusiere} on the right turns the crank wheel, laughing. Exactly two characters in the picture.
+@ At {ecluse} on a misty early morning in September, a long dark green barge with a flat roof and a small red wheelhouse at the back fills the lock chamber, large and central, seen from the bank; on its flat roof, an old sky blue bicycle lying on its side, flat on the roof of the barge, both wheels flat against the roof, held down by thick rope tied in three big knots. In the foreground on the left bank {gaspard} stands watching the barge, shrugging with a doubtful frown, a small notebook in one hand. Exactly one character in the picture.
 C'était le matin de la rentrée, et la Flânette fumait comme un bol de chocolat. Sur le quai de l'écluse, Gaspard compta les marches, les bouées, les canards. Tout y était. Rien n'avait bougé de l'été.
 Soudain, une corne résonna. Une péniche verte, que personne ne connaissait, glissa entre les portes. L'éclusière empoigna la manivelle. « Douze tours, pas un de plus », murmura Gaspard, qui comptait avec sa mère.
 Sur le toit de la péniche brillait la sonnette d'un vélo bleu, piqué de rouille, ficelé par trois gros nœuds. Trois ! Pour un vélo qui ne risquait pas de s'envoler.
 Gaspard haussa les épaules. « En voilà un qui ne prend pas soin de ses affaires. » Il sortit son carnet, mouilla la mine de son crayon et nota : un vélo, trois nœuds, zéro bon sens.
 Derrière la vitre de la timonerie, une silhouette immense le regardait, en ciré jaune. Gaspard referma son carnet d'un coup sec. Cette page-là, pourtant, il la rouvrirait.
 
-@ In {cour} on a bright September morning, the cherry tree still covered in green leaves, {jeanne} on the left spreads her arms wide with puffed cheeks, telling a tall tale, {gaspard} in the middle pushes up his glasses with a doubtful look, and {suzie} on the right twists a curl round her finger, smiling. Exactly three characters in the picture.
+@ In {cour} on a bright September morning, the big old tree with its leaves turning yellow, {jeanne} on the left spreads her arms wide with puffed cheeks, telling a tall tale, {gaspard} in the middle pushes up his glasses with a doubtful look, and {suzie} on the right twists a curl round her finger, smiling. Exactly three characters in the picture.
 Dans la cour, le cerisier avait gardé ses feuilles et perdu ses cerises. Gaspard n'eut pas le temps de les regretter : une tignasse rousse fonçait droit sur lui.
 « Vous n'allez pas me croire ! claironna Jeanne. Cet été, j'ai vu la mer ! » Ses joues s'arrondirent comme devant un gâteau d'anniversaire. « Avec des vagues hautes comme le beffroi ! »
 Gaspard rajusta ses lunettes. « Premièrement, c'était l'étang de ta tante. Deuxièmement… » — « Un étang archi-immense ! » Depuis toujours, Jeanne lui coupait la parole avant troisièmement. Depuis toujours, Gaspard faisait semblant d'en être fâché.
@@ -24,7 +24,7 @@ Suzie, sans un mot, poussa sa trousse. Cela fit une place. Le nouveau s'y plia e
 Jeanne se retourna tout entière sur son banc. « La vraie ? Elle est grande comment ? » Le nouveau réfléchit. « On ne voit pas l'autre bord. » Et il ne gonfla même pas les joues.
 Jeanne en resta bouche bée. Gaspard, lui, contemplait le dos rouge de sa voisine. D'ordinaire, c'était vers lui qu'elle se tournait pour savoir si une chose était vraie.
 
-@ In {cour} at bright midday in September, the cherry tree covered in green leaves, {gaspard} sits alone on the low stone wall on the left, scowling as he grips {carnet}, while on the right {jeanne} hops excitedly around {marin}, who stands very still and looks down at her calmly. Exactly three characters in the picture.
+@ In {cour} at bright midday in September, the big old tree with its leaves turning yellow, {gaspard} sits alone on the low stone wall on the left, scowling as he grips {carnet}, while on the right {jeanne} hops excitedly around {marin}, who stands very still and looks down at her calmly. Exactly three characters in the picture.
 À la récréation, Jeanne tourna autour du nouveau comme une guêpe autour d'une tartine. Les ports, les phares, les mouettes : elle voulait tout. Il répondait en trois mots, jamais quatre.
 Sur le muret, Gaspard ouvrit son carnet à une page neuve. Chaque fois que Jeanne parlait au nouveau, un bâton à gauche. Chaque fois qu'elle lui parlait, à lui, un bâton à droite.
 Quand la cloche sonna, il fit le total. Onze à gauche. Trois à droite. Et encore : dans les trois, il y avait « Pousse-toi, Gaspard, je ne vois rien ».

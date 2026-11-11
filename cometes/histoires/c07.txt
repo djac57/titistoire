@@ -3,7 +3,7 @@ titre: Quatre-vingt-dix-neuf marches
 sous: Mars
 sujet: Tricher
 
-@ In {cour} on a showery March morning, the cherry tree still bare with tight buds: {jeanne} on the left crouches by a small hole in the sand, holding out a few marbles, {gaspard} in the middle crosses his arms and shakes his head, and {garance} walks past on the right, chin up. Exactly three characters in the picture.
+@ In {cour} on a showery March morning, the big old tree with small green buds: {jeanne} on the left crouches by a small hole in the sand, holding out a few marbles, {gaspard} in the middle crosses his arms and shakes his head, and {garance} walks past on the right, chin up. Exactly three characters in the picture.
 Mars était arrivé à Virevent avec ses giboulées. Dans la cour, le vieux cerisier n'avait encore que des bourgeons, serrés comme des poings, et l'on jouait aux billes entre deux averses.
 Jeanne avait creusé un trou du talon et secouait trois billes dans ses mains. « Une partie, Gaspard ! Pour de faux. À la fin, chacun reprend les siennes. »
 « Pour de faux, ça ne compte pas. Premièrement, on ne gagne rien. Deuxièmement… » « Deuxièmement, on s'amuse ! » Gaspard remonta ses lunettes. « Seul compte ce qu'on gagne. »
@@ -31,14 +31,14 @@ Au coin du pupitre, un bout de papier plié dépassait du carnet, large comme un
 Il sentit ses oreilles chauffer. Mais Garance ne leva pas le doigt. Elle se tourna vers la fenêtre et contempla longuement les bourgeons du cerisier, elle qui ne perdait jamais une seconde.
 « Elle sèche sur la quatorzième », pensa Gaspard. Il rendit sa copie le premier. Jamais il n'avait eu si peu de plaisir à avoir tout juste.
 
-@ In {cour} on a March afternoon just after a shower, the cherry tree in bud: {garance} on the right skips over a puddle, swinging her music case at arm's length with a light little smile, while {gaspard} on the left stands still by the school door, holding his closed notebook and frowning, puzzled. Exactly two characters in the picture.
+@ In {cour} on a March afternoon just after a shower, the big old tree with small green buds: {garance} on the right skips over a puddle, swinging her music case at arm's length with a light little smile, while {gaspard} on the left stands still by the school door, holding his closed notebook and frowning, puzzled. Exactly two characters in the picture.
 À quatre heures, Monsieur Grison rendit les copies, les moins bonnes d'abord, pour faire durer. Il n'en resta que deux. « Garance : dix-neuf. Une retenue oubliée à la quatorzième. »
 « Gaspard : vingt sur vingt. Pas une rature. Samedi, huit heures et demie, au pied du beffroi. » On applaudit. Jeanne applaudit comme trente, debout sur son banc.
 Gaspard attendit la joie. Il l'avait tant imaginée, cette minute, qu'il en connaissait le goût : un goût de berlingot. Elle n'avait le goût de rien. Dans sa poche, le carnet pesait comme une brique.
 Et Garance ? Ni yeux rouges, ni menton qui tremble. Elle sortit en balançant sa serviette à musique à bout de bras, comme un panier, et sautilla par-dessus une flaque.
 Gaspard ouvrit son carnet pour écrire « premier ». Le papier plié lui glissa sous les doigts. Il referma le carnet sans rien écrire. Il rendrait la feuille lundi. Ou jamais.
 
-@ On {place} early on a clear March morning, long soft shadows: at the foot of the belfry, {colimacon} on the left slowly turns a big iron key in a small arched wooden door, and {gaspard} on the right waits behind him, head tilted far back, looking up at the tower with an uneasy face. Exactly two characters in the picture.
+@ On the cobbled main square of a small old French river town early on a clear March morning, long soft shadows, close view of the base of a tall cream stone belfry tower filling the left of the picture and rising out of the top of the frame, a small arched wooden door set in the tower wall: {colimacon} on the left slowly turns a big iron key in that door, and {gaspard} on the right waits behind him, head tilted far back, looking up at the tower with an uneasy face. Exactly two characters in the picture.
 Le samedi, Monsieur Colimaçon l'attendait devant la petite porte du beffroi. Il était si vieux et si plié que sa barbe blanche frôlait ses genoux. Il mit un long moment à trouver la serrure.
 « Bonjour, monsieur. C'est moi, le vainqueur. » Le mot lui resta en travers. Le vieil horloger hocha son chapeau melon, lentement. « Ah. Bien. Montons. Nous ne sommes pas en avance. »
 L'escalier s'enroulait dans la tour comme l'intérieur d'un coquillage. Monsieur Colimaçon posa sa canne sur la première marche. Puis un pied. Puis l'autre. Puis il s'arrêta, et regarda le mur avec intérêt.
@@ -52,7 +52,7 @@ Dans cet escalier, il n'y avait personne à qui parler que sa propre tête. « V
 À la soixantième, sa victoire pesait plus lourd qu'un cartable de rentrée. À la soixante-dixième, il aurait volontiers échangé son vingt contre un honnête quatorze.
 « Vous faites ça tous les jours ? » « Depuis cinquante-deux ans. » « Et vous ne vous ennuyez pas ? » Le vieil homme considéra la question pendant une marche entière. « Je n'ai pas le temps. »
 
-@ Inside the open bell chamber at the top of an old belfry at bright midday in early spring, a big bronze bell with a thick rope hanging down, wide open arches: {colimacon} on the left winds the clockwork with a big key, {gaspard} on the right stares at the rope, arms by his sides. Exactly two characters in the picture.
+@ Inside the open bell chamber at the top of an old belfry at bright midday in early spring, wide open arches, a big bronze bell with one thick straight bell rope hanging down to the floor, its end plain and frayed: {colimacon} on the left, wearing his tiny black bowler hat, turns a big key in a brass clockwork mechanism on the wall; {gaspard} on the right stares at the straight rope, arms by his sides. Exactly two characters in the picture.
 « Quatre-vingt-dix-neuf », annonça Gaspard. Le vent entrait par les arcades. La comète dorée de la girouette grinçait au-dessus d'eux, et la grosse cloche attendait, sa corde pendue jusqu'au plancher.
 Monsieur Colimaçon remonta l'horloge. Cela prit un certain nombre de tours de clé, que Gaspard, pour une fois, oublia de compter. Tout en bas, l'écluse n'était pas plus grande qu'une boîte d'allumettes.
 « Monsieur, pourquoi elle retarde, votre horloge ? Cinq minutes. Tous les jours. » L'horloger rangea sa clé. Il avait l'air de quelqu'un à qui l'on pose enfin une bonne question.
