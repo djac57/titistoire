@@ -488,8 +488,11 @@ document.getElementById('nextBtn').addEventListener('click',()=>{ auto=false;set
 /* ===== MODE LIBRE (via worker, sans clé navigateur) ===== */
 function gstatus(m){ document.getElementById('genStatus').textContent=m||''; }
 function libreImgs(hero,lieu,pages){
+  // OPTION B : Pollinations (gratuit, illimité, mais watermark) — une image par page, en direct
   const seed=seedFrom(hero||lieu||'conte'), desc=(hero||'little animal')+(lieu?(' '+lieu):'');
-  return pages.map(txt=> AIW+"/img?"+new URLSearchParams({seed:String(seed),p:LIBRE_STYLE+desc+". Scene of this page: "+txt+" No text, no letters."}).toString());
+  return pages.map((txt,i)=> "https://image.pollinations.ai/prompt/"
+    +encodeURIComponent(LIBRE_STYLE+desc+". Scene: "+txt+" No text.")
+    +"?width=1024&height=704&nologo=true&model=flux&seed="+(seed+i)+"&referrer=titistoire");
 }
 async function generateFree(){
   const hero=document.getElementById('fHero').value.trim(),lieu=document.getElementById('fLieu').value.trim(),lecon=document.getElementById('fLecon').value.trim();
