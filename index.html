@@ -365,12 +365,19 @@ function librePass(){ try{return localStorage.getItem('titi_libre_pass')||'';}ca
 function showLibreGate(){ const unl=!!librePass(); const lk=document.getElementById('libreLock'), fm=document.getElementById('libreForm');
   if(lk) lk.hidden=unl; if(fm) fm.hidden=!unl; const lm=document.getElementById('lockMsg'); if(lm&&!unl) lm.textContent=''; }
 document.getElementById('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
-document.getElementById('libreUnlock').addEventListener('click',()=>{
-  const v=document.getElementById('librePass').value.trim();
-  if(!v){ document.getElementById('lockMsg').textContent='Entre un mot de passe.'; return; }
-  try{ localStorage.setItem('titi_libre_pass',v); }catch(e){}
-  showLibreGate();
-});
+async function doUnlock(){
+  const el=document.getElementById('librePass'), v=el.value.trim(), lm=document.getElementById('lockMsg'), btn=document.getElementById('libreUnlock');
+  if(!v){ lm.textContent='Entre un mot de passe.'; return; }
+  lm.textContent='⏳ Vérification…'; btn.disabled=true;
+  try{
+    const r=await fetch(AIW+"/story?check=1&pass="+encodeURIComponent(v));
+    if(r.ok){ try{localStorage.setItem('titi_libre_pass',v);}catch(e){} lm.textContent='🔓 Déverrouillé ✨'; setTimeout(showLibreGate,700); }
+    else { lm.textContent='🔒 Mot de passe incorrect.'; }
+  }catch(e){ lm.textContent='😅 Problème de connexion, réessaie.'; }
+  btn.disabled=false;
+}
+document.getElementById('libreUnlock').addEventListener('click',doUnlock);
+document.getElementById('librePass').addEventListener('keydown',e=>{ if(e.key==='Enter') doUnlock(); });
 document.getElementById('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
 fillGrid('grid1',PERSOS, it=>{ choice.perso=it;
     fillGrid('grid2',UNIVERS, u=>{choice.univers=u;goto('s3');}, u=>`assets/${it.id}_${u.id}.png`); // vignettes avec LE héros choisi
@@ -390,7 +397,8 @@ function sceneCandidates(){
     out.push(`assets/${h}_${u}.png`);                                                    // ambiance (repli)
   }
   if(choice.sceneImg) out.push(choice.sceneImg);                                         // ancienne image unique
-  if(u) out.push(`assets/filou_${u}.png`);                                               // dernier repli : une vraie illustration du décor (jamais d'emoji)
+  // mode libre : si l'image flux échoue, PAS de personnage pré-dessiné (ne jamais remettre Filou !)
+  // -> on laisse renderScene retomber sur le décor + l'emoji du bon héros.
   return out;
 }
 function renderScene(){
