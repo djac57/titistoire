@@ -4,7 +4,8 @@
 Format d'un fichier d'histoires :
     === <heros>_<univers>        ouvre une histoire
     titre: ...  theme: ...  sujet: ...  famille: oser|coeur|autres|grandir
-    @ <description de l'illustration, en anglais>   ouvre un tableau (= 1 image, 1 piste audio)
+    @ <description de l'illustration, en anglais>   ouvre un tableau (= 1 piste audio) ; image de sa 1re page
+    > <description, en anglais>  image propre à la page qui SUIT (pages 2 et 3 du tableau) ; facultatif
     <texte>                      chaque ligne = 1 page lue à voix haute
     # ...                        commentaire
 
@@ -61,14 +62,24 @@ def load():
                     p = expand(line[1:].strip(), cur["univ"], c)
                 except KeyError as e:
                     raise ValueError(f"{where} : {e.args[0]}")
-                cur["scenes"].append({"prompt": c["style"] + p + "." + c["fin"], "desc": p, "pages": []})
+                cur["scenes"].append({"prompt": c["style"] + p + "." + c["fin"], "desc": p, "pages": [], "imgs": [], "_att": None})
+            elif line.startswith(">"):
+                if not cur["scenes"]:
+                    raise ValueError(f"{where} : « > » avant le premier tableau")
+                try:
+                    cur["scenes"][-1]["_att"] = expand(line[1:].strip(), cur["univ"], c)
+                except KeyError as e:
+                    raise ValueError(f"{where} : {e.args[0]}")
             elif not cur["scenes"] and re.match(r"^(titre|theme|sujet|famille):", line):
                 k, _, v = line.partition(":")
                 cur[k] = v.strip()
             else:
                 if not cur["scenes"]:
                     raise ValueError(f"{where} : page avant le premier tableau « @ »")
-                cur["scenes"][-1]["pages"].append(line)
+                sc = cur["scenes"][-1]
+                sc["pages"].append(line)
+                d = sc["_att"]; sc["_att"] = None            # image propre à cette page (None = celle du tableau)
+                sc["imgs"].append({"prompt": c["style"] + d + "." + c["fin"], "desc": d} if d else None)
     ids = [s["id"] for s in stories]
     if len(ids) != len(set(ids)):
         raise ValueError("identifiant d'histoire en double")

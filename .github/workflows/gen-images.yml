@@ -9,6 +9,9 @@ on:
     - cron: "7 0 * * *"
     - cron: "37 1 * * *"
     - cron: "7 4 * * *"
+  push:                       # lancement à la demande : modifier la date dans .github/gen-images.run
+    branches: [main]
+    paths: ['.github/gen-images.run']
   workflow_dispatch:
     inputs:
       only:
@@ -29,7 +32,7 @@ concurrency:
 jobs:
   gen:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 340
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

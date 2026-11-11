@@ -14,7 +14,9 @@ for p in pb:
 if pb:
     sys.exit(1)
 
-data = {s["id"]: {"t": s["titre"], "s": s["sujet"], "f": s["famille"], "sc": [sc["pages"] for sc in s["scenes"]]} for s in stories}
+# "im" : pour chaque tableau, les pages (à partir de la 2e) qui ont leur propre illustration, ex. "bc"
+data = {s["id"]: {"t": s["titre"], "s": s["sujet"], "f": s["famille"], "sc": [sc["pages"] for sc in s["scenes"]],
+                  "im": ["".join("abcdef"[k] for k, im in enumerate(sc["imgs"]) if k and im) for sc in s["scenes"]]} for s in stories}
 out = titi.ROOT / "stories.js"
 out.write_text("/* Généré par tools/build_stories.py depuis histoires/*.txt — ne pas modifier à la main. */\n"
                "window.TITI_STORIES=" + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")

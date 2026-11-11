@@ -120,7 +120,13 @@ def main():
             sig = zlib.crc32(sc["desc"].encode("utf-8"))
             if nom in refaire or not (f.exists() and f.stat().st_size > 8000) or sigs.get(nom, sig) != sig:
                 jobs.append((f, sc["prompt"], nom, sig))
-    total = len(list(titi.load())) * 8
+            for k, im in enumerate(sc["imgs"]):          # images propres aux pages 2, 3… : <id>_<n>b.jpg, <id>_<n>c.jpg
+                if k == 0 or not im:
+                    continue
+                nom2 = nom + "abcdef"[k]; f2 = OUT / f"{nom2}.jpg"; sig2 = zlib.crc32(im["desc"].encode("utf-8"))
+                if nom2 in refaire or not (f2.exists() and f2.stat().st_size > 8000) or sigs.get(nom2, sig2) != sig2:
+                    jobs.append((f2, im["prompt"], nom2, sig2))
+    total = sum(1 + sum(1 for k, im in enumerate(sc["imgs"]) if k and im) for s in titi.load() for sc in s["scenes"])
     print(f"🎨 Source : {SRC} — {len(jobs)} image(s) à faire", flush=True)
     ok = rate = 0
     for f, prompt, nom, sig in jobs:
