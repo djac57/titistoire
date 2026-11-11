@@ -1,3 +1,5 @@
-Wed Nov 11 15:39:00 UTC 2026
-fiches=1
-modele=@cf/black-forest-labs/flux-2-dev
+Wed Nov 11 15:49:23 UTC 2026
+parallele=1
+tout=1
+modele=@cf/black-forest-labs/flux-2-klein-9b
+sortie=assets/scenes
