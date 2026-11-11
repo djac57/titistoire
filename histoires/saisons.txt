@@ -9,7 +9,7 @@ theme: le plaisir de donner est plus grand que celui de recevoir
 sujet: Le plaisir de donner
 famille: coeur
 
-@ In a cosy burrow room with snow at the window, {filou} writes a very long wish list that rolls across the floor, while {noisette} looks at it with raised eyebrows
+@ In a cosy burrow room with snow at the window on a winter evening, {filou} sits with a pencil beside a very long blank paper roll that unrolls across the whole floor, while {noisette} looks at it with raised eyebrows
 C'est bientôt Noël dans la forêt des Quatre-Chênes. La neige a tout recouvert, et Filou écrit sa liste. Elle fait déjà trois mètres de long.
 > In a cosy burrow room with snow at the window, {filou} daydreams with sparkling eyes, chin on one paw, a pencil in the other, a very long blank paper roll across the floor
 « Un vélo. Un tambour. Un bateau à voiles. Un deuxième vélo, au cas où. Et la plus grosse boîte de chocolats du monde. »
@@ -20,47 +20,47 @@ C'est bientôt Noël dans la forêt des Quatre-Chênes. La neige a tout recouver
 La nuit de Noël, Filou ne dort pas. Il s'est caché derrière la cheminée avec une lampe. Il veut voir ses cadeaux arriver. Tous. En premier.
 > At night inside a cosy burrow lit by a small lamp, {filou} crouching behind the fireplace jumps with surprise, ears pricked up, as snow falls outside the round window
 Minuit sonne. Et soudain, dehors : cling, cling, cling… BOUM ! Un grand bruit dans la neige. Puis une grosse voix : « Saperlipopette ! »
-> In a snowy clearing at night, {perenoel}, a bear and not a human, rubs his back beside a red sleigh stuck nose-first in a snowdrift, nobody else around
+> In a snowy clearing at night, {perenoel}, dressed in his buttoned red coat and red hat, rubs his back beside a red sleigh stuck nose-first in a snowdrift, nobody else around
 Filou court à la fenêtre. Dans la clairière, il y a un traîneau planté dans une congère. Et à côté, un très vieil ours blanc en manteau rouge, qui se frotte le dos.
 
-@ In a snowy clearing at night, {perenoel} sits tired on a red sleigh next to {gustave} who has a bandaged leg, while {filou}, the only fox, watches
+@ In a snowy clearing at night, {perenoel}, dressed in his buttoned red coat and red hat, sits tired on a red sleigh next to {gustave}, who has a bandaged front leg, while {filou} watches with wide eyes
 « Le Père Noël ! » Filou n'en croit pas ses yeux. Le Père Noël a l'air bien fatigué. Son renne, le vieux Gustave, s'est tordu la patte en atterrissant.
-> In a snowy clearing at night, {perenoel} sighs sadly with paws spread, looking at an empty harness lying in the snow, while {filou}, the only fox, listens
+> In a snowy clearing at night, {perenoel}, dressed in his buttoned red coat and red hat, sighs sadly with paws spread, looking at an empty harness lying in the snow, while {filou} listens beside him
 « Me voilà bien, soupire le Père Noël. Toute la forêt à livrer avant le matin, et plus personne pour tirer le traîneau. »
-> In a snowy clearing at night, {filou} stands on tiptoe beside a big sack overflowing with presents, staring at one enormous wrapped present on the very top, tempted, one paw half raised
+> In a snowy clearing at night, {filou} stands on tiptoe beside a big brown sack overflowing with wrapped presents, staring at one very big wrapped present with a red ribbon on the very top, tempted, one paw half raised
 Filou regarde la hotte. Elle déborde. Tout en haut, il y a un énorme paquet avec son nom dessus. Il pourrait le prendre, et retourner se coucher.
 
-@ On a snowy night among fir trees, {filou} walks in front in a harness, pulling with a rope a red sleigh in which {perenoel} sits with a sack of presents
+@ On a snowy night among fir trees, {filou} walks in front in a harness, pulling with a rope a red sleigh in which {perenoel}, dressed in his buttoned red coat and red hat, sits with a brown sack of presents
 Mais le Père Noël a les moustaches qui tremblent. Et Filou s'entend dire : « Je peux tirer, moi. Je suis petit, mais je connais tous les raccourcis. »
 > On a snowy night among fir trees, a close view of {filou} leaning forward in a harness, straining and puffing, while behind him {gustave} sitting at the back of the red sleigh points the way with his hoof
 Il passe le harnais. Han ! C'est lourd. La neige crisse. Le traîneau glisse entre les sapins, et le vieux Gustave, assis à l'arrière, donne le chemin.
-> On a snowy night in front of a little tree house with a round door, {perenoel}, a bear and not a human, hands a small wrapped present to {filou}
+> On a snowy night in front of a little tree house with a round door, {perenoel}, dressed in his buttoned red coat and red hat, hands a small wrapped present to {filou}
 Première maison : celle de Noisette. Le Père Noël tend un petit paquet à Filou. « Va, renard. Sans bruit. »
 
-@ Inside a cosy little tree house at night, {filou} tiptoes to place a small wrapped present beside a sleeping red squirrel curled in her bed, smiling tenderly
+@ Inside a cosy little tree house at night, {filou} tiptoes to place a small wrapped present beside the pillow of {noisette}, who sleeps curled up in her bed, smiling in her sleep
 Filou entre sur la pointe des pattes. Noisette dort, roulée en boule. Il pose le paquet près de son oreiller. Elle sourit dans son sommeil, comme si elle savait.
-> Inside a cosy little tree house at night, {filou} stands still with both paws on his chest and a wide warm smile, eyes shining, beside the bed where a red squirrel sleeps with a small present by her pillow
+> Inside a cosy little tree house at night, {filou} stands still with both paws on his chest and a wide warm smile, eyes shining, beside the bed where {noisette} sleeps curled up with a small wrapped present by her pillow
 Ça fait une drôle de chose dans la poitrine de Filou. Comme une gorgée de chocolat chaud. « Encore ! » dit-il.
 > On a snowy night in a forest village, {filou} happily places a honey pot with a ribbon on a doorstep, a pair of ice skates and a very thick book tied with ribbons waiting in the red sleigh behind him
 Chez Nestor, un pot de miel avec un ruban. Chez Rosie, des patins. Chez Plume, un livre gros comme elle. À chaque paquet déposé, la gorgée de chocolat chaud revient.
 
-@ On a snowy night in front of a small undecorated den under fir trees, {perenoel} searches worriedly in his almost empty sack, in which only one very big present remains, {filou} watching
+@ On a snowy night in front of a plain bare earth den entrance under fir trees, with no decoration, not a house, {perenoel}, dressed in his buttoned red coat and red hat, searches worriedly in his almost empty brown sack, {filou} watching
 Il ne reste qu'une maison : la tanière de Loupiot, au bout du chemin des sapins. Le Père Noël fouille sa hotte. Il fouille encore. Il pâlit sous sa barbe.
-> On a snowy night in front of a small den under fir trees, {perenoel} holds an empty sack upside down, looking sad, while {filou}, the only fox, stands beside him
+> On a snowy night in front of a plain bare earth den entrance under fir trees, with no decoration, {perenoel}, dressed in his buttoned red coat and red hat, peers sadly into his almost empty brown sack, while {filou} stands beside him
 « Il manque un paquet. Il a dû tomber quand j'ai atterri… Pauvre petit loup. C'est son tout premier Noël. »
-> On a snowy night under fir trees, a single very big wrapped present with a red ribbon sits alone at the bottom of an open sack, {filou} peering over the edge at it with a troubled face
+> On a snowy night under fir trees, {filou} stands in the snow next to an open brown sack lying on the ground and looks down into it with a troubled face; inside the sack, one very big wrapped present with a red ribbon; the fox is not inside any box
 Dans la hotte, il ne reste qu'un seul cadeau. Le plus gros. Celui avec écrit dessus : Filou.
 
-@ At the end of the night on the snow, {filou} stands holding a very big wrapped present and looks sadly at a small bare den under fir trees
+@ At the end of the night on the snow, {filou} stands holding one very big wrapped present with a red ribbon and looks sadly at a plain bare earth den entrance under fir trees, with no decoration
 Filou regarde son paquet. Il devine le vélo, rien qu'à la forme. Celui qu'il attend depuis un an. Il regarde la petite tanière, sans une seule guirlande.
-> At the end of the night on the snow, {filou} kneels by a very big wrapped present, carefully holding a pencil against its blank paper tag, tongue out, in front of a small den without any decoration
+> At the end of the night on the snow, {filou} kneels by one very big wrapped present with a red ribbon, holding a pencil against a small blank paper tag tied to it, tongue out, in front of a plain bare earth den entrance under fir trees, with no decoration
 Il prend un crayon. Il barre « Filou ». Et il écrit, en s'appliquant : « Loupiot ». Puis il porte le paquet à l'intérieur, sans bruit.
-> At pink dawn on the snow, {filou} walks out of a small den with empty paws and a quiet smile, while {perenoel}, a bear and not a human, waits beside a red sleigh
+> At pink dawn on the snow in front of a plain bare earth den entrance, {perenoel}, dressed in his buttoned red coat and red hat, gently rests one big paw on the head of {filou}, who smiles quietly with empty paws, a red sleigh beside them
 Quand il ressort, le Père Noël ne dit rien. Il pose juste sa grosse patte sur la tête du renard. Et le jour se lève, tout rose, sur la neige.
 
-@ On Christmas morning in a cosy burrow, {filou} sits under a small decorated fir tree holding a tiny opened box and a small golden sleigh bell, smiling softly
+@ On Christmas morning in a cosy burrow, {filou} sits on the bare floor under a small decorated fir tree, holding one tiny open box in one paw and a small golden sleigh bell in the other, smiling softly, no other presents anywhere
 Le matin de Noël, sous le sapin de Filou, il n'y a pas de vélo. Il y a un tout petit paquet. Dedans : un grelot du traîneau, et un mot. « Pour mon meilleur renne. »
-> On a snowy Christmas morning in a forest village, {loupiot} rides a red bicycle alone, waving one paw, while {filou}, the only fox, stands in a doorway watching and smiling
+> On a snowy Christmas morning in a forest village, {loupiot} rides a red bicycle alone, waving one paw, while {filou} stands in a doorway watching and smiling
 Dehors, on entend des cris de joie. C'est Loupiot qui passe sur un vélo rouge, en zigzag, parce qu'il ne sait pas encore en faire. « Filou ! Regarde ! Le Père Noël a pensé à moi ! »
 > On a snowy Christmas morning, {filou} ties a small golden sleigh bell to his green scarf with a proud happy smile, {loupiot} waiting beside him on a red bicycle, lanterns glowing in the forest village behind
 Filou accroche le grelot à son écharpe et court derrière le vélo pour le tenir. Cling, cling, cling. L'année prochaine, sa liste sera beaucoup plus courte. Mais il y aura beaucoup plus de noms dessus.
@@ -71,16 +71,16 @@ theme: les vrais amis ne nous oublient pas
 sujet: Les amis qui pensent à nous
 famille: coeur
 
-@ In a snowy forest clearing, {nestor} yawns hugely while {filou-}, {rosie-} and {plume-} decorate a fir tree
+@ In a snowy forest clearing on a winter afternoon, {nestor} yawns hugely while {filou-}, {rosie-} and {plume-} decorate a fir tree, standing apart as separate animals, each fully visible, the owl with no long ears
 Les ours, l'hiver, ça dort. C'est comme ça. Dès la première neige, les paupières de Nestor deviennent lourdes, lourdes, et il ronfle jusqu'au printemps.
-> In a snowy forest clearing, {nestor}, sits listening to exactly {filou-}, {rosie-} and {plume-}
+> In a snowy forest clearing on a winter afternoon, {nestor} sits listening to {filou-}, {rosie-} and {plume-}, who tell him about Christmas with big gestures, standing apart as separate animals, each fully visible
 Voilà pourquoi Nestor n'a jamais vu Noël. Jamais. Chaque année, ses amis lui racontent : le sapin, les bougies, les chansons, le gâteau à la cannelle.
-> In a snowy forest clearing, {nestor} stands solemnly with one paw raised and the other on a honey pot, making a promise, eyes determined, while {filou-}, {rosie-} and {plume-} watch
+> In a snowy forest clearing on a winter afternoon, {nestor} stands solemnly with one paw raised and the other on a honey pot, eyes determined, while {filou-}, {rosie-} and {plume-} watch, standing apart as separate animals, each fully visible
 « Cette année, dit Nestor, je ne dormirai pas. Je le jure sur mon pot de miel. Je veux voir Noël, moi aussi. »
 
-@ In the snow, {nestor} with red tired eyes and a pile of snow on his head tries to stay awake, his scarf on backwards, while {rosie-} pulls his paw to make him run and {filou-} makes a funny face
+@ In a snowy clearing by day, {nestor} with red tired eyes drops a pawful of snow down his own neck to stay awake, shivering, snowflakes falling around him, nobody else around
 Pour rester éveillé, il essaie tout. Il se met de la neige dans le cou. Brrr ! Il compte les flocons. Il chante très fort. Il dort debout quand même, au milieu de la chanson.
-> In a snowy clearing, {nestor} has dozed off standing up, eyes closed and mouth open, while {rosie-}, {filou-} and {plume-} crowd around him, waving their arms to wake him
+> In a snowy clearing by day, {nestor} has dozed off standing up, eyes closed and mouth open, while three separate animals around him wave their arms to wake him, each fully visible: {rosie-} with her tiny round white tail, {filou-} and {plume-}
 Rosie lui fait faire des tours de clairière en courant. Filou lui raconte des blagues. Plume lui pose mille questions. « Nestor ? Nestor ! » « Hein ? Je ne dormais pas. Je réfléchissais les yeux fermés. »
 > In a snowy clearing at dusk, {nestor} stands bravely with very red tired eyes and his blue scarf tied on backwards, fists clenched with determination, a half-decorated fir tree and falling snow behind him
 Plus que trois jours avant Noël. Nestor tient bon. Il a les yeux tout rouges et il met son écharpe à l'envers, mais il tient bon.
@@ -92,37 +92,37 @@ Il goûte la pâte du gâteau à la cannelle. Deux fois. Trois fois, pour être 
 > In the evening inside a cosy room, {nestor} sits down on a stool close to a crackling fireplace, holding his paws out to the flames, his eyelids drooping heavily, snow at the window
 La veille du grand soir, il s'assoit une minute près du feu. Juste une minute. Pour se réchauffer les pattes.
 
-@ By a fireplace, {nestor}, sleeps sitting, eyes closed, while {rosie-} pulls his ear
+@ In the evening inside a cosy room by a crackling fireplace, {nestor} sleeps sitting on a stool, eyes closed, while {rosie-} pulls his ear and {filou-} blows a small toy trumpet, standing apart as separate animals, each fully visible
 « Rrrrron… » Ses amis le secouent. Rosie lui tire l'oreille. Filou joue de la trompette. Plume lui chatouille le nez avec une plume. Rien à faire. Un ours qui dort, c'est une montagne.
-> By a fireplace, {rosie-}, {filou-} and {plume-} stand side by side looking fondly and sadly at {nestor}, who sleeps with a smile and cake crumbs on his muzzle, the rabbit's ears drooping
+> In the evening inside a cosy room by a fireplace, {rosie-}, {filou-} and {plume-} stand side by side as separate animals, each fully visible, looking fondly and sadly at {nestor}, who sleeps on a stool with a smile and cake crumbs on his muzzle
 « Il va tout rater, dit Rosie. Il sera si triste. » Ils regardent leur gros ami, qui sourit en dormant, le museau plein de cannelle.
-> By a fireplace, {plume-} raises a wing toward {filou-} and {rosie-}; behind them sleeps {nestor}
+> In the evening inside a cosy room by a fireplace, {plume-} raises one wing and speaks softly to {filou-} and {rosie-}, the three standing apart as separate animals, each fully visible; behind them {nestor} sleeps on a stool
 « Alors, dit Plume tout doucement, si Nestor ne peut pas venir à Noël… »
 
 @ In a snowy forest at dusk, {filou-}, {rosie-} and {plume-} pull a wooden sledge carrying sleeping {nestor-}, toward a den
 À trois, ils le hissent sur une luge. Han ! Ils le tirent jusqu'à sa tanière, ils le bordent sous trois couvertures. Il ne se réveille même pas.
-> In a snowy clearing at night, {filou-}, {rosie-} and {plume-} sing beside a big Christmas tree glowing with candles, a long table with one big empty chair visible behind them
+> In a snowy clearing at night, {filou-}, {rosie-} and {plume-} sing beside a big Christmas tree glowing with candles, standing apart as separate animals, each fully visible, a long table with one big empty chair behind them
 Puis c'est Noël. Il y a le sapin, les bougies, les chansons. C'est très beau. Mais à table, il y a une grande chaise vide, et tout le monde la regarde un peu.
-> At a Christmas table with candles and an almost finished cinnamon cake, {filou-} stands up with a paw raised, {rosie-} jumps up too, and {plume-} is already wrapping a scarf around her neck
+> At night in a snowy clearing, at a Christmas table with candles and an almost finished cinnamon cake, {filou-} stands up with a paw raised, {rosie-} jumps up too, and {plume-} is already wrapping a scarf around her neck, standing apart as separate animals, each fully visible
 Après le gâteau, Filou se lève. « J'ai une idée. » Rosie se lève aussi. « J'ai la même. » Plume a déjà son écharpe.
 
-@ Inside a cosy den at night, {filou-}, {rosie-} and {plume-} tiptoe around a big sleeping brown bear cub under blankets, placing a tiny Christmas tree with a star, three presents and a slice of cake
+@ Inside a cosy den at night, {filou-}, {rosie-} and {plume-} tiptoe as separate animals, each fully visible, around a bed where {nestor-} lies fast asleep under blankets with eyes closed, and set a tiny Christmas tree with a star beside it
 Cette nuit-là, à pas de loup, ils entrent dans la tanière. Ils posent un petit sapin près du lit. Ils accrochent une étoile. Ils glissent trois paquets sous l'oreiller.
-> Inside a cosy den at night, {filou-} and {rosie-} set down a plate with a big slice of cake wrapped in a cloth beside a tiny Christmas tree, {plume-} watching {nestor-} asleep under blankets
+> Inside a cosy den at night, {filou-} and {rosie-} set down a plate with a big slice of cake wrapped in a cloth beside a tiny Christmas tree, {plume-} watching {nestor-}, who lies in bed under blankets, eyes closed, fast asleep, each animal separate and fully visible
 Et sur une assiette, ils laissent la plus grosse part du gâteau à la cannelle. Bien emballée, pour qu'elle attende.
-> Inside a cosy den at night, {nestor-} asleep under three blankets wiggles his nose and smiles in his sleep, a tiny Christmas tree with a star beside the bed, snow falling outside the doorway
+> Inside a cosy den at night, {nestor-}, alone in his bed and lying fast asleep under three blankets with eyes closed, wiggles his nose and smiles, a tiny Christmas tree with a star beside the bed, snow falling outside the doorway, nobody else in the picture
 Nestor remue le nez dans son sommeil. « Mmmh… Noël… », marmonne-t-il. Et il se rendort, pendant que la neige tombe sur la forêt.
 
-@ On a sunny spring morning inside a den, {nestor-}, sits up in bed, startled, flowers and melted snow visible through the doorway
+@ On a sunny spring morning inside a den, {nestor-} sits up in bed, startled, flowers and melted snow visible through the doorway
 Un matin, un rayon de soleil lui chatouille l'oreille. Les oiseaux chantent. La neige a fondu. Nestor ouvre un œil… et se dresse d'un bond. « NOËL ! J'ai raté Noël ! »
 > On a sunny spring morning inside a den, {nestor-} with wet eyes leans toward a tiny Christmas tree with a star, sniffing a slightly dry slice of cake on a plate, three small presents on his pillow
 Il a une grosse boule dans la gorge. Puis il voit le petit sapin. L'étoile. Les trois paquets. Et la part de gâteau, un peu sèche, qui sent encore la cannelle.
-> On a sunny spring morning inside a den, {nestor-} sits among torn wrapping paper, holding a child's drawing of four animal friends in one paw and a huge alarm clock in the other, a new striped scarf on his knees, smiling
+> On a sunny spring morning inside a den, {nestor-} sits among torn wrapping paper, holding a child's drawing of a bear, a fox, a rabbit and an owl in one paw and a huge alarm clock with a plain blank face in the other, a new striped scarf on his knees, smiling
 Dans le premier paquet, une écharpe. Dans le deuxième, un dessin d'eux quatre. Dans le troisième, un réveil énorme, avec un mot de Filou : « Pour l'année prochaine. »
 
-@ In a spring clearing full of primroses and butterflies, {filou-}, {rosie-} and {plume-} wearing red Christmas hats sing around lit candles with a delighted {nestor-} eating cake
+@ In a spring clearing full of primroses and butterflies by day, {filou-}, {rosie-} and {plume-} wearing red Christmas hats wait around lit candles, standing apart as separate animals, each fully visible, as a delighted {nestor-} walks toward them
 Nestor sort de sa tanière, le cœur battant. Dans la clairière pleine de primevères, ses amis l'attendent. Ils ont remis leurs bonnets rouges. Ils ont rallumé les bougies.
-> In a spring clearing with trees in blossom, {filou-}, {rosie-} and {plume-} in red Christmas hats sing with wide open mouths, butterflies fluttering around the lit candles, while {nestor-} claps along
+> In a spring clearing with trees in blossom by day, exactly four animals, standing apart as separate animals, each fully visible: {filou-}, {rosie-} and {plume-} in red Christmas hats sing with wide open mouths around lit candles, butterflies fluttering, while {nestor-} claps along
 « Joyeux Noël, Nestor ! » Ils chantent toutes les chansons, un peu faux, sous les arbres en fleurs. C'est le seul Noël du monde où il y a des papillons.
 > In a spring clearing full of primroses, {nestor-} eats his slice of cake with closed eyes and a blissful smile, {filou-}, {rosie-} and {plume-} in red Christmas hats cuddled against him
 Nestor mange sa part de gâteau en fermant les yeux. « Alors c'est ça, Noël, dit-il. Je croyais que c'était un jour. Mais c'est des amis. »
@@ -133,60 +133,60 @@ theme: le plus beau cadeau est celui qu'on fait avec le cœur
 sujet: Le cadeau fait avec le cœur
 famille: coeur
 
-@ In a snowy village street, {rosie} presses her nose against a shop window where a shiny golden teapot sparkles, {margot} the shopkeeper behind the glass
+@ In a snowy village street at dusk, {rosie} presses her nose against a shop window where a shiny golden teapot sparkles, {margot} standing behind the glass inside the shop
 Dans trois jours, c'est Noël. Rosie veut offrir à sa maman le plus beau cadeau de toute la forêt. Elle l'a vu dans la vitrine de Margot la pie : une théière dorée, qui brille comme un soleil.
-> In a cosy bedroom with snow at the window, {rosie} kneels beside a broken piggy bank, looking dismayed at what fell out: two buttons, a pebble and one single small coin on the floor
+> In a cosy bedroom with snow at the window, {rosie} kneels beside a small pink piggy bank broken into pieces on the floor, looking dismayed at what fell out: two buttons, a pebble and one single small coin
 Elle casse sa tirelire. Il en tombe deux boutons, un caillou, et une seule petite pièce. La théière coûte cent pièces.
-> In a cosy bedroom with snow at the window, {pompon} points at a basket of wool with a helpful smile, while {rosie} shrugs with a doubtful pout, a broken piggy bank on the floor
+> In a cosy bedroom with snow at the window, {pompon}, tiny and only half her size, points at a basket of red wool with a helpful smile, while {rosie}, much bigger, shrugs with a doubtful pout, a small pink piggy bank broken into pieces on the floor
 « Tu n'as qu'à le fabriquer, ton cadeau », dit Pompon. Rosie hausse les épaules. Fabriquer ! Un cadeau fabriqué, ça ne brille pas.
 
-@ In a cosy bedroom, {rosie} knits at full speed with two big needles and red wool flying everywhere, tongue out, {pompon} watching
+@ In a cosy bedroom on a winter day, {rosie} knits at full speed with two big needles and red wool flying everywhere, tongue out, {pompon}, tiny and only half her size, watching
 Mais elle n'a pas le choix. Elle trouve de la laine rouge, deux aiguilles, et elle décide de tricoter une écharpe. « Un, deux, trois, partez ! »
 > In a cosy bedroom, a close view of {rosie} knitting in a blur of speed, needles clicking, a wobbly red knitted strip with crooked stitches growing out of her lap and across the floor
 Rosie tricote comme elle court : à toute vitesse. Clic clic clic clic ! Une maille à l'endroit, une maille de travers, une maille on ne sait pas trop.
 > At night in a cosy bedroom, {rosie} knits hidden under her blanket like a little tent glowing with lamplight, red wool trailing out onto the floor, the moon at the window
 Elle tricote le matin, le midi, et le soir sous sa couverture. Elle ne compte pas les rangs. Elle a oublié qu'il fallait s'arrêter.
 
-@ In a bedroom, {rosie} with her ears down holds a ridiculously long, uneven red knitted scarf that winds twice around the room and has a hole in the middle
+@ In a bedroom on a winter evening, {rosie} with her ears down holds one end of a very long bright red knitted scarf, uneven, that winds twice around the room and has a hole in the middle
 La veille de Noël, l'écharpe est finie. Rosie la déroule. Elle la déroule encore. Elle fait le tour de la chambre. Deux fois.
-> In a bedroom, {rosie} holds up the middle of a red knitted scarf, wide at one end and thin at the other, and frowns at a big hole in it, while {pompon} looks a little guilty beside her
+> In a bedroom on a winter evening, {rosie} holds up the middle of a very long bright red knitted scarf, wide at one end and thin at the other, and frowns at a big hole in it, while {pompon}, tiny and only half her size, looks a little guilty beside her
 Elle est trop longue. Elle est trop large d'un bout, trop étroite de l'autre. Il y a un trou au milieu, là où Pompon a éternué.
-> In a bedroom, {rosie} sits on the floor in the middle of an endless red knitted scarf heaped around her, ears drooping right down, eyes sad, her knitting needles dropped beside her
+> In a bedroom on a winter evening, {rosie} sits on the floor in the middle of a very long bright red knitted scarf heaped all around her, ears drooping right down, eyes sad, her knitting needles dropped beside her
 « Elle est moche », dit Rosie. Et ses oreilles tombent.
 
-@ In a snowy village street, {rosie} hides a bundle of red wool behind her back, cheeks red, as neighbours pass carrying perfect shiny wrapped presents with silver ribbons
+@ In a snowy village street by day, {rosie} hides a bundle of bright red knitted scarf behind her back, cheeks red, as two brown hedgehogs carrying a parcel with a silver ribbon and two red squirrels carrying a small wooden music box walk past, animals only
 Dehors, elle croise ses voisins. Les hérissons portent un paquet avec un ruban d'argent. Les écureuils, une boîte à musique. Tout brille, tout est parfait.
-> In a snowy village street at dusk, {rosie} stands with burning red cheeks and lowered eyes, clutching a bundle of red wool behind her back, a shiny golden teapot glowing in a shop window behind her
+> In a snowy village street at dusk, {rosie} stands with burning red cheeks and lowered eyes, clutching a bundle of bright red knitted scarf behind her back, a shiny golden teapot glowing in a shop window behind her
 Rosie cache son écharpe derrière son dos. Elle a les joues qui brûlent. « Maman méritait une théière dorée. Et elle va avoir… ça. »
-> In the evening in a bedroom, {rosie} stuffs a big bundle of red knitted scarf deep into the bottom of a wardrobe under a pile of old socks, glancing over her shoulder
+> In the evening in a bedroom, {rosie} stuffs a big bundle of bright red knitted scarf deep into the bottom of a wardrobe under a pile of old socks, glancing over her shoulder
 Le soir, elle fourre l'écharpe tout au fond du placard, sous les vieilles chaussettes. « Je dirai que je n'ai pas eu le temps. »
 
-@ On Christmas morning by a decorated tree, {pompon} runs in dragging a very long red knitted scarf behind him, while {rosie} looks embarrassed and {mamanlapin} looks surprised
+@ On Christmas morning by a decorated tree in a cosy living room, {mamanlapin} holds up a child's drawing of a green scribble with a puzzled smile, {pompon}, tiny, standing proudly beside her, while {rosie} watches from the side with empty paws
 Le matin de Noël, tout le monde s'embrasse. Maman ouvre le dessin de Pompon : un gribouillis vert. « Oh ! Un magnifique… sapin ? » « C'est toi, maman. » « Il est très ressemblant. »
 > On Christmas morning by a decorated tree, {rosie} looks down at her feet with empty paws and drooping ears, while {mamanlapin} bends kindly toward her
 « Et toi, ma Rosie ? » Rosie regarde ses pattes. « Moi… je n'ai rien. Je n'ai pas eu le temps. »
-> On Christmas morning in a bedroom, {pompon} tugs with all his strength at the end of a long red knitted scarf spilling out of an open wardrobe, old socks flying around him, looking delighted
+> On Christmas morning in a bedroom, {pompon}, tiny, with no scarf around his own neck, tugs with all his strength at the end of a very long bright red knitted scarf spilling out of an open wardrobe, old socks flying around him, looking delighted
 « Si, elle a ! crie Pompon. Elle a fait un grand serpent rouge ! Il est dans le placard ! » Et avant que Rosie puisse l'arrêter, il revient en traînant l'écharpe derrière lui.
 
-@ By a Christmas tree, {mamanlapin} holds a long red knitted scarf tenderly against her cheek, eyes shining, while {rosie} looks up at her, ashamed and surprised
+@ On Christmas morning by a decorated tree in a cosy living room, {mamanlapin} holds a very long bright red knitted scarf tenderly against her cheek, eyes shining, while {rosie} looks up at her, ashamed and surprised
 Rosie voudrait disparaître dans le tapis. « Ne regarde pas. Elle est ratée. Elle est trop longue, il y a un trou. Je voulais t'offrir la théière dorée, mais… »
-> By a Christmas tree, {mamanlapin} silently runs her paws along a long red knitted scarf, looking closely at the crooked stitches, while {rosie} hides her face behind her ears
+> On Christmas morning by a decorated tree in a cosy living room, {mamanlapin} silently runs her paws along a very long bright red knitted scarf, looking closely at the crooked stitches, while {rosie} hides her face behind her ears
 Maman ne dit rien. Elle passe ses pattes sur la laine. Sur chaque maille de travers. « Tu l'as faite toute seule ? Tous ces soirs où il y avait de la lumière sous ta couverture ? »
-> By a Christmas tree, a close view of {mamanlapin} with shining, happy, tearful eyes, smiling down at {rosie}, who nods shyly, a red knitted scarf held between them
+> On Christmas morning by a decorated tree in a cosy living room, a close view of {mamanlapin} with shining, happy, tearful eyes, smiling down at {rosie}, who nods shyly, a very long bright red knitted scarf held between them
 Rosie hoche la tête. Et là, elle voit quelque chose d'étonnant : maman a les yeux qui brillent. Beaucoup plus que la théière.
 
-@ In the snow, {mamanlapin}, {rosie} and {pompon} walk together all wrapped in the same very long red scarf, the baby rabbit's head poking through a hole in it, all laughing
+@ On Christmas morning by a decorated tree in a cosy living room, {mamanlapin} winds a very long bright red knitted scarf twice around her own neck, the rest of it trailing on the floor toward {rosie} and tiny {pompon}, who look up at her
 Maman enroule l'écharpe autour de son cou. Une fois. Deux fois. Il en reste encore. Alors elle l'enroule autour de Rosie. Puis autour de Pompon.
-> By a Christmas tree in a cosy living room, {mamanlapin} winds one very long red scarf around her neck, around {rosie} and around {pompon}, who pokes his head through a hole in it, giggling
+> On Christmas morning by a decorated tree in a cosy living room, three rabbits are wrapped together in a very long bright red knitted scarf: {mamanlapin}, {rosie} and tiny {pompon}, whose head pokes through a hole in the scarf, giggling
 « Regarde. Une théière, c'est pour une seule personne. Ton écharpe, elle nous réchauffe tous les trois. Et le trou… » Pompon y passe la tête. « C'est ma fenêtre ! »
-> Seen from behind on a snowy hill, {mamanlapin}, {rosie} and {pompon} walk in a row tied together by one long red scarf, like a funny six-legged creature, leaving a trail of footprints
+> Seen from behind on a snowy hill by day, three rabbits walk in a row tied together by a very long bright red knitted scarf, leaving a trail of footprints: {mamanlapin}, {rosie} and tiny {pompon}
 Ils sortent se promener dans la neige, tous les trois attachés par la même écharpe rouge. On les prend pour un drôle d'animal à six pattes.
 
-@ In a snowy village street, {mamanlapin} walks happily with {rosie} and {pompon} past a shop window where a golden teapot sits alone
+@ In a snowy village street by day, three rabbits walk wrapped together in a very long bright red knitted scarf: {mamanlapin}, {rosie} in the middle and tiny {pompon}; the middle rabbit turns her head toward a shop window where a shiny golden teapot sits alone
 Ils passent devant la vitrine de Margot. La théière dorée est toujours là. Rosie la regarde. Elle brille. Mais elle a l'air d'avoir un peu froid, toute seule.
-> In a snowy garden, {mamanlapin} wound many times around her neck hangs washing on a line, smiling proudly, a laundry basket at her feet
+> In a snowy garden by day, {mamanlapin}, with a very long bright red knitted scarf wound many times around her neck, hangs washing on a line, smiling proudly, a laundry basket at her feet
 Tout l'hiver, maman porte l'écharpe. Pour aller au marché, pour étendre le linge, et même une fois pour dormir. Quand on lui dit qu'elle est trop longue, elle répond : « Elle est à la bonne taille. »
-> In a cosy bedroom, {rosie} knits slowly and carefully with red wool, tongue out, while {pompon} proudly holds up a funny red mitten with far too many fingers
+> In a cosy bedroom on a winter evening, {rosie} knits slowly and carefully with red wool, tongue out, while {pompon}, tiny and only half her size, proudly holds up a funny red knitted mitten with six fingers
 Et Rosie ? Elle a repris ses aiguilles. Clic… clic… clic. Plus lentement. Elle tricote des moufles pour Pompon. Pour l'instant, il y en a une avec six doigts.
 
 === plume_noel
@@ -195,60 +195,60 @@ theme: penser à ceux qui sont seuls ; écouter ce dont l'autre a besoin
 sujet: Penser à ceux qui sont seuls
 famille: autres
 
-@ On a snowy Christmas eve, {plume} flies above a forest village glowing with lanterns and candles, and notices one dark little house by a frozen pond
+@ On a snowy Christmas eve at night, {plume}, her red hat clearly visible on her head, flies above a forest village glowing with lanterns and candles, and notices far below one dark little house with black unlit windows by a frozen pond
 La veille de Noël, toute la forêt des Quatre-Chênes scintille. Il y a des lanternes dans les arbres, des bougies aux fenêtres, des guirlandes de houx sur les portes.
 > On a snowy night, {plume}, hovers above a small black house with completely unlit black windows beside a frozen pond
 Plume vole au-dessus des toits pour compter les lumières. Cent douze, cent treize… Et là, au bord de l'étang, une maison toute noire. Pas une bougie. Pas une guirlande.
-> At the snowy foot of a tree hung with lanterns at night, {filou-} holding a snowball shakes his head with a worried face and points a paw toward a dark little house by a frozen pond, {plume} listening
+> At the snowy foot of a tree hung with lanterns at night, {filou-} holding a snowball shakes his head with a worried face and points a paw toward one dark little house with black unlit windows by a frozen pond in the distance, {plume} standing on the snow beside him, listening, the two standing apart as separate animals, each fully visible
 C'est la maison de Monsieur Grognard, le vieux blaireau. « N'y va pas, dit Filou. Il déteste Noël. Il déteste tout le monde. Il m'a crié dessus pour une boule de neige. »
 
-@ On a snowy doorstep, {plume} stands on the doormat as {grognard} opens his door just a crack, frowning; behind him on the mantelpiece a framed picture of two badgers
+@ Seen from outside on a snowy doorstep at dusk, {plume} stands on the doormat as {grognard} peeks out through a door opened just a crack, only his frowning face with round glasses showing; through the gap, inside the house, a mantelpiece with a framed picture of two badgers
 Mais Plume a un pourquoi qui la gratte. Pourquoi est-ce que quelqu'un détesterait Noël ? Elle se pose devant la porte et elle frappe. Toc, toc.
 > On a snowy doorstep, a door slams shut and a little heap of snow slides off the roof onto the doormat, {plume} hopping back, startled, feathers ruffled
 La porte s'ouvre d'un doigt. Un œil derrière des lunettes. « Pas de chansons ! Pas de biscuits ! Pas de joyeux ceci-cela ! Du balai ! » Et vlan.
 > On a snowy doorstep at dusk, {plume}, sits thoughtfully on the doormat in front of a plain closed wooden door
 Plume reste sur le paillasson. Elle a eu le temps de voir quelque chose, derrière lui, sur la cheminée. Un cadre. Avec deux blaireaux dedans.
 
-@ Seen through a snowy window, {grognard}, with a black and white striped face, sits alone in an armchair facing a second empty armchair with knitting on it
+@ Seen from outside at dusk, looking in through a snowy window frame: a dim indoor room with a wooden floor where {grognard}, wearing his small round glasses, sits alone in an armchair facing a second empty armchair with knitting on its seat
 Elle sait bien qu'il ne faut pas regarder par les fenêtres. Elle regarde quand même. Juste un peu.
-> In a dim room, a close view of {grognard} sitting very still in his armchair with his paws on his knees, gazing at a framed picture of two badgers, an empty armchair with knitting opposite him
+> In a dim indoor room at dusk, a close view of {grognard} sitting very still in his armchair with his paws on his knees, gazing at a framed picture of two badgers, an empty armchair with knitting opposite him
 Monsieur Grognard est assis dans son fauteuil. En face de lui, il y a un deuxième fauteuil, vide, avec un tricot posé dessus. Il ne lit pas. Il ne fait rien. Il regarde le cadre.
-> Outside a snowy window at dusk, {plume} perches on the windowsill with soft, sad, understanding eyes, one wing on her heart, an old badger in an armchair faintly visible in the dim room behind the glass
+> Outside a snowy window at dusk, {plume} perches on the windowsill with soft, sad, understanding eyes, one wing folded on her chest (wings, no hands), while {grognard} sits in an armchair, clearly visible through the glass in the dim room behind
 Plume comprend. Il ne déteste pas Noël. Noël lui rappelle quelqu'un qui n'est plus là. Et c'est plus facile de crier que de pleurer.
 
-@ In a snowy clearing at dusk, {plume}, talks to {rosie-} and {nestor-} who listen
+@ In a snowy clearing at dusk, {plume} talks to {rosie-} and {nestor-}, who listen, the three standing apart as separate animals, each fully visible
 Elle raconte tout à ses amis. « On va lui chanter une chanson sous sa fenêtre ! dit Rosie. Très fort ! » « On lui apporte un gâteau énorme ! » dit Nestor.
 > In a snowy clearing, {plume} gently shakes her head and thinks hard, eyes closed, wing under her beak, while {rosie-} with her mouth wide open ready to sing and {nestor-} spreading his arms wide wait
 Plume secoue la tête. « Il a dit : pas de chansons, pas de biscuits. Il faut l'écouter. » Elle réfléchit longtemps. Les meilleures idées de Plume sont souvent toutes petites.
-> At snowy dusk, {plume} walks away quietly through the snow, looking back over her shoulder at a small glowing lantern left on the windowsill of a dark little house by a frozen pond
+> At snowy dusk, {plume} walks away quietly through the snow, looking back over her shoulder at a small glowing lantern left on the windowsill of one dark little house with black unlit windows by a frozen pond, the lantern the only light
 Elle prend une lanterne. Une seule. Elle l'allume, et elle va la poser sur le rebord de la fenêtre noire. Sans frapper. Sans rien dire. Et elle s'en va.
 
-@ At night in the snow, {grognard}, with a black and white striped face, stands at his open door frowning at a small glowing lantern on the windowsill
+@ At night in the snow, {grognard} stands at his open door frowning at a small glowing lantern on the windowsill of his dark little house, nobody else around
 De derrière un sapin, elle regarde. La porte s'ouvre. Monsieur Grognard voit la lanterne. Il grogne. Il regarde à gauche, à droite. Personne.
 > At night in the snow, {grognard} bends over a small glowing lantern on his windowsill, cheeks puffed ready to blow it out but stopping, the little flame dancing in his round glasses
 Il va pour souffler dessus. Il s'arrête. La petite flamme danse dans ses lunettes. Il reste là un long moment, dans le froid, à la regarder.
-> Seen through a snowy window at night, {grognard} gently sets a small glowing lantern on the mantelpiece next to a framed picture of two badgers, while {plume} watches from behind a fir tree outside
+> Seen through a snowy window at night, inside a dim room with a wooden floor, {grognard}, wearing his small round glasses, gently sets a small glowing lantern on the mantelpiece next to a framed picture of two badgers, while {plume} watches from behind a snowy fir tree outside
 Puis il la prend, tout doucement, et il la rentre chez lui. Par la fenêtre, Plume le voit la poser sur la cheminée. À côté du cadre.
 
-@ In a dim cosy room, {grognard} and {plume} sit quietly with cups of herbal tea, a lantern and a framed picture on the mantelpiece, the old badger starting to smile
+@ On a snowy doorstep on Christmas night, {grognard} holds his door wide open, warm light behind him, and gruffly beckons in {plume}, who stands on the doormat with one wing still raised to knock
 Le soir de Noël, Plume revient. Cette fois, la porte s'ouvre avant qu'elle ait frappé. « C'est toi, la lanterne. » « Oui, monsieur. » « Hmpf. Tu vas attraper froid. Entre. Mais pas de chansons. »
-> Indoors, {grognard}, pours tea for {plume}
+> At night in a dim cosy room by the fireplace, a dark snowy window behind, {grognard} and {plume} sit at a small table; the badger pours herbal tea into her cup, a small glowing lantern on the mantelpiece
 À l'intérieur, ça sent la poussière et la tisane. Monsieur Grognard lui sert une tasse. Ils ne disent rien. Plume sait très bien ne rien dire. C'est même sa spécialité.
-> Indoors, {grognard}, laughs with eyes closed beside {plume}
+> At night in a dim cosy room by the fire, snow outside the dark window, {grognard}, wearing his small round glasses, laughs softly with eyes closed, sitting at a small table beside {plume}, who listens with a cup of tea
 Au bout d'un moment, c'est lui qui parle. « Elle s'appelait Hortense. Elle mettait des bougies partout. Jusque dans la baignoire. » Et il rit, un petit rire tout rouillé, qui n'avait pas servi depuis longtemps.
 
-@ {grognard} and {plume} light many candles together on the windowsills of a little house, an old open chest full of candles beside them, warm golden glow
+@ Inside a cosy wooden room at night, snow outside the windows, {grognard} stands on the wooden floor beside an old open chest full of candles and holds up one candle, {plume} looking into the chest beside him, a small glowing lantern on the mantelpiece
 Il se lève. Il ouvre un vieux coffre. Dedans, il y a des dizaines de bougies, et une guirlande de houx toute sèche. « Elle aurait dit que ma maison fait peur aux étoiles. »
-> In a little bathroom glowing with golden light, {grognard} and {plume} place a lit candle on the edge of an old bathtub, both amused, more candles shining on the stairs behind them
+> At night in a little bathroom glowing with golden candlelight, {grognard} and {plume} place a lit candle on the edge of an old bathtub, both amused, more candles shining on the stairs behind them
 Ensemble, ils allument les bougies. Une sur chaque fenêtre. Une sur l'escalier. Et une dans la baignoire, parce que c'est la tradition.
-> On a snowy night across a frozen pond, a hedgehog family and two squirrels look up and point with joy at a little house whose every window now glows with candles, the lights reflected on the ice
+> On a snowy night across a frozen pond, two brown hedgehogs and two red squirrels look up and point with joy at a little house whose every window now glows with candles, the lights reflected on the ice
 De l'autre côté de l'étang, les habitants de la forêt lèvent la tête. « Regardez ! Chez Monsieur Grognard ! » Cent quatorze lumières. Le compte est bon.
 
-@ In a candlelit cosy room by the fire, {grognard}, {plume}, {filou-}, {rosie-} and {nestor-} sit close together singing softly, one empty armchair with knitting beside them
+@ At night in a candlelit cosy room, {filou-}, {rosie-} and {nestor-} tiptoe in through the door as separate animals, each fully visible, the bear carrying one tiny plain cake on a plate, while {grognard} frowns at it from his armchair by the fire
 Filou, Rosie et Nestor arrivent sur la pointe des pattes, avec un tout petit gâteau. Monsieur Grognard fronce les sourcils. « J'avais dit : pas de biscuits. » « C'est un gâteau, monsieur. » « Hmpf. Alors ça va. »
-> By a fireplace, {plume}, {filou-}, {rosie-} and {nestor-} sit beside an empty armchair
+> At night in a candlelit cosy room, {grognard}, {plume}, {filou-} and {rosie-} sit close together on the rug by the fire as separate animals, each fully visible; next to them one empty armchair with only a knitting on its seat, nobody sitting in it
 Ils se serrent près du feu. Le deuxième fauteuil reste vide, avec son tricot. Personne ne s'y assoit. Mais il a l'air moins seul, avec tout ce monde autour.
-> {grognard}, smiles beside {plume}, near a tiny cake
+> In a candlelit cosy room by the fireplace on Christmas night, snow at the window, {grognard} smiles with one paw raised beside {plume}, {filou-} and {rosie-}, who sing softly, standing apart as separate animals, each fully visible, one tiny plain cake without candles on a small table
 « Bon, grogne Monsieur Grognard. Une chanson. Une seule. Et pas trop fort. » Ils chantent tout doucement. Et à la fin, c'est lui qui dit : « Encore. »
 
 # ───────────────────────────── HALLOWEEN ─────────────────────────────
@@ -259,60 +259,60 @@ theme: trop prendre, c'est prendre la part des autres ; partager
 sujet: La gourmandise et le partage
 famille: coeur
 
-@ On Halloween evening in a forest village with glowing pumpkins at every door, {filou-} dressed in a white ghost sheet carries a big sack, grinning
+@ On Halloween evening in a forest village with glowing pumpkins at every door, {filou-} wearing a white cloth ghost sheet costume over his body, his face showing, carries a big sack, grinning
 C'est le soir d'Halloween. Dans la forêt des Quatre-Chênes, il y a une citrouille allumée devant chaque porte. Et derrière chaque porte, des bonbons.
-> On Halloween evening in a forest village, a kind old hedgehog at a door beside a glowing pumpkin drops one handful of sweets into the bag of a tiny rabbit dressed as a little witch
+> On Halloween evening in a forest village, one old brown hedgehog at a door beside a glowing pumpkin drops one handful of sweets into the paper bag of one small grey mouse wearing a black pointed cloth witch hat
 La règle est simple : on frappe, on dit « Des bonbons ou un sort ! », et on reçoit une poignée. Une seule poignée par maison.
-> On Halloween evening behind a bush, {filou}, with a white ghost sheet pushed back on his head, grins slyly, holding a closed sack
+> On Halloween evening behind a bush in a forest village, {filou-}, wearing a white cloth ghost sheet costume pushed back off his head, grins slyly, holding a closed sack
 « Une seule ? dit Filou. C'est bien peu, pour un renard de mon talent. » Il a un plan. Et trois déguisements dans son sac.
 
-@ At a doorstep with a pumpkin, {mathurine}, hands sweets to {filou}, wearing a black pointed witch hat
+@ On Halloween evening at a doorstep with a glowing pumpkin, {mathurine} drops one handful of sweets into the sack of {filou-}, who wears a white cloth ghost sheet costume over his body, his face showing
 Chez la vieille Mathurine, il frappe en fantôme. « Hou-hou ! Des bonbons ou un sort ! » Une poignée. Il court derrière un buisson, change de costume, et revient en sorcière.
-> At a doorstep with a glowing pumpkin, {filou-} now disguised in a pirate hat with a wooden toy sword holds out his sack to {mathurine}, who squints kindly and gives a third handful of sweets
+> On Halloween evening at a doorstep with a glowing pumpkin, {filou-}, now wearing a black pointed cloth witch hat, holds out his sack to {mathurine}, who squints kindly and gives another handful of sweets
 « Hi-hi-hi ! Des bonbons ou un sort ! » « Tiens, encore une petite sorcière », dit la tortue, qui n'y voit plus très bien. Deuxième poignée. Puis il revient en pirate.
-> On a forest path at night lit by pumpkins, {filou-} in a pirate hat drags a huge bulging sack of sweets through the autumn leaves with both paws, puffing but grinning
+> On a forest path at night lit by pumpkins, {filou-} wearing a black cloth pirate hat drags a huge bulging sack of sweets through the autumn leaves with both paws, puffing but grinning
 Trois déguisements, trois poignées, à chaque maison. « Facile ! » Son sac gonfle, gonfle. Il devient si lourd que Filou doit le traîner dans les feuilles.
 
-@ At night, {filou}, in a pirate hat, hugs a huge sack, away from {rosie-} and {nestor-}
+@ On a forest path at night lit by pumpkins, {filou-} wearing a black cloth pirate hat hugs a huge bulging sack of sweets against his chest, turning away from {rosie-} holding a small flat bag and {nestor-}, the three standing apart as separate animals, each fully visible
 « Oh ! Tu en as beaucoup ! » dit Rosie, avec son petit sac. « Tu nous en donnes ? » demande Nestor. Filou serre son trésor contre lui. « Ah non. Je les ai gagnés. Tous. »
-> On a tree stump at night, away from the glowing pumpkins of the village, {filou-} in a pirate hat sits alone unwrapping a caramel, a lollipop and two marshmallows lined up beside him, his huge sack at his feet
+> On a tree stump at night, away from the glowing pumpkins of the village, {filou-} wearing a black cloth pirate hat sits alone unwrapping a caramel, a lollipop and two marshmallows lined up beside him, his huge sack of sweets at his feet
 Il s'installe sur une souche, à l'écart, et il commence. Un caramel. Une sucette. Deux guimauves. Un autre caramel.
-> On a tree stump at night, {filou-} in a pirate hat chews slowly with puffed cheeks and tired half-closed eyes, a mountain of empty candy wrappers around him, still holding one more sweet
+> On a tree stump in the forest at night, {filou-} wearing a black cloth pirate hat chews slowly with puffed cheeks and tired half-closed eyes, a mountain of empty candy wrappers around him, still holding one more sweet
 Les dix premiers sont délicieux. Les dix suivants sont bons. Les dix d'après… il les mange quand même.
 
-@ On a forest path at night lit by pumpkins, a small wolf cub dressed as a ghost in a sheet, big grey paws sticking out, holds a flat empty bag and looks sad, {filou-} watching from a stump
+@ On a forest path at night lit by pumpkins, {loupiot} wearing a white cloth ghost sheet costume, his face and big grey paws showing, holds a small flat empty paper bag and looks sad, {filou-} watching from a tree stump
 C'est là qu'il voit passer un petit fantôme, avec des pattes trop grandes qui dépassent du drap. C'est Loupiot, le louveteau. Son sac est tout plat.
-> On a forest path at night lit by pumpkins, a small wolf cub in a ghost sheet with big grey paws sticking out turns his flat empty bag upside down to show {filou-}, who sits on a stump beside a huge sack
+> On a forest path at night lit by pumpkins, {filou-} sits on a tree stump, his huge sack of sweets standing on the ground next to the stump; in front of him {loupiot}, wearing a white cloth ghost sheet costume over his body, his face showing, holds a small empty paper bag upside down
 « Tu n'as rien eu ? » « J'arrive toujours après quelqu'un, dit Loupiot. On me dit : désolé, un fantôme, une sorcière et un pirate ont tout pris. Ils devaient avoir très faim. »
-> On a tree stump at night, {filou-} chokes on a caramel with wide guilty eyes, one paw on his throat, a white sheet, a pointed witch hat and a pirate hat poking out of the huge sack of sweets beside him
+> On a tree stump in the forest at night, {filou-} chokes on a caramel with wide guilty eyes, one paw on his throat, a white cloth sheet, a black pointed cloth witch hat and a black cloth pirate hat poking out of the huge sack of sweets beside him
 Filou avale son caramel de travers. Le fantôme, la sorcière et le pirate… il les connaît très bien, tous les trois.
 
-@ At night, {filou-} holds his tummy with a green queasy face, sitting next to a huge sack of sweets, candy wrappers around
+@ On a tree stump in the forest at night, {filou-} holds his tummy with both paws, pale green cheeks only, mouth closed, nothing drawn on his belly, sitting next to a huge sack of sweets, candy wrappers around
 Et juste à ce moment-là, son ventre fait un bruit. Grrrloub. Puis un autre. Grrrloub-loub. Filou devient vert. Un vrai vert de sorcière, sans maquillage.
-> At night on a tree stump, {filou-} doubles over holding his tummy with both paws, cheeks puffed and eyes squeezed shut, pushing away a huge sack still full of sweets with one foot
+> On a tree stump in the forest at night, {filou-} doubles over holding his tummy with both paws, a pained grimace, frowning eyebrows, eyes squeezed shut, not smiling, pushing away a huge sack still full of sweets with one foot
 « Ouille… » Il se tient le ventre. Tous ces bonbons dansent là-dedans comme des cailloux dans un seau. Il en reste encore un sac entier, et il ne peut plus en voir un seul.
-> At night, {filou}, beside a huge full sack, faces {loupiot}, in a white ghost sheet
+> On a forest path at night lit by pumpkins, {filou-} beside his huge full sack of sweets looks at {loupiot}, who wears a white cloth ghost sheet costume over his body, his face showing, and holds a small flat empty paper bag
 Il regarde le sac plat de Loupiot. Il regarde son gros sac. Même avec le mal de ventre, le calcul n'est pas difficile.
 
-@ By pumpkin light, {filou-} pours handfuls of sweets from his big sack into the bag of a small wolf cub wearing a ghost sheet, who looks amazed
+@ By pumpkin light on a forest path at night, {filou-} pours handfuls of sweets from his huge sack into the small paper bag of {loupiot}, who wears a white cloth ghost sheet costume over his body, his face showing, and looks amazed
 « Loupiot… le fantôme, la sorcière et le pirate, c'était moi. J'ai pris ta part. Et celle des autres. » Loupiot ouvre des yeux ronds sous son drap. « Les trois ? Tu cours drôlement vite. »
-> By pumpkin light, a small wolf cub in a ghost sheet hugs his bag, now round and full of sweets, beaming, while {filou-} still holding his tummy smiles with relief beside his half-empty sack
+> By pumpkin light on a forest path at night, {loupiot}, wearing a white cloth ghost sheet costume over his body, his face showing, hugs his small paper bag, now round and full of sweets, beaming, while {filou-} still holding his tummy smiles with relief beside his half-empty sack
 Filou verse des bonbons dans le sac du louveteau. Une poignée. Deux. Dix. Jusqu'à ce qu'il soit bien rond. Son ventre lui fait toujours mal, mais autre chose va mieux.
-> On a forest path at night lit by pumpkins, {filou-} carrying his sack on his shoulder beckons with his paw, and a small wolf cub in a ghost sheet trots happily after him toward the village clearing
+> On a forest path at night lit by pumpkins, {filou-} carrying his sack on his shoulder beckons with his paw, and {loupiot}, wearing a white cloth ghost sheet costume over his body, his face showing, trots happily after him toward the village clearing
 « Viens, dit-il. Il y en a d'autres qui n'ont pas eu leur compte. »
 
-@ In a forest clearing at night with pumpkins, {filou-} hands out sweets to little rabbits and friends in Halloween costumes, a small wolf cub in a ghost sheet helping him
+@ In a forest clearing at night with glowing pumpkins, {filou-} hands out sweets from his sack to {rosie-}, {nestor-} and {plume-}, each holding a small paper bag, the four standing apart as separate animals, each fully visible
 Ils font le tour de la clairière. Une poignée pour Rosie, une pour Nestor, une pour Plume. Une pour chacun des petits lapins, qui n'avaient eu que des noisettes.
-> At night on a doorstep with a glowing pumpkin, {filou-} tiptoes to lay three shiny caramels and a small folded paper on the doormat of a little house, looking sorry and gentle
+> At night on a doorstep with a glowing pumpkin, {filou-} tiptoes to lay three shiny caramels and a small folded blank paper on the doormat of a little house, looking sorry and gentle
 Et pour la vieille Mathurine, qui avait tout donné, Filou dépose sur le pas de sa porte ses trois plus beaux caramels. Avec un mot : « De la part d'un fantôme, d'une sorcière et d'un pirate. Pardon. »
-> In a forest clearing at night with pumpkins, {filou-} peers into his almost empty sack and holds up the very last lollipop, looking at it without any appetite, a small wolf cub in a ghost sheet beside him
+> In a forest clearing at night with glowing pumpkins, {filou-} peers into his almost empty sack and holds up the very last lollipop, looking at it without any appetite, {loupiot}, wearing a white cloth ghost sheet costume over his body, his face showing, beside him
 Quand il a fini, son sac est presque vide. Il reste une sucette, tout au fond. Il la regarde. Il n'en a même pas envie.
 
-@ Around a big glowing pumpkin at night, animal friends in Halloween costumes share sweets happily, {filou-} sips a cup of herbal tea with {loupiot} snuggled against him
+@ Around a big glowing pumpkin in a forest clearing at night, {filou-}, {loupiot}, {rosie-} and {nestor-} sit in a circle as separate animals, each fully visible, passing sweets from paw to paw, laughing
 Ils s'assoient tous autour de la plus grosse citrouille. Les bonbons passent de patte en patte. « Goûte celui-là ! » « Échange contre un rouge ! » C'est bien plus amusant que sur la souche.
-> At night, {filou}, grimaces at a cup of herbal tea, while {loupiot}, snuggles against him
+> At night by a big glowing pumpkin in a forest clearing, {filou-} grimaces at a cup of herbal tea in his paws, while {loupiot} snuggles against him, holding up one sweet to show him
 Filou, lui, boit une tisane que Plume lui a préparée. Beurk. Mais Loupiot s'est assis tout contre lui, et il lui raconte chaque bonbon, pour qu'il en profite quand même.
-> On Halloween evening, {filou}, and {loupiot}, walk side by side under one shared white sheet
+> On Halloween evening in a forest village with glowing pumpkins, {filou-} and {loupiot} walk side by side under one shared white cloth ghost sheet costume, their two heads poking out through two holes, each carrying a small bag
 L'année suivante, Filou n'a pris qu'un seul déguisement. Un fantôme à deux têtes : une tête de renard, une tête de loup. Ils ont eu une poignée chacun. C'était exactement assez.
 
 === nestor_halloween
@@ -321,60 +321,60 @@ theme: oser dire « j'ai peur » au lieu de faire le brave
 sujet: Dire « j'ai peur »
 famille: oser
 
-@ On Halloween night, {nestor-} dressed in a round orange pumpkin costume stands with {filou-}, {rosie-} and {plume-} in costumes, looking up at an old crooked house on a hill
+@ On Halloween night at the foot of a hill, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, stands with {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat, the four standing apart as separate animals, each fully visible, looking up at an old crooked house on the hill
 Le soir d'Halloween, Filou a une idée. « Et si on entrait dans la vieille maison du haut de la colline ? Celle qui craque. Il paraît qu'elle est hantée ! »
-> On Halloween night at the foot of a hill, {filou-}, {rosie-} and {plume-} in Halloween costumes all turn to look at {nestor-} in a round orange pumpkin costume, who gives a small nervous smile
+> On Halloween night at the foot of a hill, {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat all turn to look at {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, who gives a small nervous smile, the four standing apart as separate animals, each fully visible
 « Chiche ! » dit Rosie. « Pourquoi pas », dit Plume. Tous regardent Nestor, déguisé en citrouille. Son ventre fait un nœud. « Hmm… oui, oui. Même pas peur. »
-> On Halloween night, a close view of {nestor-} in a round orange pumpkin costume gulping with wide worried eyes, paws clasped on his tummy, an old crooked house on a hill behind him under a big moon
+> On Halloween night, a close view of {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, gulping with wide worried eyes, paws clasped, an old crooked house on a hill behind him under a big moon
 Ce n'est pas vrai du tout. Nestor a peur rien qu'en regardant la maison. Mais personne d'autre n'a l'air d'avoir peur. Alors il ne dit rien.
 
-@ In a dark dusty hallway with big cobwebs, {nestor}, in a round orange pumpkin costume, walks holding a lantern behind {filou-}, {rosie-} and {plume-}
+@ Inside an old house at night, in a dark dusty hallway with big cobwebs, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, walks holding a lantern behind {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat, the four standing apart as separate animals, each fully visible
 La porte grince. Criiiic. Dedans, il fait noir, ça sent la poussière, et il y a des toiles d'araignée grandes comme des draps.
-> In a dark dusty hallway, {filou-} in a black cape walks ahead of {rosie-}, followed by {nestor}, in a round orange pumpkin costume
+> In a dark dusty hallway of an old house at night, {filou-} in a black cape walks ahead of {rosie-} in a pointed witch hat, followed by {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, knees shaking, the three standing apart as separate animals, each fully visible
 « Même pas peur », dit Filou, d'une voix un peu aiguë. « Même pas peur », dit Rosie, en marchant très près de lui. « Même pas peur », répète Nestor. Ses genoux font des castagnettes.
-> In a dark dusty hallway of an old house, {nestor-} in a pumpkin costume, {filou-}, {rosie-} and {plume-} in costumes freeze on creaky floorboards, all looking up at the ceiling with round eyes
+> In a dark dusty hallway of an old house at night, exactly four animals freeze, all looking up at the ceiling with round eyes: {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top (only the bear wears it), {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat, standing apart as separate animals, each fully visible
 Ils avancent dans le couloir. Chaque planche craque. Crac. Crac. Et là-haut, à l'étage, quelque chose répond. Boum.
 
-@ At the foot of a dark staircase, {nestor}, in a round orange pumpkin costume, {filou-}, {rosie-} and {plume-} look up nervously
+@ At the foot of a dark staircase in an old house at night, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, his own head on top, and {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat look up nervously, the four standing apart as separate animals, each fully visible
 « C'est le vent », dit Plume. Boum, boum. « C'est un volet », dit Rosie. Un long gémissement descend l'escalier. Hoooooou…
-> At the foot of a dark creaky staircase in an old house, {filou-} in a Halloween costume points up the stairs without enthusiasm, biting his lip, while {rosie-} in a costume crosses her arms bravely
+> At the foot of a dark creaky staircase in an old house at night, {filou-} in a black cape points up the stairs without enthusiasm, biting his lip, while {rosie-} in a pointed witch hat crosses her arms bravely, the two standing apart as separate animals, each fully visible
 « On monte ? » demande Filou. Il n'a pas l'air d'en avoir très envie. Mais c'est son idée. Et Rosie a dit chiche. On ne revient pas sur un chiche.
-> At the foot of a dark staircase in an old house, {nestor-} in a pumpkin costume stares up into the shadows, one paw on his thumping heart, a lantern trembling in his other paw
+> At the foot of a dark staircase in an old house at night, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, stares up into the shadows, one paw on his thumping heart, a lantern trembling in his other paw
 Nestor regarde l'escalier tout noir. Son cœur cogne. Ses pattes sont froides. Tout son corps lui dit la même chose, et ce n'est pas « même pas peur ».
 
-@ {nestor}, in a round orange pumpkin costume, stops with one foot on the first step of a dark staircase, holding a lantern, {filou-} watching
+@ Inside a dark old house at night, by lantern light, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, stops with one foot on the first step of a dark staircase, holding a lantern, {filou-} in a black cape watching, the two standing apart as separate animals, each fully visible
 Il pose une patte sur la première marche. Il s'arrête. Il pense : « Si je le dis, ils vont se moquer. Ils diront que je suis un bébé. »
-> On the first step of a dark staircase, {nestor}, in a round orange pumpkin costume, stands alone, frowning, looking up into the darkness, holding a lantern
+> On the first step of a dark staircase inside an old house at night, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, stands alone, frowning, looking up into the darkness, holding a lantern
 Il pense aussi : « Mais si je ne le dis pas, je vais devoir monter. Et je n'en ai pas envie du tout. »
-> At the foot of a dark staircase by lantern light, {nestor-} in a pumpkin costume faces {filou-}, {rosie-} and {plume-} in costumes, one paw on his chest, speaking softly with honest shy eyes
+> At the foot of a dark staircase inside an old house at night, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, one paw on his chest, speaks softly to three separate animals facing him, each fully visible: {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat
 Alors Nestor prend son souffle, et il dit, pas très fort : « Moi, j'ai peur. J'ai trop peur. Je ne monte pas. Je vous attends dehors. »
 
-@ In a dusty hallway, {nestor}, in a round orange pumpkin costume, looks down at his feet, while {filou-}, {rosie-} and {plume-} stay silent
+@ In a dusty hallway of an old house at night, by lantern light, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, looks down at his feet, while {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat stay silent, the four standing apart as separate animals, each fully visible
 Un grand silence. Nestor attend les rires. Il regarde ses pieds de citrouille.
-> In a dusty hallway by lantern light, {rosie-} in a Halloween costume shyly raises her paw with a relieved little smile, {plume-} and {filou-} in costumes nodding, {nestor-} in a pumpkin costume looking up, amazed
+> In a dusty hallway of an old house at night, {rosie-} in a pointed witch hat shyly raises her paw, {plume-} in a pirate hat and {filou-} in a black cape nodding, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, looking up, amazed, the four standing apart as separate animals, each fully visible
 « Ouf, dit une petite voix. Moi aussi, j'ai peur. » C'est Rosie. Rosie ! « Moi, j'ai peur depuis la porte », avoue Plume. « Moi, depuis le bas de la colline », dit Filou.
-> In a dusty hallway by lantern light, {nestor-} in a pumpkin costume, {filou-}, {rosie-} and {plume-} in costumes hold their tummies laughing, little clouds of dust flying up, the old house looking brighter and friendlier
+> In a dusty hallway of an old house at night, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, the biggest of the four and twice as tall as the fox, and {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat hold their tummies laughing, the four standing apart as separate animals, each fully visible
 Ils se regardent tous les quatre. Et ils éclatent de rire, un grand rire qui fait s'envoler la poussière. Ça fait tellement de bien que la maison a l'air moins noire.
 
-@ At the top of a dark staircase, {vesper}, hangs upside down from a beam, above {nestor}, in a round orange pumpkin costume
+@ At the top of a dark staircase in an old house at night, {vesper}, tiny, no bigger than a pine cone, hangs upside down by her feet from a beam with wings folded, high above {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, who stands on the stairs below looking up, his arms and legs visible
 Hoooooou… Le gémissement reprend. Mais maintenant qu'ils ne font plus semblant, ils l'écoutent mieux. « On dirait… quelqu'un qui pleure », dit Plume.
 > At the top of a dark staircase in an old house, a close view of {vesper} hanging upside down from a beam, no bigger than a pine cone, wiping a tear with her wing, big hopeful eyes
 En haut de l'escalier, une toute petite ombre apparaît, la tête en bas. C'est une chauve-souris, pas plus grosse qu'une pomme de pin. « Vous partez déjà ? » renifle-t-elle.
-> At the top of a staircase, {vesper}, shows a small bowl of sweets to {nestor}, in a round orange pumpkin costume
+> At the top of a staircase in an old house at night, {vesper}, tiny, no bigger than a pine cone, hovers beside a small bowl of sweets on a little table, showing it to {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, who is ten times bigger than her
 « Je m'appelle Vesper. J'habite ici. J'avais préparé des bonbons, mais personne ne monte jamais. Tout le monde a trop peur de ma maison. »
 
-@ At the foot of a dark staircase, {nestor}, in a round orange pumpkin costume, holds paws with {filou-}, {rosie-} and {plume-}, ready to climb
+@ At the foot of a dark staircase in an old house at night, four separate characters stand in a row holding paws, ready to climb, each fully visible: {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat
 Nestor regarde l'escalier. Il fait toujours noir. Il a toujours un peu peur. « Si on monte tous ensemble, dit-il, et que je peux redescendre quand je veux… alors je veux bien. »
-> On a dark creaky staircase by lantern light, {nestor-} in a pumpkin costume, {filou-}, {rosie-} and {plume-} in costumes climb the steps in a chain holding paws, {vesper} fluttering ahead to guide them
+> On a dark creaky staircase in an old house at night, by lantern light, {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, {filou-} in a black cape and {rosie-} in a pointed witch hat climb the steps in a chain holding paws, standing apart as separate animals, each fully visible, tiny {vesper} fluttering ahead to guide them
 Ils montent en se tenant par la patte. Le boum-boum, c'était Vesper qui installait sa table. Là-haut, il y a des bougies, des guirlandes de feuilles, et un saladier plein de bonbons.
-> In a candlelit attic, {vesper}, perches on a big bowl of sweets beside {nestor}, in a round orange pumpkin costume
+> In a candlelit attic of an old house at night, {vesper}, tiny, no bigger than a pine cone, perches on the rim of a big bowl of sweets beside {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, who is ten times bigger than her, garlands of autumn leaves around
 « Vous êtes mes premiers invités », dit Vesper, toute rose de plaisir. C'est le meilleur goûter d'Halloween de la forêt. Dans la maison la plus effrayante.
 
-@ At night, {nestor}, in a round orange pumpkin costume, walks down a hill holding paws with {filou-}, {rosie-} and {plume-}, an old house behind
+@ At night on a hillside path under a big moon, four separate characters walk down in a row holding paws, each fully visible, an old crooked house behind them: {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, {filou-} in a black cape, {rosie-} in a pointed witch hat and {plume-} in a pirate hat
 En rentrant, Filou donne un coup de coude à Nestor. « Heureusement que tu l'as dit. Moi, je serais monté en tremblant, et je n'aurais rien dit à personne. »
-> At night on a hillside path under a big moon, {rosie-} in a Halloween costume lifts the paw of {nestor-} in a pumpkin costume like a champion, and he blushes, {filou-} and {plume-} in costumes cheering
+> At night on a hillside path under a big moon, {rosie-} in a pointed witch hat lifts like a champion the paw of {nestor-} wearing a plain round orange cloth pumpkin costume with no face, his blue scarf on top, who blushes, {filou-} in a black cape and {plume-} in a pirate hat cheering, the four standing apart as separate animals, each fully visible
 « C'est Nestor le plus courageux, déclare Rosie. Il a dit le truc le plus difficile. » Nestor rougit sous sa citrouille.
-> On a forest path in daylight among autumn leaves, {nestor-}, {filou-}, {rosie-} and {plume-} sit in a circle with their paws joined in the middle, smiling at each other with trust
+> On a forest path in daylight among autumn leaves, {nestor-}, {filou-}, {rosie-} and {plume-} sit in a circle as separate animals, each fully visible, their paws joined in the middle, smiling at each other with trust
 Depuis, quand quelque chose leur fait trop peur, les quatre amis ont un mot de passe. Ils ne disent plus « même pas peur ». Ils disent : « Moi, un peu. Et toi ? »
 
 === rosie_halloween
@@ -383,58 +383,58 @@ theme: quand le plan tombe à l'eau, on peut inventer autre chose
 sujet: Quand tout rate
 famille: grandir
 
-@ In a garden shed, {rosie-} carefully glues green paper scales on a magnificent paper dragon costume with folding wings and a spiky tail
+@ In a garden shed by lamplight, {rosie-} carefully glues green paper scales onto a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings, lying flat and empty on a workbench, clearly made of paper, with no eyes and no face
 Cette année, Rosie va gagner le concours de déguisements d'Halloween. C'est décidé. Elle y travaille depuis un mois, en secret, dans la remise.
-> In a garden shed lit by a lamp, a magnificent green paper dragon costume hangs on a stand, with rows of scales, a spiky tail and wide wings, {rosie-} unfolding one wing with great care
+> In a garden shed by lamplight, a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings hangs empty on a wooden stand, with no face, while {rosie-}, who has no wings herself, unfolds one of its paper wings with great care
 C'est un dragon. Un dragon magnifique, tout en papier : des écailles vertes collées une par une, une queue à pointes, et des ailes qui se déplient.
-> In a garden shed, {rosie} stands with paws on her hips, proudly looking at an empty green paper dragon costume hanging flat on a wooden coat hanger
+> In a garden shed by lamplight, {rosie-} stands with paws on her hips, proudly looking at a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings hanging empty on a wooden coat hanger
 « Il est parfait, dit Rosie. Pas une écaille de travers. Personne n'aura jamais vu un déguisement pareil. »
 
-@ On a forest path at dusk with pumpkins, {rosie-} proudly wears a green paper dragon costume with wings, head high, while a big dark rain cloud gathers behind her
+@ On a forest path at dusk with glowing pumpkins, {rosie-} proudly wears a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings over her body, her own white face showing, head high, while a big dark rain cloud gathers behind her
 Le soir d'Halloween, elle enfile son dragon et part pour la clairière. Tout le monde se retourne. « Oooh ! » Rosie marche la tête haute.
-> On a forest path at dusk with pumpkins, {rosie-} in a green paper dragon costume looks up, surprised, as a first raindrop lands on her nose and two more on her paper wings, a dark cloud overhead
+> On a forest path at dusk with glowing pumpkins, {rosie-}, wearing a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings over her body, her own white face showing, looks up, surprised, as a first raindrop lands on her nose and two more on the paper wings, a dark cloud overhead
 Elle ne voit pas le gros nuage noir qui arrive par-derrière. Ploc. Une goutte sur son museau. Ploc, ploc. Deux gouttes sur ses ailes.
-> On a forest path at dusk with glowing pumpkins, heavy rain suddenly pours down on {rosie-} in a green paper dragon costume, who gasps with wide eyes, her paper wings starting to droop
+> On a forest path at dusk with glowing pumpkins, heavy rain suddenly pours down on {rosie-}, wearing a flat green paper dragon costume with paper scales, a spiky paper tail and folded paper wings over her body, her own white face showing, who gasps with wide eyes, the paper wings starting to droop
 Et d'un seul coup, toute la pluie du ciel tombe sur la forêt.
 
-@ In heavy rain, {rosie-} sits in a puddle, stained green, covered in bits of soggy paper from a ruined dragon costume, crying angrily
+@ In heavy rain on a forest path at dusk, {rosie-} runs, her flat green paper dragon costume falling apart on her, paper scales peeling off, green paint running down her legs, the spiky paper tail hanging limp
 Rosie court. Mais le papier, ça n'aime pas l'eau. Les écailles se décollent. La peinture verte coule le long de ses pattes. La queue pendouille comme une vieille chaussette.
-> Under a big oak tree in the rain, {rosie-} with large bright green paint blotches all over her fur stands dripping and sad, small scraps of wet green paper stuck on her, a limp paper tail behind her
+> Under a big oak tree in the rain at dusk, {rosie-}, her white fur stained with green paint blotches, stands dripping and sad, small scraps of wet green paper stuck on her, a limp paper tail behind her
 Quand elle arrive sous le grand chêne, elle n'est plus un dragon. Elle est une lapine verte, avec des bouts de papier mouillé collés partout.
-> In the rain near a big oak tree, seen from behind, a small green-stained white rabbit sits in a puddle hugging her knees, ears flat, sulking, wet green paper scales floating in the water around her
+> In the rain near a big oak tree at dusk, seen from behind, {rosie-}, her white fur stained with green paint blotches, sits in a puddle hugging her knees, ears flat, sulking, wet green paper scales floating in the water around her
 « Mon dragon ! Un mois de travail ! Tout est fichu ! C'est la pire soirée de ma vie ! » Elle s'assoit dans une flaque. Elle ne veut plus rien.
 
-@ Under a big oak tree in the rain, {nestor-} holding a pumpkin hat, {filou-} holding a pirate eye patch and {plume-} holding a witch cape stand facing a sulking green-stained white rabbit
+@ Under a big oak tree in the rain at dusk, {nestor-} holding an orange pumpkin hat, {filou-} holding a black pirate eye patch and {plume-} holding a folded black witch cape stand apart as separate animals, each fully visible, facing {rosie-}, her white fur stained with green paint blotches, who sulks
 Ses amis accourent. « Prends mon chapeau de citrouille », dit Nestor. « Mon bandeau de pirate ! » dit Filou. Plume lui tend sa cape de sorcière.
-> Under a big oak tree in the rain, a green-stained white rabbit with crossed arms turns her back on three friends standing in a row: {nestor-}, {filou-} and {plume-}, all looking sad
+> Under a big oak tree in the rain at dusk, {rosie-}, her white fur stained with green paint blotches, in her red scarf, arms crossed, turns her back on {nestor-}, {filou-} and {plume-}, who stand in a row as separate animals, each fully visible, all looking sad
 « Non ! C'est pas ça que je voulais ! Je voulais MON dragon, comme je l'avais prévu ! » Rosie croise les bras. « Je rentre. Halloween est annulé. »
-> Under a big oak tree, a green-stained white rabbit wearing no costume looks sideways with a small smile at a black witch cape held up by {plume-}, {filou-} and {nestor-} standing behind
+> Under a big oak tree at dusk, {rosie-}, her white fur stained with green paint blotches, wearing no costume, looks sideways with a small smile at a folded black witch cape held out by {plume-}, who wears no hat, while {filou-} and {nestor-} stand behind, each a separate animal, fully visible
 Elle regarde ses pattes vertes. Les bouts de papier. La cape, le bandeau, le chapeau, que ses amis tiennent toujours. Dans sa tête, une toute petite idée pointe le bout du nez.
 
-@ A green-stained white rabbit wearing a witch cape, a pirate eye patch and a pumpkin hat looks at her funny reflection in a puddle and starts to grin
+@ Under a big oak tree after the rain at dusk, exactly one rabbit, {rosie-}, her white fur stained with green paint blotches, alone, leans over a puddle and starts to grin at her own reflection, visible only in the water
 Elle se penche sur la flaque. Dedans, il y a une créature verte et dégoulinante, avec des lambeaux partout. Ce n'est pas un dragon. C'est… autre chose.
-> Under an oak tree after the rain, a green-stained white rabbit swirls a witch cape onto her shoulders, a pumpkin hat on her head and a pirate eye patch on one eye, striking a funny monster pose with paws raised
+> Under an oak tree after the rain at dusk, {rosie-}, her white fur stained with green paint blotches, swirls a black witch cape onto her shoulders, an orange pumpkin hat on her head and a black pirate eye patch on one eye, striking a funny monster pose with paws raised
 « Dis donc, murmure Rosie. Je ressemble à un monstre des marais. » Elle met la cape. Le bandeau. Le chapeau de citrouille par-dessus. « Un monstre des marais, sorcier et pirate. »
-> Under an oak tree, {filou-} bursts out laughing while a green-stained white rabbit in a witch cape, a pirate eye patch and a pumpkin hat sticks handfuls of wet leaves onto her long ears, grinning
+> Under an oak tree after the rain at dusk, {filou-} bursts out laughing while {rosie-}, her white fur stained with green paint blotches, wearing a black witch cape, a black pirate eye patch and an orange pumpkin hat, sticks handfuls of wet leaves onto her long ears, grinning, the two standing apart as separate animals, each fully visible
 Filou éclate de rire. « Avec des algues, ce serait encore mieux ! » Rosie attrape une poignée de feuilles mouillées et se les colle sur les oreilles.
 
-@ Under an oak tree, {nestor-} draws mud whiskers on the face of a laughing green-stained white rabbit with wet leaves on her ears and a branch as a horn, {filou-} and {plume-} watching
+@ Under an oak tree after the rain at dusk, {nestor-} draws mud whiskers on the face of {rosie-}, her white fur stained with green paint blotches, who laughs, wearing a black witch cape, a black pirate eye patch and an orange pumpkin hat, wet leaves on her ears, {filou-} and {plume-} watching, each a separate animal, fully visible
 Tout le monde s'y met. Nestor lui dessine des moustaches de boue. Plume lui accroche des glands en collier. Rosie ajoute une branche pour faire une corne.
-> Under an oak tree at dusk, {nestor-}, {filou-} and {plume-} roll on the ground laughing beside {rosie-} turned into a funny green swamp monster with a cape, mud whiskers, leaves and a branch horn
+> Under an oak tree at dusk, {nestor-}, {filou-} and {plume-} roll on the ground laughing, apart as separate animals, each fully visible, beside {rosie-} dressed as a funny swamp monster (white fur with green paint blotches, black witch cape, orange pumpkin hat, wet leaves on her ears, a branch horn)
 Plus il y en a, plus c'est affreux. Plus c'est affreux, plus ils rient. Rosie n'a rien prévu de tout ça. Et c'est justement ce qui est drôle.
-> Under an oak tree lit by a glowing pumpkin, a funny green swamp monster rabbit with a cape, mud whiskers, leafy ears and a branch horn raises one paw grandly to present herself, {plume-} listening with curious eyes
+> Under an oak tree at dusk lit by a glowing pumpkin, {rosie-} dressed as a funny swamp monster (white fur with green paint blotches, black witch cape, orange pumpkin hat, wet leaves on her ears, a branch horn) raises one paw grandly to present herself, {plume-} listening with curious eyes
 « Comment il s'appelle, ton monstre ? » demande Plume. Rosie réfléchit. « Le Gloubidragon des marais. Il n'existe qu'un soir par an. Et seulement quand il pleut. »
 
-@ On a small stage in a forest clearing lit by lanterns, a funny green swamp monster rabbit with a cape, leaves, mud and a branch horn roars happily, the audience of little animals laughing, {mathurine} wiping her glasses
+@ On a small stage in a forest clearing lit by lanterns at night, three animals stand in a row in very neat costumes: one grey mouse in a clean white cloth ghost sheet, one brown hedgehog in a black pointed cloth witch hat and one green frog in a black cloth suit with white painted bones; {rosie-} dressed as a funny swamp monster (white fur with green paint blotches, black witch cape, orange pumpkin hat, wet leaves on her ears, a branch horn) waits at the side
 La pluie s'arrête. Le concours commence. Il y a des fantômes très propres, des sorcières bien repassées, un squelette impeccable.
-> In a forest clearing lit by lanterns, a funny green swamp monster rabbit with a cape, leaves and a branch horn climbs the steps of a small stage, leaving little green puddles behind, as very neat little ghosts and witches stare
+> In a forest clearing lit by lanterns at night, {rosie-} dressed as a funny swamp monster (white fur with green paint blotches, black witch cape, orange pumpkin hat, wet leaves on her ears, a branch horn) climbs the steps of a small stage and roars happily, leaving little green puddles behind, as one grey mouse in a clean white cloth ghost sheet stares
 Puis le Gloubidragon monte sur la scène, en laissant des flaques vertes derrière lui. Il pousse un rugissement : « GLOUBIII ! » Les petits hurlent de peur et de joie.
-> Beside a small stage in a forest clearing lit by lanterns, {mathurine} claps with delight and a wrinkled smile, facing a funny green swamp monster rabbit with a cape and a branch horn who bows proudly
+> Beside a small stage in a forest clearing lit by lanterns at night, {mathurine} wipes a pair of small glasses with a wrinkled delighted smile, facing {rosie-} dressed as a funny swamp monster (white fur with green paint blotches, black witch cape, orange pumpkin hat, wet leaves on her ears, a branch horn), who bows proudly
 La vieille Mathurine, qui préside le jury, essuie ses lunettes. « En cent ans de concours, je n'ai jamais rien vu d'aussi dégoûtant. Bravo. »
 
-@ In a bathroom, {rosie-} sits happily in a bathtub full of green water with bubbles, {pompon} peeking over the edge of the tub
+@ In a bathroom in the evening, {rosie-}, the big rabbit, wearing nothing around her neck, sits happily in a bathtub full of green water with bubbles, while tiny {pompon}, standing outside the tub, peeks over its edge
 Est-ce que Rosie a gagné ? Elle a eu le prix du monstre le plus original. Le premier prix est allé au squelette. Et le plus étonnant, c'est que ça lui est bien égal.
-> In a bathroom, {rosie-} scrubs her ears in a bathtub of water as green as spinach soup, laughing, while {pompon} leans over the edge with his tongue out to taste it
+> In a bathroom in the evening, {rosie-} scrubs her ears in a bathtub of bright green water, laughing, while tiny {pompon}, standing outside the tub, leans over the edge with his tongue out to taste it
 Le soir, il faut trois bains pour enlever tout le vert. L'eau de la baignoire ressemble à de la soupe aux épinards. Pompon veut y goûter.
 > In a cosy bedroom at night, clean and white again, {rosie-} gently puts one crinkled green paper scale into a small box, a little jar of mud standing beside it on the shelf
 Rosie a gardé une seule écaille de son dragon, toute gondolée, dans une boîte. L'année prochaine, elle préparera encore un déguisement parfait. Mais elle emportera un peu de boue. Au cas où.
@@ -445,32 +445,32 @@ theme: la jalousie ; la dire plutôt que la laisser commander
 sujet: La jalousie
 famille: grandir
 
-@ In an autumn vegetable garden, {plume} measures a tiny pumpkin the size of an apple with a piece of string, next to an enormous pumpkin as big as a wheelbarrow
+@ In a spring vegetable garden in morning light, {plume} and {noisette} each plant one pumpkin seed side by side in the bare soil, small watering cans beside them, no pumpkins yet
 Au printemps, Plume et Noisette ont planté chacune une graine de citrouille, côte à côte, pour le grand concours d'Halloween.
 > In a spring vegetable garden in morning light, {plume} waters a tiny green sprout with a small watering can, a gardening book with pictures lying open beside her, {noisette} planting a seed next to her
 Plume a tout fait comme dans les livres. Elle a arrosé le matin, parlé à sa plante le soir, et mesuré sa citrouille tous les jours avec une ficelle.
 > In an autumn vegetable garden, {plume} stands beside her tiny pumpkin the size of an apple, looking up with her beak open at an enormous pumpkin as big as a wheelbarrow, {noisette} sitting happily on top of it
 Mais voilà l'automne. La citrouille de Plume est grosse comme une pomme. Celle de Noisette est grosse comme une brouette.
 
-@ In a vegetable garden, animal neighbours admire an enormous pumpkin while {noisette} jumps for joy; at the side {plume} stands apart with a small sad forced smile
+@ In an autumn vegetable garden by day, one white goose, one brown hedgehog and one grey mouse gather around an enormous plain pumpkin as big as a wheelbarrow, admiring it, while {noisette} jumps for joy; at the side {plume} stands apart with a small sad forced smile
 Tout le monde vient admirer la citrouille de Noisette. « Quelle merveille ! » « Elle va gagner, c'est sûr ! » Noisette saute de joie.
-> In an autumn vegetable garden, a close view of {plume} with one wing pressed on her tummy, her smile fading, feeling a little cold pinch inside, an enormous pumpkin and cheering animal neighbours behind her
+> In an autumn vegetable garden by day, a close view of {plume} with one wing pressed on her tummy, her smile fading, an enormous plain pumpkin with one brown hedgehog and one grey mouse cheering behind her
 Plume dit « bravo ». Mais en le disant, elle sent quelque chose dans son ventre. Un petit pincement. Froid, pointu, et un peu vert.
-> In an autumn vegetable garden at dusk, {plume} sits alone beside her tiny pumpkin, frowning, a small pale green wisp like a tiny cloud curling near her ear, an enormous pumpkin in the distance
+> In an autumn vegetable garden at dusk, {plume} sits completely alone beside her tiny pumpkin the size of an apple, frowning, no other animal in the picture, a small pale green swirl of mist near her ear, an enormous plain pumpkin in the distance
 Le pincement lui souffle des choses. « C'est pas juste. Elle n'a même pas lu les livres. Elle a eu de la chance. Tu mérites de gagner plus qu'elle. »
 
 @ On a branch in autumn, {plume} turns her back with a grumpy face while {noisette} looks at her, puzzled and a little hurt
 Les jours suivants, le pincement grandit. Quand Noisette vient jouer, Plume dit qu'elle est occupée. Quand Noisette rit, Plume trouve qu'elle rit trop fort.
 > On a branch in autumn, {noisette} leans forward with a worried face toward {plume}, who looks away angrily with ruffled feathers
 « Tu es fâchée ? » demande Noisette. « Non. » « Tu es sûre ? » « J'ai dit non ! » Ce n'est pas un vrai non. Mais comment dire à sa meilleure amie : je suis triste que tu sois contente ?
-> At night under the moon, {plume} flies low over a vegetable garden toward an enormous pumpkin shining softly in the moonlight, her face restless and sleepless
+> At night under the moon, {plume} flies low over a vegetable garden toward an enormous plain smooth pumpkin with no face shining softly in the moonlight, her face restless and sleepless
 La nuit avant le concours, Plume n'arrive pas à dormir. Elle vole jusqu'au potager. La grosse citrouille luit sous la lune.
 
-@ At night under the moon, {plume} stands next to an enormous pumpkin resting at the top of a small slope, held by a single stone, a stream below; she hesitates with one foot near the stone
+@ At night under the moon in a vegetable garden, {plume} stands next to an enormous plain smooth pumpkin with no face resting at the top of a small slope, held by a single stone, a stream below; she hesitates with one foot near the stone
 Elle est posée en haut d'une petite pente, calée par un caillou. Le pincement chuchote : « Si le caillou bougeait… elle roulerait jusqu'au ruisseau. Plouf. Personne ne saurait. »
-> At night under the moon, a close view of {plume} resting one foot on a cold grey stone wedged under an enormous pumpkin at the top of a small slope, her eyes troubled, a stream glinting below
+> At night under the moon in a vegetable garden, a close view of {plume} resting one foot on a cold grey stone wedged under an enormous plain smooth pumpkin with no face at the top of a small slope, her eyes troubled, a stream glinting below
 Plume pose une patte sur le caillou. Il est froid. Il suffirait de pousser un tout petit peu.
-> At night under the moon, {plume} jerks her foot away from a stone and jumps back with wide ashamed eyes, wings up, an enormous pumpkin still safely in place at the top of a small slope
+> At night under the moon in a vegetable garden, {plume} jerks her foot away from a stone and jumps back with wide ashamed eyes, wings up, an enormous plain smooth pumpkin with no face still safely in place at the top of a small slope
 Elle pense à Noisette, qui a porté des arrosoirs tout l'été, avec ses petits bras. À sa tête, demain matin, devant le potager vide. Plume retire sa patte comme si le caillou brûlait.
 
 @ At night on a garden fence, {plume} sits trembling and upset, as {noisette} in a nightgown approaches holding a small candle
@@ -487,18 +487,18 @@ Noisette s'assoit sur la barrière. Elle ne dit rien pendant un moment. Puis : �
 > At night on a garden fence, {noisette} in a nightgown points up at the starry sky with a wistful face, confiding in {plume}, who opens her eyes wide with astonishment
 « Quoi ? » « Tu voles, Plume. Tu vois la forêt d'en haut. Moi, je regarde d'en bas, et je me dis : c'est pas juste. Je ne te l'ai jamais dit. »
 
-@ At a village pumpkin contest, a plain red ribbon rosette is pinned on an enormous pumpkin, {noisette} beams and {plume} claps beside her
+@ At night on a garden fence under the moon, {plume} and {noisette} in a nightgown look at each other and giggle quietly, wing and paws over their mouths, a small candle between them
 Elles se regardent. Deux amies, deux pincements. Ça leur paraît soudain un peu bête, et elles se mettent à rire tout bas, pour ne pas réveiller les limaces.
 > At a village pumpkin contest in daylight, {noisette} jumps for joy in front of an enormous pumpkin wearing a plain red ribbon rosette, {plume} clapping
 Le lendemain, la citrouille de Noisette gagne le premier prix. Plume applaudit. Le pincement est encore là, tout petit. Mais maintenant qu'elle l'a dit, il ne commande plus.
 > In an autumn vegetable garden, {plume} and {noisette} crouch on either side of a tiny pumpkin the size of an apple, looking at it tenderly and thoughtfully, chins resting on wing and paw
 « Et la tienne ? demande Noisette. On ne va pas la laisser toute seule ! » Elles regardent la citrouille-pomme. Elle est vraiment minuscule.
 
-@ On Halloween night, {plume} flies above the forest village carrying a tiny glowing pumpkin lantern, with {noisette} riding on her back, laughing, glowing pumpkins far below
+@ In a vegetable garden at dusk, {plume} and {noisette} carve a tiny pumpkin the size of an apple together, giving it two eyes and a smile, a small candle glowing inside it
 Elles la creusent ensemble. Elles lui font deux yeux et un sourire, et elles glissent une bougie dedans. C'est la plus petite lanterne d'Halloween de toute la forêt.
 > In a vegetable garden at dusk, {plume} spreads her wings, a tiny glowing pumpkin lantern in her claws, {noisette} sitting on her back
 Et comme elle ne pèse rien, Plume peut la porter en volant. « Monte ! » dit-elle. Noisette grimpe sur son dos, serre très fort, et ouvre un œil.
-> On Halloween night in a forest village, small animals look up at a tiny orange light crossing the starry sky above the trees like a little star, an enormous pumpkin resting in a garden below
+> On Halloween night in a forest village, one brown hedgehog and two grey mice look up at a tiny orange light crossing the starry sky above the trees like a little star, an enormous plain pumpkin resting in a garden below
 Ce soir-là, les gens d'en bas voient passer une petite étoile orange au-dessus des arbres. Avec, tout là-haut, deux rires. La grosse citrouille est restée au potager. Elle était trop lourde pour voir ça.
 
 # ───────────────────────────── VACANCES AU SKI ─────────────────────────────
@@ -509,18 +509,18 @@ theme: apprendre dans l'ordre ; écouter les consignes
 sujet: Écouter les consignes
 famille: grandir
 
-@ At a snowy ski resort with fir trees, {filou} on skis looks bored while {cabri} shows the snowplough position with his skis in a triangle
+@ At a snowy ski resort with fir trees by day, {filou} on skis looks bored while {cabri}, standing upright on two legs in his red ski jacket, shows the snowplough position, his two skis forming a V shape on the snow, tips together
 Cet hiver, Filou part aux sports d'hiver, à la station des Sapins Blancs. Il n'a jamais mis de skis de sa vie. « Glisser sur de la neige ? Facile ! »
-> At a snowy ski resort with fir trees, {cabri} holds up his whistle and patiently bends his knees to explain, pointing a ski pole at his skis in a triangle, while tiny animal children, a squirrel and a mouse, listen and {filou} yawns
+> At a snowy ski resort with fir trees by day, {cabri}, standing upright on two legs in his red ski jacket, holds up his silver whistle and bends his knees, his two skis forming a V shape on the snow, tips together, while one small squirrel child and one small mouse child on tiny skis listen and {filou}, in his beige pompom hat and jacket, yawns
 Le moniteur s'appelle Monsieur Cabri. C'est un vieux chamois qui a un sifflet et beaucoup de patience. « Première leçon : le chasse-neige. On fait un triangle avec les skis. Pour freiner. »
-> At a snowy ski resort, {filou} on skis bounces impatiently and points forward with his ski pole, eager to race, while {cabri} calmly raises one hoof to slow him down
+> At a snowy ski resort by day, {filou}, in his beige pompom hat, jacket and green scarf, bounces impatiently on skis and points forward with his ski pole, eager to race, while {cabri}, standing upright on two legs in his red ski jacket, calmly raises one hoof to slow him down
 « Freiner ? dit Filou. Moi, je veux aller vite ! » « D'abord freiner, répond Monsieur Cabri. Ensuite tourner. Ensuite seulement, aller vite. »
 
-@ On a gentle beginner ski slope, tiny animal children, a squirrel and a mouse, practise the snowplough, while {filou} on skis looks up at a very steep slope high on the mountain and a chairlift
+@ On a gentle beginner ski slope by day, one small squirrel child and one small mouse child on tiny skis practise the snowplough, bottoms out, while {filou} on skis looks up, yawning, at a very steep slope high on the mountain and a chairlift
 Sur la piste des débutants, il y a des tout-petits qui font le triangle, les fesses en arrière. Filou les regarde en bâillant. C'est une piste pour les bébés.
-> At a snowy ski resort, {cabri}, with brown fur and two short black hooked horns, stands beside {filou} on skis, both looking up at a very steep slope
+> At a snowy ski resort by day, {cabri}, standing upright on two legs in his red ski jacket, stands beside {filou} on skis, both looking up at a very steep slope high on the mountain, a plain blank black square board planted in the snow at its foot
 Tout là-haut, il y a une autre piste. Raide comme un toboggan. Avec un panneau noir. « Celle-là, dit Monsieur Cabri, c'est pour dans très longtemps. »
-> At a snowy ski resort, {filou} sneaks away on his skis toward a chairlift with a mischievous grin, while behind him {cabri} has his back turned, helping tiny animal children, a squirrel and a mouse,
+> At a snowy ski resort by day, {filou} sneaks away on his skis toward a chairlift with a mischievous grin, while behind him {cabri}, standing upright on two legs in his red ski jacket, has his back turned, helping one small squirrel child and one small mouse child on tiny skis
 Dans très longtemps ? Filou attend que le moniteur ait le dos tourné. Et il file vers le télésiège. « Le chasse-neige, c'est pour les escargots. »
 
 @ At the top of a very steep snowy mountain slope, {filou} on skis looks down, gulping, the resort tiny far below, while {roupille} peeks out of her burrow
@@ -530,39 +530,39 @@ Une marmotte sort de son trou. « Tu sais tourner, petit ? » « Évidemment. »
 > At the top of a very steep snowy slope, {filou} pushes off on his ski poles and shoots downhill in a first rush of speed, scarf flying, while {roupille} covers her eyes at her burrow entrance
 Filou pousse sur ses bâtons. Ça part. Ça part vite. Ça part TRÈS vite.
 
-@ {filou} speeds out of control down a steep ski slope, skis crossing, arms waving, eyes wide, narrowly missing a fir tree, snow flying
+@ On a steep snowy ski slope by day, {filou} speeds out of control, skis crossing, arms waving, eyes wide, narrowly missing a fir tree, snow flying
 « Youhouuu ! » Pendant trois secondes, c'est merveilleux. Puis un sapin arrive. Il faudrait tourner. Filou se penche. Les skis, eux, continuent tout droit.
 > On a steep ski slope, {filou} speeds past a fir tree, missing it by a whisker, eyes huge, trying desperately to remember how to brake, his skis pointing in two wrong directions
 « Aaaah ! » Il évite le sapin d'une moustache. Il faudrait freiner. Freiner ! Comment on fait, déjà ? Un triangle ? Un carré ? Il n'a pas écouté.
 > On a steep snowy slope among fir trees, {filou} tumbles through the air head over heels with crossed skis and flying poles, just above a deep soft snowdrift where he is about to land
 Ses skis se croisent. Filou s'envole, fait trois tours sur lui-même, et PAF ! Il s'enfonce dans la neige jusqu'aux oreilles.
 
-@ In deep snow among fir trees, with fog rising, {filou} sits alone, cold, with only one ski, ears down
+@ In deep snow among fir trees by day, with fog rising, {filou} sits alone, cold, ears down, with a sad worried face, only one single ski on one foot, the other foot in the snow, exactly one ski in the whole picture
 Quand il sort la tête, il n'y a plus de piste. Juste de la neige, des sapins, et un brouillard qui monte. Un de ses skis a continué la descente sans lui.
 > In deep snow among fir trees in the fog, {filou} with only one ski cups his paws around his mouth to call out, snow down his neck, shivering, nobody in sight
 « Ohé ? » Personne. Il a froid aux pattes. Il a de la neige dans le cou. Il essaie de descendre sur un seul ski et retombe aussitôt.
-> In deep foggy snow among fir trees, {filou} sits hugging his knees with his mouth closed and a sorry face, ears down, one single ski lying in the snow beside him
+> In deep foggy snow among fir trees, {filou} sits hugging his knees with his mouth closed and a sorry face, ears down, one single ski lying in the snow beside him, exactly one ski in the whole picture
 Filou s'assoit. Pour la première fois de la journée, il ne dit pas « facile ». Il dit, tout bas : « J'aurais dû apprendre à freiner. »
 
-@ In foggy snow among fir trees, {cabri} crouches kindly beside {filou}, brushing snow from his ears and holding a lost ski, {roupille} behind them
+@ In foggy snow among fir trees by day, {cabri}, standing upright on two legs in his red ski jacket, crouches kindly beside {filou}, brushing snow from his ears and holding one lost ski under his arm, {roupille} behind them
 Triiit ! Un coup de sifflet dans le brouillard. Deux cornes apparaissent, puis une veste rouge. C'est Monsieur Cabri, avec le ski perdu sous le bras. La marmotte l'avait prévenu.
 > In foggy snow among fir trees, {cabri} kneels and clips a ski back onto the foot of {filou}, who looks up at him, surprised not to be scolded, his eyes a little wet
 Filou attend d'être grondé. Monsieur Cabri s'accroupit, lui enlève la neige des oreilles et lui remet son ski. « Tu as eu peur ? » « Oui. » « Bien. La montagne, il faut l'aimer et la craindre un peu. »
-> In foggy snow among fir trees, {cabri} points gently down the slope and shows the snowplough triangle with his own skis, while {filou} stands up on both skis, ready to follow him
+> In foggy snow among fir trees by day, {cabri}, standing upright on two legs in his red ski jacket, points gently down the slope, his two skis forming a V shape on the snow, tips together, no other object, while {filou} stands up on both skis, ready to follow him
 « Maintenant, on redescend. Ensemble. En chasse-neige. Tu vas voir, c'est le moment idéal pour l'apprendre. »
 
-@ On a gentle beginner ski slope in the sun, {filou} does the snowplough with his skis in a triangle, behind {cabri}, two small rabbit children skiing nearby
+@ On a gentle beginner ski slope in the sun, {filou} stands on two skis whose tips touch in a V shape, knees bent, no sledge, sliding slowly behind {cabri}, standing upright on two legs in his red ski jacket, who skis in front of him, one small squirrel child and one small mouse child on tiny skis nearby
 Un triangle avec les skis. Les genoux pliés. Filou descend à la vitesse d'un escargot, derrière la veste rouge. Mais il descend debout. Et quand il veut s'arrêter, il s'arrête.
-> On a gentle beginner ski slope in the morning sun, {pompon} on tiny skis shows {filou} how to bend his knees, and {filou} copies him seriously, dusted with snow from a fall
+> On a gentle beginner ski slope in the morning sun, tiny {pompon}, much smaller than the fox and half his height, on tiny skis, shows {filou} how to bend his knees; both stand upright on skis with knees bent, the fox dusted with snow
 Le lendemain, il est le premier sur la piste des débutants. Il fait le triangle avec les tout-petits. Il tombe, il se relève. Pompon lui montre comment plier les genoux.
-> On a sunny ski slope with small fir trees, {filou} links smooth turns, leaving a wavy track, while {cabri}, with two short black horns, cheers with both arms up
+> On a sunny ski slope with small fir trees, {filou} on two skis carves a smooth turn, a wavy ski track behind him, while {cabri}, standing upright on two legs in his red ski jacket, cheers with both arms up
 Le mercredi, il apprend à tourner à gauche. Le jeudi, à droite. Le vendredi, il enchaîne dix virages sans tomber, et Monsieur Cabri siffle de joie.
 
-@ {filou} skis gracefully down a sunny slope making a neat turn with a spray of snow, smiling, while {roupille} claps on a rock, snowy mountains behind
+@ At the bottom of a sunny ski resort by day, {filou} on skis and {cabri}, standing upright on two legs in his red ski jacket, stand side by side, seen from behind, looking up at a very steep slope high on the mountain
 Le dernier jour, Filou lève les yeux vers la piste noire. Elle est toujours là, raide comme un toboggan. « L'année prochaine ? » demande-t-il. « Ou celle d'après, dit Monsieur Cabri. Elle ne va pas s'envoler. »
 > On a sunny ski slope under a blue sky, {filou} glides fast and steady through a wide turn, wind in his whiskers, eyes confident, a long curving track behind him and snowy mountains all around
 Alors Filou descend la piste bleue. Un virage, deux virages, le vent dans les moustaches. Il va vite. Mais cette fois, c'est lui qui décide où vont ses skis.
-> At the bottom of a sunny ski slope, {filou} stops neatly with his skis in a perfect triangle in a big spray of snow, grinning, while {roupille} on a rock claps with both paws
+> At the bottom of a sunny ski slope, {filou} stops neatly, his ski tips together in a V shape, in a big spray of snow, grinning, while {roupille} on a rock claps with both paws
 En bas, il freine dans une gerbe de neige. Un triangle parfait. La marmotte, sur son rocher, applaudit des deux pattes. « Ça, dit-elle, ça valait le coup de regarder. »
 
 === nestor_ski
@@ -571,14 +571,14 @@ theme: s'arrêter pour aider compte plus que gagner
 sujet: Aider plutôt que gagner
 famille: coeur
 
-@ At the top of a snowy slope, {nestor} sits on a big wooden sledge at a starting line next to other small animals on sledges, {cabri} raising a whistle
+@ At the top of a snowy slope by day, {nestor} sits on his big wooden sledge at a starting line next to {filou-}, {rosie-} and {plume-}, each on its own small sledge, apart as separate animals, each fully visible
 À la station des Sapins Blancs, aujourd'hui, c'est la grande course de luges. Le premier arrivé en bas gagne une médaille en chocolat, grosse comme une assiette.
-> At the top of a snowy slope, {nestor} pats his big round tummy with a hopeful smile, sitting on his heavy wooden sledge beside {filou-}, {rosie-} and {plume-} in woolly hats on light sledges
+> At the top of a snowy slope by day, {nestor} pats his big round tummy with a hopeful smile, sitting on his big wooden sledge beside three separate animals in woolly hats, each on its own small sledge and fully visible: {filou-}, {rosie-} and {plume-}
 Nestor en rêve. D'habitude, il est toujours le dernier : trop lent pour courir, trop lourd pour grimper. Mais en luge, plus on est lourd, plus on va vite !
-> At the top of a snowy slope, {cabri} raises his whistle to his mouth, while {nestor} grips the rope of his wooden sledge, leaning forward, eyes fixed on the track, ready to start
+> At the top of a snowy slope by day, {cabri}, standing upright on two legs in his red ski jacket, raises only a small silver whistle to his mouth, while {nestor} sits on his big wooden sledge, holding its rope in his own paws, leaning forward, eyes fixed on the track, ready to start
 « Pour une fois, se dit-il en s'installant, c'est moi qui vais gagner. » Monsieur Cabri lève son sifflet. Triiit !
 
-@ {nestor} zooms down a snowy slope on his wooden sledge far ahead of the other racers, ears flattened by the wind, a huge joyful smile
+@ On a snowy slope by day, {nestor} zooms down on his big wooden sledge, ears flattened by the wind, a huge joyful smile, while far behind him {filou-}, {rosie-} and {plume-} follow, each on its own small sledge, apart as separate animals, each fully visible
 La luge de Nestor démarre doucement. Puis elle prend de la vitesse. Encore. Encore ! Il double Plume. Il double Filou. Il double même Rosie, qui n'en revient pas.
 > On a snowy slope lined with fir trees rushing by, a close view of {nestor} on his wooden sledge, arms raised in triumph, shouting with joy, nobody ahead of him on the track
 « Youpiii ! » Le vent lui aplatit les oreilles. Les sapins défilent. Nestor est premier. Premier ! Ça ne lui était jamais arrivé de toute sa vie.
@@ -587,44 +587,44 @@ Il voit déjà la ligne d'arrivée, tout en bas, et la médaille qui brille au s
 
 @ Beside a snowy race track, a small sledge lies upside down in a hole of deep snow with two tiny feet sticking out from under it, while {nestor} speeds past on his wooden sledge, looking back
 C'est alors qu'il entend quelque chose, sur le côté de la piste. Un tout petit cri. « À l'aide… »
-> Beside a snowy race track at a sharp bend, a close view of a small overturned sledge in a hole of deep snow, the two tiny wiggling feet of a little hedgehog sticking out from under it, fir trees around
+> Beside a snowy race track at a sharp bend by day, a close view of a small overturned sledge in a hole of deep snow, two tiny wiggling brown feet sticking out from under it, fir trees around
 Dans un trou de neige, il y a une luge renversée. Et sous la luge, deux petites pattes qui gigotent. C'est Pépin le hérisson. Il a raté le virage.
-> On a snowy race track, {nestor} races on his wooden sledge, torn, glancing back over his shoulder toward a snow hole beside the track, the other sledges still far behind him up the slope
+> On a snowy race track by day, {nestor} races on his big wooden sledge, torn, glancing back over his shoulder toward a snow hole beside the track, while far behind him up the slope {filou-}, {rosie-} and {plume-} follow, each on its own small sledge, apart as separate animals
 Nestor file à toute allure. Dans une seconde, il sera passé. Derrière lui, les autres arrivent. « Quelqu'un d'autre s'arrêtera », se dit-il.
 
-@ {nestor} brakes his sledge hard with both heels in the snow, a big white cloud of snow spraying, while other sledges race past him
+@ On a snowy slope by day, {nestor} brakes his big wooden sledge hard with both heels in the snow, a big white cloud of snow spraying, while {rosie-}, {filou-} and {plume-} come up from behind, each on its own small sledge, apart as separate animals, each fully visible
 Mais les autres sont loin. Et Pépin est tout petit, dans un trou très froid. Nestor regarde la médaille. Il regarde les petites pattes.
-> On a snowy slope, {nestor} sits on his stopped sledge in a settling cloud of snow, watching {rosie-}, {filou-} and {plume-} in woolly hats zoom past him on their sledges
+> On a snowy slope by day, {nestor} sits on his big wooden sledge, stopped in a settling cloud of snow, watching three separate small sledges zoom past him, one animal in a woolly hat on each, each fully visible: {rosie-}, {filou-} and {plume-}
 Il plante ses deux talons dans la neige. Frrrrrrrr ! Sa luge freine dans un grand nuage blanc. Rosie le dépasse. Puis Filou. Puis Plume.
 > On a snowy slope, {nestor} trudges back uphill, puffing, sinking into the snow up to his knees, pulling his wooden sledge by its rope toward a snow hole near the fir trees
 « Oh, zut », dit Nestor. Mais il remonte la pente, en soufflant, en enfonçant jusqu'aux genoux.
 
-@ In deep snow, {nestor} gently lifts a shivering snow-covered {pepin} out of a hole and tucks him inside his warm coat
+@ In deep snow beside fir trees by day, {nestor} gently lifts tiny {pepin}, shivering and covered in snow, out of a hole, holding him in one paw, the hedgehog ten times smaller than the bear
 Il soulève la luge. Dessous, Pépin est blanc comme un bonhomme de neige, et il claque des dents. « J'ai… j'ai… froid. Et j'ai perdu ma moufle. »
-> In deep snow beside fir trees, {nestor} hugs {pepin} against his round tummy, the little hedgehog tucked inside the front of his warm jacket with only his head poking out, cosy and smiling
+> In deep snow beside fir trees by day, {nestor} hugs tiny {pepin} against his round tummy, the hedgehog ten times smaller than the bear, tucked inside the front of his warm jacket with only his head poking out, cosy and smiling
 Nestor le sort du trou. Il le frotte. Il le glisse dans son manteau, contre son gros ventre chaud. Il n'y a pas de meilleur radiateur qu'un ourson.
-> In deep snow, {pepin} peeking out of the warm jacket of {nestor} looks up at him with grateful wondering eyes, and {nestor} shrugs with a soft modest smile, a small broken sledge beside them
+> In deep snow beside fir trees by day, the head of tiny {pepin} pokes out of the collar of the warm jacket of {nestor}, the hedgehog ten times smaller than the bear, looking up at him with grateful eyes; the bear shrugs with a soft modest smile, a small broken sledge beside them
 « Tu as arrêté ta course pour moi ? » demande Pépin. « Hmm. Elle n'était pas si importante », dit Nestor. Ce n'est pas tout à fait vrai. Mais ça le devient en le disant.
 
-@ {nestor} and {pepin} ride slowly down a snowy slope together on one wooden sledge, the little hedgehog raising his arms happily, beautiful snowy mountains around
+@ On a snowy slope by day, {nestor} rides slowly down on his big wooden sledge with tiny {pepin} sitting in front of him, the little hedgehog raising his arms happily, beautiful snowy mountains around
 La luge de Pépin est cassée. Alors ils montent tous les deux sur celle de Nestor. Avec un ourson et un hérisson, elle descend tranquillement, sans se presser.
 > On a gentle snowy slope, {nestor} steers his wooden sledge calmly through a bend and laughs, looking around in wonder at sparkling fir trees and peaks, {pepin} sitting in front of him, warm and rosy
 Pépin, bien au chaud, retrouve ses couleurs. Il lève les bras dans les virages. « Encore ! » Nestor rit. Il n'avait pas vu, tout à l'heure, comme la montagne était belle.
 > At the bottom of a snowy slope, {nestor} and {pepin} arrive slowly on one wooden sledge at an empty finish line, where {rosie-} in a woolly hat stands with a big chocolate medal around her neck
 Quand ils arrivent en bas, la course est finie depuis longtemps. Rosie a la médaille en chocolat autour du cou.
 
-@ Between two red flags in the snow, {rosie-} in a woolly hat hands a big broken piece of a plain chocolate disc to {nestor}, three small squirrels around them eating chocolate
+@ Between two red flags in the snow at a finish line by day, {nestor} stands shyly beside his big wooden sledge while tiny {pepin} pokes his head out of the collar of the bear's jacket and speaks, {rosie-} with a big chocolate medal around her neck and two small squirrels in woolly hats listening
 « Dernier ! annonce le haut-parleur. Nestor ! » Quelques-uns rient. Puis Pépin sort la tête du manteau, et il raconte. Le trou. Le froid. Les talons dans la neige.
 > Between two red flags in the snow, {rosie-} in a woolly hat snaps a big plain smooth chocolate disc in two with a determined face, while {nestor} and two small squirrels in woolly hats watch in silence
 Plus personne ne rit. Rosie regarde sa médaille. Elle l'enlève. Crac ! Elle la casse en morceaux. « Elle est trop grosse pour moi toute seule. »
-> At a snowy finish line, {nestor} holds the biggest piece of a chocolate medal in both paws, blushing and moved, while {rosie-} in a woolly hat smiles at him and small animals munch their pieces
+> At a snowy finish line by day, {nestor} holds the biggest piece of a chocolate medal in both paws, blushing and moved, while {rosie-} in a woolly hat smiles at him and two small squirrels in woolly hats munch their pieces
 Elle en donne un bout à chacun. Et le plus gros morceau, elle le tend à Nestor. « Toi, tu étais premier. Je le sais, tu m'as doublée. »
 
-@ In a cosy wooden chalet by the fireplace, {nestor-} sits holding a cup of hot chocolate while {pepin} covered in spines sleeps curled up on his round belly
+@ In a cosy wooden chalet by the fireplace in the evening, {nestor-} leans back in an armchair holding a cup of hot chocolate while tiny {pepin} sleeps curled up on top of his round belly, the hedgehog ten times smaller than the bear
 Le soir, au chalet, tout le monde boit du chocolat chaud. Pépin s'est endormi sur le ventre de Nestor. Personne n'ose le déplacer. Nestor non plus.
-> In a cosy wooden chalet, a close view of a wooden fireplace mantelpiece with nobody around, a crooked round cardboard medal on a string leaning on it, decorated with a red pencil heart, firelight glowing below
+> In a cosy wooden chalet in the evening, a close view of a wooden fireplace mantelpiece with no animals, no toys and no figurines on it, only a crooked round flat brown cardboard medal on a string, decorated with a simple pencil drawing of a bear face and a red heart, firelight glowing below
 Sur la cheminée, il y a une nouvelle médaille. Elle est en carton, un peu de travers, coloriée au crayon. C'est Pépin qui l'a faite. Dessus, il a dessiné un ourson avec un cœur.
-> In a cosy wooden chalet by the fire, {nestor-} holds a homemade cardboard medal against his heart with a tender smile, while {pepin} sleeps curled up on his belly
+> In a cosy wooden chalet by the fire in the evening, {nestor-}, seated in an armchair, holds a flat brown cardboard medal with a red pencil heart against his heart with a tender smile, while tiny {pepin} sleeps curled up on his belly
 Elle ne se mange pas. Nestor l'a quand même gardée toute sa vie.
 
 === rosie_ski
@@ -633,23 +633,23 @@ theme: accepter d'être débutante ; le plaisir de progresser
 sujet: Être débutante
 famille: grandir
 
-@ At a snowy ski resort, {rosie} falls flat in the snow with her skis sliding apart in opposite directions, {cabri} watching kindly
+@ At a snowy ski resort by day, {rosie} falls flat in the snow with her skis sliding apart in opposite directions, {cabri}, standing upright on two legs in his red ski jacket, watching kindly
 Rosie court plus vite que tout le monde. Elle saute plus haut, elle nage plus loin. Alors, en arrivant à la station des Sapins Blancs, elle n'a aucun doute. « Le ski ? Je serai la meilleure avant midi. »
 > At a snowy ski resort, {rosie} wobbles upright on her skis for one second, arms windmilling, her two legs sliding apart in opposite directions, eyes round with surprise
 Elle chausse ses skis. Elle se met debout. Et ses deux pattes partent chacune de son côté, comme si elles étaient fâchées. Boum.
-> At a snowy ski resort, {rosie} sits in the snow shaking a ski crossly with both paws as if it were broken, while {cabri} smiles gently and shakes his head
+> At a snowy ski resort by day, {rosie} sits in the snow shaking a ski crossly with both paws as if it were broken, while {cabri}, standing upright on two legs in his red ski jacket, smiles gently and shakes his head
 Elle se relève. Boum. Elle se relève encore. Boum. « Ces skis sont cassés ! » « Non, dit Monsieur Cabri. Ils sont neufs. C'est toi qui es nouvelle. »
 
-@ On a beginner ski slope, {nestor-} and {plume-} glide calmly on skis, while {rosie} sits in the snow, furious, her ears steaming
+@ On a beginner ski slope by day, {nestor-} and {plume-} glide calmly on skis, apart as separate animals, each fully visible, while {rosie} sits in the snow, furious
 Le pire, c'est les autres. Nestor, si lent d'habitude, glisse tranquillement comme un gros bateau. Plume fait de petits virages bien propres. Même Pompon tient debout !
-> On a beginner ski slope, {rosie} sits with her bottom in the snow, last of the line, chin in her paws, while tiny animal children, a squirrel and a mouse, on skis slide past her one after another
+> On a beginner ski slope by day, {rosie} sits with her bottom in the snow, chin in her paws, while one small squirrel child and one small mouse child on tiny skis slide past her one after the other
 Et Rosie, la plus rapide de la forêt, passe sa matinée les fesses dans la neige. Elle est la dernière. La toute dernière de la classe.
 > On a beginner ski slope, {nestor-} on skis leans kindly toward {rosie} sitting in the snow, showing her how he glides, while she glares with clenched teeth, steam rising from her ears
 « Ne te presse pas, lui dit Nestor gentiment. Fais comme moi. » Se faire donner des conseils par Nestor ! Les oreilles de Rosie fument.
 
-@ In front of a wooden chalet, {rosie} sits sulking on a bench with crossed arms, her skis and poles thrown in the snow, watching others ski and laugh
+@ In front of a wooden chalet by day, {rosie} sits sulking on a bench with crossed arms, her skis and poles thrown in the snow, watching {nestor-} and {plume-} ski and laugh on the slope behind, apart as separate animals, animals only
 À midi, elle jette ses bâtons. « C'est nul, le ski. C'est un sport idiot. Je n'en ferai plus jamais. » Et elle va s'asseoir sur le banc, devant le chalet.
-> In front of a wooden chalet, {rosie} sits on a bench with crossed arms, looking at {nestor-} and {plume-} sitting in the snow on their skis, laughing
+> In front of a wooden chalet by day, {rosie} sits on a bench with crossed arms, frowning, looking at {nestor-} and {plume-}, who have fallen on their bottoms in the snow, each with their own skis, apart as separate animals, laughing
 Elle regarde les autres descendre. Ils rient. Ils tombent aussi, d'ailleurs. Nestor tombe. Plume tombe. Mais eux, ils se relèvent en riant.
 > On a bench in front of a snowy wooden chalet, {rosie} sits hunched and small, ears drooping, muttering to herself with a sad puzzled face, her skis lying in the snow
 « Comment ils font pour rire ? » marmonne Rosie. Elle, quand elle n'est pas la meilleure, elle a l'impression de n'être plus rien du tout.
@@ -661,30 +661,30 @@ Monsieur Cabri s'assoit à côté d'elle, avec deux tasses de chocolat. « Tu sa
 > On a bench in front of a snowy chalet, {rosie} looks doubtful with one eyebrow raised, a cup in her paws, while {cabri} laughs kindly and points to the beginner slope sparkling in the sun
 « Le plus beau ? Tomber tout le temps ? » « Bien sûr. Quand on est champion, on ne progresse presque plus. Quand on débute, on fait un petit miracle tous les jours. »
 
-@ On a beginner ski slope, {rosie} sits in the snow after a fall, covered in snow but with a huge proud smile, {pompon} on tiny skis cheering beside her
+@ On a beginner ski slope by day, {rosie} sits in the snow after a fall, covered in snow but with a huge proud smile, tiny {pompon}, only half her size, on tiny skis cheering beside her
 Rosie finit son chocolat. Elle regarde ses skis, plantés dans la neige. Elle soupire. Et elle y retourne. « Mais je vous préviens, je vais tomber. » « J'y compte bien », dit Monsieur Cabri.
-> On a beginner ski slope, {rosie} glides upright on her skis for a short stretch, arms out, mouth open with amazement, a straight track behind her, while {pompon} on tiny skis counts on his paws
+> On a beginner ski slope by day, {rosie}, the big rabbit in her red scarf and beige woolly hat, glides upright on her skis for a short stretch, arms out, mouth open with amazement, while tiny {pompon}, half her size and the only one wearing a light blue bib, counts on his paws
 Elle tombe. Une fois, deux fois, dix fois. Mais maintenant, elle compte. « Onze ! » crie Pompon. « Douze ! » À la treizième, elle glisse sur trois mètres avant de s'écrouler.
-> On a beginner ski slope, {rosie} with snow up to her ears throws both arms up in victory and shouts with joy toward {cabri} and {pompon}, who clap for her
+> On a beginner ski slope by day, {rosie} with snow up to her ears throws both arms up in victory and shouts with joy toward {cabri}, standing upright on two legs in his red ski jacket, and tiny {pompon}, who clap for her
 Trois mètres ! « Tu as vu ? Tu as vu ? » Elle a de la neige jusque dans les oreilles et un sourire jusque-là.
 
 @ On a ski slope, {nestor-} on skis holds out his paw to help {rosie} up from the snow, and she takes it, smiling
 Le lendemain, elle tient debout jusqu'au sapin. Le jour d'après, elle fait son premier virage. Elle ne l'a pas fait exprès, mais ça compte quand même.
 > On a ski slope, {rosie} back on her feet looks up at {nestor-} on skis and points at her own knees, asking for advice, humble and curious
 Quand elle tombe, Nestor lui tend la patte. Elle la prend. « Comment tu fais, pour plier les genoux ? » C'est la première fois de sa vie que Rosie demande un conseil.
-> On a ski slope, {rosie} skis with her knees well bent as if sitting on a tiny stool, delighted, while {nestor-} in a woolly hat blushes bright red with pride beside her
+> On a ski slope by day, {rosie} skis standing on her two skis with her knees bent low, delighted, no stool and no sledge, while {nestor-} in a woolly hat blushes bright red with pride beside her
 « Comme si tu t'asseyais sur un tout petit tabouret », dit Nestor. Elle essaie. Ça marche ! « Nestor, tu es un génie. » Nestor en rougit jusqu'au bonnet.
 
-@ At the bottom of a ski slope, {cabri} pins a small silver snowflake badge on the scarf of a proud {rosie} standing on her skis
+@ At the top of a gentle ski slope by day, {rosie} stands on her skis ready to start, one paw on her thumping heart, looking down the white slope where {cabri}, standing upright on two legs in his red ski jacket, waits at the bottom
 À la fin de la semaine, c'est le passage du Flocon. Il faut descendre toute la piste verte sans tomber. Rosie a le cœur qui cogne.
-> On a gentle ski slope, {rosie} skis down slowly with her skis in a triangle, tongue out in concentration, {cabri} waiting at the bottom, nobody else on the slope
+> On a gentle white snowy ski slope by day, {rosie} skis down slowly, her ski tips together in a V shape, tongue out in concentration, {cabri}, standing upright on two legs in his red ski jacket, waiting at the bottom, nobody else on the slope
 Elle part. Un triangle. Un virage. Un autre. Elle descend lentement, bien plus lentement que les autres. Elle arrive la dernière. Mais elle arrive debout.
 > At the bottom of a ski slope, a close view of {rosie} looking down with shining moved eyes at a small silver snowflake badge pinned on her red scarf, touching it gently with one paw
 Monsieur Cabri lui accroche un petit flocon en métal sur l'écharpe. Rosie a gagné des coupes, des médailles, des couronnes. Aucune ne lui a fait cet effet-là.
 
-@ On a beginner ski slope, {rosie} on skis crouches kindly beside a tiny baby marmot who has fallen in the snow on little skis, both laughing
+@ On a beginner ski slope in the morning, one tiny baby marmot on little skis sits fallen in the snow, whimpering, her skis crossed, while {rosie} on skis watches her from a little way off
 Le dernier matin, une petite marmotte arrive à l'école de ski. Elle met ses skis. Boum. Elle se relève. Boum. « Ces skis sont cassés ! » pleurniche-t-elle.
-> On a beginner ski slope, {rosie} glides in a neat snowplough toward a tiny baby marmot who sits in the snow in tears, her little skis crossed
+> On a beginner ski slope in the morning, {rosie} skis slowly, standing, her ski tips pointing together in a V shape, toward one tiny baby marmot who sits in the snow in tears, her little skis crossed
 Rosie glisse jusqu'à elle, en chasse-neige. Elle s'accroupit. « Non. Ils sont neufs. C'est toi qui es nouvelle. Et tu as de la chance : c'est le plus beau métier du monde. »
 > On a beginner ski slope, {rosie} and a tiny baby marmot on little skis both tumble onto their bottoms in the snow side by side, laughing out loud, snow flying around them
 « Allez, je compte avec toi. Un ! » Boum. « Deux ! » Boum. Et sur la piste des débutants, on entend deux rires, les fesses dans la neige.
@@ -695,60 +695,60 @@ theme: le mal de la maison ; grandir sans cacher ce qu'on ressent
 sujet: Dormir loin de la maison
 famille: oser
 
-@ At a snowy stop, {plume}, hugs a bigger mother owl goodbye, a small suitcase at her feet, an empty wooden sleigh behind
+@ At a snowy sleigh stop by day, {plume}, the small owl in her beige hat and yellow scarf, hugs goodbye {mamanchouette}, twice as tall, in her pale blue knitted shawl and no hat, a small suitcase at their feet, an empty wooden sleigh behind
 Pour la première fois de sa vie, Plume part en vacances sans ses parents. Une semaine entière à la station des Sapins Blancs, avec ses amis, dans un grand chalet en bois.
-> In a cosy nest bedroom, {plume-} packs a small suitcase with a woolly hat, mittens and three books, and tucks a small worn cuddly rag toy right at the bottom, glancing around so nobody sees
+> In a cosy nest bedroom by day, {plume-} pushes a small worn beige rag teddy toy deep inside an open suitcase under a woolly hat, mittens and three books, only one of its ears sticking out, glancing around so nobody sees
 Dans sa valise, elle a mis son bonnet, ses moufles, trois livres, et Chiffon, son doudou, tout au fond, pour que personne ne le voie. Elle est grande, maintenant.
-> On a snowy road, {plume} sits at the back of a sleigh full of young animals and waves her wing, looking back at {mamanchouette} who is now very small in the distance
+> On a snowy road by day, {plume}, the small owl in her beige hat and yellow scarf, sits at the back of a wooden sleigh and waves her wing, looking back at {mamanchouette}, tall, in her pale blue knitted shawl and no hat, now very small in the distance
 « Tu vas voir, ça va être formidable », dit maman en la serrant fort. Plume hoche la tête. Dans le traîneau, elle agite l'aile jusqu'à ce que maman soit toute petite.
 
-@ In front of a wooden chalet buried in snow, {plume} and her friends, a fox, a bear cub and a rabbit in woolly hats, build a snowman with a carrot nose, laughing
+@ In front of a wooden chalet buried in snow by day, four separate characters stand apart around a snowman with a carrot nose, each fully visible, laughing: {plume}, {filou-} with his pointed snout, {nestor-} and {rosie-}
 La journée est merveilleuse. Il y a de la neige jusqu'aux fenêtres ! Ils font un bonhomme avec une carotte pour le bec. Ils dévalent la pente en luge, en criant.
-> In the evening inside a wooden chalet dining room, {cabri} makes funny storytelling gestures by the fire, while {plume-} laughs so hard she hiccups, a fox, a bear cub and a rabbit around bowls of soup
+> In the evening inside a wooden chalet dining room, {cabri} makes funny storytelling gestures in front of a stone fireplace in the wall behind, while {plume-} laughs so hard she hiccups, {filou-} and {nestor-} sitting apart beside her at a table that holds only bowls of soup and a cheese pot
 Le soir, il y a de la soupe, du fromage fondu, et Monsieur Cabri raconte l'histoire du yéti qui avait peur des chatouilles. Plume rit tellement qu'elle en a le hoquet.
-> At night in a wooden chalet dormitory with bunk beds, {cabri} reaches up to put out the lamp, while {plume-} sits in her upper bunk, her smile suddenly fading, her friends already snuggling down
+> At night in a wooden chalet dormitory with bunk beds, as the lamp goes dim, {plume-} sits in her upper bunk, her smile suddenly fading, while in three other beds {filou-}, {nestor-} and {rosie-} snuggle down, each a separate animal in its own bed
 Elle ne pense pas une seule fois à la maison. Pas une seule. Jusqu'au moment où on éteint la lumière.
 
-@ At night in a wooden chalet dormitory with bunk beds, {plume-} lies awake with wide open eyes under her blanket while her friends sleep, moonlight at the window
+@ At night in a wooden chalet dormitory with bunk beds, {plume-} lies awake with wide open eyes under her blanket in the upper bunk, while in three other beds {nestor-}, {rosie-} and {filou-} sleep, each a separate animal in its own bed, moonlight at the window
 Dans le dortoir, ses amis s'endorment tout de suite. Nestor ronfle. Rosie gigote. Filou parle en dormant. Plume, elle, garde les yeux grands ouverts.
 > At night in a wooden chalet dormitory, {plume-} lies in a bunk bed staring up at the unfamiliar wooden ceiling beams, blanket pulled up to her beak, looking small and uneasy in the moonlight
 Le lit ne sent pas comme son lit. Le plafond craque. Il n'y a pas le bruit de papa qui range la cuisine, ni la petite lumière sous la porte.
 > At night in a bunk bed, a close view of {plume-} with a wing on her throat, eyes shiny and sad, a dream cloud above her showing a cosy little nest house with a lit window
 Une boule monte dans sa gorge. Elle est grosse, elle est chaude, et elle a un nom que Plume ne connaissait pas encore : le mal du nid.
 
-@ At night in a bunk bed, {plume-} hugs a small worn cuddly rag toy tightly, a tear on her cheek, an open suitcase beside her
+@ At night in a chalet dormitory, {plume-} sits up in her bunk bed looking out of the window at the dark snowy mountains, a tear on her cheek, a closed suitcase beside her
 Elle voudrait rentrer. Tout de suite. Voler jusqu'à la maison, même dans la nuit, même dans la neige. Mais c'est trop loin, et ses ailes sont trop petites.
-> At night in a bunk bed, {plume-} quietly rummages in her open suitcase under a pair of mittens and pulls out a small worn cuddly rag toy, moonlight on her face
+> At night in a chalet dormitory bunk bed, {plume-} quietly rummages in her open suitcase under a pair of mittens and pulls out a small worn beige rag teddy toy, moonlight on her face
 Tout doucement, elle ouvre sa valise. Elle fouille sous les moufles. Elle sort Chiffon et le serre contre elle. Il sent la maison. Les larmes coulent toutes seules.
-> At night in a chalet dormitory, {plume-} cries silently, hugging a small worn cuddly rag toy, curled up in her bunk bed, {nestor-} asleep in the bed below
+> At night in a chalet dormitory, {plume-} cries silently, hugging a small worn beige rag teddy toy, curled up in her upper bunk bed, {nestor-} asleep in the bed below
 Elle pleure sans bruit, pour ne réveiller personne. « Je suis un bébé, pense-t-elle. Les autres dorment. Il n'y a que moi qui suis triste. »
 
-@ At night in a dormitory, {nestor-} sitting in the lower bunk holds up a worn blue cuddly toy, while {plume-} looks down from the upper bunk
+@ At night in a chalet dormitory with bunk beds, {nestor-} sitting up in the lower bunk looks up, while in the upper bunk {plume-} wipes her eyes and hides a small worn beige rag teddy toy under her blanket
 « Plume ? » Un chuchotement, dans le lit d'en dessous. C'est Nestor. Il ne ronfle plus. « Tu pleures ? » Plume cache Chiffon sous sa couverture. « Non. J'ai… un rhume. »
-> At night in a dormitory with bunk beds, {nestor-} in the lower bunk shyly presses a worn blue cuddly toy with one chewed ear against his cheek, a finger on his lips, {plume-} peeking down from above
+> At night in a chalet dormitory with bunk beds, {nestor-} in the lower bunk shyly holds up a small worn blue rag teddy toy with one chewed ear, {plume-} peeking down from the upper bunk
 Un silence. Puis quelque chose apparaît au bord du lit. Un bout de tissu bleu, tout usé, avec une oreille mâchouillée. « Lui, c'est Bidou. Je ne dors jamais sans lui. Ne le dis pas à Filou. »
-> At night between two bunk beds, {plume-} and {nestor-} face each other, each holding a cuddly toy, a beige rag toy and a blue one, toys touching
+> At night in a chalet dormitory between two bunk beds, {plume-} leaning down holds a small worn beige rag teddy toy and {nestor-} reaching up holds a small worn blue rag teddy toy with one chewed ear, the two toys touching noses
 Plume renifle. Elle sort Chiffon. « Lui, c'est Chiffon. » Les deux doudous se disent bonjour, dans le noir. Ça va déjà un tout petit peu mieux.
 
-@ At night, {cabri} sits on a bed edge with a lantern beside {plume-} in bed
+@ At night in a chalet dormitory, {plume-} lies under the blanket with her head on the pillow, eyes wet, while {cabri} sits on the edge of her bed, his feet on the floor, a lantern in his hoof
 La porte s'entrouvre. C'est Monsieur Cabri, avec une lanterne. Il fait sa ronde. Il voit les yeux mouillés. Il ne dit pas « tu es grande, voyons ». Il s'assoit au bord du lit.
-> At night in a chalet dormitory, {cabri} in pyjamas sits on the edge of a bed, his lantern on the floor, speaking gently to {plume-}, who wipes a tear and listens, hugging her rag toy
+> At night in a chalet dormitory, {cabri} sits on the edge of a bed, his lantern on the floor, speaking gently to {plume-}, who wipes a tear and listens, hugging a small worn beige rag teddy toy
 « Le premier soir, c'est le plus dur. La maison te manque parce que tu l'aimes. C'est plutôt une bonne nouvelle, non ? » Plume n'y avait pas pensé comme ça.
 > At a chalet window at night, {plume-} and {cabri} look at a big round moon over snowy firs
 Il ouvre le rideau. La lune est là, toute ronde, sur la neige. « Regarde-la bien. Ta maman la voit aussi, en ce moment. C'est la même. Vous regardez au même endroit. »
 
-@ In a bunk bed by a window, {plume-} sleeps peacefully with her cuddly rag toy under her wing, a big round moon shining over snowy mountains outside
+@ At night in a bunk bed by a chalet window, {plume-} gazes at a big round moon shining over snowy mountains outside, hugging a small worn beige rag teddy toy, her face growing calm
 Plume regarde la lune très fort. Elle imagine maman à la fenêtre du nid, avec son tricot. La boule dans sa gorge fond un peu, comme un glaçon dans la soupe.
-> At night in an upper bunk by a moonlit window, {plume-} sleeps hugging a beige rag toy, {nestor-} asleep below hugging a blue toy
+> At night in an upper bunk by a moonlit chalet window, {plume-} sleeps hugging a small worn beige rag teddy toy, {nestor-} asleep in the bunk below hugging a small worn blue rag teddy toy with one chewed ear
 « Bonne nuit, maman », chuchote-t-elle. Elle s'endort, Chiffon sous l'aile. En dessous, Nestor ronfle déjà, le nez dans Bidou.
-> On a sunny snowy morning in a wooden chalet, {plume-} sits at a table drawing on a small card with a pencil, cheerful, her woolly hat and skis waiting by the open door
+> On a sunny snowy morning in a wooden chalet, {plume-} sits at a table drawing on a small blank card with a pencil, cheerful, her woolly hat and skis waiting by the open door
 Le lendemain matin, elle écrit une carte. « Chère maman, cher papa. Hier soir, vous m'avez beaucoup manqué. Aujourd'hui, j'apprends le chasse-neige. Je vous embrasse. Plume. » Et elle court dehors.
 
-@ At night in a chalet bunk bed, {plume-} sits calmly hugging a small worn cuddly rag toy and looks through the window at a big round moon over the snow, smiling softly
+@ At night in a chalet bunk bed, {plume-} sits calmly hugging a small worn beige rag teddy toy and looks through the window at a big round moon over the snow, smiling softly
 La deuxième nuit est plus facile. La troisième aussi. La boule revient un petit peu, chaque soir, au moment de la lune. Mais Plume sait quoi faire, maintenant.
-> At a snowy stop, {plume} jumps from a sleigh into the open wings of {mamanchouette}, both beaming, a small suitcase tumbling into the snow beside them
+> At a snowy sleigh stop by day, {plume} jumps from a wooden sleigh into the open wings of {mamanchouette}, both beaming, a small suitcase tumbling into the snow beside them
 À la fin de la semaine, quand le traîneau la ramène, maman l'attend sur le quai. Plume lui saute au cou. « Tu m'as manqué ! » « Toi aussi, ma chouette. Tous les soirs, je regardais la lune. »
-> In a cosy nest bedroom, {plume-} holds up a small worn beige cloth rag doll above her open suitcase, a bigger mother owl smiling behind her
+> In a cosy nest bedroom by day, {plume-} places a small worn beige rag teddy toy with no wings on the very top of the clothes in her open suitcase, {mamanchouette} in her pale blue knitted shawl smiling behind her
 Plume ouvre de grands yeux. Puis elle défait sa valise. Cette fois, Chiffon n'est pas caché au fond. Il est posé tout en haut, bien en vue. Il a fait du ski, lui aussi. Il a beaucoup de choses à raconter.
 
 # ───────────────────────────── VACANCES À LA MER ─────────────────────────────
@@ -759,58 +759,58 @@ theme: prêter ses affaires ; on s'amuse mieux à plusieurs
 sujet: Prêter ses jouets
 famille: autres
 
-@ On a sunny beach with dunes, {filou} proudly shows a big red bucket, three spades, a rake and star-shaped moulds laid out on the sand
+@ On a sunny beach with dunes by day, {filou}, his green scarf clearly visible, stands next to a big red bucket and proudly shows exactly three identical small spades lying side by side in a row on the sand, plus one rake and star-shaped moulds
 Cet été, Filou est en vacances à la plage des Dunes. Et il a apporté son trésor : un grand seau rouge, trois pelles, un râteau, et des moules en forme d'étoile.
-> On a sunny beach with dunes, {filou} draws the plan of a big castle with four towers and a bridge in the sand with a stick, a seagull feather tucked behind his ear
+> On a sunny beach with dunes by day, {filou} scratches a simple line drawing of a castle with four towers in the flat empty sand with a stick, a seagull feather tucked behind his ear, no castle built yet
 Il a un projet. Le plus grand, le plus beau château de sable jamais construit. Avec quatre tours, un pont, et un drapeau en plume de mouette.
-> On a sunny beach with dunes, {filou} stands with his chest puffed out and one paw pointing at himself, hugging his red bucket and three spades tightly against him
+> On a sunny beach with dunes by day, {filou}, his green scarf around his neck, stands with his chest puffed out and one paw pointing at himself, hugging his big red bucket, three small spades clutched in one arm
 « Et je le ferai tout seul, annonce-t-il. Comme ça, tout le monde saura que c'est le mien. »
 
-@ On a beach, {filou} guards his three spades and red bucket inside a big circle drawn in the sand, turning away {crabe}, {rosie-} and a tiny baby rabbit who look disappointed
+@ On a sunny beach by day, {filou} hugs his three small spades and big red bucket against him and shakes his head at {crabe}, who stands in front of him on the sand looking disappointed
 Un petit crabe s'approche, en marchant de côté. « Il est beau, ton seau. Tu me prêtes une pelle ? Tu en as trois. » « Non. J'en ai besoin. » « Des trois ? » « Des trois. »
-> On a beach, {filou} spreads his arms wide before his sand tower, facing {rosie-} and a tiny baby rabbit
+> On a sunny beach by day, {filou} spreads his arms wide before his half-built sand tower, facing {rosie-} in her red scarf and tiny {pompon}, only half her size, standing next to her, each fully visible
 Rosie arrive avec Pompon. « On peut t'aider ? Je sais faire des tours très hautes ! » « Pas touche ! C'est MON château. Allez jouer plus loin. »
-> On a sunny beach, {filou} drags a rake through the sand to draw a big circle around his bucket, spades and a half-built sand tower, while {rosie-}, a tiny baby rabbit and {crabe} walk away
+> On a sunny beach by day, {filou} drags a rake through the sand to draw a big circle around his big red bucket, three small spades and a half-built sand tower, while {rosie-}, tiny {pompon} and {crabe} walk away
 Ils s'en vont plus loin. Filou trace un grand rond autour de son chantier, avec le râteau. « Défense d'entrer. »
 
-@ On a beach, {filou} walks alone carrying a heavy red bucket of water, sweating, toward a half-built sand castle, {rosie-} far away in the background
+@ On a sunny beach by day, {filou} walks alone carrying a heavy red bucket of water, sweating, toward a half-built sand castle, {rosie-} far away in the background
 Toute la matinée, il creuse, il tasse, il démoule. C'est long, tout seul. Il faut courir chercher l'eau, revenir, repartir. Le sable sèche plus vite qu'il ne construit.
-> On a sunny beach, {rosie-}, a tiny baby rabbit and {crabe} laugh out loud around a wobbly crooked sand castle built with their bare paws, sand on their noses, {filou} a small figure working far behind
+> On a sunny beach by day, {rosie-}, tiny {pompon} and {crabe} laugh out loud around a wobbly crooked sand castle built with their bare paws, sand on their noses, {filou} a small figure working far behind
 Un peu plus loin, il entend des rires. Rosie, Pompon et le petit crabe construisent quelque chose avec leurs pattes. C'est tout de travers. Ils ont l'air de bien s'amuser.
 > On a sunny beach, {filou} pats a fourth sand tower with his spade, sweating, his nose in the air with a scornful pout, three finished sand towers beside him
 « Pfff. Leur château est moche », dit Filou. Il n'a pas le temps de rire, lui. Il a une quatrième tour à finir.
 
-@ On a beach, {filou} stands alone beside a magnificent sand castle with four towers, a bridge and a feather flag, looking a little lonely, while behind him the sea is rising
+@ On a sunny beach by day, {filou} stands alone beside a magnificent sand castle with four towers, a bridge and a feather flag, looking a little lonely, while behind him the sea is rising
 À quatre heures, c'est fini. Quatre tours, un pont, le drapeau. C'est magnifique. Filou recule pour l'admirer. « Venez voir ! Venez tous voir mon château ! »
-> On a beach in the afternoon, {filou} waves both arms and calls beside his magnificent sand castle, but in the distance {rosie-}, a tiny baby rabbit and {crabe} are busy digging a tunnel
+> On a sunny beach in the afternoon, {filou} waves both arms and calls beside his magnificent sand castle, but in the distance {rosie-}, tiny {pompon} and {crabe} are busy digging a tunnel in the sand
 Personne ne vient. Ils sont trop occupés à creuser un tunnel. Filou reste planté là, à côté de son chef-d'œuvre. C'est drôle : il pensait qu'il serait plus content.
 > On a beach in late afternoon, seen from the sea, small waves creep quietly up the sand toward a magnificent sand castle with four towers, while {filou} stands with his back to the water, unaware
 Et pendant ce temps, derrière lui, tout doucement, la mer monte.
 
-@ On a beach, a wave washes against a big sand castle whose bridge is collapsing, while {filou} panics and digs frantically with a spade, alone
+@ On a sunny beach by day, a wave washes against a big sand castle whose bridge is collapsing, while {filou} panics and digs frantically with a spade, alone
 Une première vague vient lécher le mur. Schlip. Un morceau s'effondre. « Hé ! » Filou attrape une pelle. Il rebouche. Une deuxième vague. Schlip, schlip.
-> On a beach, {filou} runs with a spade, digging a ditch and piling up a little sand wall, as several waves reach around his big sand castle from every side
+> On a sunny beach by day, {filou} runs with a spade, digging a ditch and piling up a little sand wall, as several waves reach around his big sand castle from every side
 Il court à gauche, il court à droite. Il creuse un fossé, il monte une digue. Mais il n'a que deux pattes, et la mer en a mille.
-> On a beach, {filou} stands with both paws on his head, mouth open, next to his big sand castle, its bridge crumbling into a wave
+> On a sunny beach by day, {filou} stands with both paws on his head, mouth open, next to his big sand castle, its bridge crumbling into a wave
 « Au secours ! Mon château ! » Le pont s'écroule. Une tour penche. Tout seul, il n'y arrivera jamais.
 
-@ On a beach, {filou}, {rosie-}, a tiny baby rabbit with a rake and {crabe} holding a spade in each claw dig a big ditch and build a sand wall together in front of a sand castle as a wave arrives
+@ On a sunny beach in the afternoon, a small gentle wave laps at the sand in front of a big sand castle, not a tall wave, while {rosie-}, tiny {pompon} and {crabe} run toward {filou}, who waves for help beside the castle
 Rosie lève la tête. Elle pourrait dire : « Débrouille-toi, c'est TON château. » Elle le pense très fort, une seconde. Puis elle court. Les autres aussi.
-> On a beach, {filou} holds out his red bucket toward {rosie-} running to him, {crabe} beside them holding a little spade
+> On a sunny beach in the afternoon, {filou} holds out his big red bucket toward {rosie-} running to him, {crabe} beside them holding one small spade in each claw, tiny {pompon} dragging a rake
 « Les pelles ! crie Filou. Prenez les pelles ! Le seau ! Tout ce que vous voulez ! » Le petit crabe attrape une pelle dans chaque pince. Pompon traîne le râteau.
-> On a beach, a wave stops at a sand wall; behind it {filou}, {rosie-} and {crabe} cheer
+> On a sunny beach in the afternoon, a small wave stops at the foot of a clear curved sand wall with a ditch, built in front of a big sand castle; behind the wall {filou}, {rosie-} and {crabe} cheer, tiny {pompon} carrying water
 Ils creusent un fossé géant. Ils montent un mur. Rosie tasse, le crabe creuse, Pompon porte de l'eau dans ses oreilles. La vague arrive… et s'arrête au pied de la digue.
 
-@ On a beach, {filou}, {rosie-}, a baby rabbit and {crabe}, all covered in sand, happily rebuild a big funny crooked sand castle decorated with shells everywhere
+@ On a sunny beach in the afternoon, {filou} looks at his damaged sand castle with one tower missing, then at {rosie-}, tiny {pompon} and {crabe}, who stand in a row covered in sand, each fully visible
 Sauvé ! Enfin, presque. Il manque le pont et une tour. Filou regarde les dégâts. Puis il regarde ses trois amis, pleins de sable jusqu'aux yeux.
-> On a beach, {filou} rubs out a big circle drawn in the sand with his foot, smiling shyly, while {rosie-} covered in sand watches with a teasing look, arms crossed, a damaged sand castle behind them
+> On a sunny beach by day, {filou} rubs out a big circle drawn in the sand with his foot, smiling shyly, while {rosie-} covered in sand watches with a teasing look, arms crossed, a damaged sand castle behind them
 « Vous… vous voulez bien m'aider à le refaire ? » « C'est plus TON château, alors ? » demande Rosie, l'air de rien. Filou efface le grand rond avec sa patte. « Non. C'est le nôtre. »
-> On a beach, {rosie-} on tiptoe builds a very tall sand tower, {crabe} digs a moat filled with real water, and a tiny baby rabbit sticks shells everywhere, {filou} laughing with them
+> On a sunny beach in the afternoon, {rosie-} on tiptoe builds a very tall sand tower, {crabe} digs a moat filled with water, and exactly one tiny {pompon} sticks shells everywhere, only two rabbits in the picture, {filou} laughing with them
 Rosie refait la tour, encore plus haute. Le crabe creuse des douves avec de la vraie eau. Pompon plante des coquillages partout, même là où il ne faut pas. C'est tout de travers. C'est bien mieux.
 
-@ At sunset on a beach, {filou}, {rosie-}, a baby rabbit and {crabe} sit side by side watching the tide gently wash away a sand castle; a red bucket with three spades stands in the sand
+@ At sunset on a beach, {filou}, {rosie-}, tiny {pompon} and {crabe} sit side by side watching the tide gently wash away a sand castle; a big red bucket with three small spades stands in the sand
 Le soir, la grande marée finit par tout emporter. La digue, les tours, le drapeau. Ils regardent le château fondre dans l'eau, assis côte à côte.
-> At sunset on a beach, the last sand tower has melted into the sea, and {filou} smiles peacefully, leaning shoulder to shoulder with {rosie-}, a tiny baby rabbit and {crabe}, golden light on the water
+> At sunset on a beach, the last sand tower has melted into the sea, and {filou} smiles peacefully, sitting shoulder to shoulder with {rosie-}, tiny {pompon} between them, and {crabe}, four characters in total, golden light on the water
 Filou attend d'être triste. Mais non. Le château est parti, et il lui reste quelque chose quand même. Trois amis, et rendez-vous demain matin.
 > On a sunny morning on an empty beach with dunes, a big red bucket stands in the middle of the sand with three spades planted in it, decorated with a garland of green seaweed, {filou} waving from afar
 Le lendemain, sur la plage des Dunes, il y a un seau rouge posé au milieu du sable. Avec trois pelles plantées dedans, et un écriteau en algues. Dessus, Filou a écrit : « Servez-vous. »
@@ -821,60 +821,60 @@ theme: apprivoiser sa peur pas à pas, sans se forcer d'un coup
 sujet: Apprendre pas à pas
 famille: oser
 
-@ On a sunny beach, {nestor} sits on his towel wearing a big yellow swim ring around his tummy, watching a fox, a rabbit and an owl splash happily in the sea
+@ On a sunny beach by day, {nestor} sits on his towel wearing a big yellow swim ring around his waist, watching {filou-}, {rosie-} and {plume-} splash happily in the sea, apart as separate animals, each fully visible
 À la plage des Dunes, tous les amis de Nestor sont dans l'eau. Filou plonge, Rosie fait la planche, Plume barbote au bord. Nestor, lui, est assis sur sa serviette, avec sa grosse bouée jaune autour du ventre.
-> On a sunny beach, {filou-}, {rosie-} and {plume-} wave from the sea, calling, while {nestor} on his towel in his big yellow swim ring pats his tummy with an awkward little smile
+> On a sunny beach by day, {filou-}, {rosie-} and {plume-} wave from the sea, standing clearly apart as separate animals, each fully visible, while {nestor} on his towel, wearing a big yellow swim ring around his waist, pats his tummy with an awkward little smile
 « Viens, Nestor ! Elle est bonne ! » « Hmm… tout à l'heure. Je digère. » Il a mangé il y a trois heures.
-> On a sunny beach, {nestor}, alone, sits on his towel wearing a big yellow swim ring, looking anxiously at the waves, toes curled in the sand
+> On a sunny beach by day, {nestor}, alone, sits on his towel wearing a big yellow swim ring around his waist, looking anxiously at the waves, toes curled in the sand
 La vérité, c'est que Nestor a peur de l'eau. Elle bouge. Elle est profonde. On ne voit pas ce qu'il y a dessous. Et un ourson, ça coule, il en est sûr.
 
-@ At the edge of the sea, {nestor} wearing a yellow swim ring jumps back in fright from a tiny wave touching his toes
+@ At the edge of the sea on a sunny beach, {nestor}, wearing a big yellow swim ring around his waist (not around his neck), jumps backwards onto the dry sand, away from one tiny flat wave
 Il s'approche quand même du bord. Il trempe un orteil. C'est froid ! Une petite vague arrive, pas plus haute qu'une crêpe. Nestor recule de dix pas.
-> At the edge of the sea, {nestor} wearing a yellow swim ring stands frozen on the sand at the waterline, while {filou-} splashes in the water ahead
+> At the edge of the sea on a sunny beach, {nestor}, wearing a big yellow swim ring around his waist (not around his neck), stands frozen on the sand at the waterline, while {filou-} splashes in the water ahead
 « Tu n'as qu'à sauter d'un coup ! dit Filou. Comme moi ! » « Ferme les yeux et cours ! » dit Rosie. Nestor essaie de courir. Ses pattes s'arrêtent toutes seules au bord, comme devant un mur.
-> On a sunny beach, {nestor} in a yellow swim ring sits alone on his towel, shoulders low, looking very big and lonely, while far away {filou-}, {rosie-} and {plume-} laugh in the waves
+> On a sunny beach by day, {nestor}, wearing a big yellow swim ring around his waist, sits alone on his towel, shoulders low, looking lonely, while far away three separate animals laugh in the waves side by side: {filou-}, {rosie-} and {plume-}, the owl with no long ears
 Il retourne s'asseoir. Il regarde ses amis qui rient dans les vagues. Il se sent très gros, très lourd, et très seul sur sa serviette.
 
-@ On a beach, {otto}, his cap plain, sits beside {nestor}, who wears a yellow swim ring and looks down shyly
+@ On a sunny beach by day, {otto}, in his plain red swimming cap, sits beside {nestor}, who looks down shyly, wearing a big yellow swim ring around his waist
 « Elle te fait peur, hein ? » C'est Monsieur Otto, le phoque maître-nageur, avec son bonnet rouge. Nestor baisse le nez. « Un peu. Beaucoup. Les autres n'ont pas peur, eux. »
-> On a beach, {otto} shares a memory with a funny embarrassed face, one flipper on top of his own head, while {nestor} in a yellow swim ring looks up, surprised and starting to smile
+> On a sunny beach by day, {otto} shares a memory with a funny embarrassed face, one flipper on top of his own head, while {nestor}, wearing a big yellow swim ring around his waist, looks up, surprised and starting to smile
 « Tu veux que je te dise ? Quand j'étais petit, je ne voulais pas mettre la tête sous l'eau. Un phoque ! Ma mère avait honte. » « Et alors ? » « Alors j'ai appris. Une moustache à la fois. »
-> On a beach, {otto} stands up and holds out his flipper invitingly toward the calm shallow water, while {nestor} in a yellow swim ring gets up from his towel, hesitant but willing
+> On a sunny beach by day, {otto} stands up and holds out his flipper invitingly toward the calm shallow water, while {nestor}, wearing a big yellow swim ring around his waist, gets up from his towel, hesitant but willing
 « La mer, on ne saute pas dedans d'un coup. On fait connaissance. Viens. Aujourd'hui, on ne mouille que les pieds. Et c'est tout. »
 
-@ At the edge of the sea, {nestor} in a yellow swim ring stands in water up to his ankles, holding the flipper of {otto}, giggling as little waves tickle his toes
+@ At the edge of the sea on a sunny beach, {nestor}, wearing a big yellow swim ring around his waist, stands in water up to his ankles, holding the flipper of {otto}, giggling as little waves tickle his toes
 Que les pieds ? Ça, Nestor veut bien. Il entre dans l'eau jusqu'aux chevilles, en tenant la nageoire de Monsieur Otto. Les vagues lui chatouillent les orteils. Il glousse.
-> On a sunny beach, {nestor} in a yellow swim ring walks back to his towel with wet feet and his chest puffed out, as proud as a champion, {otto} waving a flipper behind him at the water's edge
+> On a sunny beach by day, {nestor}, wearing a big yellow swim ring around his waist, walks back to his towel with wet feet and his chest puffed out, as proud as a champion, {otto} waving a flipper behind him at the water's edge
 « C'est tout pour aujourd'hui », dit le phoque. « Déjà ? » « Déjà. Demain, les genoux. » Nestor retourne à sa serviette. Il n'a mouillé que ses pieds. Il est fier comme s'il avait traversé l'océan.
-> In calm shallow sea water up to his round tummy, {nestor} stands smiling with his yellow swim ring floating around him like a big duck, {otto} swimming a small circle around him
+> In calm shallow sea water near a sunny beach, seen above the water surface, {nestor} stands smiling in water up to his round tummy, wearing a big plain round yellow swim ring around his waist, {otto} swimming a small circle around him, the beach in the background
 Le lendemain : les genoux. Le jour d'après : le ventre. La bouée jaune flotte autour de lui comme un gros canard.
 
-@ In shallow sea water, {nestor} in a yellow swim ring blows bubbles with his mouth in the water, {otto} beside him encouraging
+@ In shallow sea water near a sunny beach, {nestor}, wearing a big yellow swim ring around his waist, blows bubbles with his mouth in the water, {otto} beside him encouraging
 Le quatrième jour, Monsieur Otto dit : « Aujourd'hui, on fait des bulles. » Nestor trempe le menton. Puis la bouche. Blblblblb ! Il fait des bulles comme une bouilloire.
-> In shallow sea water, a small wave splashes over the nose of {nestor} in a yellow swim ring, who coughs with his eyes shut and paws up, while {otto} calmly holds him and guides him toward the beach
+> In shallow sea water near a sunny beach, a small wave splashes over the nose of {nestor}, wearing a big yellow swim ring around his waist, who coughs with his eyes shut and paws up, while {otto} calmly holds him and guides him toward the sand
 Une vague lui passe sur le nez. Il tousse, il crache. Son cœur s'emballe. « Je veux sortir ! » « On sort, dit Monsieur Otto, tranquille. On reviendra quand tu voudras. »
-> By the sea, {nestor} in a yellow swim ring walks to the water, frowning bravely, {otto}, his cap plain, watching
+> On a sunny beach by the sea, {nestor}, wearing a big yellow swim ring around his waist, walks back to the water, frowning bravely, {otto}, in his plain red swimming cap, watching
 Nestor s'assoit sur le sable, le nez qui pique. Il attend d'avoir trop peur pour y retourner. Mais au bout de cinq minutes, il se lève tout seul. « Encore des bulles. »
 
-@ Seen from above, {nestor} floats on his back in calm blue sea water like a big starfish, arms and legs spread, smiling at the sky, {otto} nearby, a yellow swim ring left on the sand
+@ Seen from above in calm blue sea water near a sunny beach, {nestor} floats on his back with his four paws spread wide, paws and feet clearly visible, smiling at the sky, {otto} in his plain red swimming cap nearby, a big yellow swim ring left on the sand
 Le sixième jour, Monsieur Otto lui montre l'étoile. « Tu t'allonges sur le dos. Tu écartes les pattes. Et tu laisses la mer te porter. » « Elle ne voudra pas. Je suis trop lourd. »
-> In calm sea, {nestor} floats on his back under one seagull, {otto}, his cap plain, beside him, head above water
+> In calm sea near a sunny beach, {nestor} floats flat on his back, tummy up, four paws visible, held up by the flippers of {otto}, whose head is above water, one small seagull flying far away high in the blue sky
 « La mer porte des baleines, mon grand. » Nestor s'allonge. Les nageoires du phoque le soutiennent. L'eau lui bouche les oreilles. Il voit le ciel, tout bleu, avec une mouette dedans.
-> In calm blue sea water, {otto} lifts both flippers away and watches with delight as {nestor} floats alone on his back like a furry starfish, a yellow swim ring sitting on the sand in the distance
+> In calm blue sea water near a sunny beach, {otto} lifts both flippers away and watches with delight as {nestor} floats alone on his back, his smiling face, ears and four paws clearly visible, a big yellow swim ring sitting on the sand in the distance
 « Je te lâche ? » « … Oui. » Les nageoires s'en vont. Et Nestor flotte. Tout seul. Comme une grosse étoile de mer poilue. La bouée jaune le regarde depuis le sable.
 
-@ In the sea, {nestor} swims with big splashes toward {otto} who holds out his flippers, while a fox, a rabbit and an owl cheer wildly on the beach
+@ In the sea near a sunny beach, water up to their chests, {nestor} pushes off and swims with big splashes toward {otto}, who waits three steps away holding out his flippers, open water around them
 Le dernier jour des vacances, Monsieur Otto recule de trois pas dans l'eau. « Viens jusqu'à moi. Comme tu veux. » Nestor respire. Il pousse sur ses pattes.
-> In the sea, {nestor} grabs the flipper of {otto} with both paws, mouth wide open with joy, water streaming from his fur, big splashes still settling around them
+> In the sea near a sunny beach, both in open water up to their chests, no coral, {nestor} grabs with both paws the flipper of {otto}, in his plain red swimming cap, mouth wide open with joy, water streaming from his fur
 Il pédale, il éclabousse, il boit un peu la tasse. Ce n'est pas très joli à voir. Mais il avance. Une brasse. Deux. Cinq ! Il attrape la nageoire du phoque. « J'ai nagé ! »
-> On a sunny beach, {filou-} does a cartwheel, {rosie-} jumps with her arms up and {plume-} flaps with joy, all cheering toward the sea, where the happy head of {nestor-} shows above the water
+> On a sunny beach by day, {filou-} does a cartwheel, {rosie-} jumps with her arms up and {plume-} flaps with joy, apart as separate animals, each fully visible, cheering toward the sea, where the small happy head of {nestor-} shows above the water close to the shore, at the same scale as them
 Sur la plage, ses amis hurlent de joie. « NESTOR ! NESTOR ! » Filou fait la roue. Rosie compte : « Cinq brasses ! Je les ai comptées ! »
 
-@ In shallow waves near the beach, {nestor} laughs with water dripping from his ears, playing with {filou-} and {rosie-} who splash beside him
+@ In shallow waves near a sunny beach in the afternoon, {nestor} laughs with water dripping from his ears, playing with {filou-} and {rosie-}, who splash beside him, apart as separate animals, each fully visible
 L'après-midi, Nestor joue dans les vagues avec les autres. Pas trop loin. Là où il a pied. Mais dedans. Et quand une vague le renverse, il se relève en riant, de l'eau plein les oreilles.
-> On a beach, {pompon} stands on the sand clutching his towel tightly and staring at the sea with big worried eyes, while {nestor}, dripping wet, walks out of the water toward him
+> On a sunny beach in the afternoon, tiny {pompon} stands on the sand clutching his towel tightly and staring at the sea with big worried eyes, while {nestor}, dripping wet and five times bigger, walks out of the water toward him
 Sur le sable, un tout petit lapin regarde la mer en serrant sa serviette. C'est Pompon. Nestor sort de l'eau et s'assoit à côté de lui, tout dégoulinant.
-> At the edge of the sea, {nestor} holds the paw of {pompon}, who wears a big yellow swim ring and dips just his toes into a tiny wave, both smiling
+> At the edge of the sea on a sunny beach, {nestor} holds the paw of tiny {pompon}, who wears a big yellow swim ring around his waist and dips just his toes into one tiny wave, both smiling
 « Elle te fait peur, hein ? Moi aussi, avant. Tiens. » Il lui passe la grosse bouée jaune autour du ventre. « Aujourd'hui, on ne mouille que les pieds. Et c'est tout. »
 
 === rosie_mer
@@ -883,60 +883,60 @@ theme: respecter les animaux ; laisser chacun chez lui
 sujet: Respecter les animaux
 famille: coeur
 
-@ At low tide among rock pools, {rosie} with a little bucket watches {crabe} dancing on a rock with its claws raised
+@ At low tide among rock pools on a sunny morning, {rosie} in her red scarf, carrying a small grey metal bucket, watches tiny {crabe} dancing on a rock with its claws raised
 À marée basse, la plage des Dunes est pleine de trésors. Des flaques, des rochers, des algues qui font ploc quand on marche dessus. Rosie explore, son seau à la patte.
 > At low tide on a wet rock, a close view of {crabe} dancing sideways with both claws clicking in the air, while {rosie} watches from behind a rock pool with delighted round eyes
 Et sur un rocher, elle voit la chose la plus drôle du monde. Un petit crabe rouge, qui danse. Trois pas à gauche, trois pas à droite, et clac, clac ! avec ses pinces.
-> At low tide among rock pools, {rosie} swoops her little bucket over a rock in one quick jump, {crabe} tumbling inside with a surprised look
+> At low tide among rock pools on a sunny morning, {rosie} swoops her small grey metal bucket over a rock in one quick jump, tiny {crabe} tumbling inside with a surprised look
 « Oh ! Je le veux ! » Rosie est rapide. Hop ! Le crabe est dans le seau avant d'avoir fini sa danse.
 
-@ On a beach, {rosie} proudly shows her friends a bucket in which {crabe} walks round in circles, reaching its claws toward the rim
+@ On a sunny beach by day, {rosie}, the only rabbit, in her red scarf, proudly holds up a small grey metal bucket to show {plume-}, the two standing apart as separate animals, each fully visible; inside the bucket tiny {crabe} walks round in circles, reaching its claws toward the rim
 « Regardez ! J'ai un crabe ! Il s'appelle Castagnette. Il est à moi. Je vais le ramener à la maison, et il dansera pour moi tous les jours. »
-> On a beach, {rosie} kneels by her bucket, which she has decorated inside with sand, a pretty shell and a piece of biscuit for {crabe}, and claps her paws to make it dance
+> On a sunny beach by day, {rosie} kneels by her small grey metal bucket, which she has decorated inside with sand, a pretty shell and a piece of biscuit for tiny {crabe}, and claps her paws to make it dance
 Elle lui met du sable dans le seau. Un coquillage, pour faire joli. Un bout de biscuit. « Tu vas être très bien, ici. Allez, danse ! »
-> On a beach, {rosie} bends over a bucket standing on the sand and looks down, puzzled, at {crabe} inside raising both claws
+> On a sunny beach by day, {rosie} bends over a small grey metal bucket standing on the sand and looks down, puzzled, at tiny {crabe} inside raising both claws
 Castagnette ne danse pas. Il fait le tour du seau. Encore le tour. Il lève ses pinces vers le bord, tout là-haut.
 
-@ In a beach cabin in the evening, {rosie} taps on a bucket on the table, a small shell inside, while {pompon} watches from beside the table
+@ In a beach cabin in the evening, {rosie} taps on a small grey metal bucket on the table, tiny {crabe} hiding under a small shell inside it, while tiny {pompon} watches from beside the table
 Le soir, dans la cabane, Rosie pose le seau sur la table. « Danse, Castagnette ! Un, deux, trois ! » Rien. Elle tape sur le seau. Toc, toc. Le crabe se cache sous le coquillage.
-> In a beach cabin in the evening, {pompon} points into a bucket on the table with a questioning face, while {rosie} waves a paw, pretending not to worry
+> In a beach cabin in the evening, {rosie}, the big rabbit with long ears and a red scarf, waves a paw, pretending not to worry, while tiny {pompon}, half her size with very short round ears, points into a small grey metal bucket on the table with a questioning face
 « Il est cassé, ton crabe ? » demande Pompon. « Il est fatigué. Il dansera demain. »
-> In a beach cabin in morning light, a small crab turned pale pink sits still in a bucket beside an untouched piece of biscuit, {rosie} resting her chin on the table edge, worried
+> In a beach cabin in morning light, one very small round pale pink crab with two little claws and two black eyes on short stalks sits still in a small grey metal bucket on the table beside an untouched piece of biscuit, {rosie} resting her chin on the table edge, worried
 Mais le lendemain, Castagnette ne danse toujours pas. Il ne touche pas au biscuit. Il n'est même plus très rouge. Il est d'un petit rose tout triste.
 
-@ In a beach cabin, {plume-} and {rosie} lean over a bucket where a small pale crab stares toward an open window showing the sea
+@ In a beach cabin by day, {plume-} and {rosie} lean over a small grey metal bucket, apart as separate animals, each fully visible; inside it one very small round pale pink crab with two little claws and two black eyes on short stalks stares toward an open window showing the sea
 Plume se penche sur le seau. Elle regarde longtemps, comme elle sait faire. « Rosie… tu as vu où il regarde ? »
-> In a beach cabin, a close view of a small pale crab in a bucket, its two little eyes on stalks turned toward an open window where blue waves roll in the distance
+> In a beach cabin by day, a close view of a small grey metal bucket with a handle; inside it one very small round pale pink crab with two little claws and two black eyes on short stalks, seen from behind, faces an open window where blue waves roll in the distance
 Les deux petits yeux du crabe, au bout de leurs tiges, sont tournés vers la fenêtre. Vers le bruit des vagues. Ils ne bougent pas.
-> In a beach cabin, {plume-} speaks gently with one wing raised toward an open window showing the sea, while {rosie} listens with her ears lowered, holding the edge of a bucket
+> In a beach cabin by day, {plume-} speaks gently with one wing raised toward an open window showing the sea, while {rosie} listens with her ears lowered, holding the edge of a small grey metal bucket, the two standing apart as separate animals, each fully visible
 « Sur son rocher, il dansait, dit Plume. Je crois qu'il ne dansait pas pour toi. Je crois qu'il dansait parce qu'il était chez lui. »
 
-@ At night in a beach cabin, {rosie} in her bed looks thoughtfully at a bucket on the table where a small crab tries to climb up the inside wall and slips
+@ In a beach cabin in the evening, {rosie} hugs her small grey metal bucket tightly against her chest with a stubborn pout, only one bucket in the picture, one very small round pale pink crab inside it
 « Mais je m'en occupe bien ! Il a du sable, un coquillage, un biscuit ! » Rosie serre le seau contre elle. « Et puis c'est moi qui l'ai trouvé. »
-> At night in a beach cabin lit by the moon, {rosie} sits up in bed with one ear raised, listening, as a small pale crab scrabbles at the inside of a bucket on the table and slides back down
+> At night in a beach cabin lit by the moon, {rosie} sits up in bed with one ear raised, listening, as one very small round pale pink crab scrabbles at the inside of a small grey metal bucket on the table and slides back down
 Cette nuit-là, elle entend un petit bruit. Scritch. Scritch. C'est Castagnette, qui essaie de grimper le long du seau. Il glisse. Il recommence. Il glisse encore.
 > At night in a beach cabin, {rosie} lies awake in bed with a dream cloud above her showing a small white rabbit sitting sadly inside a giant bucket next to a carrot
 Rosie pense à ce qu'elle ferait, elle, si un géant la mettait dans un seau. Même un très joli seau. Même avec des carottes. Elle n'aurait pas envie de courir non plus.
 
-@ At dawn at low tide, {rosie} kneels by a shiny wet rock and gently tips her bucket to let a small crab slide out onto the rock
+@ At dawn at low tide on the beach, {rosie} walks down the wet sand carrying her small grey metal bucket in both paws toward a shiny wet rock, nobody else around
 Au petit matin, avant que tout le monde se réveille, elle prend le seau et descend sur la plage. La marée est basse. Le rocher est là, tout brillant.
-> At dawn at low tide, {rosie} kneels on the wet sand hugging her bucket and speaks softly to the small pale crab inside, her face sorry and tender, a shiny wet rock beside her
+> At dawn at low tide, {rosie} kneels on the wet sand hugging her small grey metal bucket and speaks softly to the one very small round pale pink crab inside, her face sorry and tender, a shiny wet rock beside her
 « Je voulais te garder parce que tu étais beau, dit-elle. Mais chez moi, tu n'es plus beau du tout. Tu es juste triste. Pardon, Castagnette. »
-> At dawn on a shiny wet rock, a small pale crab that has just slid out of a tipped bucket touches the salty water with its legs, {rosie} holding her breath behind it
+> At dawn on a shiny wet rock at low tide, one very small round pale pink crab with two little claws and two black eyes on short stalks, much smaller than the bucket, has just slid out of a tipped small grey metal bucket and touches the salty water with its legs, {rosie} holding her breath behind it
 Elle penche le seau, tout doucement. Le petit crabe hésite au bord. Puis il glisse sur le rocher, et il sent l'eau salée sous ses pattes.
 
-@ At sunrise on a wet rock, {crabe} dances with claws raised, surrounded by a circle of other little crabs, while {rosie} sits still on the sand watching with wonder
+@ At sunrise on a wet rock at low tide, tiny {crabe} dances alone in the middle of the rock, claws raised, while {rosie} in her red scarf sits still on the sand watching with wonder
 D'abord, il ne bouge pas. Puis une patte. Puis une autre. Trois pas à gauche. Trois pas à droite. Et clac, clac ! Ses pinces claquent dans le soleil levant.
-> At sunrise on a wet rock, other little crabs climb out of holes one after another, waving their claws, gathering around a small crab that is turning cherry red again
+> At sunrise on a wet rock at low tide, four other little red crabs climb out of holes, waving their claws, gathering in a circle around {crabe}, who dances in the middle, cherry red again
 D'un trou sort un deuxième crabe. Puis un troisième. Toute une famille, qui fait cercle autour de lui en agitant les pinces. Castagnette est redevenu rouge comme une cerise.
-> At sunrise at low tide, {rosie} sits on the wet sand with her paws folded in her lap, touching nothing, smiling with wonder, little crabs dancing on a rock in the golden light
+> At sunrise at low tide, {rosie} sits on the wet sand with her paws folded in her lap, touching nothing, smiling with wonder, five little red crabs dancing on a rock in the golden light
 Rosie s'assoit sur le sable mouillé. Elle ne touche à rien. Elle regarde. C'est bien plus beau que dans le seau.
 
-@ At low tide, {rosie} sits on her upturned bucket beside a tiny squirrel child holding a fishing net, a finger on her lips, both quietly watching {crabe} dance on a rock
+@ At low tide on a sunny morning, {rosie} sits quietly on the sand a little way from a wet rock where tiny {crabe} dances with claws raised, her small grey metal bucket turned upside down beside her
 Tous les matins des vacances, Rosie revient au rocher, à marée basse. Elle s'assoit sans faire de bruit. Et presque chaque fois, Castagnette vient danser. Pas pour elle. Mais pas loin.
-> At low tide among rock pools, {rosie} sits on her upturned bucket like a stool, peering into a pool, a small pile of pretty empty shells beside her
+> At low tide among rock pools on a sunny morning, {rosie} sits on her small grey metal bucket turned upside down, peering into a pool, a small pile of pretty empty shells beside her
 Son seau, elle l'a retourné. Ça fait un très bon tabouret pour regarder les flaques. Dedans, elle ne rapporte plus que des coquillages vides, ceux où personne n'habite.
-> On a beach at low tide, {rosie} sits on her upturned bucket and pats the sand beside her, as a tiny brown squirrel child runs up holding a fishing net
+> On a beach at low tide on a sunny morning, {rosie} sits on her small grey metal bucket turned upside down and pats the sand beside her, as one tiny brown squirrel child runs up holding a fishing net
 Et quand un petit arrive avec son épuisette en criant « Oh ! Un crabe ! Je le veux ! », Rosie lui fait une place sur le sable. « Chut. Assieds-toi. Regarde. Il va danser. »
 
 === plume_mer
@@ -945,58 +945,58 @@ theme: oser aller vers les autres
 sujet: Se faire de nouveaux amis
 famille: oser
 
-@ On a sunny beach, {plume} sits alone under a parasol with a book, peeking over it at {lila}, {goeland} and {crabe} flying a red kite and laughing
+@ On a sunny beach by day, {plume} sits alone on the left under a striped parasol with a book, peeking over it at {lila}, {goeland} and {crabe}, three small figures far away on the right, flying a red diamond-shaped paper kite toy on a string (not a bird)
 C'est le premier jour des vacances à la plage des Dunes. Plume ne connaît personne. Elle s'est installée sous le parasol, avec un livre qu'elle ne lit pas.
-> On a sunny beach with dunes, {lila}, {goeland} and {crabe} run laughing with a red kite flying high above them on its string, a striped parasol far in the background
+> On a sunny beach with dunes by day, {lila}, {goeland} and {crabe} run laughing, the otter holding a red diamond-shaped paper kite toy on a string (not a bird) flying high above them, no bird in the sky, a striped parasol far in the background
 Car un peu plus loin, il y a trois enfants qui jouent. Une petite loutre, un goéland, et un crabe. Ils ont un cerf-volant rouge, et ils rient très fort.
 > On a sunny beach under a striped parasol, a close view of {plume} hiding behind her book, only her big wistful eyes showing above it, longing to join in
 Plume les regarde par-dessus son livre. Elle aimerait tellement jouer avec eux. Mais comment on fait, pour entrer dans un jeu déjà commencé ?
 
-@ On a beach, {plume} takes shy steps away from her parasol, wings clasped, looking toward {lila} and {crabe} playing with a red diamond-shaped paper kite far away
+@ On a sunny beach by day, {plume} takes shy steps away from her striped parasol, wings clasped, looking toward {lila} and {crabe}, small in the far background with their backs turned, playing with a red diamond-shaped paper kite toy on a string (not a bird)
 Dans sa tête, elle prépare sa phrase. « Bonjour, je m'appelle Plume, est-ce que je peux jouer avec vous ? » Elle la répète dix fois. Vingt fois. Elle la connaît par cœur.
-> On a sunny beach, {plume} stops frozen in mid-step, one wing on her heart, eyes worried, while {lila} and {crabe} play in the distance
+> On a sunny beach by day, {plume} stops frozen in mid-step, one wing on her chest, eyes worried, wide empty sand in front of her, while {lila} and {crabe}, tiny in the far distance, play busily without looking at her
 Elle se lève. Elle fait trois pas. Son cœur bat dans ses oreilles. « Et s'ils disent non ? Et s'ils rient ? Et s'ils ne m'entendent même pas ? »
-> On a sunny beach under a striped parasol, {plume} sits back down looking defeated, holding her book upside down without noticing, a red kite flying far behind her
+> On a sunny beach under a striped parasol, {plume} sits back down looking defeated, holding her book with its cover picture clearly upside down, a red diamond-shaped paper kite toy on a string (not a bird) flying far behind her, no bird in the sky
 Elle fait demi-tour, et elle se rassoit. Le livre est à l'envers. Elle ne s'en aperçoit pas.
 
 @ On a beach, {plume} picks up seashells alone in the foreground, while behind her {lila} and {crabe} play with a red diamond-shaped paper kite
 Le deuxième jour, c'est pareil. Elle s'approche un peu plus. Elle ramasse des coquillages tout près d'eux, en espérant qu'ils la remarquent. Ils ne la remarquent pas.
-> On a beach, {plume} sits waiting beside a small pile of sand she has made, glancing hopefully sideways, a few seashells lined up in front of her, a red kite in the sky
+> On a sunny beach by day, {plume} sits waiting beside a small pile of sand she has made, glancing hopefully sideways, a few seashells lined up in front of her, a red diamond-shaped paper kite toy on a string (not a bird) in the sky
 « Peut-être qu'ils viendront me chercher », se dit-elle. Elle attend. Elle fait un petit tas de sable. Elle attend encore.
-> On a beach, {lila} and {crabe} laugh, holding the string of a red diamond-shaped paper kite, while {plume} stands alone far behind them
+> On a sunny beach by day, {lila} and {crabe} laugh, holding the string of a red diamond-shaped paper kite toy (not a bird), while {plume} stands alone far behind them
 Mais ils sont occupés à jouer. Ce n'est pas qu'ils ne veulent pas d'elle. Ils ne savent même pas qu'elle existe.
 
-@ On windy dunes, a red diamond-shaped paper kite with a broken string flies away over the dunes, while {lila}, {goeland} and {crabe} look up, dismayed
+@ On windy dunes by day, a red diamond-shaped paper kite toy (not a bird) with a broken string flies away over the dunes, while {lila}, {goeland} and {crabe} look up, dismayed, nothing else in the sky
 Le troisième jour, il y a du vent. Le cerf-volant rouge tire, tire sur sa ficelle. Et soudain, clac ! La ficelle casse. Le cerf-volant s'envole au-dessus des dunes.
-> On windy dunes, {lila}, {goeland} and {crabe} run as fast as they can after a red kite spinning away in the sky toward a tall pine tree, its broken string trailing
+> On windy dunes by day, {lila}, {goeland} and {crabe} run as fast as they can after a red diamond-shaped paper kite toy (not a bird) spinning away in the sky toward a tall pine tree, its broken string trailing, nothing else in the sky
 Les trois enfants courent derrière. Il monte, il tournoie, et il va s'accrocher tout en haut du grand pin, à la plus haute branche.
-> At the foot of a tall pine tree, {lila} jumps with arms stretched up toward a red diamond-shaped paper kite stuck in the top branches, {crabe} pinching the trunk
+> At the foot of a tall pine tree on the dunes by day, {lila} jumps with arms stretched up toward a red diamond-shaped paper kite toy (not a bird) stuck in the top branches, {crabe} pinching the trunk
 « Oh non ! » La loutre saute. Le crabe pince le tronc. Le petit goéland bat des ailes, mais il ne sait pas encore voler. Le cerf-volant est beaucoup trop haut.
 
 @ Under a parasol on a beach, {plume} stands up, hesitating, looking toward a tall pine tree where {lila} sits sadly at the foot of the trunk
 Sous son parasol, Plume a tout vu. Et elle sait une chose : elle, elle vole. Elle pourrait l'attraper en dix secondes.
-> Under a striped parasol on a beach, {plume} looks down at her own feet, stuck in the sand as if they were very heavy, wings pressed tight, a tall pine tree with a red kite caught in it in the distance
+> Under a striped parasol on a sunny beach, {plume} looks down at her own feet, stuck in the sand as if they were very heavy, wings pressed tight, in the distance a tall pine tree with exactly one red diamond-shaped paper kite toy (not a bird) caught in it
 Mais pour ça, il faudrait y aller. Devant eux. Sans sa phrase, qui s'est envolée de sa tête avec le cerf-volant. Ses pattes sont lourdes comme deux seaux de sable mouillé.
 > On windy dunes, a close view of {lila} sitting at the foot of a tall pine tree with a trembling chin and wet eyes, while far behind her {plume} starts to run forward, wings opening
 La petite loutre s'est assise au pied du pin. Elle a le menton qui tremble. Plume regarde ce menton. Et ses pattes se lèvent toutes seules.
 
-@ At the top of a tall pine tree above the dunes and the sea, {plume} untangles the string of a red kite with her beak, three small animals watching from far below
+@ In the sky above sunny dunes, {plume} flies upward with wings spread wide, higher than a striped parasol and the dune, toward a red diamond-shaped paper kite toy (not a bird) caught on the top branch of a tall pine tree, no other bird in the sky
 Elle ne dit rien. Elle court, elle ouvre ses ailes, et elle monte. Plus haut que le parasol. Plus haut que la dune. Jusqu'à la dernière branche du grand pin.
-> In the sky above sunny dunes, {plume} flies upward with wings spread wide, higher than a striped parasol and the dune, toward a red kite caught on the top branch of a tall pine tree
+> At the top of a tall pine tree above the dunes by day, {plume} untangles with her beak the string of a red diamond-shaped paper kite toy (not a bird) tangled in the top branch, while far below {lila}, {goeland} and {crabe}, tiny, look up with open mouths
 Le cerf-volant est bien emmêlé. Plume défait la ficelle avec son bec, patiemment, nœud après nœud. En bas, trois têtes la regardent, la bouche ouverte.
-> At the foot of a tall pine tree on the dunes, {plume} lands with a red kite held in her feet in front of {lila}, {goeland} and {crabe}, who stare with open mouths
+> At the foot of a tall pine tree on the dunes by day, {plume} lands holding in her feet a flat red diamond-shaped paper kite toy (not a bird), clearly separate from her wings, in front of {lila}, {goeland} and {crabe}, who stare with open mouths
 Elle redescend en planant, le cerf-volant rouge dans les pattes, et elle se pose devant eux. Il faut dire quelque chose. N'importe quoi. « Tenez. Il… il était là-haut. »
 
-@ On the dunes, {plume} shyly hands a red kite to a delighted {lila}, with {goeland} and {crabe} jumping with excitement around them
+@ On the sunny dunes by day, {plume} shyly hands a red diamond-shaped paper kite toy (not a bird) to a delighted {lila}, with {goeland} and {crabe} jumping with excitement around them
 « TU VOLES ! » crie le petit goéland. « Tu as vu comme elle vole ? » « Comment tu t'appelles ? » demande la loutre. « Plume. » « Moi c'est Lila. Lui c'est Pince-Mi, et lui c'est Goéland-qui-ne-vole-pas-encore. »
-> On the dunes, {lila} holds out her paw with a big friendly smile toward {plume}, {crabe} beside them, a red diamond-shaped paper kite lying on the sand
+> On the sunny dunes by day, {lila} holds out her paw with a big friendly smile toward {plume}, {crabe} beside them, exactly one red diamond-shaped paper kite toy (not a bird) lying on the sand, nothing in the sky
 « Tu joues avec nous ? » dit Lila. Comme ça. Tout simplement. Comme si c'était la chose la plus facile du monde.
 > On the dunes in the sunshine, a close view of {plume} with a wide happy smile and rosy cheeks, {lila} cheering beside her
 Plume pense à sa belle phrase, répétée vingt fois. Elle n'en a pas eu besoin. Il a suffi de quatre mots, et ce n'est même pas elle qui les a dits. « Oui », dit-elle.
 
-@ On a sunny beach, {plume} flies high holding the string of a red kite while {lila}, {goeland} flapping his wings and {crabe} run below, all laughing
+@ On a sunny beach by day, {plume} flies high holding the string of a red diamond-shaped paper kite toy (not a bird) while {lila}, {goeland} flapping his wings and {crabe} run below, all laughing
 Le reste des vacances passe à toute vitesse. Ils font voler le cerf-volant plus haut que jamais : c'est Plume qui le tient, tout là-haut. Elle apprend au petit goéland à battre des ailes. Il décolle de trois plumes.
 > At sunset on a beach, {lila} gives a beautiful seashell with a small hole in it to {plume}, who offers a shell in return, {goeland} and {crabe} holding shells too
 Le dernier soir, ils échangent des coquillages, pour ne pas s'oublier. « Tu reviens l'été prochain ? » « Promis. » Lila lui donne le sien, le plus beau, avec un trou pour y passer une ficelle.
-> At a small country train station, {plume} wearing a seashell on a string around her neck walks bravely toward a small grey owl child sitting alone on a bench, watching other young animals play
+> At a small country train station by day, {plume} wearing a seashell on a string around her neck walks bravely toward one small grey owl child sitting alone on a bench, watching two young brown otters play with a ball
 Dans le train du retour, Plume le serre contre elle. À la gare, il y a une petite chouette inconnue, toute seule sur un banc, qui regarde les autres jouer. Plume respire un grand coup. Et elle y va.
