@@ -63,7 +63,9 @@ def main():
         desc = (c["heros"][nu] if heros else c["seconds"][nu]) + (", " + cos if cos else "")
         f = REFS / (nu + ("_" + univ if cos else "") + ".jpg")
         if not f.exists():
-            p = style + "Character reference sheet of one single character: " + desc + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture."
+            pose = {"ondine": "Whole body seen from the side, swimming horizontally", "perle": "Whole body seen from the side, floating upright", "octave": "Whole body, floating",
+                    "zig": "Whole body, floating", "coquille": "Whole ship seen from the side", "fusee": "Whole rocket, upright"}.get(nu, "Full body, standing, facing slightly left")
+            p = style + "Character reference sheet of one single character: " + desc + ". " + pose + ", friendly expression, centred on a plain white background, nothing else in the picture."
             data = None
             for essai in range(4):                          # filtre du modèle ou erreur passagère : on retente
                 try: data = appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, {}); break
@@ -72,7 +74,8 @@ def main():
             if data is None: raise RuntimeError(f"fiche {f.stem} impossible à dessiner")
             f.write_bytes(jpeg(data, 512))
             print(f"  📇 fiche {f.name}", flush=True)
-        court = re.sub(r"^(one|the only \w+ in the picture)\s*,?\s*", "", desc.split(",")[0]).strip() or desc.split(",")[1].strip()
+        # le texte rappelle TOUTE la description (accessoires et costume compris) : sans cela le modèle garde l'animal mais oublie bonnet, casque, lunettes…
+        court = re.sub(r"^(one|the only \w+ in the picture)\s*,?\s*", "", desc).strip()
         return f.read_bytes(), court
 
     cible = set()
@@ -111,7 +114,7 @@ def main():
                 try: data, court = fiche(j, s["univ"])
                 except Exception as e: print(f"  ⚠️ {e}", flush=True); continue
                 fichiers[f"input_image_{k}"] = data
-                texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1})"); k += 1
+                texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1}, with the same clothes and accessories)"); k += 1
             texte = titi.expand(texte, s["univ"], c)        # jetons restants (au-delà de 4) : description en clair
             p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background. Draw only the characters described here, each one exactly once, as separate individuals that do not blend into each other; do not add any extra animal, creature or person." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
             try:
