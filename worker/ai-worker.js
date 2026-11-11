@@ -102,9 +102,9 @@ export default {
       // ---------- HISTOIRE (mode libre, sans clé navigateur) ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
-        if (u.searchParams.get("diag")) return new Response(JSON.stringify({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY||env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: !!env.LIBRE_PASS }), { headers: { "content-type": "application/json", ...cors } });
-        // Verrou du mode libre (réservé à l'user + ses amis) : actif seulement si LIBRE_PASS est défini
-        if (env.LIBRE_PASS && u.searchParams.get("pass") !== env.LIBRE_PASS) return new Response(JSON.stringify({ error: "locked" }), { status: 403, headers: { "content-type": "application/json", ...cors } });
+        if (u.searchParams.get("diag")) return new Response(JSON.stringify({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY||env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: !!env.LIBRE_PASS, passLen: (env.LIBRE_PASS||"").trim().length }), { headers: { "content-type": "application/json", ...cors } });
+        // Verrou du mode libre (réservé à l'user + ses amis) : actif seulement si LIBRE_PASS est défini ; trim des 2 côtés (tolère espaces/retours à la ligne)
+        if (env.LIBRE_PASS && env.LIBRE_PASS.trim() && (u.searchParams.get("pass")||"").trim() !== env.LIBRE_PASS.trim()) return new Response(JSON.stringify({ error: "locked" }), { status: 403, headers: { "content-type": "application/json", ...cors } });
         const hero = (u.searchParams.get("hero") || "").slice(0, 200).trim();
         const lieu = (u.searchParams.get("lieu") || "").slice(0, 200).trim();
         const lecon = (u.searchParams.get("lecon") || "").slice(0, 200).trim();
