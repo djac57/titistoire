@@ -34,7 +34,13 @@ jobs:
           SORTIE=$(sed -n 's/^sortie=//p' .github/gen-images2.run | head -1)
           FICHES=$(sed -n 's/^fiches=//p' .github/gen-images2.run | head -1)
           TOUT=$(sed -n 's/^tout=//p' .github/gen-images2.run | head -1)
-          python3 tools/gen_images2.py ${ONLY:+--only "$ONLY"} ${FICHES:+--fiches} ${TOUT:+--tout} ${MODELE:+--modele "$MODELE"} ${SORTIE:+--sortie "$SORTIE"}
+          COMPARER=$(sed -n 's/^comparer=//p' .github/gen-images2.run | head -1)
+          if [ -n "$COMPARER" ]; then     # même histoire dessinée par plusieurs modèles : comparer=modele1,modele2
+            for M in $(echo "$COMPARER" | tr ',' ' '); do python3 tools/gen_images2.py --only "$ONLY" --tout --modele "$M" --sortie "assets/essai-$(basename $M)" || true; done
+            exit 0
+          fi
+          REFAIRE=$(sed -n 's/^refaire=//p' .github/gen-images2.run | head -1)
+          python3 tools/gen_images2.py ${ONLY:+--only "$ONLY"} ${FICHES:+--fiches} ${TOUT:+--tout} ${REFAIRE:+--refaire "$REFAIRE"} ${MODELE:+--modele "$MODELE"} ${SORTIE:+--sortie "$SORTIE"}
       - name: Committer
         if: always()
         env:

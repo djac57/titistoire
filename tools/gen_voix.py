@@ -56,7 +56,37 @@ class Quota(Exception):
 
 
 def tts(texte, voix, modele, key):
-    """-> PCM 16 bits mono, fréquence"""
+    """-> PCM 16 bits mono, fréquence.
+    Niveau payant (TITI_PAYANT=1) : la limite de débit est basse ; plusieurs enregistrements lancés en parallèle
+    se partagent donc UN verrou et espacent leurs appels (TITI_TTS_ESPACE secondes), l'alignement se faisant hors verrou."""
+    if os.environ.get("TITI_PAYANT") != "1":
+        return _tts(texte, voix, modele, key)
+    if os.environ.get("TITI_TTS_ESPACE") == "0":          # débit suffisant : appels en parallèle, simple patience sur un 429
+        for essai in range(6):
+            try: return _tts(texte, voix, modele, key)
+            except Quota: time.sleep(30)
+        raise Quota("limite de débit persistante")
+    import fcntl
+    esp = float(os.environ.get("TITI_TTS_ESPACE", "25")); verrou = pathlib.Path(tempfile.gettempdir()) / "titistoire_tts.lock"
+    with open(verrou, "a+") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            for essai in range(12):
+                f.seek(0); dernier = float(f.read().strip() or 0)
+                attente = dernier + esp - time.time()
+                if attente > 0: time.sleep(attente)
+                try:
+                    return _tts(texte, voix, modele, key)
+                except Quota:
+                    time.sleep(40)
+                finally:
+                    f.seek(0); f.truncate(); f.write(str(time.time())); f.flush()
+            raise Quota("limite de débit persistante")
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
+
+
+def _tts(texte, voix, modele, key):
     body = {"contents": [{"parts": [{"text": CONSIGNE + texte}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voix}}}}}
@@ -230,8 +260,16 @@ def produire_histoire(s, voix, key, modele):
     n_car = len(texte)
     pcm, rate = tts(texte, voix, modele, key)
     w, qual, duree = aligner(pcm, rate, pages)
-    if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / 7) or w[0][0] > 2.0 or duree - w[-1][-1] > 8.0:
-        raise RuntimeError(f"enregistrement refusé (qualité {qual:.2f}, durée {duree:.0f}s pour {n_car} car.)")
+    # Refus seulement si le texte est mal lu, le débit aberrant, ou si la voix lit autre chose avant le texte (> 8 s).
+    # Un simple blanc au début ou à la fin n'est pas un défaut : on le coupe.
+    if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / 7) or w[0][0] > 8.0:
+        raise RuntimeError(f"enregistrement refusé (qualité {qual:.2f}, durée {duree:.0f}s pour {n_car} car., début {w[0][0] if w else '?'} s)")
+    debut = max(0.0, w[0][0] - 0.3)
+    if debut > 0.2:
+        pcm = pcm[int(debut * rate) * 2:]; w = [[round(t - debut, 2) for t in pg] for pg in w]; duree -= debut
+    fin = min(duree, w[-1][-1] + 2.5)
+    if duree - fin > 0.5:
+        pcm = pcm[:int(fin * rate) * 2]; duree = fin
     # regroupe le minutage par tableau
     par_sc, k = [], 0
     for sc in s["scenes"]:

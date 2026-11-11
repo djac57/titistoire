@@ -1,5 +1,3 @@
-Wed Nov 11 13:34:00 UTC 2026
-only=filou_,nestor_,rosie_,plume_
-tout=1
-modele=@cf/black-forest-labs/flux-2-klein-4b
-sortie=assets/scenes
+Wed Nov 11 15:06:07 UTC 2026
+only=rosie_espace
+comparer=@cf/black-forest-labs/flux-2-dev,@cf/black-forest-labs/flux-2-klein-9b,@cf/black-forest-labs/flux-2-klein-4b

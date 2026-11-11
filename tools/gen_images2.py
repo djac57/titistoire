@@ -48,6 +48,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default=""); ap.add_argument("--sortie", default="assets/scenes2")
     ap.add_argument("--tout", action="store_true", help="redessiner même les images déjà présentes")
+    ap.add_argument("--refaire", default="", help="fichier listant les images à redessiner (une par ligne, ex. filou_pirates_3b), ou liste séparée par des virgules")
     ap.add_argument("--fiches", action="store_true", help="ne dessiner que les fiches de personnages de toutes les histoires")
     ap.add_argument("--modele", default="@cf/black-forest-labs/flux-2-klein-4b"); ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
@@ -68,6 +69,10 @@ def main():
         court = desc.split(",")[0].replace("the only fox in the picture", "").strip()
         return f.read_bytes(), court
 
+    cible = set()
+    if a.refaire:
+        f = pathlib.Path(a.refaire)
+        cible = {x.strip() for x in (f.read_text().replace(",", "\n").split("\n") if f.exists() else a.refaire.split(",")) if x.strip()}
     for s in titi.load():
         if not a.fiches and a.only and not any(s["id"].startswith(x.strip()) for x in a.only.split(",") if x.strip()): continue
         # on relit le fichier source pour retrouver les jetons de chaque ligne d'image (titi.load les a déjà développés)
@@ -86,7 +91,8 @@ def main():
                 for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
                     if m.group(1).rstrip("-") in {**c["heros"], **c["seconds"]}: fiche(m.group(1), s["univ"])
                 continue
-            if dest.exists() and not a.tout: continue
+            if cible and nom not in cible: continue
+            if dest.exists() and not a.tout and not cible: continue
             if a.limit and n >= a.limit: break
             jetons = []
             for m in re.finditer(r"\{([a-z_]+-?)\}", ligne):
@@ -96,9 +102,14 @@ def main():
                 data, court = fiche(j, s["univ"]); fichiers[f"input_image_{k}"] = data
                 texte = texte.replace("{" + j + "}", f"{court} (exactly the character shown in image {k + 1})")
             texte = titi.expand(texte, s["univ"], c)        # jetons restants (au-delà de 4) : description en clair
-            p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
+            p = style + texte + ". Full detailed background scene filling the whole picture, never a plain white background. Draw only the characters described here, each one exactly once, as separate individuals that do not blend into each other; do not add any extra animal, creature or person." + c["fin"] + (" Keep every referenced character identical to its reference image: same species, same colours, same shape." if jetons else "")
             try:
-                dest.write_bytes(jpeg(appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, fichiers), 832)); n += 1
+                data = None
+                for essai in range(3):                      # le filtre du modèle bloque parfois une image au hasard : on retente
+                    try: data = appel(a.modele, {"prompt": p, "width": "1024", "height": "1024"}, fichiers); break
+                    except Exception as e:
+                        if "flagged" not in str(e) or essai == 2: raise
+                dest.write_bytes(jpeg(data, 832)); n += 1
                 print(f"  ✅ {dest.name} ({len(jetons)} référence(s))", flush=True)
             except Exception as e:
                 print(f"  ❌ {nom} : {str(e)[:300]}", flush=True)
