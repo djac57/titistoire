@@ -32,7 +32,9 @@ jobs:
             GEMINI_KEY
             ELEVEN_KEY
             OPENROUTER_KEY
+            LIBRE_PASS
         env:
           GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
           ELEVEN_KEY: ${{ secrets.ELEVEN_KEY }}
           OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          LIBRE_PASS: ${{ secrets.LIBRE_PASS }}
