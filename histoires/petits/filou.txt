@@ -1,0 +1,68 @@
+# Les histoires de FILOU, le renard — version tout-petits (1-3 ans).
+# Une ligne par tableau (8 lignes par histoire), lue sur l'image de la 1re page du tableau.
+
+=== filou_pirates
+titre: Filou et la carte à l'envers
+Voici Filou, le petit renard pirate. Son bateau file sur la mer, pschhh !
+La capitaine montre une carte. « Qui sait la lire ? » « Moi ! Facile ! » crie Filou.
+Oh là là ! Filou tient la carte à l'envers. Attention aux rochers, Filou !
+Derrière, un chat pirate suit Filou. Il veut le trésor, lui aussi.
+Le soleil se couche. Pas d'île, pas de trésor. Filou est tout triste.
+Sardine la souris vient tout près. Filou chuchote : « Je ne sais pas lire la carte. »
+Sardine montre la carte. « Regarde, Filou : la croix, c'est le trésor ! »
+Une île ! Un palmier ! Un trésor qui brille ! Bravo, Filou ! Bravo, Sardine !
+
+=== filou_dino
+titre: Filou et l'œuf tacheté
+Filou le renard trottine dans les fougères. Snif, snif ! Il cherche un trésor.
+Un gros œuf bleu ! « Il est à moi ! » Filou le pousse, han, han ! « Facile ! »
+Toc, toc, crac ! Un bébé dinosaure sort de l'œuf. « Mmma ? » Coucou, bébé !
+Le bébé a faim. Filou apporte des feuilles. Encore des feuilles ! Miam, miam.
+La nuit, une maman chante, très loin. « Mooou… » Elle cherche son bébé.
+Filou fait un gros câlin au bébé. « Viens, on va voir ta maman. »
+Voilà la maman ! Elle est grande, grande, grande. « Mmma ! » Le bébé est content.
+Au revoir, bébé ! Au revoir, maman ! Filou rentre tout léger. À demain !
+
+=== filou_chevaliers
+titre: Filou et le dragon de la tour du Nord
+Au château, le paon fait le beau. Filou aussi veut qu'on le regarde.
+« Moi, j'ai chassé un dragon ! Grand comme ça ! Facile ! » Mais ce n'est pas vrai.
+La reine appelle Filou. « Va chasser le dragon de la tour ! » Oh là là…
+Filou monte l'escalier. Une marche, deux marches… Grrr ! Ça gronde, là-haut.
+Derrière la porte, une petite dragonne pleure. C'est Braise. « Hic ! » Elle a le hoquet.
+« Bouh ! » fait Filou. « Hic ! » Raté ! Braise rit, Filou rit. Et le hoquet s'en va.
+Filou donne la patte à Braise. « Je n'ai pas chassé de dragon. Voici mon amie. »
+Maintenant, Braise grille les tartines de Filou. Pfff, une petite flamme. Miam !
+
+=== filou_espace
+titre: Filou et la blague de trop
+Dans la fusée, il y a Filou et Bip, le petit robot. Filou rit, ha ha ha !
+Filou met une chaussette sur l'antenne de Bip. « Une blague ? Facile ! » Hi hi hi !
+Mais un jour, devant tout le monde, Filou se moque de Bip. Bip est triste.
+Le matin, plus de Bip. Son siège est vide. Filou est tout seul.
+Filou cherche partout. « Bip ! Biiip ! » Une lune, deux lunes… Où es-tu, Bip ?
+Voilà Bip, tout gris, tout triste. Filou vient près de lui. « Pardon, Bip. Pardon. »
+Filou tient la main de Bip. Tic, tic, tic… Ça fait chaud dans le ventre de Bip.
+Oh ! Une chaussette sur l'oreille de Filou ! C'est Bip ! Ha ha ha ! Hi. Hi. Hi.
+
+=== filou_foret
+titre: Filou et le nid de Margot
+Filou a une bille dorée. Elle roule, elle brille, comme une petite étoile.
+Frrrt ! Margot la pie a pris la bille ! Filou est très, très fâché.
+Filou grimpe au grand arbre. Hop, hop, hop ! « Facile ! » Oh, un nid qui brille !
+Dans son nid, Margot parle à une cuillère. Elle est toute seule, Margot.
+Filou redescend tout doucement. Il pense à Margot… Il a une idée, Filou !
+Le matin, Filou et Noisette préparent un goûter. « Tu viens, Margot ? »
+Margot goûte le gâteau. Miam ! Filou rit, Noisette rit, Margot rit. Kia-kia !
+Margot rend la bille. Et maintenant, les trois amis jouent ensemble. Roule, petite bille !
+
+=== filou_ocean
+titre: Filou et le sous-marin presque fini
+Pan, pan, pan ! Filou fabrique un sous-marin. Vite, vite, vite ! « Facile ! »
+Plouf ! Filou descend dans la mer. Oh, les jolis poissons ! Mais… ploc, ploc. Une goutte !
+Pschhhit ! L'eau entre partout. « Au secours ! » Filou n'a pas assez de pattes !
+Ouf ! Octave le poulpe aide Filou. Dans son atelier, il a huit bras et huit tournevis.
+Filou colle une planche, vite, vite. Flop ! Elle tombe. Aïe, aïe, aïe !
+Octave montre une toute petite horloge. Tic-tac, tic-tac. « Doucement, Filou. Tout doucement. »
+Frrt, frrt, Filou frotte tout doucement. Puis il joue avec Octave. Le beau sous-marin sèche.
+Filou et Octave descendent tout au fond. Pas une goutte ! Bonne nuit, les poissons-lanternes.

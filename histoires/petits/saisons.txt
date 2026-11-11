@@ -1,0 +1,178 @@
+# Les histoires de SAISON (Noël, Halloween, ski, mer) — version tout-petits (1-3 ans).
+# Une ligne par tableau (8 lignes par histoire), lue sur l'image de la 1re page du tableau.
+
+=== filou_noel
+titre: Filou et le traîneau en panne
+C'est bientôt Noël. Filou écrit sa liste. Elle est longue, longue, longue !
+La nuit, Filou se cache derrière la cheminée. Chut ! Il attend ses cadeaux.
+Boum ! Le traîneau du Père Noël est en panne. Le renne a mal à la patte.
+« Facile ! » dit Filou. Il tire le traîneau dans la neige. Han ! Han !
+Chut… Filou pose un cadeau près de Noisette. Elle dort. Ça fait chaud au cœur.
+Oh non ! Il manque un cadeau pour le petit loup. Il reste celui de Filou.
+Filou regarde son gros cadeau. Il le donne au petit loup. Tiens, Loupiot !
+Le matin, Filou trouve une petite cloche dorée. Cling, cling ! Filou est content. Joyeux Noël !
+
+=== nestor_noel
+titre: Nestor et le Noël qu'il ne fallait pas rater
+Nestor bâille. Ouaaah ! L'hiver, les ours dorment. Mais Nestor veut voir Noël.
+Pour ne pas dormir, Nestor met de la neige dans son cou. Brrr !
+Nestor décore le grand sapin. Il bâille encore. « Hmm… j'ai sommeil. »
+Rrrron… Nestor dort près du feu. Ses amis l'appellent. Nestor dort, dort, dort.
+Ses amis le tirent sur la luge, jusqu'à son lit. Dors bien, Nestor !
+Chut ! Ses amis posent un petit sapin et des cadeaux près de son lit.
+C'est le printemps. Nestor se réveille. Oh ! Un sapin, des cadeaux, du gâteau !
+Ses amis l'attendent avec des bougies. Joyeux Noël, Nestor ! Nestor est tout content.
+
+=== rosie_noel
+titre: Rosie et l'écharpe trop longue
+Rosie regarde la théière dorée. Elle brille ! C'est pour maman. Mais Rosie n'a pas de sous.
+Alors Rosie tricote une écharpe rouge. « Un, deux, trois, partez ! » Clic, clic, clic !
+L'écharpe est longue, longue, longue. Il y a un trou. Rosie est triste.
+Rosie cache l'écharpe derrière son dos. Elle la trouve trop moche.
+C'est Noël ! Pompon donne un dessin à maman. Rosie, elle, n'a rien dans les pattes.
+Maman trouve l'écharpe rouge. Oh ! Elle la serre contre sa joue. Elle est si douce !
+Maman met l'écharpe. Un tour, deux tours ! Il en reste pour Rosie et pour Pompon.
+Ils se promènent tous les trois, bien au chaud dans l'écharpe de Rosie.
+
+=== plume_noel
+titre: Plume et la fenêtre sans lumière
+C'est Noël. Plume vole. Partout, des lumières ! Mais une maison est toute noire.
+Toc, toc ! Le vieux blaireau grogne : « Du balai ! » « Et pourquoi ? » se demande Plume.
+Plume regarde par la fenêtre. Le blaireau est tout seul dans son fauteuil. Il est triste.
+Plume le raconte à ses amis. Elle réfléchit. Elle a une petite idée.
+Plume a posé une lanterne sur la fenêtre. Le blaireau la voit. Oh ! Une lumière.
+Le soir de Noël, la porte s'ouvre en grand. « Entre, Plume. Il fait froid. »
+Le blaireau ouvre un vieux coffre. Des bougies ! Ils les allument, une, deux, trois.
+Les amis arrivent avec un petit gâteau. Tout le monde chante doucement. Joyeux Noël !
+
+=== filou_halloween
+titre: Filou aux trois déguisements
+C'est Halloween. Hou-hou ! Filou est un fantôme. Il veut plein de bonbons.
+Toc, toc ! La tortue donne des bonbons. Filou revient, et revient encore. « Facile ! »
+Son sac est gros, gros, gros. Filou ne veut pas partager. « C'est à moi ! »
+Voilà Loupiot, le petit loup. Son sac est tout vide. Il est triste.
+Grrrloub ! Filou a trop mangé. Aïe, aïe, aïe, il a mal au ventre.
+Alors Filou donne des bonbons à Loupiot. Encore, encore ! Loupiot est content.
+Filou donne des bonbons à tous ses amis. Un pour toi, un pour toi !
+Les amis partagent les bonbons autour de la grosse citrouille. Miam ! Filou rit avec eux.
+
+=== nestor_halloween
+titre: Nestor et la maison qui craque
+C'est Halloween. Nestor est une citrouille. Là-haut, il y a une vieille maison qui craque.
+Criiic ! Les amis entrent. Il fait tout noir. « Hmm… » fait Nestor. Ses genoux tremblent.
+Boum, boum ! Hoooou ! Il y a du bruit en haut de l'escalier.
+Nestor s'arrête. « Moi, j'ai peur », dit Nestor tout doucement.
+Ses amis le regardent. « Nous aussi, on a peur ! » Ouf ! Nestor n'est pas tout seul.
+Oh ! Une toute petite chauve-souris. C'est Vesper. Elle pleure : personne ne vient la voir.
+Alors les amis montent ensemble, patte dans la patte. Là-haut, il y a des bonbons !
+Ils rentrent sous la lune. Nestor n'a plus peur. Bravo, Nestor !
+
+=== rosie_halloween
+titre: Rosie et le déguisement qui a fondu
+Rosie fabrique un dragon en papier. Colle, colle, colle ! Il est tout vert.
+« Un, deux, trois, partez ! » Rosie est un beau dragon. Mais un gros nuage arrive.
+Ploc, ploc, ploc ! Il pleut. Le dragon fond. Oh non, pauvre Rosie !
+Rosie boude. Ses amis lui prêtent un chapeau, un bandeau et une cape.
+Rosie se regarde dans la flaque. Elle est toute verte. Oh ! Un monstre rigolo !
+Nestor lui fait des moustaches de boue. Rosie rit, rit, rit !
+C'est le concours. Les fantômes sont bien propres. Et voilà Rosie, toute verte : « Gloubiii ! »
+Le soir, Rosie prend son bain. L'eau est toute verte. Rosie est contente.
+
+=== plume_halloween
+titre: Plume et la plus grosse citrouille
+Plume plante une graine. Noisette plante une graine. Pousse, pousse, petite citrouille !
+La citrouille de Noisette est énorme ! Celle de Plume est toute petite. « Et pourquoi ? »
+Plume boude. Elle a un pincement dans le ventre. Elle tourne le dos à Noisette.
+La nuit, Plume regarde la grosse citrouille. Non, non, non ! Plume ne la pousse pas.
+Plume tremble sur la barrière. Voilà Noisette, avec sa petite bougie.
+« Je suis jalouse », dit Plume tout bas. « Moi aussi, un peu », répond Noisette.
+Hi, hi, hi ! Plume et Noisette rient tout doucement sous la lune.
+Elles font une lanterne avec la petite citrouille. Qu'elle est jolie ! Plume est contente.
+
+=== filou_ski
+titre: Filou et la piste noire
+Filou est à la neige. Monsieur Cabri montre comment freiner. « Facile ! » dit Filou.
+Filou n'écoute pas. Il regarde la grande piste, tout là-haut.
+Filou monte tout en haut. Oh là là ! C'est haut, haut, haut.
+Zou ! Filou glisse vite, trop vite ! Il ne sait pas freiner. Aaaah !
+Paf ! Filou tombe dans la neige. Il a froid. Il est tout seul.
+Triiit ! Voilà Monsieur Cabri. Il aide Filou. Il lui rend son ski.
+Filou fait un triangle avec ses skis. Il descend doucement, tout doucement.
+Maintenant, Filou sait freiner. Bravo, Filou ! La grande piste, ce sera pour plus tard.
+
+=== nestor_ski
+titre: Nestor et la grande course de luges
+C'est la course de luges ! Nestor est prêt. Un gros chocolat pour le premier !
+Zou ! La luge de Nestor va vite, vite, vite. Nestor est le premier !
+« À l'aide ! » Oh ! Deux petites pattes dans la neige. C'est Pépin le hérisson.
+« Hmm… » Nestor freine. Frrrr ! Il s'arrête. Les autres passent devant lui.
+Nestor attrape Pépin. Pépin a froid. Nestor le met au chaud dans son manteau.
+Ils descendent tous les deux sur la luge. Tout doucement. « Encore ! » rit Pépin.
+Nestor arrive le dernier. Rosie a gagné. Elle partage son chocolat avec Nestor.
+Le soir, Pépin dort sur le ventre de Nestor. Chut… Bonne nuit, Pépin.
+
+=== rosie_ski
+titre: Rosie, la dernière de la classe
+« Un, deux, trois, partez ! » Rosie met ses skis. Boum ! Rosie tombe dans la neige.
+Nestor glisse. Plume glisse. Et Rosie ? Boum ! Encore par terre. Rosie est fâchée.
+Rosie jette ses skis. Elle boude sur le banc. « C'est nul, le ski ! »
+Monsieur Cabri lui apporte un chocolat chaud. « Tout le monde tombe, au début, Rosie. »
+Rosie recommence. Boum ! Boum ! Puis elle glisse un peu. « Tu as vu ? »
+Rosie tombe. Nestor lui tend la patte. Hop ! Rosie se relève. Merci, Nestor !
+Rosie est en haut de la piste. Son cœur fait boum-boum. Elle descend tout doucement.
+Une petite marmotte tombe. Boum ! Rosie va l'aider. Elles rient toutes les deux.
+
+=== plume_ski
+titre: Plume et la première nuit loin du nid
+Plume part à la neige sans maman. Un gros câlin. Au revoir, maman !
+Quelle belle journée ! Plume fait un bonhomme de neige avec ses amis.
+C'est la nuit. Les amis dorment. Plume, elle, a les yeux grands ouverts.
+Plume regarde la nuit par la fenêtre. Une larme coule. Sa maison est loin, si loin.
+« Plume ? » C'est Nestor. Il a un doudou, lui aussi. Plume montre le sien : Chiffon.
+Monsieur Cabri vient avec sa lanterne. « Je pleure. Et pourquoi ? » « Parce que tu aimes ta maison, Plume. »
+Plume regarde la lune toute ronde. Maman la regarde aussi. Bonne nuit, maman.
+Les autres nuits, Plume regarde la lune avec Chiffon. Et bientôt, elle retrouve maman. Quel câlin !
+
+=== filou_mer
+titre: Filou et le plus beau château de sable
+Filou est à la plage. Il a un seau et trois pelles. Un château ? « Facile ! »
+« Tu me prêtes une pelle ? » demande le petit crabe. « Non, non, non ! » dit Filou.
+Filou travaille tout seul. Ouf, ouf ! Le seau est lourd. C'est long, tout seul.
+Le château est fini. Qu'il est beau ! Mais personne ne vient le voir.
+Schlip, schlip ! La mer monte. Le château s'écroule. « Au secours ! » crie Filou.
+Ses amis arrivent en courant. « Prenez mes pelles ! » Et creuse, creuse, creuse !
+Le château est sauvé ! Filou regarde ses amis pleins de sable. « Merci ! »
+Le soir, ils regardent la mer tous ensemble. Demain, Filou prêtera son seau et ses pelles.
+
+=== nestor_mer
+titre: Nestor et la bouée jaune
+Ses amis jouent dans l'eau. Nestor reste sur sa serviette, avec sa bouée jaune. « Hmm… »
+Une petite vague arrive. Oh ! Nestor recule. Nestor a peur de l'eau.
+Voilà Monsieur Otto, le phoque. « Viens, Nestor. On mouille juste les pieds. »
+Nestor met les pieds dans l'eau. Ça chatouille ! Hi, hi, hi !
+Un autre jour, Nestor fait des bulles. Blblblb ! Encore des bulles, Nestor !
+Nestor se couche sur l'eau. Il flotte comme une étoile. Sans sa bouée !
+Plouf, plouf ! Nestor nage jusqu'à Monsieur Otto. « J'ai nagé ! » Bravo, Nestor !
+Maintenant, Nestor joue dans les vagues avec ses amis. Il rit, il rit !
+
+=== rosie_mer
+titre: Rosie et le crabe qui dansait
+Rosie voit un petit crabe rouge. Il danse sur son rocher. Clac, clac !
+« Un, deux, trois, partez ! » Hop ! Rosie met le crabe dans son seau. « Il est à moi ! »
+« Danse, petit crabe ! » Toc, toc. Mais le crabe se cache. Il ne danse plus.
+Le crabe est tout pâle. Il regarde la mer par la fenêtre. Il est triste.
+Rosie serre son seau. Mais la nuit, scritch, scritch ! Le crabe veut sortir.
+Le matin, Rosie porte le seau jusqu'au rocher. « Pardon, petit crabe. Rentre chez toi. »
+Le crabe danse sur son rocher ! Clac, clac ! Il est rouge comme une cerise.
+Chaque matin, Rosie revient le voir. Elle s'assoit, elle regarde. Danse, petit crabe !
+
+=== plume_mer
+titre: Plume et le cerf-volant rouge
+Plume est à la plage. Elle ne connaît personne. Là-bas, des enfants jouent au cerf-volant.
+Plume fait trois petits pas. Son cœur fait boum-boum. Elle n'ose pas.
+Plume ramasse des coquillages tout près. Les enfants ne la voient pas. « Et pourquoi ? »
+Clac ! La ficelle casse. Le cerf-volant s'envole, haut, haut, haut. Oh non !
+Le cerf-volant est coincé dans l'arbre. La petite loutre est triste. Plume se lève.
+Plume ouvre ses ailes. Elle vole, elle vole, jusqu'en haut du grand arbre !
+« Tiens ! » Plume rend le cerf-volant. « Tu joues avec nous ? » « Oui ! » dit Plume.
+Plume fait voler le cerf-volant. Ses nouveaux amis rient. Quelles belles vacances !

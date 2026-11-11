@@ -3,10 +3,9 @@ name: Enregistrer les voix (Gemini TTS)
 on:
   # Niveau payant Gemini : le meilleur modèle est plafonné à 100 requêtes par jour (remise à zéro vers 08h UTC).
   # Ces passages terminent les enregistrements manquants, puis ne font plus rien (et ne coûtent plus rien).
-  # Enregistrements SUSPENDUS le 11/11 : les textes sont en cours de réécriture. Remettre ces lignes une fois les textes figés.
-  # schedule:
-  #   - cron: "20 8 * * *"
-  #   - cron: "20 13 * * *"
+  schedule:
+    - cron: "20 8 * * *"
+    - cron: "20 13 * * *"
   workflow_dispatch:
     inputs:
       only:
@@ -61,7 +60,8 @@ jobs:
         run: |
           git config user.name "titistoire-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add assets/voix/
+          python3 tools/build_stories.py      # le texte publié suit les enregistrements : stories.js est régénéré dans le même envoi
+          git add assets/voix/ stories.js
           if git diff --cached --quiet; then
             echo "Rien de nouveau."
           else

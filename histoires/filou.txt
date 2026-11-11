@@ -9,60 +9,60 @@ sujet: Dire « je ne sais pas »
 famille: oser
 
 @ {filou} standing proudly at the bow of {coquille}, paws on hips, nose in the wind, his red pirate bandana flapping, sunny blue sea and two white seagulls
-Sur la mer toute bleue file La Coquille, le plus petit bateau pirate du monde. Et à l'avant, le museau au vent, il y a Filou.
+Sur la mer toute bleue file La Coquille, le plus petit bateau pirate du monde. Tout à l'avant, le museau au vent et le foulard qui claque, se dresse Filou.
 > {filou} on the deck of {coquille}, chest puffed out, one paw pointing at his own striped sailor shirt with a boastful grin, eyes closed with pride, calm blue sea and sunny sky behind him
-Filou est un renard qui sait tout faire. Du moins… c'est ce qu'il dit.
+Filou est un renard qui sait tout faire. Du moins… c'est ce qu'il raconte, tout gonflé de fierté.
 > {filou} hugging the wooden mast of {coquille} halfway up, feet off the deck, waving one paw at two white seagulls flying close, a knotted rope hanging beside him, full light blue sky, blue sea below
-« Grimper au mât ? Facile ! Faire des nœuds ? Facile ! Parler aux mouettes ? Fa-ci-le ! »
+« Grimper au mât ? Facile ! Faire des nœuds marins ? Facile ! Bavarder avec les mouettes ? Fa-ci-le ! »
 
 @ On the deck of a pirate ship, {mirabelle} unrolls an old yellowed parchment map in front of one single {filou} who raises his paw eagerly, plain wooden deck, blue sea
-Ce matin, la capitaine Mirabelle déroule un vieux papier tout jauni. « Moussaillons ! Voici la carte de l'île au trésor. Qui sait lire une carte ? »
+Ce matin, la capitaine Mirabelle déroule un vieux parchemin tout jauni, qui craque sous ses pattes. « Moussaillons ! Voici la carte de l'île au trésor. Qui sait lire une carte ? »
 > On the deck of a pirate ship, one single {filou} grins with one paw raised high, holding upside down an old yellowed parchment map showing only a drawn island and a dotted path, {mirabelle} nodding beside him
-Filou n'a jamais lu de carte de sa vie. Mais sa patte se lève toute seule. « Moi ! Facile ! »
+De sa vie, Filou n'a jamais lu la moindre carte. Mais sa patte se lève toute seule, plus vite que lui. « Moi ! Facile ! »
 > High up in a wooden barrel lookout at the top of a pirate ship mast, {sardine}, tiny, no bigger than the barrel rim, wrinkles her nose and looks down doubtfully at {filou} far below on the deck holding an old yellowed parchment map upside down, blue sky
-Tout là-haut dans son tonneau, Sardine, la petite souris vigie, fronce le nez. Elle a bien vu : Filou tient la carte à l'envers.
+Tout là-haut, perchée dans son tonneau, Sardine, la petite souris vigie, fronce le nez. Elle a l'œil, Sardine : Filou tient la carte à l'envers.
 
 @ On the deck of a pirate ship at sea, {filou} stands at the wooden ship's wheel holding an old yellowed parchment map upside down, looking confident, while the ship narrowly passes tall pointy grey rocks, sunny day
-« À gauche toute ! » crie Filou. La Coquille tourne à gauche… et fonce droit sur des rochers pointus. Criiiic ! Elle les évite de justesse.
+« À gauche toute ! » ordonne Filou. La Coquille vire à gauche… et fonce droit sur des rochers pointus comme des dents. Criiiic ! La coque les frôle, et passe de justesse.
 > {filou} at the wooden ship's wheel of a pirate ship, spinning it hard to the right with an embarrassed little smile, tall pointy rocks left behind in the sunny sea
-« C'était… pour vérifier le gouvernail, dit Filou. À droite toute ! »
+« C'était… pour vérifier le gouvernail, bredouille Filou, un peu penaud. À droite toute ! »
 > A pirate ship gliding gently through a group of surprised pink jellyfish in clear blue water, {filou} leaning over the wooden rail with an apologetic face and one paw raised politely, sunny day
-À droite, il y a un banc de méduses, très étonnées de voir passer un bateau. « Pardon, mesdames », murmure Filou.
+À droite flotte une ribambelle de méduses roses, tout étonnées de voir passer un bateau. « Pardon, mesdames », murmure Filou par-dessus bord.
 
 @ On a calm blue sea in daylight, {griffard} stands at the bow of a black pirate ship, looking through a spyglass with a greedy grin; far ahead sails {coquille}, tiny in the distance
-Loin derrière, un bateau noir les suit sans bruit. C'est Griffard, le chat pirate, qui veut le trésor pour lui tout seul.
+Loin derrière, un bateau noir glisse dans leur sillage, sans un bruit. C'est Griffard, le chat pirate. Sa longue-vue à l'œil, il rêve du trésor pour lui tout seul.
 > {griffard} at the wheel of a black pirate ship, grinning slyly and turning the wheel to the left, following {coquille} far ahead, tiny in the distance on the calm blue sea, daylight
-« Ce renard a la carte, ricane-t-il. Je n'ai qu'à le suivre ! » Alors quand Filou tourne à gauche, Griffard tourne à gauche. Et quand Filou tourne en rond…
+« Ce renard a la carte, ricane-t-il. Je n'ai qu'à le suivre à la trace ! » Alors, quand Filou tourne à gauche, Griffard tourne à gauche. Et quand Filou tourne en rond…
 > {griffard} on the deck of a black pirate ship, dizzy and grumpy, eyes swirling, holding his head with both paws, his ship leaving round wakes on the blue sea, {coquille} far away, tiny in the distance
-… Griffard tourne en rond aussi. Trois fois. « Mais où va-t-il donc, ce renard ? » grogne Griffard, qui commence à avoir le tournis.
+… Griffard tourne en rond aussi. Trois fois. « Mais où va-t-il donc, ce renard de malheur ? » grommelle-t-il, la tête entre les pattes. Le voilà qui attrape le tournis.
 
 @ At sunset on a pirate ship deck, {filou} sits alone with an old yellowed parchment map on his knees, ears down, worried, orange sky, empty sea all around, the fox has exactly one tail
-Le soleil descend. Pas la moindre île à l'horizon. L'équipage a faim, la capitaine bâille, et dans le ventre de Filou, quelque chose se serre.
+Le soleil descend, le ciel devient orange. Pas la moindre île à l'horizon. L'équipage a faim, la capitaine bâille, et dans le ventre de Filou, quelque chose se serre comme un nœud marin.
 > At sunset on a pirate ship deck, very close view of {filou} and the old yellowed parchment map he holds, covered with lines, crosses and little drawings; he frowns in confusion, scratching his head, exactly one tail, visible on one side only, behind him, orange sky
-Il regarde la carte. Des traits, des croix, des petits dessins… Il n'y comprend rien. Rien du tout.
+Il a beau scruter la carte en se grattant la tête… Des traits, des croix, des petits dessins : il n'y comprend rien. Rien du tout.
 > At dusk on a pirate ship deck, one single {filou} sits curled up hugging his knees, exactly one tail, ears down, sad worried face, mouth turned down, eyes open looking at the floor, one single rolled-up old parchment map beside him, {mirabelle} yawning far behind him, darkening orange and purple sky
-« Si je le dis, pense Filou, ils sauront que je ne sais pas tout faire. Et alors… est-ce qu'ils m'aimeront encore ? »
+« Si je l'avoue, songe Filou, recroquevillé sur le pont, ils sauront que je ne sais pas tout faire. Et alors… est-ce qu'ils m'aimeront encore ? »
 
 @ Night on a pirate ship deck by lantern light, close view of one single {filou}, with {sardine}, no bigger than his ear, perched on his shoulder and whispering, starry sky
-Une petite voix chatouille son oreille. C'est Sardine. « Dis, Filou… Tu veux que je te dise un secret ? Moi, je ne sais pas nager. »
+La nuit est tombée. Une petite voix lui chatouille l'oreille : c'est Sardine, grimpée sur son épaule. « Dis, Filou… Tu veux que je te confie un secret ? Moi, je ne sais pas nager. »
 > Night on a pirate ship deck by lantern light, {filou} listens with wide surprised eyes to a tiny mouse, ten times smaller than the fox, standing on a rope coil that is bigger than her: {sardine}, making little swimming gestures with her arms, starry sky
-« Toi ? Une pirate ? » « Eh oui. Alors la capitaine m'apprend, un petit peu chaque jour. » Filou avale sa salive. Puis il souffle, tout bas :
+« Toi ? Une pirate ? » s'étonne Filou. « Eh oui ! Alors la capitaine m'apprend, un petit peu chaque jour. » Et Sardine mouline des pattes, comme ça. Filou avale sa salive, puis souffle, tout bas :
 > Night on a pirate ship deck by lantern light, {filou} whispers shyly with a relieved little smile and one paw on his belly, while {sardine}, tiny, no taller than his paw, sits on the edge of an old yellowed parchment map and smiles warmly, starry sky
-« Sardine… je ne sais pas lire les cartes. » Et là, chose étrange : dans son ventre, ça ne serre plus du tout.
+« Sardine… je ne sais pas lire les cartes. » Et là, chose étrange : dans son ventre, le nœud se défait d'un coup. Ça ne serre plus du tout.
 
 @ Morning on a pirate ship deck, {filou} bends over an old yellowed parchment map showing only a dotted path and one big red cross, while {sardine}, tiny, no taller than his paw, stands on the map pointing at the cross, sunny sea
-Sardine retourne la carte. « Regarde. Ça, c'est le nord. Ça, c'est nous. Et la croix… » « … c'est le trésor ! » dit Filou. Il apprend vite, quand il veut bien apprendre.
+Au matin, Sardine remet la carte à l'endroit. « Regarde. Les pointillés, c'est notre chemin. Et la grosse croix rouge… » « … c'est le trésor ! » s'écrie Filou. Il apprend vite, quand il veut bien apprendre.
 > Morning on a pirate ship deck, {filou} stands in front of {mirabelle} with ears slightly down and one paw on his chest, looking honest and brave, while {sardine}, tiny, no taller than his paw, watches proudly from a barrel, bright blue sea
-Devant tout l'équipage, Filou se racle la gorge. « Capitaine… je me suis trompé. Je ne savais pas. Mais maintenant, je sais un petit peu. »
+Devant tout l'équipage, Filou se racle la gorge, une patte sur le cœur. « Capitaine… je me suis trompé. Je ne savais pas lire la carte. Mais maintenant, je sais un petit peu. »
 > Morning on a pirate ship deck, {mirabelle} laughs warmly and points toward the wooden ship's wheel, while one single relieved smiling {filou} walks toward it, sunny sky
-La capitaine Mirabelle éclate de rire. « Mille sabords ! Il faut être drôlement courageux pour dire ça, moussaillon. Allez, à la barre ! »
+La capitaine Mirabelle part d'un grand rire qui fait trembler ses moustaches. « Mille sabords ! Il faut être drôlement courageux pour dire ça, moussaillon. Allez, à la barre ! »
 
 @ On a tiny island under one palm tree, {filou} cheers beside one single open treasure chest full of shining gold coins, {sardine}, tiny, sitting on his shoulder, {coquille} anchored nearby, and far away a tiny black ship sailing in circles
-Cette fois, La Coquille file tout droit. Une île ! Un palmier ! Et sous le palmier, un coffre plein de pièces d'or qui brillent comme des soleils.
+Cette fois, La Coquille file tout droit, les voiles gonflées. Une île ! Un palmier ! Et sous le palmier, un coffre débordant de pièces d'or qui brillent comme autant de petits soleils.
 > Far out on the open blue sea, {griffard} stands grumpy and dizzy at the wheel of a black pirate ship sailing in circles, leaving a round wake, chin up stubbornly, nobody else around, late afternoon light
-Et Griffard ? Il tourne encore en rond, là-bas, au milieu de la mer. Il n'a jamais osé demander son chemin à personne.
+Et Griffard ? Il tourne encore en rond, là-bas, au beau milieu de la mer, le menton levé. Jamais, au grand jamais, il n'a osé demander son chemin à personne.
 > Night, close view inside {coquille}, on the wooden deck: {filou} curled up asleep, exactly one tail, his striped sailor shirt visible, an old yellowed parchment map under his paw, and {sardine}, no bigger than his ear, asleep on the deck against his tail, both inside the ship, a lantern glowing, bright stars above
-Ce soir-là, Filou s'endort sur le pont, la carte sous la patte. À l'endroit. Demain, Sardine lui apprend les étoiles. Et lui, il lui apprend à nager.
+Ce soir-là, Filou s'endort sur le pont, roulé en boule, la carte sous la patte. À l'endroit. Demain, Sardine lui apprend le nom des étoiles. Et lui, il lui apprend à nager.
 
 === filou_dino
 titre: Filou et l'œuf tacheté
@@ -71,60 +71,60 @@ sujet: Rendre et laisser partir
 famille: coeur
 
 @ In a prehistoric valley of giant ferns with a river and a distant volcano, {filou} trots along with his nose to the ground, sniffing and searching eagerly, tail up, morning sunlight
-Dans la vallée des Fougères, là où vivent les dinosaures, Filou trottine le nez au sol. Il cherche quelque chose d'extraordinaire. Comme tous les matins.
+Dans la vallée des Fougères, là où vivent les dinosaures, Filou trottine, la truffe au ras du sol. Il flaire, il furète : il cherche quelque chose d'extraordinaire. Comme tous les matins.
 > In a prehistoric valley of giant ferns, {filou} stands on tiptoe next to a huge white egg with round blue spots, taller than the fox, stretching his paws up, amazed, morning sunlight
-Et ce matin-là, entre deux fougères géantes, il le trouve. Un œuf. Énorme. Tout tacheté de bleu. Plus gros que lui !
+Et ce matin-là, entre deux fougères géantes, il le trouve. Un œuf. Énorme. Tout tacheté de bleu. Même sur la pointe des pattes, Filou est plus petit que lui !
 > In a prehistoric valley of giant ferns, {filou} hugs a huge white egg with round blue spots, taller than the fox, his arms barely reaching around it, cheek pressed against the shell, a proud possessive grin on his face, soft morning light
-« Ça alors ! Le plus bel œuf du monde ! Et c'est moi qui l'ai trouvé, donc… il est à moi. »
+« Ça alors ! Le plus bel œuf du monde ! jubile Filou, la joue sur la coquille. C'est moi qui l'ai trouvé, donc… il est à moi. »
 
 @ On a grassy slope in a prehistoric valley of giant ferns, {filou} pushes a huge white egg with round blue spots, taller than the fox, uphill with all his strength, leaning hard with both paws, blue sky
-Filou pousse l'œuf, han ! Il le roule, hop ! Il le tire jusqu'à sa cachette. C'est lourd, un trésor.
+Filou pousse l'œuf, han ! Il le roule, hop ! Arc-bouté, il lui fait grimper le talus jusqu'à sa cachette. C'est lourd, un trésor.
 > In a prehistoric valley of giant ferns, {tric} tilts his head and sniffs a huge white egg with round blue spots, taller than the fox, while {filou} stands in front of it with arms crossed, nose in the air
-Son ami Tric, le petit tricératops, penche la tête. « Il est à qui, cet œuf ? » « À moi ! Je l'ai trouvé. » « Oui mais… avant que tu le trouves ? »
+Son ami Tric, le petit tricératops, renifle la coquille et penche la tête. « Il est à qui, cet œuf ? » « À moi ! réplique Filou, le nez en l'air. Je l'ai trouvé. » « Oui mais… avant que tu le trouves ? »
 > In a cosy hollow under giant ferns in a prehistoric valley, {filou} sits like a guard in front of a huge white egg with round blue spots, taller than the fox, half covered with big green leaves, looking away stubbornly, warm afternoon light, the fox has exactly one tail
-Filou fait semblant de ne pas entendre. Il couvre l'œuf de feuilles, bien au chaud, et il s'assoit devant pour le garder.
+Filou fait la sourde oreille. Vite, il emmitoufle l'œuf dans de grandes feuilles, bien au chaud, puis s'assoit devant, droit comme un gardien.
 
 @ In a cosy hollow under giant ferns in a prehistoric valley, a huge white egg with round blue spots, taller than the fox, cracked open at the top, from which a baby blue long-necked dinosaur with smooth skin pops its small head out with big shiny eyes, looking lovingly at surprised {filou}
-Soudain… toc. Toc toc. Crrrac ! Une fissure. Puis deux. Et de la coquille sort une petite tête bleue, avec deux grands yeux mouillés.
+Soudain… toc. Toc toc. Crrrac ! Une fissure court sur la coquille. Puis deux. Et voilà que surgit une petite tête bleue, avec deux grands yeux tout brillants.
 > Among a few small broken eggshell fragments on the ground, no whole egg, in a prehistoric valley of giant ferns, a baby blue long-necked dinosaur with smooth skin, as tall as the fox, gazes happily at {filou}, who shakes his head and waves both paws, flustered
-Le bébé regarde Filou. Filou regarde le bébé. « Mmmma ? » fait le bébé. « Ah non non non, dit Filou. Moi, c'est Filou. »
+Le bébé regarde Filou. Filou regarde le bébé. « Mmmma ? » gazouille le petit. « Ah non non non ! proteste Filou en agitant les pattes. Moi, c'est Filou. »
 > In a prehistoric valley of giant ferns, a baby blue long-necked dinosaur with smooth skin, as tall as the fox, snuggles happily against {filou} like a big warm cushion, the fox squashed, surprised and a little embarrassed, a few small broken eggshell fragments on the ground, no whole egg
-« Mmma ! » répète le bébé, très content. Et il se colle contre lui comme un gros coussin tiède.
+« Mmma ! » répète le bébé, ravi. Et il se blottit contre Filou de tout son poids, comme un gros coussin tiède.
 
 @ In a prehistoric valley of ferns with a river, {filou} walks tired, carrying a big pile of green leaves, followed very closely by a baby blue long-necked dinosaur with smooth skin, as tall as the fox, mouth open, hungry
-Un bébé dinosaure, ça a faim. Tout le temps. Filou court chercher des feuilles. Encore des feuilles. Et encore des feuilles !
+Un bébé dinosaure, ça a faim. Tout le temps. Filou court cueillir une brassée de feuilles. Encore des feuilles. Et encore des feuilles ! Il en a les pattes en compote.
 > In a river with ferns on the banks in a prehistoric valley, a baby blue long-necked dinosaur with smooth skin, as tall as the fox, splashes joyfully into the water right behind {filou}, who is soaked and startled, sunny day
-Un bébé dinosaure, ça suit partout. Dans la rivière, plouf. Dans les ronces, aïe. Jusque sur le dos de Filou, ouf !
+Un bébé dinosaure, ça vous suit partout. Dans la rivière, plouf ! Dans les ronces, aïe ! Et jusque sur le dos de Filou, ouf !
 > At dusk in a prehistoric valley of giant ferns, one single {filou} sits smiling tenderly while a baby blue long-necked dinosaur with smooth skin, as tall as the fox, sleeps beside him, its small head resting on his shoulder, soft golden light, the fox has exactly one tail
-Mais quand il s'endort, le museau dans le cou de Filou, en faisant de tout petits ronflements… Filou se dit qu'il n'a jamais rien eu d'aussi précieux.
+Mais quand le petit s'assoupit, le museau dans le cou de Filou, avec des ronflements minuscules… Filou songe qu'il n'a jamais rien eu d'aussi précieux.
 
 @ Night in a prehistoric valley of giant ferns: in the foreground {filou} and a baby blue long-necked dinosaur with smooth skin, as tall as the fox, listen, the baby lifting its head; very far away on a distant hilltop, one tiny dark long-necked dinosaur silhouette, head raised to the moon, no other dinosaur
-Cette nuit-là, un chant monte dans la vallée. Un chant long, grave, et si triste que même les étoiles ont l'air d'écouter. « Mooooou… Mooooou… »
+Cette nuit-là, un chant s'élève dans la vallée. Un chant long, grave, et si triste que même les étoiles ont l'air de l'écouter. « Mooooou… Mooooou… »
 > Night in a prehistoric valley of giant ferns, a baby blue long-necked dinosaur with smooth skin, small, as tall as the fox, with a smooth round head, stretches its neck and looks far away with shining hopeful eyes, its back turned to {filou}, who watches worried, moonlight
-Le bébé lève la tête. Ses yeux brillent. « Mmma ? » dit-il. Mais cette fois, il ne regarde pas Filou. Il regarde au loin.
+Le bébé dresse la tête, le cou tendu. Ses yeux brillent. « Mmma ? » Mais cette fois, ce n'est pas Filou qu'il regarde. C'est là-bas, tout au loin.
 > Night in a prehistoric valley of giant ferns, {filou} sits with eyes squeezed shut, pressing his bushy tail over his ears, while a baby blue long-necked dinosaur with smooth skin, as tall as the fox, beside him looks toward a distant moonlit hill, the fox has exactly one tail
-Filou sait très bien qui chante comme ça. C'est une maman qui cherche. Il se bouche les oreilles avec sa queue. Ça ne marche pas.
+Filou sait très bien qui chante ainsi. C'est une maman qui cherche. Il ferme les yeux, il se bouche les oreilles avec sa queue touffue. Ça ne marche pas.
 
 @ Under a starry sky in a prehistoric valley of giant ferns, {filou} sits sadly with one arm around a baby blue long-necked dinosaur with smooth skin, asleep, as tall as the fox, while {tric} sits quietly beside them, the fox has exactly one tail
-« Si je le ramène, je n'aurai plus rien, dit Filou. Plus de trésor. Plus de coussin tiède. » Tric ne répond pas. Il s'assoit juste à côté de lui.
+« Si je le ramène, je n'aurai plus rien, murmure Filou. Plus de trésor. Plus de coussin tiède. » Tric ne répond pas. Il vient seulement s'asseoir tout contre lui.
 > Under a starry sky in a prehistoric valley, one single {filou} gazes up at the moon with a tender thoughtful face, one paw resting on a baby blue long-necked dinosaur with smooth skin, asleep, its long neck clearly visible, curled on the ground, a distant hill behind
-Le chant recommence. « Mooooou… » Et Filou pense à sa maman à lui. À ce qu'elle ferait, si un jour il n'était plus dans son terrier.
+Le chant reprend, porté par le vent. « Mooooou… » Et Filou pense à sa maman à lui. À ce qu'elle ferait, si un soir il n'était plus dans son terrier.
 > Under a starry night sky in a prehistoric valley, {filou} stands up bravely with a small sad smile and points toward a distant hill, a baby blue long-necked dinosaur with smooth skin, as tall as the fox, standing beside him, looking up at him
 Alors il se lève. Il a une grosse boule dans la gorge, mais il se lève. « Allez, viens, mon gros. On rentre chez toi. »
 
 @ At sunrise in a prehistoric valley, a huge gentle blue long-necked dinosaur mother, towering five times taller than the fox, looks down with teary eyes, her long shadow falling over {filou} and a baby blue long-necked dinosaur with smooth skin beside him, pink and gold sky
-Ils marchent toute la nuit. Au lever du soleil, une ombre immense recouvre Filou : un cou long comme un arbre, et tout en haut, deux yeux pleins de larmes.
+Ils cheminent toute la nuit, cahin-caha. Au lever du soleil, une ombre immense recouvre Filou : un cou long comme un arbre, et tout en haut, deux yeux pleins de larmes.
 > At sunrise in a prehistoric valley, a baby blue long-necked dinosaur with smooth skin runs toward a huge gentle blue long-necked dinosaur mother, five times taller than the fox, standing on four legs, her head lowered to the ground, closed-mouth smile, {filou} alone in the foreground left, watching, pink and gold sky
-« Mmma ! » crie le bébé, et il court, il trébuche, il court encore. La maman le renifle, le lèche, le serre contre elle. Toute la vallée tremble de joie.
+« Mmma ! » s'écrie le bébé, et il court, il trébuche, il court encore. La maman le renifle, le lèche, le serre contre elle. Toute la vallée en tremble de joie.
 > At sunrise in a prehistoric valley, the big head of a huge gentle blue long-necked dinosaur mother, five times taller than the fox, lowers right down to {filou} and softly blows on his nose, his fur ruffled, eyes closed, smiling
-Puis la grande tête descend, descend, jusqu'à Filou. Et la maman lui souffle sur le museau, tout doucement. Chez les dinosaures, ça veut dire merci.
+Puis la grande tête descend, descend, jusqu'à Filou. Et la maman lui souffle sur le museau, tout doucement, à lui ébouriffer les poils. Chez les dinosaures, ça veut dire merci.
 
 @ {filou} walking away alone on a path through a prehistoric valley of ferns, light-footed and smiling, empty paws swinging, looking back to wave at a huge gentle blue long-necked dinosaur mother and her baby far behind, a river, morning light
-Filou repart les pattes vides. Pas d'œuf. Pas de trésor. Et pourtant, il se sent tout léger, comme s'il avait des ailes.
+Filou repart les pattes vides. Pas d'œuf. Pas de trésor. Et pourtant, il gambade sur le sentier, tout léger, comme s'il lui avait poussé des ailes.
 > Morning on a riverbank in a prehistoric valley of ferns, a baby blue long-necked dinosaur with smooth skin, now twice as tall as the fox, bends its long neck down, while {filou} laughs and pats its nose
-Depuis, chaque matin, un petit dinosaure bleu l'attend au bord de la rivière. Il a déjà beaucoup grandi. Il dit toujours « Mmma ! », et Filou ne le corrige plus.
+Depuis, chaque matin, un petit dinosaure bleu l'attend au bord de la rivière. Petit ? Plus tant que ça : il a déjà drôlement grandi ! Mais il dit toujours « Mmma ! », et Filou ne le corrige plus.
 > In a prehistoric valley of giant ferns, seen from far, {filou} sits happily on top of the head of a huge gentle blue long-necked dinosaur mother, five times taller than the fox, closed-mouth smile, a baby blue long-necked dinosaur with smooth skin beside her, bright day, the fox has exactly one tail
-Et certains jours, quand la maman est d'accord, Filou grimpe tout en haut de son long cou. De là, on voit la vallée entière. C'est quelque chose d'extraordinaire.
+Et certains jours, quand la maman veut bien, Filou se hisse tout en haut de son long cou. De là-haut, la vallée entière s'étale sous ses pattes. C'est quelque chose d'extraordinaire.
 
 === filou_chevaliers
 titre: Filou et le dragon de la tour du Nord
@@ -133,60 +133,60 @@ sujet: Dire la vérité
 famille: coeur
 
 @ In a medieval castle courtyard, {gontran} in the middle shows off with his fan tail spread wide, admired by two villagers in simple medieval clothes on the left, one white goose and one pink pig, while {filou} watches from beside a barrel on the right; exactly four characters
-Au château de Hauteroche, tout le monde admire Sire Gontran, le paon chevalier. Son armure brille, sa queue fait la roue, et lui, il a vu un dragon. De loin. Un jour.
+Au château de Hauteroche, tout le monde admire Sire Gontran, le paon chevalier. Son armure étincelle, sa queue fait la roue, et lui, figurez-vous, il a vu un dragon. De loin. Un jour.
 > In a medieval castle courtyard, {filou} on the left leans against a barrel with a smug smile and half-closed eyes, while exactly three villagers in a row in simple medieval clothes, one white goose, one pink pig and one single green frog, no second frog, all turn their heads toward him, curious
-« Pfff, dit Filou. Un dragon ? Moi, j'en ai vu un de tout près. » Les têtes se tournent. C'est agréable, toutes ces têtes tournées.
+« Pfff, lâche Filou, adossé à son tonneau. Un dragon ? Moi, j'en ai vu un de tout près. » Les têtes se tournent. C'est bien agréable, toutes ces têtes tournées.
 > In a medieval castle courtyard, {filou} on the left proudly brandishes one single wooden stick above his head, chest out, facing exactly three villagers in a row in simple medieval clothes: one white goose on the left, one pink pig in the middle, one single green frog on the right, no other animals, all gasping in admiration
-« Et même… je l'ai chassé ! Avec un bâton ! » Ce n'est pas vrai. Mais c'est sorti tout seul, comme un hoquet.
+« Et même… je l'ai chassé ! Avec un simple bâton ! » fanfaronne-t-il. Ce n'est pas vrai. Mais c'est sorti tout seul, comme un hoquet.
 
 @ At a medieval village fountain, {filou} spreads his arms very wide, as if showing something enormous, in front of exactly three villagers in a row in simple medieval clothes, one white goose, one pink pig and one single green frog, no second frog,, with open mouths
-Le lendemain, à la fontaine, on lui demande : « Il était grand, ton dragon ? » « Grand comme… une maison ! »
+Le lendemain, à la fontaine, on l'interroge : « Il était grand, ton dragon ? » Filou écarte les bras tant qu'il peut. « Grand comme… une maison ! »
 > In a medieval village market square with fruit baskets on the ground, {filou} mimes a monster, paws raised like claws and cheeks puffed, no fire, no flame, in front of exactly three villagers in a row in simple medieval clothes, one white goose, one pink pig and one single green frog, no second frog, amazed, sunny day
-Le surlendemain, au marché : « Et il crachait du feu ? » « Du feu, de la fumée, et des éclairs par les oreilles ! »
+Le surlendemain, au marché : « Et il crachait du feu ? » Filou gonfle les joues, les griffes en l'air. « Du feu, de la fumée, et des éclairs par les oreilles ! »
 > In a medieval village square, {filou} stands in the middle with a worried forced smile, tugging at his collar, while exactly three villagers in simple medieval clothes, one white goose, one pink pig, one single green frog, no toad, no second frog, whisper excitedly and point toward the castle
-Le mensonge de Filou grossit, grossit, comme une boule de neige qui dévale la colline. Et une boule de neige, ça ne s'arrête pas toute seule.
+De bouche en oreille, le mensonge de Filou grossit, grossit, comme une boule de neige qui dévale la colline. Et une boule de neige, ça ne s'arrête pas toute seule.
 
 @ In a castle throne room, {hermine} on her throne points toward a window showing a smoking stone tower, while {filou} stands before her gulping, holding one single wooden stick, knees trembling
-Un matin, les trompettes sonnent. La reine Hermine veut voir Filou. « Brave renard ! Un dragon s'est installé dans la tour du Nord. Il fume, il gronde, et mes confitures sentent le brûlé. »
+Un matin, les trompettes sonnent. La reine Hermine fait appeler Filou. « Brave renard ! Un dragon s'est installé dans la tour du Nord. Il fume, il gronde, et toutes mes confitures sentent le roussi. »
 > In a castle throne room, one single {filou} smiles nervously holding one single wooden stick, while {gontran} claps his wings beside him with a sly little smile, stone walls and plain red drapes behind
-« Toi qui chasses les dragons avec un bâton, va, et délivre-nous ! » Toute la cour applaudit. Sire Gontran aussi, avec un drôle de petit sourire.
+« Toi qui chasses les dragons avec un bâton, va, et délivre-nous ! » Toute la cour applaudit. Sire Gontran aussi bat des ailes, avec un drôle de petit sourire en coin.
 > In a castle throne room, close view of {filou} forcing a shaky smile, raising one trembling paw, knees knocking together, one single wooden stick in the other paw, exactly three villagers in a row in simple medieval clothes, one white goose, one pink pig and one single green frog, no second frog, watching behind him
-Filou ouvre la bouche pour dire la vérité. Mais il y a tant de monde… « Fa… facile », dit-il. Et ses genoux font clac-clac-clac.
+Filou ouvre la bouche pour avouer la vérité. Mais il y a tant de monde, tant d'yeux posés sur lui… « Fa… facile », bafouille-t-il. Et ses genoux font clac-clac-clac.
 
 @ {filou} in his yellow tunic climbs a dark stone spiral staircase indoors inside a tower, trembling, wide scared eyes, not smiling, holding one single wooden stick, grey smoke and a thin orange glow under a closed wooden door at the top, no visible fire
-L'escalier de la tour du Nord a cent marches. À chaque marche, Filou pense : « Demi-tour ! » Et à chaque marche, il pense : « Mais qu'est-ce qu'ils diront ? »
+L'escalier de la tour du Nord tourne, tourne, et compte cent marches. À chaque marche, Filou pense : « Demi-tour ! » Et à chaque marche, il pense : « Mais qu'est-ce qu'ils diront ? »
 > {filou} in his yellow tunic stands indoors near the top of a dark stone spiral staircase inside a tower, gripping one single wooden stick with both paws, eyes huge, fur standing up, grey smoke curling from under a closed wooden door
-Là-haut, ça gronde. GRRRMMBL. Une fumée noire passe sous la porte. Filou serre son bâton. Il n'a jamais eu aussi peur de sa vie.
+Là-haut, ça gronde. GRRRMMBL. Un filet de fumée se glisse sous la porte. Filou agrippe son bâton, le poil tout hérissé. Jamais de sa vie il n'a eu aussi peur.
 > {filou} in his yellow tunic stands indoors on a dark stone landing at the top of a spiral staircase inside a tower, no sky, no grass, pushing a heavy wooden door ajar with the tip of one paw, peeking through the gap, warm orange glow spilling out
-Il pousse la porte du bout de la patte. Criiii… Et derrière la porte, il y a…
+Du bout de la patte, il entrebâille la porte. Criiii… Et derrière la porte, il y a…
 
 @ {filou} in his yellow tunic stands surprised in the doorway of a round stone tower room, where {braise}, small, shorter than the fox, sits on the floor crying, a tiny flame puffing from her nose, a slightly singed curtain behind her
-… une toute petite dragonne violette, assise par terre, qui pleure. « Hic ! » Une flammèche lui sort du nez. « Hic ! » Le rideau prend feu. Elle l'éteint avec sa queue.
+… une toute petite dragonne violette, assise par terre, qui pleure à chaudes larmes. « Hic ! » Une flammèche lui sort du nez. « Hic ! » Le rideau prend feu. Vite, elle l'éteint d'un coup de queue.
 > {filou}, standing upright in his yellow tunic, listens kindly inside a round stone tower room to {braise}, who sits with big teary eyes, holding up her little paws pleadingly, a tiny flame at her nose, small black scorch marks on the floor, no burning fire
-« Ne me chasse pas ! dit-elle. Je m'appelle Braise. J'ai le hoquet depuis mardi. Hic ! Je brûle tout ce que je touche, alors plus personne ne veut de moi. »
+« Ne me chasse pas ! supplie-t-elle. Je m'appelle Braise. J'ai le hoquet depuis mardi. Hic ! Je brûle tout ce que je touche, alors plus personne ne veut de moi. »
 > {filou}, standing upright on two legs in his yellow tunic inside a round stone tower room, bends to lay one single wooden stick on the floor, looking with soft caring eyes at {braise}, who sniffles with a tear on her cheek
-Filou pose son bâton. Ce n'est pas un monstre grand comme une maison. C'est quelqu'un qui a un gros chagrin, et le hoquet par-dessus.
+Filou pose son bâton par terre. Ce n'est pas un monstre grand comme une maison. C'est quelqu'un de tout petit qui a un gros chagrin, et le hoquet par-dessus le marché.
 
 @ {filou} in his yellow tunic jumps with both arms raised and mouth wide open inside a round stone tower room to startle {braise}, who hiccups a tiny flame from her nose, unimpressed, an upturned cup of water on the floor
-« Je connais un truc contre le hoquet », dit Filou. Il essaie de lui faire peur : « BOUH ! » « Hic ! » Raté. Il la fait boire la tête en bas. « Hic ! » Encore raté.
+« Je connais un remède contre le hoquet », annonce Filou. Il bondit pour la faire sursauter : « BOUH ! » « Hic ! » Raté. Il la fait boire la tête en bas. « Hic ! » Encore raté.
 > {filou}, yellow tunic and green scarf clearly visible, sits with his back against the wall of a round stone tower room, looking down at his paws with ears down and a sorry face, while {braise} leans toward him, a tiny flame at her nose, the fox has exactly one tail
-Alors Filou soupire, et il dit ce qu'il n'a dit à personne. « Tu sais, Braise… je n'ai jamais chassé de dragon. J'ai tout inventé. Je voulais juste qu'on me regarde. »
+Alors Filou s'assoit contre le mur, les oreilles basses, et il confie ce qu'il n'a confié à personne. « Tu sais, Braise… je n'ai jamais chassé de dragon. J'ai tout inventé. Je voulais juste qu'on me regarde. »
 > {filou}, yellow tunic and green scarf clearly visible, sits in a round stone tower room, looking up amazed and starting to smile at {braise}, who laughs softly with round surprised eyes, no flame at her nose, paws on her cheeks, warm light from a window, the fox has exactly one tail
-Braise ouvre des yeux tout ronds. Elle est tellement étonnée… qu'elle en oublie son hoquet. Plus de hic. Plus rien. Juste un petit rire, tout chaud.
+Braise ouvre des yeux tout ronds. La voilà tellement ébahie… qu'elle en oublie son hoquet. Plus de hic. Plus de flammèche. Juste un petit rire, tout chaud.
 
 @ In a medieval castle courtyard, {filou} in his yellow tunic walks out of a tower doorway on the left with ears down, holding the paw of {braise}; on the right {hermine}, the white cat queen as tall as the fox, waits standing in front of two villagers, one white goose and one pink pig, no other animals
-Il reste le plus difficile : redescendre les cent marches. Dans la cour, tout le château attend son héros.
+Reste le plus difficile : redescendre les cent marches, la patte de Braise dans la sienne. Dans la cour, tout le château attend son héros.
 > In a medieval castle courtyard, {filou} stands tall on the left and takes a deep breath, eyes closed, one paw on the shoulder of shy {braise} half hiding behind him, facing two villagers in simple medieval clothes on the right, one white goose and one pink pig, waiting; exactly four characters: one fox, one dragon, one goose, one pig
-Filou respire un grand coup. « Je n'ai pas chassé le dragon. Je n'en ai jamais chassé aucun. J'ai menti, et mon mensonge est devenu plus gros que moi. Voici Braise. Elle avait juste le hoquet. »
+Filou prend une grande inspiration. « Je n'ai pas chassé le dragon. Je n'en ai jamais chassé aucun. J'ai menti, et mon mensonge est devenu plus gros que moi. Voici Braise. Elle avait seulement le hoquet. »
 > In a medieval castle courtyard, {hermine} gently lays a paw on the head of one single {filou}, smiling kindly, {braise} smiling beside them, one colourful peacock feather lying on the ground
-Un grand silence. Sire Gontran en laisse tomber une plume. Puis la reine Hermine s'avance. « Il faut plus de courage pour dire cela, petit renard, que pour monter dans une tour. »
+Un grand silence. Sire Gontran en laisse tomber une plume. Puis la reine Hermine s'avance, et sa patte se pose sur la tête de Filou. « Il faut plus de courage pour dire cela, petit renard, que pour grimper dans une tour. »
 
 @ In a cosy castle kitchen, {braise} gently toasts a slice of bread on a fork with a tiny flame from her nose, while one single {filou} sits at the table eating toast with jam, smiling, the fox has exactly one tail
-Depuis ce jour, Braise habite au château. C'est elle qui allume les cheminées, qui dore les tartines et qui réchauffe le bain de la reine. Sans rien brûler. Ou presque.
+Depuis ce jour, Braise habite au château. C'est elle qui allume les cheminées, qui dore les tartines d'un petit souffle et qui tiédit le bain de la reine. Sans rien brûler. Ou presque.
 > At a medieval village fountain, {filou} stands on the stone rim spreading his arms very wide, eyes sparkling, in front of exactly three villagers in a row in simple medieval clothes, one white goose, one pink pig and one single green frog, no second frog, sitting on the ground, delighted, sunny day
-Et Filou ? Il raconte toujours des histoires, à la fontaine et au marché. Des histoires de dragons grands comme des maisons.
+Et Filou ? Juché sur la fontaine ou sur un tonneau du marché, il raconte toujours des histoires. Des histoires de dragons grands comme des maisons.
 > In a medieval village market with empty stalls in golden evening light, {filou} sits on a barrel in the middle with one paw raised like a storyteller, exactly one tail, {braise} beside him blowing a tiny round puff of smoke, and on the right two villagers in simple medieval clothes, one white goose and one pink pig, listening happily; exactly four characters
-Mais maintenant, il commence par : « Il était une fois… » Comme ça, tout le monde sait que c'est pour de faux. Et tout le monde l'écoute quand même.
+Mais maintenant, il commence chaque fois par : « Il était une fois… » Comme ça, tout le monde sait que c'est pour de faux. Et tout le monde l'écoute quand même, bouche bée.
 
 === filou_espace
 titre: Filou et la blague de trop
@@ -195,60 +195,60 @@ sujet: Les moqueries et le pardon
 famille: autres
 
 @ Interior view of a rocket cockpit, two characters side by side: {bip} looking out of the round porthole at the stars, his antenna glowing pink, and {filou} laughing, holding his belly
-À bord de la fusée La Bouilloire, il y a deux astronautes. Filou, qui adore faire des blagues. Et Bip, le petit robot, qui ne comprend pas les blagues.
+À bord de la fusée La Bouilloire voyagent deux astronautes. Filou, qui adore faire des blagues. Et Bip, le petit robot tout rond, qui ne comprend pas les blagues.
 > Inside a rocket cockpit, {bip} presses his big blue eye against the round porthole, searching seriously among the stars, while {filou} rolls on the floor laughing, holding his sides
-Quand Filou dit : « Il pleut des cordes ! », Bip regarde par le hublot. « Erreur. Aucune corde détectée. » Et Filou rit, rit, à s'en tenir les côtes.
+Quand Filou s'exclame : « Il pleut des cordes ! », Bip colle son gros œil bleu au hublot. « Erreur. Aucune corde détectée. » Et Filou se roule par terre, il rit à s'en tenir les côtes.
 > Inside a rocket cockpit, close view of {bip} tilting his head, puzzled, his little antenna blinking bright pink, while {filou} laughs happily in the background, stars in the round porthole, the robot keeps its single blue eye and has no mouth
-Bip ne sait pas pourquoi c'est drôle. Mais quand Filou rit, sa petite antenne clignote en rose. Il aime bien ça.
+Bip penche la tête. Pourquoi est-ce drôle ? Mystère. Mais quand Filou rit, sa petite antenne se met à clignoter en rose. Et ça, il aime bien.
 
 @ Inside a rocket cockpit, {filou} giggles, pointing at a striped sock hanging on the antenna of {bip}, who stands calm and still, stars in the round porthole
-Alors Filou fait des blagues à Bip. Il lui colle une chaussette sur l'antenne. Il lui fait croire que la Lune est en fromage. Bip en rapporte un morceau pour goûter.
+Alors Filou fait des farces à Bip. Il lui accroche une chaussette rayée à l'antenne. Un autre jour, il lui fait croire que la Lune est en fromage. Bip en rapporte un morceau, pour goûter.
 > {filou} in his white astronaut suit giggles behind his paw inside a rocket cockpit, while {bip} stands calm and content with a striped sock still on his antenna, raising one little arm peacefully, stars in the porthole, the robot keeps its single blue eye and has no mouth
-Bip ne se fâche jamais. Il dit seulement : « Je n'ai pas compris. Mais tu ris. Donc c'est bien. »
+Bip ne se fâche jamais. Il déclare seulement, de sa petite voix tranquille : « Je n'ai pas compris. Mais tu ris. Donc c'est bien. »
 > Inside a rocket cockpit, {filou} sneaks up on tiptoe with a mischievous grin, holding a small party horn in his own paw, behind {bip}, who looks away unaware and holds nothing, one single big blue eye, no mouth, stars in the porthole
-Seulement voilà : à force, les blagues de Filou deviennent un peu moins drôles. Et un peu plus piquantes.
+Seulement voilà : à force, les blagues de Filou deviennent un peu moins drôles. Et un peu plus piquantes, comme des orties.
 
 @ In a space station hall with big windows showing three moons, {filou} and {bip} arrive side by side on the left, the fox waving eagerly at two young astronauts in white space suits on the right, one green frog and one pink piglet, the robot's antenna glowing pink; exactly four characters
-Un jour, la fusée s'arrête à la station des Trois Lunes. Il y a plein de monde. Filou veut faire rire tout le monde, d'un coup.
+Un jour, la fusée fait escale à la station des Trois Lunes. On y croise des astronautes venus de partout. Filou frétille : il veut les faire rire tous, d'un seul coup.
 > In a space station hall with big windows showing three moons, {filou} stands on a crate in the middle like a showman, arms wide, grinning at two young astronauts in white space suits on the right, one green frog and one pink piglet, both laughing, while {bip} stands behind him on the left, antenna drooping, the robot keeps its single blue eye and has no mouth; exactly four characters
-« Regardez mon robot ! Il est si bête qu'il a cherché le bouton pour éteindre le soleil ! Hein, Bip, que tu es une vieille boîte de conserve ? »
+Il grimpe sur une caisse. « Regardez mon robot ! Il est si bête qu'il a cherché le bouton pour éteindre le soleil ! Hein, Bip, que tu es une vieille boîte de conserve ? »
 > In a space station hall with big windows showing three moons, close view of {bip} standing alone, eyelid half lowered, exactly one single thin antenna, bent down and grey, no second antenna, the robot keeps its single blue eye and has no mouth; two young astronauts in white space suits, one green frog and one pink piglet, laugh far behind him
-Tout le monde rit. Sauf Bip. Son antenne ne clignote pas en rose. Elle devient toute grise. « Vieille boîte de conserve. Compris », dit-il tout bas. Cette fois, il a compris.
+Tout le monde rit. Sauf Bip. Son antenne ne clignote pas en rose. Elle se courbe et devient toute grise. « Vieille boîte de conserve. Compris », murmure-t-il. Cette fois, il a compris.
 
 @ Inside a quiet rocket cockpit with two seats, exactly one fox: {filou} sits in the left seat, ears down, exactly one tail, looking at the right seat, which is completely empty, nobody in it, stars in the porthole
 Le lendemain matin, le siège de Bip est vide. Pas de « Bonjour Filou, il est sept heures zéro zéro ». Pas de bip. Rien.
 > Inside a quiet rocket cockpit, {filou} makes a funny face with arms spread toward an empty co-pilot seat, then waits with a fading uncertain smile, nobody there, stars in the porthole
-« Bah, il boude, dit Filou. Il reviendra. » Il fait une blague à voix haute, pour voir. Personne ne dit « Je n'ai pas compris ». La blague tombe par terre, toute seule.
+« Bah, il boude, bougonne Filou. Il reviendra. » Puis il lance une blague à voix haute, pour voir. Personne ne répond « Je n'ai pas compris ». La blague retombe par terre, toute seule.
 > Wide view of a big empty silent rocket cockpit, tiny {filou} sitting curled up on the floor in the middle, hugging his tail, looking lonely, soft blue light and stars in the round porthole, the fox has exactly one tail
-C'est fou comme une fusée est grande et silencieuse, quand on est seul dedans.
+C'est fou comme une fusée devient grande et silencieuse, quand on est tout seul dedans.
 
 @ {filou}, fully dressed in his white astronaut suit with the glass bubble helmet over his head, floats with a small jetpack in outer space between three grey moons, searching all around, one paw cupped beside his helmet, calling
-Filou enfile son scaphandre et part chercher. Sur la première lune : personne. Sur la deuxième lune : personne. Dans son ventre, ça fait un grand vide, comme dans l'espace.
+Filou enfile son scaphandre et s'élance entre les lunes. « Biiip ! » Sur la première lune : personne. Sur la deuxième : personne. Dans son ventre se creuse un grand vide, comme dans l'espace.
 > {filou}, in his white astronaut suit and glass bubble helmet, stands alone on a grey moon in outer space, head down, one paw on his heart, full of regret, his footprints in the moon dust behind him, stars and two other moons in the black sky
-Il repense à l'antenne toute grise. Il repense aux rires. Il n'a pas ri avec Bip. Il a ri de Bip. Et ce n'est pas du tout la même chose.
+La patte sur le cœur, il repense à l'antenne toute grise. Aux rires, aussi. Il n'a pas ri avec Bip. Il a ri de Bip. Et ce n'est pas du tout la même chose.
 > {filou}, in his white astronaut suit and glass bubble helmet, stands on a grey moon in outer space, shading his eyes with a paw, and spots a small bright yellow light, perfectly still, clearly visible on the rim of a big crater in the distance, starry black sky
-Sur la troisième lune, tout au bord d'un cratère, il aperçoit une petite lumière qui ne clignote plus.
+Sur la troisième lune, tout au bord d'un cratère, il distingue enfin un petit point jaune, immobile. Une lumière qui ne clignote plus.
 
 @ {filou}, in his white astronaut suit and glass bubble helmet, walks across flat grey lunar ground toward {bip}, who sits among a pile of old tin cans and scrap metal, antenna drooping and grey, small Earth far away in the black sky, the robot keeps its single blue eye and has no mouth
-Bip est assis au milieu d'un tas de vieilles ferrailles. « Je suis à ma place, dit-il. Ici, c'est le coin des vieilles boîtes de conserve. »
+Bip est assis au milieu d'un amas de ferraille cabossée. « Je suis à ma place, grésille-t-il tout bas. Ici, c'est le coin des vieilles boîtes de conserve. »
 > {filou}, in his white astronaut suit and glass bubble helmet, lowers himself to sit in the moon dust on a grey moon, serious gentle face, paws on his knees, next to {bip}, who looks away among old tin cans, antenna grey, starry black sky, the fox has exactly one tail, the robot keeps its single blue eye and has no mouth
-Filou voudrait faire une pirouette, une grimace, une blague pour tout arranger. Mais il sent bien que ce n'est pas ce qu'il faut. Alors il s'assoit dans la poussière de lune.
+Filou voudrait faire une pirouette, une grimace, une pitrerie pour tout arranger. Mais il sent bien que ce n'est pas ce qu'il faut. Alors il s'assoit, sans bruit, dans la poussière de lune.
 > {filou}, in his white astronaut suit and glass bubble helmet, kneels on a grey moon among old tin cans, facing {bip}, one paw on his heart and the other held out, sincere and sorry, the little robot slowly turning toward him, small Earth far away in the black sky
 « Bip. Ce que j'ai dit, c'était méchant. Je t'ai fait de la peine pour faire rire les autres. Pardon. Tu n'es pas une boîte de conserve. Tu es mon copilote. Et mon ami. »
 
 @ {filou}, in his white astronaut suit and glass bubble helmet, sits on a grey moon under the stars holding the hand of {bip}, the little robot pointing with his other arm at his own round metal belly, antenna still grey, the fox has exactly one tail, the robot keeps its single blue eye and has no mouth
-Bip ne dit rien pendant un long moment. Ses petits rouages font tic, tic, tic. « Analyse en cours… Le mot pardon a été détecté. Il fait… chaud. Ici. » Et il montre son ventre de métal.
+Bip reste muet un long moment. Ses petits rouages font tic, tic, tic. « Analyse en cours… Le mot pardon a été détecté. Il fait… chaud. Ici. » Et il désigne son ventre de métal.
 > {filou}, in his white astronaut suit and glass bubble helmet, sits in the moon dust on a grey moon under the stars, face to face with {bip}, the fox nodding with one paw raised like a promise, the little robot tilting his head, listening carefully, the fox has exactly one tail
-« Est-ce que tu feras encore des blagues ? » demande Bip. « Oui, dit Filou. Mais des blagues où on rit tous les deux. Tu me diras si ça pique ? » « Je te dirai. »
+« Est-ce que tu feras encore des blagues ? » demande Bip. « Oui, promet Filou, la patte levée. Mais des blagues où l'on rit tous les deux. Tu me diras si ça pique ? » « Je te dirai. »
 > {filou}, in his white astronaut suit and glass bubble helmet, on a grey moon under the stars, looks up with a joyful tender smile at the antenna of {bip} beside him, close view, its tip glowing a soft warm pink
-Et tout doucement, au bout de l'antenne, une petite lueur revient. Pas grise. Rose.
+Et tout doucement, au bout de l'antenne, une petite lueur se rallume. Pas grise. Rose.
 
 @ Inside a rocket cockpit flying among stars, {filou} laughs with a striped sock hanging on his left ear, while {bip} innocently looks at the ceiling, antenna glowing pink, the robot keeps its single blue eye and has no mouth
-Ce soir-là, dans la fusée, Filou trouve une chaussette sur son oreille gauche. Il regarde Bip. Bip regarde le plafond. « Erreur. Aucune chaussette détectée », dit le robot.
+Ce soir-là, dans la fusée, Filou découvre une chaussette rayée sur son oreille gauche. Il regarde Bip. Bip regarde le plafond. « Erreur. Aucune chaussette détectée », assure le robot, l'air de rien.
 > {filou} in his white astronaut suit laughs so hard he holds his belly inside a rocket cockpit, while {bip} shakes with his very first laugh, little motion lines around his body, antenna bright pink, the robot keeps its single blue eye and has no mouth, no eyebrow, no socks on the robot; one single striped sock lying on the floor away from both characters
-Filou éclate de rire. Bip fait un drôle de bruit, comme une casserole qui chante : « Hi. Hi. Hi. » C'est son tout premier rire.
+Filou éclate de rire. Bip se met à trembloter et fait un drôle de bruit, comme une casserole qui chante : « Hi. Hi. Hi. » C'est son tout premier rire.
 > Only {fusee} flying away among colourful planets and twinkling stars in outer space, a trail of white puffs behind, nothing floating beside it; the face of {filou} and the single blue eye of {bip} both visible inside the same round window, nobody outside the rocket
-Et La Bouilloire repart entre les étoiles, avec à son bord deux astronautes. Un renard qui fait des blagues. Et un robot qui commence à les comprendre.
+Et La Bouilloire repart en sifflotant entre les étoiles, avec à son bord deux astronautes. Un renard qui fait des blagues. Et un robot qui commence à les comprendre.
 
 === filou_foret
 titre: Filou et le nid de Margot
@@ -257,60 +257,60 @@ sujet: Tendre la patte
 famille: autres
 
 @ In a sunny forest clearing, {filou} plays happily with one single shiny golden marble that sparkles in the grass like a little star
-Dans la forêt des Quatre-Chênes, Filou possède un trésor : une bille dorée. Quand il la fait rouler au soleil, on dirait une petite étoile tombée dans l'herbe.
+Dans la forêt des Quatre-Chênes, Filou possède un trésor : une bille dorée. Quand il la fait rouler au soleil, elle scintille comme une petite étoile tombée dans l'herbe.
 > In a sunny forest clearing, {margot} swoops down from the sky and snatches a shiny golden marble from the grass with her beak, while {filou} jumps back startled, paws in the air
-Mais un matin… frrrt ! Une ombre noire et blanche plonge du ciel. Et la bille a disparu.
+Mais un matin… frrrt ! Une ombre noire et blanche plonge du ciel. Un coup de bec, et la bille s'est envolée.
 > In a forest of big oak trees, {margot} perches high on a branch with a shiny golden marble in her beak, looking down cheekily, while {filou} far below looks up upset, sunlight through the leaves
-« Kia-kia-kia ! » ricane une voix dans les branches. C'est Margot la pie. Tout ce qui brille, elle le vole. Et tout ce qu'elle vole, elle ne le rend jamais.
+« Kia-kia-kia ! » ricane une voix, là-haut dans les branches. C'est Margot la pie. Tout ce qui brille, elle le chipe. Et tout ce qu'elle chipe, elle ne le rend jamais.
 
 @ In a forest clearing of big oak trees, {filou-} stamps his foot, furious, fists clenched, tail bristling, glaring up at the treetops, while {noisette} watches doubtfully from a tree stump; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Filou est furieux. Rouge jusqu'au bout de la queue, ce qui n'est pas facile pour un renard déjà roux. « Elle va voir, cette voleuse ! »
+Filou trépigne, furieux. Rouge jusqu'au bout de la queue, ce qui n'est pas facile pour un renard déjà roux. « Elle va voir, cette voleuse ! »
 > In a forest clearing, {filou-} draws a trap plan in the dirt with a stick, grinning proudly, next to a coiled rope, a wicker basket, a bucket of mud and one shiny silver spoon as bait, sunny day
-Il dessine un plan dans la terre. Une corde. Un panier. Un seau de boue. Et pour l'attirer : une cuillère bien brillante. « Elle se pose, le panier tombe, et splatch ! Facile ! »
+Du bout d'un bâton, il trace un plan dans la terre. Une corde. Un panier. Un seau de boue. Et pour l'attirer : une cuillère bien brillante. « Elle se pose, le panier tombe, et splatch ! Facile ! »
 > In a forest clearing, {filou-} laughs with paws on hips, pleased with his trick, while {noisette} sits silently on a tree stump scratching her ear, looking unconvinced, a wicker basket and a bucket of mud nearby; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-« Et après ? » demande Noisette l'écureuil. « Après, elle sera pleine de boue, et tout le monde rira d'elle ! » Noisette ne dit rien. Elle se gratte juste l'oreille.
+« Et après ? » demande Noisette l'écureuil, du haut de sa souche. « Après, elle sera crottée de boue du bec à la queue, et tout le monde rira d'elle ! » Noisette ne répond rien. Elle se gratte seulement l'oreille.
 
 @ At dusk in a forest, {filou} climbs quietly up the trunk of a very tall pine tree toward a huge twig nest full of shiny spoons, keys and buttons, glittering at the top
-Pour bien poser son piège, il faut savoir où Margot habite. Le soir venu, Filou grimpe au plus haut pin de la forêt, sans faire craquer une seule branche.
+Pour bien poser son piège, il faut savoir où niche Margot. Le soir venu, Filou escalade le plus haut pin de la forêt, à pas de velours, sans faire craquer la moindre branche.
 > At dusk at the top of a very tall pine tree, close view of {filou} peeking over the edge of a huge twig nest full of shiny spoons, keys and buttons, his face lit by sparkles, eyes wide and dazzled
-Tout là-haut, il y a un nid énorme. Et dans ce nid… des boutons, des clés, des cuillères, des morceaux de miroir ! Ça brille comme une caverne de pirates.
+Tout là-haut trône un nid énorme. Et dans ce nid… des boutons, des clés, des cuillères, tout un bric-à-brac qui étincelle ! On se croirait dans une caverne de pirates.
 > At dusk in a huge twig nest full of shiny spoons, keys and buttons atop a pine tree, {filou}, alone on the left, reaches a paw toward one single shiny golden marble resting on a cushion of moss and stops, ears pricked, listening, {margot} far on the right, turned away
-Au milieu, posée sur un coussin de mousse : sa bille dorée. Filou tend la patte… et s'arrête. Margot parle. Mais à qui ?
+Au beau milieu, posée sur un coussin de mousse : sa bille dorée. Filou tend la patte… et se fige, l'oreille dressée. Margot parle. Mais à qui ?
 
 @ By moonlight in a huge twig nest full of shiny spoons, keys and buttons atop a pine tree, {margot} sits alone facing one spoon and one button propped up like guests, walnut shell cups between them, looking lonely
 « Bonsoir, madame Cuillère. Vous avez passé une bonne journée ? Et vous, monsieur Bouton ? Oh, vous ne répondez jamais, vous… »
 > By moonlight in a huge twig nest full of shiny spoons, keys and buttons atop a pine tree, {margot} carefully pours dew from a leaf into walnut shell cups set in a circle before one spoon, one button and one key, looking hopeful and wistful
-Margot arrange ses trésors en rond, comme des invités autour d'une table. Elle leur sert de la rosée dans des coquilles de noix. Personne ne boit.
+Margot dispose ses trésors en rond, comme des invités autour d'une table. Avec mille précautions, elle leur verse de la rosée dans des coquilles de noix. Personne ne boit.
 > By moonlight in a huge twig nest full of shiny spoons, keys and buttons atop a pine tree, {margot} sleeps curled up alone, head tucked under her wing; exactly one fox: only the head of {filou} peeks from behind a pine branch in the top right corner, eyes open, touched, no other fox anywhere
-« Bonne nuit, tout le monde », dit Margot. Elle se roule en boule, toute seule au milieu de ses trésors. Et Filou entend un tout petit soupir, qui ne ricane pas du tout.
+« Bonne nuit, tout le monde », chuchote Margot. Elle se pelotonne, la tête sous l'aile, toute seule au milieu de ses trésors. Et Filou entend un tout petit soupir, qui ne ricane pas du tout.
 
 @ At night at the foot of a tall pine tree in a forest, {filou}, alone, no other animal, looks thoughtfully at his trap lying on the ground, a coiled rope, a wicker basket and a bucket of mud, moonlight
-Filou redescend sans sa bille. En bas, son piège l'attend : la corde, le panier, le seau de boue. Il le regarde longtemps.
+Filou redescend sans sa bille. Au pied du pin, son piège l'attend sous la lune : la corde, le panier, le seau de boue. Il le contemple longtemps.
 > At night at the foot of a tall pine tree in a forest, {filou} sits on the ground looking up at a faintly glittering twig nest high in the branches, face soft and thoughtful, moonlight, a wicker basket beside him, the fox has exactly one tail
-Il pense au nid qui brille. Aux invités qui ne répondent pas. Il pense : « Elle a tout… et elle n'a personne. »
+Assis dans l'herbe, il songe au nid qui brille. Aux invités qui ne répondent jamais. « Elle a tout… pense-t-il. Et elle n'a personne. »
 > At night at the foot of a tall pine tree, {filou} tips over a bucket so the mud spills on the ground, a rope neatly coiled away, a wicker basket kept under one arm, gentle determined smile, moonlight
-Alors Filou fait une chose bizarre. Il renverse le seau. Il range la corde. Et il garde seulement le panier.
+Alors Filou fait une chose bien étrange. Le seau, il le renverse, floc ! La corde, il l'enroule. Et il ne garde que le panier.
 
 @ Morning at the foot of a tall pine tree: a picnic cloth with blueberries, a hazelnut cake and walnut shell cups; {filou} and {noisette} sit and look up kindly at {margot} perched on a branch, hesitating, the fox has exactly one tail; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Le lendemain, au pied du grand pin, il y a une nappe. Sur la nappe, des myrtilles, un gâteau aux noisettes, et trois coquilles de noix pleines de sirop.
+Le lendemain, au pied du grand pin, une nappe est étalée dans l'herbe. Dessus : des myrtilles, un gâteau aux noisettes qui sent bon, et trois coquilles de noix pleines de sirop.
 > Morning at the foot of a tall pine tree, {filou} stands by a picnic cloth with blueberries and a hazelnut cake, waving a paw invitingly upward with a friendly smile, {margot} peering down warily from a high branch
-« C'est un piège ? » demande Margot du haut de sa branche. « C'en était un, dit Filou. Maintenant, c'est un goûter. Tu viens ? »
+« C'est un piège ? » se méfie Margot du haut de sa branche. « C'en était un, avoue Filou. Maintenant, c'est un goûter. Tu viens ? »
 > Morning at the foot of a tall pine tree, {filou} and {noisette} sit side by side on a picnic cloth with a hazelnut cake, clearly separate animals, each fully visible, looking up at {margot}, who stands hesitant on a low branch above them, wings half open, the fox has exactly one tail; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Margot sautille d'une patte sur l'autre. Personne ne l'a jamais invitée. Elle ne sait même pas comment on fait. Elle descend d'une branche. Puis d'une autre.
+Margot se dandine d'une patte sur l'autre. Personne ne l'a jamais invitée nulle part. Comment fait-on, d'ailleurs ? Elle descend d'une branche. Puis d'une autre.
 
 @ On a picnic cloth in the forest, three separate animals, each fully visible: {margot} pecking a slice of hazelnut cake with the tip of her beak, {filou} laughing on her left, {noisette} laughing on her right, cake crumbs around; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Margot goûte le gâteau du bout du bec. Puis elle raconte comment, vue d'en haut, la forêt ressemble à un grand brocoli. Noisette rit. Filou rit. Et Margot rit, « kia-kia », mais plus du tout pareil.
+Margot picore le gâteau du bout du bec. Puis elle raconte comment, vue d'en haut, la forêt ressemble à un énorme brocoli. Noisette rit. Filou rit. Et Margot rit, « kia-kia », mais plus du tout pareil.
 > In a forest by a picnic cloth with only crumbs left, {filou} sits with ears down looking up at the sky, {noisette} beside him, clearly separate animals, while {margot} flies back above the trees with something shiny in her beak, the fox has exactly one tail; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Quand les miettes sont finies, elle s'envole sans un mot. Filou baisse les oreilles. Mais la voilà qui revient, quelque chose dans le bec.
+La dernière miette avalée, elle s'envole sans un mot. Filou baisse les oreilles. Mais la voilà déjà qui revient à tire-d'aile, quelque chose de brillant dans le bec.
 > On a picnic cloth in the forest, a shiny golden marble rolls to a stop between {filou} and {margot}, the magpie looking away shyly, a little embarrassed, the fox smiling warmly at her, {noisette} watching happily, three separate animals; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Ploc. La bille dorée roule sur la nappe. « Elle brille moins que je croyais, marmonne Margot. C'est mieux quand quelqu'un répond. »
+Ploc. La bille dorée roule sur la nappe. « Elle brille moins que je croyais, marmonne Margot en regardant ailleurs. C'est mieux quand quelqu'un répond. »
 
 @ In a sunny forest clearing, three separate animals in a circle, each fully visible, play marbles on the ground: {margot} standing on the grass nudging a shiny golden marble with her beak, {filou} laughing, {noisette} counting on her fingers; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-Depuis, chaque après-midi, on joue aux billes dans la clairière. Margot triche un peu. Filou aussi. Noisette compte les points.
+Depuis, chaque après-midi, on joue aux billes dans la clairière. Margot triche un peu. Filou aussi. Noisette compte les points sur ses doigts, très sérieusement.
 > At sunset in a forest, a huge twig nest full of shiny spoons, keys and buttons sits empty at the top of a tall pine tree, glittering in the orange light, no animals, no characters anywhere
-Tout là-haut, dans le grand pin, il y a toujours un nid qui brille. Mais le soir, il est souvent vide.
+Tout là-haut, à la cime du grand pin, il y a toujours un nid qui brille. Mais le soir, bien souvent, il est vide.
 > At dusk on a forest path between big oak trees, {margot} hops along the ground beside {filou} and {noisette}, three separate animals, each fully visible, all cheerful, first stars above and fireflies around; the fox and the squirrel are two separate animals: the fox with a straight white-tipped tail, the smaller squirrel with a curled bushy tail
-C'est que Margot rentre tard, maintenant. Elle a des amis à raccompagner.
+C'est que Margot rentre tard, maintenant, parmi les lucioles. Elle a des amis à raccompagner.
 
 === filou_ocean
 titre: Filou et le sous-marin presque fini
@@ -319,57 +319,57 @@ sujet: Prendre le temps de bien faire
 famille: grandir
 
 @ On a sunny beach, {filou-} hammers together a closed wooden barrel submarine with a round glass porthole and a small propeller, as big as the fox, tools scattered on the sand, one white seagull watching
-Filou a décidé de visiter le fond de l'océan. Et pour ça, il construit un sous-marin. Tout seul, en une matinée. « Facile ! »
+Filou a décidé d'explorer le fond de l'océan. Et pour cela, il se fabrique un sous-marin sur la plage. Tout seul, en une matinée. « Facile ! »
 > On a sunny beach, {filou-} hammers a nail very fast into a closed wooden barrel submarine with a round glass porthole and a small propeller, fixed crookedly, bits of string hanging, cheerful hurried face, waves behind
-Un tonneau pour la coque. Une casserole pour le hublot. Trois clous par-ci, un bout de ficelle par-là. Pan, pan, pan !
+Un tonneau pour la coque. Une casserole pour le hublot. Trois clous de travers par-ci, un bout de ficelle par-là. Pan, pan, pan ! Et que ça saute !
 > On a sunny beach, one white seagull points its wing at the gap around the porthole of a closed wooden barrel submarine with a round glass porthole and a small propeller, while {filou-} shrugs carelessly, hammer over his shoulder, waves behind
-« Tu n'as pas mis de colle autour du hublot », remarque une mouette. « Pas le temps ! dit Filou. Ça ira bien comme ça. »
+« Tu n'as pas mis de colle autour du hublot », fait remarquer une mouette. « Pas le temps ! réplique Filou en haussant les épaules. Ça ira bien comme ça. »
 
 @ Underwater among pink corals and yellow fish, a closed wooden barrel submarine with a round glass porthole and a small propeller sinks gently; behind the porthole glass, seen from outside, the proud face of {filou-}
-Et plouf ! Le sous-marin descend. Des poissons jaunes, des coraux roses, des algues qui dansent… « Regardez-moi ça ! Le plus grand explorateur de tous les temps ! »
+Et plouf ! Le sous-marin s'enfonce doucement. Des poissons jaunes, des coraux roses, des algues qui dansent… « Regardez-moi ça ! claironne Filou. Le plus grand explorateur de tous les temps ! »
 > Inside a closed wooden barrel submarine with a round glass porthole and a small propeller, underwater, {filou-} wipes a drop of water off his nose with a paw, unbothered, another drop falling from the porthole rim, yellow fish and pink corals outside
-Ploc. Une goutte tombe sur son museau. Filou l'essuie. Ploc. Une autre. « Ce n'est rien. Ça ira bien comme ça. »
+Ploc. Une goutte s'écrase sur son museau. Filou l'essuie d'un revers de patte. Ploc. Une autre. « Ce n'est rien. Ça ira bien comme ça. »
 > Cutaway view of the inside of a closed wooden barrel submarine with a round glass porthole and a small propeller, underwater, {filou-} standing ankle-deep in water, looking down worried; behind him yellow fish peer in through the porthole
-Ploc, ploc, ploc. Maintenant, il a les pattes dans l'eau. Et les poissons le regardent d'un drôle d'air, de l'autre côté de la casserole.
+Ploc, ploc, ploc. Le voilà qui patauge, de l'eau jusqu'aux chevilles. Et les poissons le regardent d'un drôle d'air, de l'autre côté de la casserole.
 
 @ Underwater, a closed wooden barrel submarine with a round glass porthole and a small propeller, seen in cross-section, lid closed on top, water spraying in through holes; exactly one fox, {filou-}, fully inside the hull, panicking, plugging one hole with a paw and another with his tail, exactly one tail, bubbles everywhere
-Pschhhit ! Le hublot se détache. L'eau entre à gros bouillons. « Au secours ! » Filou bouche un trou avec sa patte, un autre avec sa queue. Il n'a pas assez de pattes !
+Pschhhit ! Le hublot se décolle. L'eau jaillit à gros bouillons. « Au secours ! » Filou bouche un trou avec sa patte, un autre avec sa queue, un troisième… Mais il n'a pas assez de pattes !
 > Underwater among pink corals, {octave}, his big round head and round glasses clearly visible beside the hull, smiling, hugs a closed wooden barrel submarine with a round glass porthole and a small propeller with all eight arms; behind the porthole glass, the relieved face of {filou-}
-Heureusement, quelqu'un en a huit. Hop, hop, hop ! Huit bras orange bouchent les huit fuites d'un seul coup.
+Heureusement, quelqu'un en a huit. Hop, hop, hop ! Huit bras orange s'enroulent autour du tonneau et bouchent les huit fuites d'un seul coup.
 > Underwater among pink corals and bubbles, {octave} floats next to a closed wooden barrel submarine with a round glass porthole and a small propeller, clearly separate from it, politely adjusting his round glasses with one arm; {filou-} is inside, only his sheepish face visible behind the porthole
-C'est Octave, le poulpe à lunettes, l'horloger du récif. « Bonjour, dit-il poliment. Votre bateau fuit. Je crois qu'il n'était pas tout à fait fini. »
+C'est Octave, le poulpe à lunettes, l'horloger du récif. « Bien le bonjour, salue-t-il fort poliment. Votre bateau fuit. Je crois qu'il n'était pas tout à fait fini. »
 
 @ Inside a tidy underwater workshop in a coral cave, shells sorted by colour on shelves, {octave} holds eight tiny screwdrivers, one in each arm, beside exactly one fox, {filou} in his glass bubble helmet, standing outside a closed wooden barrel submarine with a round glass porthole and a small propeller, as big as the fox, resting on a stand, nobody inside the submarine, empty porthole
-Octave remorque le sous-marin jusqu'à son atelier. Là, tout est rangé : les vis par taille, les coquillages par couleur, et huit petits tournevis, un pour chaque bras.
+Octave remorque le sous-marin jusqu'à son atelier, au creux d'une grotte de corail. Là, chaque chose a sa place : les vis par taille, les coquillages par couleur, et huit petits tournevis, un pour chaque bras.
 > Inside a tidy underwater workshop in a coral cave, {octave} calmly shows a pot of glue and a brush, while {filou} in his glass bubble helmet throws his head back, impatient and dismayed, a closed wooden barrel submarine with a round glass porthole and a small propeller, as big as the fox, resting on a stand on the floor
-« On va le réparer ensemble, dit Octave. D'abord, on ponce. » « C'est long ? » « Oui. » « Et après ? » « On colle. Et on attend que ça sèche. » « Attendre ?! »
+« Nous allons le réparer ensemble, propose Octave. D'abord, on ponce. » « C'est long ? » « Oui. » « Et après ? » « On colle. Et on attend que ça sèche. » « Attendre ?! » s'étrangle Filou.
 > Inside a tidy underwater workshop in a coral cave, {filou} in his glass bubble helmet sighs out a stream of bubbles while rubbing sandpaper on a closed wooden barrel submarine with a round glass porthole and a small propeller, as big as the fox, looking bored, {octave} working calmly beside him
-Filou soupire si fort que ça fait des bulles. Mais il prend le papier à poncer. Frrt, frrt, frrt.
+Filou soupire si fort qu'il en sort un chapelet de bulles. Mais il prend tout de même le papier à poncer. Frrt, frrt, frrt.
 
 @ In an underwater workshop in a coral cave, {filou} in his glass bubble helmet hastily sticks a wooden plank onto a closed wooden barrel submarine with a round glass porthole and a small propeller, as big as the fox, grinning, while {octave}, wearing his round glasses, works with his back turned
-Au bout de cinq minutes, Filou en a assez. Pendant qu'Octave a le dos tourné, il colle une planche à toute vitesse. « Voilà ! Fini ! »
+Au bout de cinq minutes, Filou n'y tient plus. Pendant qu'Octave a le dos tourné, il plaque une planche à toute vitesse, ni vu ni connu. « Voilà ! Fini ! »
 > In an underwater workshop in a coral cave, {filou} in his glass bubble helmet hops on one foot holding his sore paw, a wooden plank lying on the floor beside a closed wooden barrel submarine with a round glass porthole and a small propeller, {octave}, wearing his round glasses, turning around, concerned
-La planche tient une seconde. Deux secondes. Et flop, elle tombe sur sa patte. « Aïe ! »
+La planche tient une seconde. Deux secondes. Et flop ! elle dégringole sur sa patte. « Aïe ! » Filou sautille sur un pied.
 > In an underwater workshop in a coral cave, {octave}, wearing his round glasses, holds a wooden plank in one arm and points kindly with another toward a small closed seashell on a shelf, while {filou} in his glass bubble helmet sits rubbing his paw, curious, the fox has exactly one tail
-Octave ne se moque pas. Il ramasse la planche. « Moi aussi, quand j'étais petit, je voulais avoir fini avant d'avoir commencé. Regarde. »
+Octave ne se moque pas. Il ramasse la planche, tranquillement. « Moi aussi, quand j'étais petit poulpe, je voulais avoir fini avant d'avoir commencé. Regarde. »
 
 @ In an underwater workshop in a coral cave, {octave}, wearing his round glasses, holds in two arms a small open seashell with a tiny golden clock inside, while {filou} in his glass bubble helmet leans close with wide admiring eyes
-Il ouvre un coquillage. Dedans, une horloge minuscule fait tic-tac, avec des rouages fins comme des cils de crevette. « Celle-là, je l'ai recommencée onze fois. »
+Il ouvre délicatement un coquillage. Dedans, une horloge minuscule fait tic-tac, avec des rouages dorés, fins comme des cils de crevette. « Celle-là, je l'ai recommencée onze fois. »
 > In an underwater workshop in a coral cave with plain jars on the shelves, {filou} in his glass bubble helmet bends down with one eye very close to a small open seashell with a tiny golden clock inside on a workbench, while {octave}, the only octopus, wearing his round glasses, smiles beside him
-Filou colle son œil tout près. C'est la plus belle chose qu'il ait jamais vue. « Onze fois… Et tu ne t'es pas énervé ? » « Oh si. Sept fois sur onze. »
+Filou colle son œil tout près. C'est la plus belle chose qu'il ait jamais vue. « Onze fois… souffle-t-il. Et tu ne t'es pas énervé ? » « Oh si. Sept fois sur onze. »
 > In an underwater workshop in a coral cave, {filou} in his glass bubble helmet sands a closed wooden barrel submarine with a round glass porthole and a small propeller, dented, slowly and carefully, tongue sticking out in concentration, while {octave}, wearing his round glasses, watches with a proud gentle smile
-Filou regarde son sous-marin tout cabossé. Puis il reprend le papier à poncer. Frrt, frrt. Plus lentement, cette fois. Et il tire un peu la langue, pour s'appliquer.
+Longtemps, Filou contemple son sous-marin tout cabossé. Puis il reprend le papier à poncer. Frrt… frrt… Plus lentement, cette fois. Et il tire un petit bout de langue, pour mieux s'appliquer.
 
 @ In an underwater workshop in a coral cave, {filou} in his glass bubble helmet and {octave}, wearing his round glasses, play dominoes made of seashells on a table, clearly separate with space between them, a neat shiny round yellow submarine, as big as the fox, freshly glued, drying on a stand behind them
-Ils poncent. Ils collent. Ils attendent que ça sèche en jouant aux dominos avec des coquillages. Filou perd, mais c'est parce qu'Octave voit huit coups à l'avance.
+On ponce. On colle. Et on attend que ça sèche, en jouant aux dominos avec des coquillages. Filou perd à chaque partie, mais c'est parce qu'Octave voit huit coups à l'avance.
 > In an underwater workshop in a coral cave, {filou} in his glass bubble helmet lines up a long neat row of tiny screws on a workbench, touching them one by one, proud and astonished, while {octave}, wearing his round glasses, steadies a neat shiny round yellow submarine, as big as the fox, standing on the floor
-Ils vissent les vis, une par une. Filou les compte : quarante-deux. Il ne savait pas qu'il pouvait compter jusque-là.
+Viennent ensuite les vis, qu'il faut serrer une par une. Filou les aligne et les compte : quarante-deux. Il ne savait même pas qu'il pouvait compter jusque-là.
 > In an underwater workshop in a coral cave, a neat shiny round yellow submarine, as big as the fox, gleams on its stand in the middle; {filou} in his glass bubble helmet on the left and {octave}, wearing his round glasses, on the right, clearly separated with space between them, both admiring it
-Et quand la dernière vis est serrée, le sous-marin brille. Il est rond, lisse, solide. On dirait un vrai. C'est un vrai.
+Et quand la dernière vis est serrée, le sous-marin reluit comme un sou neuf. Il est rond, lisse, solide. On dirait un vrai. C'est un vrai.
 
 @ Deep in the dark blue sea, a neat shiny round yellow submarine surrounded by glowing lantern fish; {filou-} and {octave} are both inside, their two smiling faces side by side behind the closed round porthole glass, nobody outside the submarine, no open door
-Cette fois, ils descendent à deux, plus bas que Filou n'a jamais rêvé. Là où la mer est bleu nuit, là où les poissons portent des lanternes.
+Cette fois, ils plongent à deux, plus profond que Filou ne l'a jamais rêvé. Là où la mer est bleu nuit, là où les poissons portent des lanternes.
 > Inside a neat shiny round yellow submarine in the dark blue deep sea, {filou-} cups a paw behind his ear, listening hard, looking up at the perfectly dry porthole rim, {octave} beside him, a whale silhouette far outside
-Filou attend le ploc. Il tend l'oreille. Rien. Pas une goutte. Juste, très loin, le chant d'une baleine.
+Filou guette le ploc, l'oreille tendue. Rien. Pas une goutte. Seulement, très loin, le chant d'une baleine.
 > Interior view of the cabin of a neat shiny round yellow submarine in the dark blue deep sea, {filou-} presses his nose against the round porthole with a blissful smile, glowing lantern fish outside, {octave}, bright orange, inside the cabin right behind him, smiling proudly
-« Alors ? demande Octave. Ça ira bien comme ça ? » Filou sourit, le museau contre le hublot. « Non. C'est beaucoup mieux que ça. »
+« Alors ? demande Octave, l'œil malicieux. Ça ira bien comme ça ? » Filou sourit, le museau écrasé contre le hublot. « Non. C'est beaucoup mieux que ça. »

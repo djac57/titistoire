@@ -504,12 +504,20 @@ async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u
   await loadVoix(sid);
   pb.disabled=false;
 }
+/* Même signature que tools/gen_voix.py : longueur du texte + CRC32 de son UTF-8. */
+function sigTexte(pages){ const t=pages.join("\n"), o=new TextEncoder().encode(t); let c=0xFFFFFFFF;
+  for(let i=0;i<o.length;i++){ c^=o[i]; for(let k=0;k<8;k++) c=(c>>>1)^(0xEDB88320&-(c&1)); }
+  return [...t].length+":"+((c^0xFFFFFFFF)>>>0); }
 async function loadVoix(sid){
   const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
   for(const v of ordre){
     const sous=book&&book.petit?'/petits':'';
     try{ const r=await fetch(`assets/voix/${v}${sous}/${sid}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
-      if(book&&book.id===sid&&j&&j.sc){ j.dir=v+sous; j.v=v; book.voix=j; } noteVoix(); return; }catch(e){}
+      if(!(book&&book.id===sid&&j&&j.sc)) continue;
+      // un enregistrement n'est gardé que s'il lit bien le texte affiché (signature du texte au moment de l'enregistrement)
+      let bons=0; for(const k of Object.keys(j.sc)){ const m=j.sc[k]; if(m&&m.sig&&m.sig!==sigTexte(scenePages(+k).map(i=>book.pages[i]))) delete j.sc[k]; else if(m) bons++; }
+      if(!bons) continue;
+      j.dir=v+sous; j.v=v; book.voix=j; noteVoix(); return; }catch(e){}
   }
   noteVoix();
 }
