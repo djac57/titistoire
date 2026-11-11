@@ -73,6 +73,7 @@
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
   #libreForm{display:flex;flex-direction:column;gap:16px;}
   #libreLock{display:flex;flex-direction:column;}
+  #libreForm[hidden],#libreLock[hidden]{display:none;}  /* sinon display:flex écrase l'attribut hidden */
   .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
   .genbar[hidden]{display:none;}
   .genbar span{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));transition:width .25s ease;}
