@@ -258,14 +258,14 @@ famille: autres
 Rosie a un petit frère. Il s'appelle Pompon. Il est haut comme trois carottes, et il a une seule idée dans la vie : faire tout comme Rosie.
 > In a sunny forest, {rosie} scratches her ear with one paw and just behind her {pompon} scratches his ear in exactly the same way, the big sister glancing back suspiciously, the little one beaming
 Si Rosie saute, Pompon saute. Si Rosie se gratte l'oreille, Pompon se gratte l'oreille. Si Rosie dit « Zut ! », Pompon dit « Zut ! », et c'est elle qui se fait gronder.
-> In a sunny forest clearing, {rosie} complains with arms spread toward a grown-up white mother rabbit in an apron, while {pompon} clings happily to his sister's leg with a delighted grin
+> In a sunny forest clearing, {rosie} complains with arms spread toward {mamanlapin}, while {pompon} clings happily to his sister's leg with a delighted grin
 « Maman ! Il me colle ! C'est pas un frère, c'est un pot de colle ! » « Pot de colle ! » répète Pompon, ravi.
 
 @ In a forest, {rosie} rolls her eyes while {pompon}, half her size, hops happily around her, only these two rabbits on the path, a green hill far behind
 Aujourd'hui, Rosie a un projet de grande : avec Filou et Noisette, elle va grimper tout en haut de la colline aux Fraises, là où poussent les plus grosses fraises des bois.
 > In a forest, {rosie} crouches and shakes her head at {pompon}, who stands on tiptoe with both arms raised begging to come along, {filou-} and {noisette} waiting on the path behind
 « Moi aussi ! Moi aussi ! » Pompon sautille autour d'elle. « Non, Pompon. C'est trop loin. Tu es trop petit. Tu marches trop lentement. »
-> At the edge of a forest, a grown-up white mother rabbit in an apron places the tiny paw of {pompon} into the paw of {rosie}, who looks up at the sky with a big sigh, the little one overjoyed
+> At the edge of a forest, {mamanlapin} places the tiny paw of {pompon} into the paw of {rosie}, who looks up at the sky with a big sigh, the little one overjoyed
 « Emmène ton frère, dit maman. Et tiens-lui bien la patte. » Rosie lève les yeux au ciel. Sa journée est fichue.
 
 @ On a forest path, {pompon}, half the size of his sister, crouches nose to nose with a snail, while just behind him {rosie} stands tapping her foot impatiently

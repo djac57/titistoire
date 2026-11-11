@@ -358,11 +358,11 @@ Les poissons font la chaîne. Les crevettes trient. Les crabes portent. Même la
 > Underwater on an almost clean coral reef with colours coming back, crabs lift their claws in triumph beside a big pile of full nets, fish dart about busily, {plume} in the middle with both wings raised, joyful
 Personne ne dit plus « on est trop petits ». On n'a pas le temps. On compte : « Cent de moins ! Deux cents de moins ! »
 
-@ On a beach at sunset, {plume-} stands beside a net full of collected litter and talks to a big walrus in a striped swimsuit who holds a bottle and looks embarrassed, a picnic blanket nearby
+@ On a beach at sunset, {plume-} stands beside a net full of collected litter and talks to {morse} who holds a bottle and looks embarrassed, a picnic blanket nearby
 Le soir, Plume remonte à la surface avec le filet plein. Sur la plage, un gros morse en maillot rayé finit son pique-nique. Il s'apprête à lancer sa bouteille dans l'eau.
-> On a beach at sunset, a big walrus in a striped swimsuit stares at the bottle in his flipper, his cheeks turned bright red, while {plume-} beside a net full of litter gently points a wing toward the sea
+> On a beach at sunset, {morse} stares at the bottle in his flipper, his cheeks turned bright red, while {plume-} beside a net full of litter gently points a wing toward the sea
 Plume ne crie pas. Elle pose le filet devant lui, et elle raconte. La tortue. L'anémone. Le corail gris. Le morse regarde sa bouteille. Il devient tout rouge.
-> On a sunny beach in the morning, a big walrus in a striped swimsuit drops a bottle into a large bin decorated with a drawing of a fish, while {plume-} watches from the sand, pleased, gentle waves behind
+> On a sunny beach in the morning, {morse} drops a bottle into a large bin decorated with a drawing of a fish, while {plume-} watches from the sand, pleased, gentle waves behind
 « Je ne savais pas que ça allait quelque part », dit-il. Et il la range dans son sac. Le lendemain, sur la plage, quelqu'un a installé une grande poubelle. Avec un poisson dessiné dessus.
 
 @ Underwater, a coral reef full of bright colours again, clownfish back in an open orange anemone, {plume}, {perle}, {octave} and a baby sea turtle together, happy

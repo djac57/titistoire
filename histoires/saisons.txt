@@ -161,30 +161,30 @@ Rosie cache son écharpe derrière son dos. Elle a les joues qui brûlent. « Ma
 > In the evening in a bedroom, {rosie} stuffs a big bundle of red knitted scarf deep into the bottom of a wardrobe under a pile of old socks, glancing over her shoulder
 Le soir, elle fourre l'écharpe tout au fond du placard, sous les vieilles chaussettes. « Je dirai que je n'ai pas eu le temps. »
 
-@ On Christmas morning by a decorated tree, {pompon} runs in dragging a very long red knitted scarf behind him, while {rosie} looks embarrassed and a mother white rabbit in an apron looks surprised
+@ On Christmas morning by a decorated tree, {pompon} runs in dragging a very long red knitted scarf behind him, while {rosie} looks embarrassed and {mamanlapin} looks surprised
 Le matin de Noël, tout le monde s'embrasse. Maman ouvre le dessin de Pompon : un gribouillis vert. « Oh ! Un magnifique… sapin ? » « C'est toi, maman. » « Il est très ressemblant. »
-> On Christmas morning by a decorated tree, {rosie} looks down at her feet with empty paws and drooping ears, while a mother white rabbit in an apron bends kindly toward her
+> On Christmas morning by a decorated tree, {rosie} looks down at her feet with empty paws and drooping ears, while {mamanlapin} bends kindly toward her
 « Et toi, ma Rosie ? » Rosie regarde ses pattes. « Moi… je n'ai rien. Je n'ai pas eu le temps. »
 > On Christmas morning in a bedroom, {pompon} tugs with all his strength at the end of a long red knitted scarf spilling out of an open wardrobe, old socks flying around him, looking delighted
 « Si, elle a ! crie Pompon. Elle a fait un grand serpent rouge ! Il est dans le placard ! » Et avant que Rosie puisse l'arrêter, il revient en traînant l'écharpe derrière lui.
 
-@ By a Christmas tree, a mother white rabbit in an apron holds a long red knitted scarf tenderly against her cheek, eyes shining, while {rosie} looks up at her, ashamed and surprised
+@ By a Christmas tree, {mamanlapin} holds a long red knitted scarf tenderly against her cheek, eyes shining, while {rosie} looks up at her, ashamed and surprised
 Rosie voudrait disparaître dans le tapis. « Ne regarde pas. Elle est ratée. Elle est trop longue, il y a un trou. Je voulais t'offrir la théière dorée, mais… »
-> By a Christmas tree, a mother white rabbit in an apron silently runs her paws along a long red knitted scarf, looking closely at the crooked stitches, while {rosie} hides her face behind her ears
+> By a Christmas tree, {mamanlapin} silently runs her paws along a long red knitted scarf, looking closely at the crooked stitches, while {rosie} hides her face behind her ears
 Maman ne dit rien. Elle passe ses pattes sur la laine. Sur chaque maille de travers. « Tu l'as faite toute seule ? Tous ces soirs où il y avait de la lumière sous ta couverture ? »
-> By a Christmas tree, a close view of a mother white rabbit in an apron with shining, happy, tearful eyes, smiling down at {rosie}, who nods shyly, a red knitted scarf held between them
+> By a Christmas tree, a close view of {mamanlapin} with shining, happy, tearful eyes, smiling down at {rosie}, who nods shyly, a red knitted scarf held between them
 Rosie hoche la tête. Et là, elle voit quelque chose d'étonnant : maman a les yeux qui brillent. Beaucoup plus que la théière.
 
-@ In the snow, a mother white rabbit, {rosie} and {pompon} walk together all wrapped in the same very long red scarf, the baby rabbit's head poking through a hole in it, all laughing
+@ In the snow, {mamanlapin}, {rosie} and {pompon} walk together all wrapped in the same very long red scarf, the baby rabbit's head poking through a hole in it, all laughing
 Maman enroule l'écharpe autour de son cou. Une fois. Deux fois. Il en reste encore. Alors elle l'enroule autour de Rosie. Puis autour de Pompon.
-> By a Christmas tree in a cosy living room, a mother white rabbit in an apron winds one very long red scarf around her neck, around {rosie} and around {pompon}, who pokes his head through a hole in it, giggling
+> By a Christmas tree in a cosy living room, {mamanlapin} winds one very long red scarf around her neck, around {rosie} and around {pompon}, who pokes his head through a hole in it, giggling
 « Regarde. Une théière, c'est pour une seule personne. Ton écharpe, elle nous réchauffe tous les trois. Et le trou… » Pompon y passe la tête. « C'est ma fenêtre ! »
-> Seen from behind on a snowy hill, a mother white rabbit, {rosie} and {pompon} walk in a row tied together by one long red scarf, like a funny six-legged creature, leaving a trail of footprints
+> Seen from behind on a snowy hill, {mamanlapin}, {rosie} and {pompon} walk in a row tied together by one long red scarf, like a funny six-legged creature, leaving a trail of footprints
 Ils sortent se promener dans la neige, tous les trois attachés par la même écharpe rouge. On les prend pour un drôle d'animal à six pattes.
 
-@ In a snowy village street, a mother white rabbit wearing a very long red knitted scarf walks happily with {rosie} and {pompon} past a shop window where a golden teapot sits alone
+@ In a snowy village street, {mamanlapin} walks happily with {rosie} and {pompon} past a shop window where a golden teapot sits alone
 Ils passent devant la vitrine de Margot. La théière dorée est toujours là. Rosie la regarde. Elle brille. Mais elle a l'air d'avoir un peu froid, toute seule.
-> In a snowy garden, a mother white rabbit wearing a very long red knitted scarf wound many times around her neck hangs washing on a line, smiling proudly, a laundry basket at her feet
+> In a snowy garden, {mamanlapin} wound many times around her neck hangs washing on a line, smiling proudly, a laundry basket at her feet
 Tout l'hiver, maman porte l'écharpe. Pour aller au marché, pour étendre le linge, et même une fois pour dormir. Quand on lui dit qu'elle est trop longue, elle répond : « Elle est à la bonne taille. »
 > In a cosy bedroom, {rosie} knits slowly and carefully with red wool, tongue out, while {pompon} proudly holds up a funny red mitten with far too many fingers
 Et Rosie ? Elle a repris ses aiguilles. Clic… clic… clic. Plus lentement. Elle tricote des moufles pour Pompon. Pour l'instant, il y en a une avec six doigts.
@@ -699,7 +699,7 @@ famille: oser
 Pour la première fois de sa vie, Plume part en vacances sans ses parents. Une semaine entière à la station des Sapins Blancs, avec ses amis, dans un grand chalet en bois.
 > In a cosy nest bedroom, {plume-} packs a small suitcase with a woolly hat, mittens and three books, and tucks a small worn cuddly rag toy right at the bottom, glancing around so nobody sees
 Dans sa valise, elle a mis son bonnet, ses moufles, trois livres, et Chiffon, son doudou, tout au fond, pour que personne ne le voie. Elle est grande, maintenant.
-> On a snowy road, {plume} sits at the back of a sleigh full of young animals and waves her wing, looking back at a mother owl who is now very small in the distance
+> On a snowy road, {plume} sits at the back of a sleigh full of young animals and waves her wing, looking back at {mamanchouette} who is now very small in the distance
 « Tu vas voir, ça va être formidable », dit maman en la serrant fort. Plume hoche la tête. Dans le traîneau, elle agite l'aile jusqu'à ce que maman soit toute petite.
 
 @ In front of a wooden chalet buried in snow, {plume} and her friends, a fox, a bear cub and a rabbit in woolly hats, build a snowman with a carrot nose, laughing
@@ -746,7 +746,7 @@ Le lendemain matin, elle écrit une carte. « Chère maman, cher papa. Hier soir
 
 @ At night in a chalet bunk bed, {plume-} sits calmly hugging a small worn cuddly rag toy and looks through the window at a big round moon over the snow, smiling softly
 La deuxième nuit est plus facile. La troisième aussi. La boule revient un petit peu, chaque soir, au moment de la lune. Mais Plume sait quoi faire, maintenant.
-> At a snowy stop, {plume} jumps from a sleigh into the open wings of a mother owl, both beaming, a small suitcase tumbling into the snow beside them
+> At a snowy stop, {plume} jumps from a sleigh into the open wings of {mamanchouette}, both beaming, a small suitcase tumbling into the snow beside them
 À la fin de la semaine, quand le traîneau la ramène, maman l'attend sur le quai. Plume lui saute au cou. « Tu m'as manqué ! » « Toi aussi, ma chouette. Tous les soirs, je regardais la lune. »
 > In a cosy nest bedroom, {plume-} holds up a small worn beige cloth rag doll above her open suitcase, a bigger mother owl smiling behind her
 Plume ouvre de grands yeux. Puis elle défait sa valise. Cette fois, Chiffon n'est pas caché au fond. Il est posé tout en haut, bien en vue. Il a fait du ski, lui aussi. Il a beaucoup de choses à raconter.
@@ -766,23 +766,23 @@ Il a un projet. Le plus grand, le plus beau château de sable jamais construit. 
 > On a sunny beach with dunes, {filou} stands with his chest puffed out and one paw pointing at himself, hugging his red bucket and three spades tightly against him
 « Et je le ferai tout seul, annonce-t-il. Comme ça, tout le monde saura que c'est le mien. »
 
-@ On a beach, {filou} guards his three spades and red bucket inside a big circle drawn in the sand, turning away a small red crab, {rosie-} and a tiny baby rabbit who look disappointed
+@ On a beach, {filou} guards his three spades and red bucket inside a big circle drawn in the sand, turning away {crabe}, {rosie-} and a tiny baby rabbit who look disappointed
 Un petit crabe s'approche, en marchant de côté. « Il est beau, ton seau. Tu me prêtes une pelle ? Tu en as trois. » « Non. J'en ai besoin. » « Des trois ? » « Des trois. »
 > On a beach, {filou} spreads his arms wide before his sand tower, facing {rosie-} and a tiny baby rabbit
 Rosie arrive avec Pompon. « On peut t'aider ? Je sais faire des tours très hautes ! » « Pas touche ! C'est MON château. Allez jouer plus loin. »
-> On a sunny beach, {filou} drags a rake through the sand to draw a big circle around his bucket, spades and a half-built sand tower, while {rosie-}, a tiny baby rabbit and a small red crab walk away
+> On a sunny beach, {filou} drags a rake through the sand to draw a big circle around his bucket, spades and a half-built sand tower, while {rosie-}, a tiny baby rabbit and {crabe} walk away
 Ils s'en vont plus loin. Filou trace un grand rond autour de son chantier, avec le râteau. « Défense d'entrer. »
 
 @ On a beach, {filou} walks alone carrying a heavy red bucket of water, sweating, toward a half-built sand castle, {rosie-} far away in the background
 Toute la matinée, il creuse, il tasse, il démoule. C'est long, tout seul. Il faut courir chercher l'eau, revenir, repartir. Le sable sèche plus vite qu'il ne construit.
-> On a sunny beach, {rosie-}, a tiny baby rabbit and a small red crab laugh out loud around a wobbly crooked sand castle built with their bare paws, sand on their noses, {filou} a small figure working far behind
+> On a sunny beach, {rosie-}, a tiny baby rabbit and {crabe} laugh out loud around a wobbly crooked sand castle built with their bare paws, sand on their noses, {filou} a small figure working far behind
 Un peu plus loin, il entend des rires. Rosie, Pompon et le petit crabe construisent quelque chose avec leurs pattes. C'est tout de travers. Ils ont l'air de bien s'amuser.
 > On a sunny beach, {filou} pats a fourth sand tower with his spade, sweating, his nose in the air with a scornful pout, three finished sand towers beside him
 « Pfff. Leur château est moche », dit Filou. Il n'a pas le temps de rire, lui. Il a une quatrième tour à finir.
 
 @ On a beach, {filou} stands alone beside a magnificent sand castle with four towers, a bridge and a feather flag, looking a little lonely, while behind him the sea is rising
 À quatre heures, c'est fini. Quatre tours, un pont, le drapeau. C'est magnifique. Filou recule pour l'admirer. « Venez voir ! Venez tous voir mon château ! »
-> On a beach in the afternoon, {filou} waves both arms and calls beside his magnificent sand castle, but in the distance {rosie-}, a tiny baby rabbit and a small red crab are busy digging a tunnel
+> On a beach in the afternoon, {filou} waves both arms and calls beside his magnificent sand castle, but in the distance {rosie-}, a tiny baby rabbit and {crabe} are busy digging a tunnel
 Personne ne vient. Ils sont trop occupés à creuser un tunnel. Filou reste planté là, à côté de son chef-d'œuvre. C'est drôle : il pensait qu'il serait plus content.
 > On a beach in late afternoon, seen from the sea, small waves creep quietly up the sand toward a magnificent sand castle with four towers, while {filou} stands with his back to the water, unaware
 Et pendant ce temps, derrière lui, tout doucement, la mer monte.
@@ -794,23 +794,23 @@ Il court à gauche, il court à droite. Il creuse un fossé, il monte une digue.
 > On a beach, {filou} stands with both paws on his head, mouth open, next to his big sand castle, its bridge crumbling into a wave
 « Au secours ! Mon château ! » Le pont s'écroule. Une tour penche. Tout seul, il n'y arrivera jamais.
 
-@ On a beach, {filou}, {rosie-}, a tiny baby rabbit with a rake and a small red crab holding a spade in each claw dig a big ditch and build a sand wall together in front of a sand castle as a wave arrives
+@ On a beach, {filou}, {rosie-}, a tiny baby rabbit with a rake and {crabe} holding a spade in each claw dig a big ditch and build a sand wall together in front of a sand castle as a wave arrives
 Rosie lève la tête. Elle pourrait dire : « Débrouille-toi, c'est TON château. » Elle le pense très fort, une seconde. Puis elle court. Les autres aussi.
-> On a beach, {filou} holds out his red bucket toward {rosie-} running to him, a small red crab beside them holding a little spade
+> On a beach, {filou} holds out his red bucket toward {rosie-} running to him, {crabe} beside them holding a little spade
 « Les pelles ! crie Filou. Prenez les pelles ! Le seau ! Tout ce que vous voulez ! » Le petit crabe attrape une pelle dans chaque pince. Pompon traîne le râteau.
-> On a beach, a wave stops at a sand wall; behind it {filou}, {rosie-} and a small red crab cheer
+> On a beach, a wave stops at a sand wall; behind it {filou}, {rosie-} and {crabe} cheer
 Ils creusent un fossé géant. Ils montent un mur. Rosie tasse, le crabe creuse, Pompon porte de l'eau dans ses oreilles. La vague arrive… et s'arrête au pied de la digue.
 
-@ On a beach, {filou}, {rosie-}, a baby rabbit and a small red crab, all covered in sand, happily rebuild a big funny crooked sand castle decorated with shells everywhere
+@ On a beach, {filou}, {rosie-}, a baby rabbit and {crabe}, all covered in sand, happily rebuild a big funny crooked sand castle decorated with shells everywhere
 Sauvé ! Enfin, presque. Il manque le pont et une tour. Filou regarde les dégâts. Puis il regarde ses trois amis, pleins de sable jusqu'aux yeux.
 > On a beach, {filou} rubs out a big circle drawn in the sand with his foot, smiling shyly, while {rosie-} covered in sand watches with a teasing look, arms crossed, a damaged sand castle behind them
 « Vous… vous voulez bien m'aider à le refaire ? » « C'est plus TON château, alors ? » demande Rosie, l'air de rien. Filou efface le grand rond avec sa patte. « Non. C'est le nôtre. »
-> On a beach, {rosie-} on tiptoe builds a very tall sand tower, a small red crab digs a moat filled with real water, and a tiny baby rabbit sticks shells everywhere, {filou} laughing with them
+> On a beach, {rosie-} on tiptoe builds a very tall sand tower, {crabe} digs a moat filled with real water, and a tiny baby rabbit sticks shells everywhere, {filou} laughing with them
 Rosie refait la tour, encore plus haute. Le crabe creuse des douves avec de la vraie eau. Pompon plante des coquillages partout, même là où il ne faut pas. C'est tout de travers. C'est bien mieux.
 
-@ At sunset on a beach, {filou}, {rosie-}, a baby rabbit and a small red crab sit side by side watching the tide gently wash away a sand castle; a red bucket with three spades stands in the sand
+@ At sunset on a beach, {filou}, {rosie-}, a baby rabbit and {crabe} sit side by side watching the tide gently wash away a sand castle; a red bucket with three spades stands in the sand
 Le soir, la grande marée finit par tout emporter. La digue, les tours, le drapeau. Ils regardent le château fondre dans l'eau, assis côte à côte.
-> At sunset on a beach, the last sand tower has melted into the sea, and {filou} smiles peacefully, leaning shoulder to shoulder with {rosie-}, a tiny baby rabbit and a small red crab, golden light on the water
+> At sunset on a beach, the last sand tower has melted into the sea, and {filou} smiles peacefully, leaning shoulder to shoulder with {rosie-}, a tiny baby rabbit and {crabe}, golden light on the water
 Filou attend d'être triste. Mais non. Le château est parti, et il lui reste quelque chose quand même. Trois amis, et rendez-vous demain matin.
 > On a sunny morning on an empty beach with dunes, a big red bucket stands in the middle of the sand with three spades planted in it, decorated with a garland of green seaweed, {filou} waving from afar
 Le lendemain, sur la plage des Dunes, il y a un seau rouge posé au milieu du sable. Avec trois pelles plantées dedans, et un écriteau en algues. Dessus, Filou a écrit : « Servez-vous. »
@@ -883,18 +883,18 @@ theme: respecter les animaux ; laisser chacun chez lui
 sujet: Respecter les animaux
 famille: coeur
 
-@ At low tide among rock pools, {rosie} with a little bucket watches a small red crab dancing on a rock with its claws raised
+@ At low tide among rock pools, {rosie} with a little bucket watches {crabe} dancing on a rock with its claws raised
 À marée basse, la plage des Dunes est pleine de trésors. Des flaques, des rochers, des algues qui font ploc quand on marche dessus. Rosie explore, son seau à la patte.
-> At low tide on a wet rock, a close view of a small red crab dancing sideways with both claws clicking in the air, while {rosie} watches from behind a rock pool with delighted round eyes
+> At low tide on a wet rock, a close view of {crabe} dancing sideways with both claws clicking in the air, while {rosie} watches from behind a rock pool with delighted round eyes
 Et sur un rocher, elle voit la chose la plus drôle du monde. Un petit crabe rouge, qui danse. Trois pas à gauche, trois pas à droite, et clac, clac ! avec ses pinces.
-> At low tide among rock pools, {rosie} swoops her little bucket over a rock in one quick jump, a small red crab tumbling inside with a surprised look
+> At low tide among rock pools, {rosie} swoops her little bucket over a rock in one quick jump, {crabe} tumbling inside with a surprised look
 « Oh ! Je le veux ! » Rosie est rapide. Hop ! Le crabe est dans le seau avant d'avoir fini sa danse.
 
-@ On a beach, {rosie} proudly shows her friends a bucket in which a small red crab walks round in circles, reaching its claws toward the rim
+@ On a beach, {rosie} proudly shows her friends a bucket in which {crabe} walks round in circles, reaching its claws toward the rim
 « Regardez ! J'ai un crabe ! Il s'appelle Castagnette. Il est à moi. Je vais le ramener à la maison, et il dansera pour moi tous les jours. »
-> On a beach, {rosie} kneels by her bucket, which she has decorated inside with sand, a pretty shell and a piece of biscuit for a small red crab, and claps her paws to make it dance
+> On a beach, {rosie} kneels by her bucket, which she has decorated inside with sand, a pretty shell and a piece of biscuit for {crabe}, and claps her paws to make it dance
 Elle lui met du sable dans le seau. Un coquillage, pour faire joli. Un bout de biscuit. « Tu vas être très bien, ici. Allez, danse ! »
-> On a beach, {rosie} bends over a bucket standing on the sand and looks down, puzzled, at a small red crab inside raising both claws
+> On a beach, {rosie} bends over a bucket standing on the sand and looks down, puzzled, at {crabe} inside raising both claws
 Castagnette ne danse pas. Il fait le tour du seau. Encore le tour. Il lève ses pinces vers le bord, tout là-haut.
 
 @ In a beach cabin in the evening, {rosie} taps on a bucket on the table, a small shell inside, while {pompon} watches from beside the table
@@ -925,14 +925,14 @@ Au petit matin, avant que tout le monde se réveille, elle prend le seau et desc
 > At dawn on a shiny wet rock, a small pale crab that has just slid out of a tipped bucket touches the salty water with its legs, {rosie} holding her breath behind it
 Elle penche le seau, tout doucement. Le petit crabe hésite au bord. Puis il glisse sur le rocher, et il sent l'eau salée sous ses pattes.
 
-@ At sunrise on a wet rock, a small bright red crab dances with claws raised, surrounded by a circle of other little crabs, while {rosie} sits still on the sand watching with wonder
+@ At sunrise on a wet rock, {crabe} dances with claws raised, surrounded by a circle of other little crabs, while {rosie} sits still on the sand watching with wonder
 D'abord, il ne bouge pas. Puis une patte. Puis une autre. Trois pas à gauche. Trois pas à droite. Et clac, clac ! Ses pinces claquent dans le soleil levant.
 > At sunrise on a wet rock, other little crabs climb out of holes one after another, waving their claws, gathering around a small crab that is turning cherry red again
 D'un trou sort un deuxième crabe. Puis un troisième. Toute une famille, qui fait cercle autour de lui en agitant les pinces. Castagnette est redevenu rouge comme une cerise.
 > At sunrise at low tide, {rosie} sits on the wet sand with her paws folded in her lap, touching nothing, smiling with wonder, little crabs dancing on a rock in the golden light
 Rosie s'assoit sur le sable mouillé. Elle ne touche à rien. Elle regarde. C'est bien plus beau que dans le seau.
 
-@ At low tide, {rosie} sits on her upturned bucket beside a tiny squirrel child holding a fishing net, a finger on her lips, both quietly watching a small red crab dance on a rock
+@ At low tide, {rosie} sits on her upturned bucket beside a tiny squirrel child holding a fishing net, a finger on her lips, both quietly watching {crabe} dance on a rock
 Tous les matins des vacances, Rosie revient au rocher, à marée basse. Elle s'assoit sans faire de bruit. Et presque chaque fois, Castagnette vient danser. Pas pour elle. Mais pas loin.
 > At low tide among rock pools, {rosie} sits on her upturned bucket like a stool, peering into a pool, a small pile of pretty empty shells beside her
 Son seau, elle l'a retourné. Ça fait un très bon tabouret pour regarder les flaques. Dedans, elle ne rapporte plus que des coquillages vides, ceux où personne n'habite.
@@ -945,32 +945,32 @@ theme: oser aller vers les autres
 sujet: Se faire de nouveaux amis
 famille: oser
 
-@ On a sunny beach, {plume} sits alone under a parasol with a book, peeking over it at {lila}, a young seagull and a small red crab flying a red kite and laughing
+@ On a sunny beach, {plume} sits alone under a parasol with a book, peeking over it at {lila}, {goeland} and {crabe} flying a red kite and laughing
 C'est le premier jour des vacances à la plage des Dunes. Plume ne connaît personne. Elle s'est installée sous le parasol, avec un livre qu'elle ne lit pas.
-> On a sunny beach with dunes, {lila}, a young seagull and a small red crab run laughing with a red kite flying high above them on its string, a striped parasol far in the background
+> On a sunny beach with dunes, {lila}, {goeland} and {crabe} run laughing with a red kite flying high above them on its string, a striped parasol far in the background
 Car un peu plus loin, il y a trois enfants qui jouent. Une petite loutre, un goéland, et un crabe. Ils ont un cerf-volant rouge, et ils rient très fort.
 > On a sunny beach under a striped parasol, a close view of {plume} hiding behind her book, only her big wistful eyes showing above it, longing to join in
 Plume les regarde par-dessus son livre. Elle aimerait tellement jouer avec eux. Mais comment on fait, pour entrer dans un jeu déjà commencé ?
 
-@ On a beach, {plume} takes shy steps away from her parasol, wings clasped, looking toward {lila} and a small red crab playing with a red diamond-shaped paper kite far away
+@ On a beach, {plume} takes shy steps away from her parasol, wings clasped, looking toward {lila} and {crabe} playing with a red diamond-shaped paper kite far away
 Dans sa tête, elle prépare sa phrase. « Bonjour, je m'appelle Plume, est-ce que je peux jouer avec vous ? » Elle la répète dix fois. Vingt fois. Elle la connaît par cœur.
-> On a sunny beach, {plume} stops frozen in mid-step, one wing on her heart, eyes worried, while {lila} and a small red crab play in the distance
+> On a sunny beach, {plume} stops frozen in mid-step, one wing on her heart, eyes worried, while {lila} and {crabe} play in the distance
 Elle se lève. Elle fait trois pas. Son cœur bat dans ses oreilles. « Et s'ils disent non ? Et s'ils rient ? Et s'ils ne m'entendent même pas ? »
 > On a sunny beach under a striped parasol, {plume} sits back down looking defeated, holding her book upside down without noticing, a red kite flying far behind her
 Elle fait demi-tour, et elle se rassoit. Le livre est à l'envers. Elle ne s'en aperçoit pas.
 
-@ On a beach, {plume} picks up seashells alone in the foreground, while behind her {lila} and a small red crab play with a red diamond-shaped paper kite
+@ On a beach, {plume} picks up seashells alone in the foreground, while behind her {lila} and {crabe} play with a red diamond-shaped paper kite
 Le deuxième jour, c'est pareil. Elle s'approche un peu plus. Elle ramasse des coquillages tout près d'eux, en espérant qu'ils la remarquent. Ils ne la remarquent pas.
 > On a beach, {plume} sits waiting beside a small pile of sand she has made, glancing hopefully sideways, a few seashells lined up in front of her, a red kite in the sky
 « Peut-être qu'ils viendront me chercher », se dit-elle. Elle attend. Elle fait un petit tas de sable. Elle attend encore.
-> On a beach, {lila} and a small red crab laugh, holding the string of a red diamond-shaped paper kite, while {plume} stands alone far behind them
+> On a beach, {lila} and {crabe} laugh, holding the string of a red diamond-shaped paper kite, while {plume} stands alone far behind them
 Mais ils sont occupés à jouer. Ce n'est pas qu'ils ne veulent pas d'elle. Ils ne savent même pas qu'elle existe.
 
-@ On windy dunes, a red diamond-shaped paper kite with a broken string flies away over the dunes, while {lila}, a young seagull and a small red crab look up, dismayed
+@ On windy dunes, a red diamond-shaped paper kite with a broken string flies away over the dunes, while {lila}, {goeland} and {crabe} look up, dismayed
 Le troisième jour, il y a du vent. Le cerf-volant rouge tire, tire sur sa ficelle. Et soudain, clac ! La ficelle casse. Le cerf-volant s'envole au-dessus des dunes.
-> On windy dunes, {lila}, a young seagull and a small red crab run as fast as they can after a red kite spinning away in the sky toward a tall pine tree, its broken string trailing
+> On windy dunes, {lila}, {goeland} and {crabe} run as fast as they can after a red kite spinning away in the sky toward a tall pine tree, its broken string trailing
 Les trois enfants courent derrière. Il monte, il tournoie, et il va s'accrocher tout en haut du grand pin, à la plus haute branche.
-> At the foot of a tall pine tree, {lila} jumps with arms stretched up toward a red diamond-shaped paper kite stuck in the top branches, a small red crab pinching the trunk
+> At the foot of a tall pine tree, {lila} jumps with arms stretched up toward a red diamond-shaped paper kite stuck in the top branches, {crabe} pinching the trunk
 « Oh non ! » La loutre saute. Le crabe pince le tronc. Le petit goéland bat des ailes, mais il ne sait pas encore voler. Le cerf-volant est beaucoup trop haut.
 
 @ Under a parasol on a beach, {plume} stands up, hesitating, looking toward a tall pine tree where {lila} sits sadly at the foot of the trunk
@@ -984,19 +984,19 @@ La petite loutre s'est assise au pied du pin. Elle a le menton qui tremble. Plum
 Elle ne dit rien. Elle court, elle ouvre ses ailes, et elle monte. Plus haut que le parasol. Plus haut que la dune. Jusqu'à la dernière branche du grand pin.
 > In the sky above sunny dunes, {plume} flies upward with wings spread wide, higher than a striped parasol and the dune, toward a red kite caught on the top branch of a tall pine tree
 Le cerf-volant est bien emmêlé. Plume défait la ficelle avec son bec, patiemment, nœud après nœud. En bas, trois têtes la regardent, la bouche ouverte.
-> At the foot of a tall pine tree on the dunes, {plume} lands with a red kite held in her feet in front of {lila}, a young seagull and a small red crab, who stare with open mouths
+> At the foot of a tall pine tree on the dunes, {plume} lands with a red kite held in her feet in front of {lila}, {goeland} and {crabe}, who stare with open mouths
 Elle redescend en planant, le cerf-volant rouge dans les pattes, et elle se pose devant eux. Il faut dire quelque chose. N'importe quoi. « Tenez. Il… il était là-haut. »
 
-@ On the dunes, {plume} shyly hands a red kite to a delighted {lila}, with a young seagull and a small red crab jumping with excitement around them
+@ On the dunes, {plume} shyly hands a red kite to a delighted {lila}, with {goeland} and {crabe} jumping with excitement around them
 « TU VOLES ! » crie le petit goéland. « Tu as vu comme elle vole ? » « Comment tu t'appelles ? » demande la loutre. « Plume. » « Moi c'est Lila. Lui c'est Pince-Mi, et lui c'est Goéland-qui-ne-vole-pas-encore. »
-> On the dunes, {lila} holds out her paw with a big friendly smile toward {plume}, a small red crab beside them, a red diamond-shaped paper kite lying on the sand
+> On the dunes, {lila} holds out her paw with a big friendly smile toward {plume}, {crabe} beside them, a red diamond-shaped paper kite lying on the sand
 « Tu joues avec nous ? » dit Lila. Comme ça. Tout simplement. Comme si c'était la chose la plus facile du monde.
 > On the dunes in the sunshine, a close view of {plume} with a wide happy smile and rosy cheeks, {lila} cheering beside her
 Plume pense à sa belle phrase, répétée vingt fois. Elle n'en a pas eu besoin. Il a suffi de quatre mots, et ce n'est même pas elle qui les a dits. « Oui », dit-elle.
 
-@ On a sunny beach, {plume} flies high holding the string of a red kite while {lila}, a young seagull flapping his wings and a small red crab run below, all laughing
+@ On a sunny beach, {plume} flies high holding the string of a red kite while {lila}, {goeland} flapping his wings and {crabe} run below, all laughing
 Le reste des vacances passe à toute vitesse. Ils font voler le cerf-volant plus haut que jamais : c'est Plume qui le tient, tout là-haut. Elle apprend au petit goéland à battre des ailes. Il décolle de trois plumes.
-> At sunset on a beach, {lila} gives a beautiful seashell with a small hole in it to {plume}, who offers a shell in return, a young seagull and a small red crab holding shells too
+> At sunset on a beach, {lila} gives a beautiful seashell with a small hole in it to {plume}, who offers a shell in return, {goeland} and {crabe} holding shells too
 Le dernier soir, ils échangent des coquillages, pour ne pas s'oublier. « Tu reviens l'été prochain ? » « Promis. » Lila lui donne le sien, le plus beau, avec un trou pour y passer une ficelle.
 > At a small country train station, {plume} wearing a seashell on a string around her neck walks bravely toward a small grey owl child sitting alone on a bench, watching other young animals play
 Dans le train du retour, Plume le serre contre elle. À la gare, il y a une petite chouette inconnue, toute seule sur un banc, qui regarde les autres jouer. Plume respire un grand coup. Et elle y va.
