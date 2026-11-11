@@ -112,7 +112,7 @@ def main():
     fsig = OUT / "_descriptions.json"
     sigs = json.loads(fsig.read_text()) if fsig.exists() else {}
     for s in ordre(titi.load()):
-        if a.only and not s["id"].startswith(a.only):
+        if a.only and not any(s["id"].startswith(x.strip()) for x in a.only.split(",") if x.strip()):
             continue
         for i, sc in enumerate(s["scenes"], 1):
             nom = f"{s['id']}_{i}"

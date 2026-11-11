@@ -52,6 +52,8 @@ jobs:
           if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ACCOUNT_ID" ]; then
             echo "::error::Secrets CF_ACCOUNT_ID + CF_API_TOKEN requis (Workers AI)"; exit 1
           fi
+          # lancement par push : le fichier .github/gen-images.run peut contenir une ligne « only=histoire1,histoire2 »
+          if [ -z "$ONLY" ] && [ -f .github/gen-images.run ]; then ONLY=$(sed -n 's/^only=//p' .github/gen-images.run | head -1); fi
           python3 tools/gen_images.py ${ONLY:+--only "$ONLY"} ${REFAIRE:+--refaire "$REFAIRE"}
 
       - name: Committer les images et republier le site

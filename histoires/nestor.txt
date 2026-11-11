@@ -10,7 +10,7 @@ famille: oser
 Sur La Coquille, il y a un pirate plus grand et plus fort que tous les autres. C'est Nestor l'ourson. Il a des pattes larges comme des rames, et un cœur mou comme de la brioche.
 > On a pirate ship deck in bright daylight, {nestor} kneels scrubbing the wooden planks with a brush and a soapy bucket, nodding kindly, while {sardine} lounges on a coiled rope watching him work
 Nestor a un mot préféré. Ce mot, c'est « oui ». « Nestor, tu portes mon tonneau ? » « Oui. » « Nestor, tu frottes le pont à ma place ? » « Oui, oui. »
-> On a pirate ship deck, {nestor} stands alone holding a mop, looking worried with his ears down, glancing sideways at a group of small animal sailors chatting together in the distance, soft afternoon light
+> On a pirate ship deck, {nestor} stands alone holding a mop, looking worried with his ears down, glancing sideways at a group of three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, chatting together in the distance, soft afternoon light
 Parce que Nestor a très peur d'une chose : qu'on ne l'aime plus s'il dit non.
 
 @ On a pirate ship deck, {nestor} is comically overloaded: a barrel on his back, a mop in one paw, a rope in the other, and {sardine} sitting on his head asking for something, he looks exhausted
@@ -24,7 +24,7 @@ Le soir, Nestor n'a pas eu le temps de manger sa tartine de miel. Ni de regarder
 Une nuit, la capitaine Mirabelle lui confie une grosse clé dorée. « Nestor, c'est toi qui gardes la cale au trésor. Tu n'ouvres à personne. Je compte sur toi. »
 > At night on a pirate ship, {nestor} salutes {mirabelle} with a big proud happy smile, chest puffed out, a golden key shining around his neck, in front of a heavy wooden door, warm lantern light
 « Oui, capitaine ! » Celui-là, c'est un oui qui lui fait plaisir. Un oui qu'il a choisi.
-> At night on a pirate ship deck, {nestor} sits alone with his back against a heavy wooden door, a golden key around his neck, wide awake under a big full moon, small animal sailors asleep in hammocks behind
+> At night on a pirate ship deck, {nestor} sits alone with his back against a heavy wooden door, a golden key around his neck, wide awake under a big full moon, three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, asleep in hammocks behind
 Nestor s'assoit devant la porte, la clé autour du cou. La lune se lève. Tout l'équipage ronfle.
 
 @ By moonlight on a pirate ship deck, {griffard} climbs over the ship's rail with a wide toothy smile, holding out a pot of honey to {nestor} who sits in front of a wooden door with a golden key around his neck
@@ -48,11 +48,11 @@ Mais dans son ventre, il y a autre chose. Une petite boule dure, qui dit que ce 
 > At night on a pirate ship deck, {nestor} firmly pushes a pot of honey back into the paws of {griffard} and points toward the sea with a serious face, guarding a wooden door, golden key around his neck
 « Non. Tu n'es pas mon ami. Un ami ne me demande pas de trahir ma capitaine. Et reprends ton miel ! »
 
-@ At night, {griffard} rows away fast in a tiny rowboat, leaving a boot behind, while on the pirate ship {mirabelle} in a nightgown puts a proud paw on the shoulder of {nestor}, sailors holding lanterns
+@ At night on a moonlit sea, {griffard} rowing away fast in a tiny rowboat, looking back scared, one boot left behind on the rail of a big pirate ship
 Griffard n'a jamais vu un ourson aussi grand. Il recule, il glisse, il saute dans sa barque et rame si vite qu'il oublie une de ses bottes.
-> At night on a pirate ship deck, small animal sailors in pyjamas and nightcaps gather with lanterns around {nestor}, who hangs his head and looks at his feet, worried, a golden key around his neck, wooden door behind
+> At night on a pirate ship deck, three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, in pyjamas and nightcaps gather with lanterns around {nestor}, who hangs his head and looks at his feet, worried, a golden key around his neck, wooden door behind
 Tout l'équipage accourt en pyjama. Nestor baisse la tête. « J'ai crié… J'ai dit non… Vous êtes fâchés ? »
-> At night on a pirate ship deck lit by lanterns, {mirabelle} in a nightgown smiles warmly up at {nestor}, who lifts his head with a relieved shy smile, small animal sailors in pyjamas cheering, golden coins glinting behind the wooden door
+> At night on a pirate ship deck lit by lanterns, {mirabelle} in a nightgown smiles warmly up at {nestor}, who lifts his head with a relieved shy smile, three animal sailors, a brown bear, a white goat and a spotted dog in striped shirts, in pyjamas cheering, golden coins glinting behind the wooden door
 La capitaine Mirabelle pose la patte sur son épaule. « Fâchés ? Moussaillon, ton non vaut de l'or. C'est grâce à lui qu'on en a encore, d'ailleurs. »
 
 @ Sunny morning on a pirate ship deck, {nestor} sits peacefully eating a slice of bread with honey and watching dolphins jump in the blue sea, {sardine} beside him scratching her own back with a fork
@@ -103,11 +103,11 @@ Nestor pourrait partir. Le chemin est juste là. Ses jambes lui disent : « Cour
 > In a jungle clearing, {nestor} takes one small brave step toward {grondar}, looking up at a huge tear on the tyrannosaurus's cheek, paws held together timidly, while the dinosaur looks down at him in surprise
 Mais ses yeux, eux, restent sur la grosse larme. « Hmm… dit Nestor d'une toute petite voix. Monsieur Grondar ? Je… je peux regarder ? »
 
-@ {nestor} pulls with both paws on a big black thorn stuck in the foot of {grondar}, bracing himself with all his strength, the tyrannosaurus squeezing his eyes shut
+@ In a jungle clearing, {grondar} lowers his enormous head very close to small {nestor}, big white teeth showing, the bear cub standing still with wobbly knees
 Grondar approche son énorme tête. Nestor voit son reflet dans chaque dent. Ses genoux tremblent si fort qu'on dirait qu'il danse.
 > In a jungle clearing, {nestor} grips a big black thorn in the foot of {grondar} with both paws, taking a deep breath with a serious face, while the tyrannosaurus bites his lip and looks away nervously
 Il prend l'épine à deux pattes. « Ça va piquer un peu. Je compte jusqu'à trois. Un… deux… »
-> In a jungle clearing, a big black thorn flies up into the air as {nestor} tumbles backwards onto his bottom with a surprised face, and {grondar} opens his eyes wide in relief, his foot free at last
+> In a jungle clearing, small {nestor} sitting on his bottom, surprised, a small black thorn in the air above his paws, and {grondar} towering beside him with wide relieved eyes
 « TROIS ! » Il tire de toutes ses forces. Ploc ! L'épine s'envole. Nestor tombe sur les fesses. Et Grondar…
 
 @ {grondar} smiles gratefully with his head lowered to the ground, while {nestor}, his fur all wet and ruffled, offers him half a biscuit
@@ -117,7 +117,7 @@ Il prend l'épine à deux pattes. « Ça va piquer un peu. Je compte jusqu'à tr
 > In a jungle clearing, {grondar} chews a tiny piece of biscuit very slowly with his eyes closed in delight, while {nestor}, fur still damp, leans against his big foot nibbling the other half, both content
 Nestor casse son dernier biscuit en deux. Une moitié pour lui. Une moitié pour Grondar. Pour un tyrannosaure, c'est une miette. Mais il la mâche très longtemps, pour faire durer.
 
-@ At sunset in the valley of ferns, {nestor} sits on top of the head of {grondar} waving hello, while {tric} and {dipla} look up amazed
+@ At sunset in a valley of ferns, {nestor} sitting on top of the head of {grondar}, waving hello, while {tric} looks up amazed from the ground
 Le soir, dans la vallée, on entend un pas lourd. Boum. Boum. Tout le monde va pour courir… et s'arrête. Sur la tête de Grondar, il y a un ourson qui fait coucou.
 > At sunset in the valley of ferns, {nestor} stands on the ground beside the big foot of {grondar} and shows his still trembling paws with a modest smile to {tric}, who stares at him with round eyes
 « Tu n'as pas eu peur ? » demande Tric, les yeux ronds. « Oh si, dit Nestor. J'ai eu peur tout le temps. J'ai tremblé du début à la fin. »
@@ -139,9 +139,9 @@ Mais dans la salle des armures, rien ne va. Le casque ? Il lui tient sur une seu
 
 @ In a castle hall, {gontran} struts and laughs while behind him {nestor} accidentally knocks over a rack of lances, shields and a bucket with his bottom, looking embarrassed
 Sire Gontran, le paon chevalier, fait la roue dans son armure étincelante. « Un chevalier, mon gros, c'est fin, c'est léger, c'est élégant. Comme moi. »
-> In a castle hall, {nestor} sits on the floor among fallen lances, shields and an overturned bucket, a shield lying on his head, while {gontran} and small animal knights laugh around him
+> In a castle hall, {nestor} sits on the floor among fallen lances, shields and an overturned bucket, a shield lying on his head, while {gontran} and small animal knights, a squirrel and a mouse in tin armour, laugh around him
 Nestor veut s'incliner poliment. Patatras ! Son derrière renverse douze lances, trois boucliers et un seau. Tout le monde rit.
-> In a corner of a castle hall, {nestor} blushes bright red, hunching his shoulders and hugging himself to look smaller, eyes down, with fallen lances behind him and small animal knights giggling far in the background
+> In a corner of a castle hall, {nestor} blushes bright red, hunching his shoulders and hugging himself to look smaller, eyes down, with fallen lances behind him and small animal knights, a squirrel and a mouse in tin armour, giggling far in the background
 Nestor devient rouge sous ses poils. « Si seulement j'étais plus petit, pense-t-il. Si seulement je prenais moins de place. »
 
 @ At the back of a castle hall, {nestor} tries to make himself small, squeezed on a tiny wooden stool, tummy pulled in, holding half a slice of bread, looking sad
@@ -155,33 +155,33 @@ Mais on a beau rentrer le ventre, un ourson reste un ourson. Et le petit taboure
 L'après-midi, le carrosse de la reine traverse le pont-levis pour le grand défilé. Les trompettes sonnent, les drapeaux claquent.
 > On a wooden castle drawbridge, a thick beam snaps under the wheels of a golden royal carriage, splinters flying, the carriage lurching sideways over the dark moat, {hermine} holding her crown at the window, startled animal trumpeters around
 Soudain… CRAAAC ! Une poutre du pont se casse. Le carrosse penche, penche, au-dessus de l'eau noire des douves. « Au secours ! » crie la reine.
-> On a broken castle drawbridge, {gontran} tugs at the back of a tilted golden royal carriage with the tips of his wings, puffing and red in the face, his shiny armour gleaming, the carriage not moving at all above the moat
+> On a wooden castle drawbridge above a moat, {gontran} pulling the back of a tilted golden royal carriage with both wings, straining, the carriage not moving
 Sire Gontran accourt. Il tire sur le carrosse du bout des ailes. « Han ! » Rien ne bouge. Son armure est très jolie, mais elle ne sert à rien du tout.
 
-@ {nestor} runs forward with determination across a castle courtyard toward a tilted golden carriage on a drawbridge, small animal knights stepping aside to let him pass
+@ {nestor} runs forward with determination across a castle courtyard toward a tilted golden carriage on a drawbridge, small animal knights, a squirrel and a mouse in tin armour, stepping aside to let him pass
 Les chevaliers poussent, les écuyers tirent. Le carrosse glisse encore. Il est trop lourd. Beaucoup trop lourd.
 > At the edge of a castle courtyard, {nestor} rises to his full height from the pieces of a broken little stool, tummy out and shoulders wide, looking toward a tilted golden carriage on the drawbridge in the distance
 Tout au fond, Nestor se lève de son tabouret cassé. Il oublie de rentrer le ventre. Il oublie de marcher sur la pointe des pattes.
-> On a castle drawbridge, {nestor} strides forward with heavy steps that make the planks shake, one arm stretched out to clear the way, as {gontran} and small animal knights jump aside, a tilted golden carriage just ahead
+> On a castle drawbridge, {nestor} strides forward with heavy steps that make the planks shake, one arm stretched out to clear the way, as {gontran} and small animal knights, a squirrel and a mouse in tin armour, jump aside, a tilted golden carriage just ahead
 Boum, boum, boum ! Le pont tremble sous ses pas. « Poussez-vous ! » Et cette fois, ce n'est pas lui qui dit pardon.
 
 @ {nestor} holds up a golden royal carriage on his broad back with both arms, strong like an oak tree, on a castle drawbridge, {hermine} watching from the carriage window with a teacup
 Nestor se glisse sous le carrosse. Il plante ses grosses pattes bien à plat. Il gonfle son dos large, son dos trop large pour toutes les armures.
-> On a castle drawbridge, {nestor} pushes a golden royal carriage upward with trembling arms, cheeks puffed and eyes squeezed shut, the carriage rising level little by little, small animal knights watching with open mouths
+> On a castle drawbridge, {nestor} pushes a golden royal carriage upward with trembling arms, cheeks puffed and eyes squeezed shut, the carriage rising level little by little, small animal knights, a squirrel and a mouse in tin armour, watching with open mouths
 « Hmmmmf ! » Il pousse. Le carrosse remonte d'un doigt. « HMMMMF ! » D'une patte. Ses bras tremblent, mais ils tiennent bon, comme deux troncs de chêne.
 > At a castle gate, {nestor} gently sets a golden royal carriage down on firm grassy ground, wiping his brow with a relieved smile, while {hermine} at the window calmly holds a full teacup without a drop spilled
 Et tout doucement, sans une secousse, Nestor repose le carrosse sur la terre ferme. La reine n'a même pas renversé son thé.
 
-@ In a castle courtyard, tiny {hermine} knights a kneeling {nestor} by touching his shoulder with a small sword, {gontran} looking astonished and {pepin} cheering
+@ In a castle courtyard, tiny {hermine} stands in front of {nestor}, the white ermine very small, the brown bear cub very big, both looking at each other in silence
 Un grand silence. Puis la reine Hermine descend du carrosse, toute petite devant le grand ourson.
-> In a castle courtyard, tiny {hermine} stands in front of big {nestor}, looking up at him and pointing to the ground with a kind commanding smile, the bear cub surprised, a golden carriage and small animal knights behind
+> In a castle courtyard, tiny {hermine} stands in front of big {nestor}, looking up at him and pointing to the ground with a kind commanding smile, the bear cub surprised, a golden carriage and small animal knights, a squirrel and a mouse in tin armour, behind
 « Il me fallait des chevaliers fins et légers, dit-elle. Je me trompais. Il me fallait quelqu'un sur qui on peut s'appuyer. À genoux, Nestor ! »
-> In a castle courtyard, {nestor} kneels on one knee with a calm proud smile, still taller than {hermine}, {gontran} and the small animal knights standing around him, colourful flags waving in the sunshine
+> In a sunny castle courtyard, {nestor} kneeling on one knee with a calm proud smile, still taller than tiny {hermine} standing in front of him, flags waving
 Nestor s'agenouille. Même à genoux, il dépasse tout le monde. Et pour une fois, ça lui est bien égal.
 
-@ {nestor} stands proud and happy wearing a funny homemade armour made of two cooking pots and a pot lid, with {pepin} sitting on his left shoulder, castle and flags behind
+@ In front of a castle, {nestor-} standing proud with a big cooking pot on his head as a helmet and a round pot lid on his tummy as a breastplate, {pepin} sitting on his shoulder
 On n'a jamais trouvé d'armure à sa taille. Alors le forgeron lui en a fabriqué une exprès, avec deux marmites et un couvercle. Elle ne brille pas beaucoup. Elle lui va très bien.
-> In a castle courtyard, {gontran} bows stiffly to {nestor} while looking away with an embarrassed face, the bear cub wearing a homemade armour made of two cooking pots and a pot lid, {pepin} snuggled happily on his left shoulder
+> In a castle courtyard, {gontran} bowing stiffly and looking away, facing {nestor-} who wears a cooking pot on his head and a pot lid on his tummy, {pepin} on the bear's shoulder
 Sire Gontran ne dit plus « mon gros ». Il dit « Sire Nestor », en regardant ailleurs. Et Pépin a une nouvelle cachette préférée : l'épaule gauche du chevalier.
 > In a castle hall, {nestor} in a homemade armour made of two cooking pots sits comfortably in a huge sturdy wooden armchair, tummy relaxed and round, smiling, {pepin} on the armrest, a wide open doorway behind, warm evening light
 Nestor ne rentre plus le ventre. Il passe les portes sans s'excuser. Et quand il s'assoit, on lui garde toujours le plus grand fauteuil. Celui qui ne fait pas crac.
@@ -208,9 +208,9 @@ Et dehors, par le hublot, c'est encore plus étrange. Là-bas, une étoile s'ét
 
 @ In a dark rocket cabin, {nestor-} hides under his blanket hugging one small moon-shaped night light, while in the shadows a small round shape with one big shining eye creeps closer
 Bientôt, il ne reste qu'une seule veilleuse : la petite lune. Nestor la serre contre lui, sous sa couverture. Il ne dort pas.
-> In a dark rocket cabin, a small round fluffy shadow with one big shining eye tiptoes across the floor past the bunk, mysterious but not scary, while only the ears of {nestor-} stick out from under his blanket with a faint moon glow
+> In a dark rocket cabin, the dark purple silhouette of {gloup} tiptoes past the bunk, only his one eye shining; under the blanket, only the ears of {nestor-} stick out
 Au milieu de la nuit… scritch, scritch. Quelque chose bouge dans la fusée. Quelque chose de rond. Avec un seul œil, qui brille.
-> In a dark rocket cabin, a small round fluffy shadow with one big shining eye opens a very wide mouth around a little moon-shaped night light, about to gulp it, while {nestor-} in pyjamas watches frozen, mouth open in silence
+> In a dark rocket cabin, {gloup}, seen as a dark purple shape, opens his wide mouth around a little moon-shaped night light, while {nestor-} in pyjamas watches frozen from his bunk
 Nestor voudrait crier, mais sa voix est partie se cacher. La chose s'approche de la veilleuse… ouvre une bouche immense… et… GLOUP !
 
 @ In a dark rocket cabin, {gloup} cries softly, his round belly glowing from inside like a lantern full of tiny lights, while {nestor-} peeks out from under his blanket, surprised
@@ -227,14 +227,14 @@ Nestor sort un biscuit de sa poche. Il le casse en deux. Ils mâchent en silence
 > In a dark rocket cabin, {nestor-} in pyjamas points gently toward a round porthole showing an almost empty dark sky, while {gloup} stops chewing, his big eye wide and thoughtful, his belly glowing softly
 « Mais dis donc, Gloup. Si tu manges toutes les étoiles… il fera encore plus noir. Pour tout le monde. Et pour toi aussi. » Gloup n'y avait jamais pensé.
 
-@ Seen from behind, {nestor-} in pyjamas and {gloup} hold hands in front of a big round rocket porthole, looking out at deep velvet blue space with a few soft stars
+@ In a rocket cabin, {nestor-} in pyjamas and {gloup} stand side by side holding hands in front of a big round porthole, both in profile, looking out at deep blue space with a few soft stars
 Ils regardent par le hublot. Dehors, le ciel est presque vide. « J'ai une idée, dit Nestor. Elle me fait un peu peur. On va regarder le noir. Ensemble. Juste un petit moment. »
 > In a dark rocket cabin, {nestor-} in pyjamas gently drapes a blanket over the glowing belly of {gloup}, dimming the light, while holding his trembling little paw, both a bit nervous in front of a big round porthole
 Il prend la patte de Gloup. Elle est douce et elle tremble. La sienne aussi. Ils éteignent le ventre de Gloup en mettant la couverture dessus.
 > In a rocket cabin in near darkness, {nestor-} in pyjamas and {gloup} sit close together with faces full of wonder, everything bathed in deep velvety dark blue, a blanket over the monster's belly, soft shapes of the cabin appearing around them
 D'abord, on ne voit rien. Puis les yeux s'habituent. Et là… le noir n'est pas vide. Il est bleu très foncé, et doux comme du velours.
 
-@ {gloup} blows a stream of hundreds of sparkling stars out of his wide mouth through an open rocket porthole, filling the dark sky with light, while {nestor-} in pyjamas watches amazed
+@ In a dark rocket cabin, {nestor-} in pyjamas whispers to {gloup}, pointing through a big round porthole at a few small stars shining in the deep blue night
 « Tu sais, chuchote Nestor, les étoiles, on ne les voit que quand il fait noir. Le jour, elles sont là aussi, mais personne ne les regarde. »
 > In a rocket cabin, {gloup} puffs up round like a balloon with bulging cheeks, and one single bright star pops out of his mouth through an open round porthole into the dark sky, {nestor-} in pyjamas clapping his paws
 Gloup réfléchit très fort. Puis il prend une grande inspiration, ouvre le hublot, et souffle. Pfffou ! Une étoile sort de sa bouche. Puis dix. Puis mille !
@@ -254,18 +254,18 @@ theme: ne pas juger sur ce qu'on raconte ; faire une place à celui qu'on tient 
 sujet: Ne pas juger trop vite
 famille: autres
 
-@ In a sunny forest clearing, {nestor} eats a snack while {noisette} and {margot} whisper and point with frightened faces toward a dark path between tall fir trees
+@ In a forest clearing, {nestor} eats bread while {noisette} and {margot} whisper
 Dans la forêt des Quatre-Chênes, on dit beaucoup de choses. On dit que la rivière chatouille. On dit que la lune est une noisette. Et on dit qu'au bout du chemin des sapins, il y a un loup.
 > In a sunny forest clearing, {noisette} bares her little teeth and spreads her arms wide to mime something huge, while {margot} makes big round eyes and flaps her wings, both acting out a spooky tale for {nestor}, who listens
 « Un loup avec des dents comme ça ! » dit Noisette l'écureuil. « Et des yeux jaunes ! » dit Margot la pie. Personne ne l'a jamais vu. Mais tout le monde le sait.
-> In a sunny forest clearing, {nestor} sits on the grass holding a half-eaten slice of bread, head tilted with a thoughtful questioning look, while {noisette} and {margot} nod very firmly at him, tall dark fir trees far behind
+> In a clearing, {nestor} sits holding bread, facing {noisette} and {margot}
 Nestor, lui, écoute en mangeant son goûter. « Hmm… Et il est méchant ? » « Évidemment ! C'est un loup ! »
 
 @ On a shadowy path between tall dark fir trees, {nestor} stops, holding a wicker basket of honey bread, as two grey ears and two yellow eyes peek out from behind a tree trunk
 Un jour, Nestor rentre de chez sa mamie, un panier de pain au miel sous le bras. Il fait un détour pour ramasser des mûres. Puis un autre. Et le voilà… sur le chemin des sapins.
-> On a shadowy path between tall dark fir trees, close view of a mossy trunk with two small grey pointed ears and two round yellow eyes peeking out, shy rather than fierce, blackberry bushes around, dim green light
+> On a shadowy path between tall dark fir trees, {loupiot} hides behind a mossy trunk, only his pointed grey ears and yellow eyes showing, shy, blackberry bushes around
 Les arbres sont serrés. Il fait sombre. Derrière un tronc, deux oreilles grises dépassent. Puis deux yeux. Jaunes.
-> On a shadowy path between tall dark fir trees, {nestor} stands still, his wicker basket of honey bread shaking in his paw, looking kindly puzzled at two grey ears trembling behind a tree trunk, even more frightened than he is
+> On a path between dark fir trees, {nestor} holds a wicker basket, looking kindly at {loupiot} half hidden behind a trunk
 Nestor s'arrête. Le panier tremble dans sa patte. Les oreilles grises tremblent aussi. On dirait qu'elles ont encore plus peur que lui.
 
 @ In a fir forest, {loupiot} steps shyly out from behind a tree, looking hungry and timid, sniffing toward the wicker basket held by a surprised {nestor}
@@ -293,21 +293,21 @@ Nestor sent quelque chose se serrer dans sa poitrine. « Demain, dit-il, tu vien
 Le lendemain, quand ils arrivent à la clairière, c'est la panique. « LE LOUP ! » Noisette grimpe à son arbre. Margot s'envole. Les lapins plongent dans leurs terriers.
 > In a forest clearing, {loupiot} turns back toward a dark fir path with ears flat and tail low, but the big paw of {nestor} gently holds his shoulder to keep him there, empty grass and rabbit burrows around them
 Loupiot baisse les oreilles. « Tu vois… » Il fait déjà demi-tour. Mais une grosse patte le retient.
-> In a forest clearing, {nestor} stands in the middle with one arm around {loupiot}, speaking up bravely with a slightly shy look, while {noisette} peers from her tree, {margot} from a high branch and little rabbit ears stick out of burrows
+> In a forest clearing, {nestor} hugs {loupiot}, while {noisette} peers from a tree
 Nestor n'aime pas parler devant tout le monde. Sa voix tremble un peu. « Vous l'avez déjà vu mordre ? Non. Vous lui avez déjà parlé ? Non plus. Moi, oui. Il s'appelle Loupiot. Et c'est mon ami. »
 
-@ In a forest clearing, {loupiot} lies flat in the grass to look small while {pompon} touches his nose and laughs, {nestor} smiling behind, {noisette} peeking from a branch
+@ In a forest clearing, {loupiot} lies flat in the grass while {pompon} touches his nose and laughs, tall trees behind
 Un long silence. Puis un museau sort d'un terrier. C'est Pompon, le plus petit des lapins, celui qui n'a pas encore appris à avoir peur.
 > In a forest clearing, {pompon} rolls on his back in the grass laughing with his paws in the air, while {loupiot}, lying flat with a wet shiny nose, breaks into a surprised smile and starts wagging his tail, {nestor} beaming behind
 Il s'approche. Loupiot se couche dans l'herbe pour être moins grand. Pompon lui touche le nez. « Il est mouillé ! » dit-il. Et il éclate de rire.
-> In a forest clearing, {noisette} climbs down her tree trunk and {margot} lands on the grass a careful distance away, both looking curiously at {loupiot}, who sits up with a playful grin beside {pompon} and {nestor}
+> In a clearing, {noisette} climbs down a tree toward {loupiot}, sitting beside {nestor}
 Alors Noisette redescend d'une branche. Puis de deux. Margot se pose, pas trop près quand même. « Hum. Il sait jouer à chat, ton loup ? » « Je sais jouer à LOUP », dit Loupiot.
 
-@ At golden evening in a forest clearing, {loupiot}, {noisette}, {pompon} and {margot} play tag joyfully, while {nestor} sits with two wicker baskets of honey bread, smiling
+@ At golden evening in a forest clearing, {loupiot} happily chases {noisette} and {pompon}
 On n'a jamais autant couru dans la clairière. Loupiot gagne à tous les coups, alors on décide qu'il comptera jusqu'à vingt au lieu de dix. Il trouve ça très juste.
-> At evening in a forest clearing, {nestor} hands out slices of honey bread from two wicker baskets to {loupiot}, {noisette}, {pompon} and {margot}, all sitting in a happy circle on the grass, warm golden light
+> In a forest clearing at evening, {nestor} gives a slice of honey bread from a wicker basket to {loupiot}, golden light
 Le soir, il y a du pain au miel pour tout le monde. Nestor en a apporté deux paniers. Il avait prévu.
-> At nightfall in a forest clearing, {noisette}, {pompon} and {margot} run happily toward a path between fir trees where {loupiot} howls cheerfully at the moon from a small rock, {nestor} following with a smile
+> At nightfall between fir trees, {loupiot} howls cheerfully at the moon from a small rock while {nestor} walks toward him
 Dans la forêt des Quatre-Chênes, on dit toujours beaucoup de choses. Mais maintenant, quand on entend « Aoooouh ! » au bout du chemin, on dit : « Tiens, c'est Loupiot qui nous appelle pour jouer. »
 
 === nestor_ocean
@@ -318,7 +318,7 @@ famille: coeur
 
 @ On a calm summer sea, {nestor-} in a small wooden rowing boat laughs as {ondine} surfaces beside him and sprays a fountain of water
 Tout l'été, Nestor a eu une amie pas comme les autres. Elle s'appelle Ondine. Elle est grande comme une île, bleue comme le soir, et quand elle rit, ça fait des vagues.
-> On a calm sea in early morning light, {nestor-} leans over the side of his small wooden rowing boat and pats the water with his paw, making little splashes, while the big blue shape of {ondine} rises from the deep below
+> On a calm sea in early morning light, {nestor-} leans from his small wooden rowing boat and pats the water, while {ondine} surfaces beside him
 Chaque matin, Nestor rame jusqu'au large dans sa petite barque. Il tape trois fois sur l'eau : plouf, plouf, plouf. Et Ondine monte des profondeurs.
 > At sunset on a calm sea, {nestor-} lies on the broad back of {ondine} with his eyes closed and a peaceful smile, as the whale sings with her mouth slightly open, gentle ripples spreading, first stars above
 Elle le porte sur son dos. Elle lui fait des fontaines. Et le soir, elle chante : une chanson très lente, très grave, qui berce toute la mer.
@@ -330,7 +330,7 @@ Ondine regarde l'horizon. « Petit ours, c'est bientôt l'heure. Quand l'eau ref
 > On a cool grey-blue sea, {nestor-} stands up in his small rowing boat with his paws spread and his mouth open in dismay, eyebrows raised, facing {ondine}, who lowers her eye tenderly, autumn clouds above
 « Partir ? dit Nestor. Mais… tu reviens ce soir ? » « Je reviens au printemps. »
 
-@ {nestor-} rows his small boat toward the beach with his back turned, sulking with a frown, while behind him the big sad eye of {ondine} watches him go
+@ {nestor-} rows his small boat toward the beach, frowning and sulking, while far behind him in the sea {ondine} watches him go sadly
 Le printemps ! C'est dans mille dodos. Nestor a une grosse boule qui lui monte dans la gorge. Et comme il ne sait pas quoi en faire, la boule devient une bouderie.
 > On a cool sea near a sandy beach, {nestor-} stands in his small rowing boat with arms crossed and cheeks puffed, turning his face away crossly from {ondine}, a tear hidden in the corner of his eye
 « Alors t'es pas ma vraie amie. Les vraies amies, ça reste ! » Il rame jusqu'à la plage sans se retourner.
