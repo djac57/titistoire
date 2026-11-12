@@ -289,7 +289,7 @@ def produire_histoire(s, voix, key, modele, decal=0):
         raise RuntimeError(f"enregistrement refusé (qualité {qual:.2f}, durée {duree:.0f}s pour {n_car} car., début {w[0][0] if w else '?'} s)")
     # Début de la piste : là où la voix commence VRAIMENT (énergie du signal), pas au premier mot reconnu —
     # la reconnaissance vocale rate parfois les premiers mots, et l'histoire commençait alors au milieu d'une phrase.
-    debut = max(0.0, min(w[0][0] - 0.3, attaque(pcm, rate) - 0.3))
+    debut = max(0.0, min(w[0][0] - 0.3, attaque(pcm, rate) - 0.5))
     if debut > 0.2:
         pcm = pcm[int(debut * rate) * 2:]; w = [[round(t - debut, 2) for t in pg] for pg in w]; duree -= debut
     fin = min(duree, w[-1][-1] + 2.5)
