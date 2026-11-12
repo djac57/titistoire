@@ -25,3 +25,7 @@ id = "169417cbb7364df68abfaf25617d22f0"      # « titistoire-comptes »
 [[r2_buckets]]
 binding = "MEDIAS"
 bucket_name = "titistoire-medias"
+
+# Envoi des codes de connexion (Cloudflare Email Service, domaine titistoire.fr activé).
+[[send_email]]
+name = "EMAIL"
