@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: "20 8 * * *"
     - cron: "20 13 * * *"
+  # Lancement à la main sans passer par le site de GitHub : modifier ce fichier-témoin et l'envoyer.
+  push:
+    paths:
+      - ".github/lance-voix.txt"
   workflow_dispatch:
     inputs:
       only:
