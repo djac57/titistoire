@@ -47,7 +47,7 @@ def page(chemin, titre, desc, corps, image="", ld=None):
 {'<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>' if ld else ''}
 </head><body><main>
 {corps}
-<footer><a href="../">Toutes les histoires de Titistoire</a> · <a href="../mentions-legales.html">Mentions légales</a> · <a href="../confidentialite.html">Confidentialité</a> · <a href="../cgu.html">Conditions d'utilisation</a></footer>
+<footer><a href="../">Toutes les histoires de Titistoire</a> · <a href="../a-propos.html">Qui sommes-nous ?</a> · <a href="../mentions-legales.html">Mentions légales</a> · <a href="../confidentialite.html">Confidentialité</a> · <a href="../cgu.html">Conditions d'utilisation</a></footer>
 </main></body></html>
 """
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     (H / "index.html").write_text(page("h/", "Toutes les histoires de Titistoire — à écouter de 1 à 10 ans", "La liste de toutes les histoires de Titistoire : les Étoiles (3-6 ans), les Comètes (6-8 ans), les Galaxies (8-10 ans) et les imagiers des Lucioles (1-3 ans).",
         f'<p class="fil"><a href="../">Titistoire</a></p><h1>Toutes les histoires</h1><p>Des histoires illustrées, lues à voix haute, gratuites et sans publicité.</p><ul class="texte">{liste}</ul>'), encoding="utf-8")
     urls.append(("h/", "0.6"))
-    for p in ("mentions-legales.html", "confidentialite.html", "cgu.html"):
+    for p in ("a-propos.html", "mentions-legales.html", "confidentialite.html", "cgu.html"):
         if (ROOT / p).exists(): urls.append((p, "0.2"))
     jour = datetime.date.today().isoformat()
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

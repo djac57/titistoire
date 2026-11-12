@@ -98,4 +98,15 @@ doc("cgu.html", "Conditions d'utilisation", "Conditions générales d'utilisatio
 <p>Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p>
 <h2>9. Droit applicable, litiges</h2>
 <p>Les présentes conditions sont soumises au droit français. Pour un achat, adressez-vous d'abord au prestataire de paiement qui vous a facturé. Vous pouvez recourir gratuitement à un médiateur de la consommation, dont les coordonnées seront indiquées ici à l'ouverture des achats.</p>""")
+# « Qui sommes-nous ? » : le mot du papa qui fabrique le site, avec l'invitation à le soutenir (pas de date de mise à jour ici).
+_h = pages.page("a-propos.html", "Qui sommes-nous ? | Titistoire", "Titistoire, c'est un papa qui voulait autre chose que la télé pour ses enfants : des histoires à écouter et à regarder, gratuites et sans publicité.",
+  """<p class="fil"><a href="./">Titistoire</a></p><h1>Qui sommes-nous ?</h1><div class="texte">
+<p>Titistoire, c'est un papa qui voulait autre chose que la télé pour ses enfants.</p>
+<p>J'ai fabriqué un site d'histoires à écouter et à regarder : la voix raconte, les images tournent comme dans un album, et le texte s'allume mot à mot pour que l'enfant suive et apprenne à lire sans s'en rendre compte. Il y en a pour tous les âges, de 1 à 10 ans : des imagiers pour les tout-petits, des histoires du soir, des aventures, un feuilleton à énigmes.</p>
+<p>Tout est gratuit, sans publicité, sans traceur. Je le fais seul, sur mon temps libre.</p>
+<p>Mais ça coûte de l'argent : chaque image, chaque voix, chaque histoire créée à la demande est facturée par les services qui les produisent, et l'hébergement aussi. Si Titistoire plaît à vos enfants et que vous le pouvez, un petit don m'aide à le garder gratuit pour tout le monde et à écrire la suite.</p>
+<p><a class="btn" href="https://ko-fi.com/titistoire" target="_blank" rel="noopener">Soutenir Titistoire</a></p>
+<p>Merci, et bonne histoire !</p>
+<p><a class="btn" href="./" style="background:#ffcb4d;color:#2d2570">▶ Écouter une histoire</a></p></div>""")
+(ROOT / "a-propos.html").write_text(_h.replace('href="../', 'href="./'), encoding="utf-8")
 print("✅ mentions-legales.html, confidentialite.html, cgu.html")
