@@ -4,6 +4,12 @@
 name = "titistoire"
 compatibility_date = "2025-04-01"
 main = "site/range.js"
+workers_dev = true
+# Le domaine est rattaché ici pour qu'il le reste à chaque déploiement.
+routes = [
+  { pattern = "titistoire.fr", custom_domain = true },
+  { pattern = "www.titistoire.fr", custom_domain = true }
+]
 
 [assets]
 directory = "."
