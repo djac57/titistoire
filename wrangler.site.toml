@@ -1,0 +1,8 @@
+# Le SITE (pages, images, voix) servi par Cloudflare sur titistoire.fr : fichiers statiques, sans code.
+# Déployé par le projet Cloudflare « titistoire » (Workers Builds) avec :  npx wrangler deploy -c wrangler.site.toml
+# Le worker d'IA (histoires à la demande) reste décrit par wrangler.toml et déployé par .github/workflows/deploy-worker.yml.
+name = "titistoire"
+compatibility_date = "2024-11-01"
+
+[assets]
+directory = "."

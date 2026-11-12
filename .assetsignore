@@ -1,0 +1,20 @@
+# Ce qui n'est PAS publié sur le site : sources, outils, code du worker, essais.
+.git
+.github
+.gitignore
+.assetsignore
+node_modules
+worker
+tools
+histoires
+brut
+essais-voix
+wrangler.toml
+wrangler.site.toml
+README.md
+BIBLE*.md
+personnages.json
+pilote.json
+style_*.json
+assets/essai-*
+*.py
