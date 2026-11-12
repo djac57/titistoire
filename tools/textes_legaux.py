@@ -31,8 +31,8 @@ doc("mentions-legales.html", "Mentions légales", "Mentions légales du site Tit
 <p>Les textes des histoires, les personnages, les illustrations, les enregistrements et le site lui-même sont mis à disposition pour une écoute et une lecture privées, en famille ou en classe. Toute reproduction ou rediffusion publique, totale ou partielle, demande une autorisation écrite.</p>
 <h2>Vos données</h2>
 <p>Tout ce qui concerne vos données se fait vous-même, tout de suite, depuis l'écran « Mon compte » : en obtenir une copie, ou tout supprimer. Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p>
-<h2>Signaler un contenu</h2>
-<p>Pour signaler un contenu inapproprié ou une atteinte à vos droits : {MEL}. Cette adresse n'est pas un service client : elle est relevée irrégulièrement, par une seule personne. Pour vos données personnelles, utilisez les boutons de votre compte : c'est immédiat.</p>""")
+<h2>Contact</h2>
+<p>Le site est gratuit et n'a pas de service client ni d'adresse de contact. Pour vos données personnelles, utilisez les boutons de votre compte : c'est immédiat. Un contenu illicite peut être signalé à l'hébergeur, Cloudflare, par son formulaire : <a href="https://abuse.cloudflare.com">abuse.cloudflare.com</a>.</p>""")
 
 doc("confidentialite.html", "Politique de confidentialité", "Quelles données Titistoire traite, pourquoi, et quels sont vos droits.", f"""
 <p>Titistoire est fait pour des enfants. Nous avons donc choisi de collecter le moins de données possible : <strong>aucune publicité, aucun traceur publicitaire, aucun outil tiers de mesure d'audience, aucune donnée sur l'enfant.</strong></p>
