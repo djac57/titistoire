@@ -9,6 +9,7 @@ De belles histoires à écouter et à regarder, dans le navigateur, pour les enf
 | Groupe | Âge | Ce que c'est | Source |
 |---|---|---|---|
 | **Les Lucioles** | 1-3 ans | Les 40 histoires des Étoiles en version courte : 8 pages d'une ou deux phrases, sur les mêmes images | `histoires/petits/` |
+| *Imagiers des Lucioles* | 1-3 ans | Couleurs, nombres, formes, alphabet : le générateur ne dessine que des objets seuls, `tools/imagiers.py` pose lettres, chiffres et formes et répète l'objet le bon nombre de fois | `imagiers/` |
 | **Les Étoiles** | 3-6 ans | 40 histoires : 4 héros (Filou, Nestor, Rosie, Plume) × 10 univers, 8 tableaux de 3 pages, une image par page | `histoires/` |
 | **Les Comètes** | 6-8 ans | *Une année à Virevent* : 12 histoires, une par mois, avec une bande de quatre enfants (Jeanne, Gaspard, Suzie, Marin). 12 tableaux, une image par tableau, récit au passé simple | `cometes/` |
 | **Les Galaxies** | 8-10 ans | *Le Trésor coupé en deux* : un feuilleton à énigmes en 8 épisodes sur l'île de Lodenn, deux bandes rivales, une carte de corsaire à consulter. Une image par épisode | `galaxies/` |

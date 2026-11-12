@@ -1,0 +1,36 @@
+=== nombres
+titre: Filou compte ses trésors
+sous: Les nombres
+
+@ {filou} kneeling on a sandy beach next to a small open wooden treasure chest, looking inside with sparkling eyes, the calm blue sea behind. Exactly one fox
+Filou ouvre son coffre à trésors. On compte avec lui ?
+
+@ One single small wooden sailing boat with a cream sail, very big, centred, alone on a plain flat white background, nothing else in the picture
+Un ! Un bateau. Il flotte sur l'eau.
+
+@ One single smiling orange fish, very big, centred, alone on a plain flat white background, nothing else in the picture
+Deux ! Un, deux. Deux poissons. Plouf, plouf !
+
+@ One single pink spiral seashell, very big, centred, alone on a plain flat white background, nothing else in the picture
+Trois ! Un, deux, trois. Trois coquillages.
+
+@ One single smiling red starfish, very big, centred, alone on a plain flat white background, nothing else in the picture
+Quatre ! Un, deux, trois, quatre. Quatre étoiles de mer.
+
+@ One single shiny red apple with one green leaf, very big, centred, alone on a plain flat white background, nothing else in the picture
+Cinq ! Cinq pommes. Croc ! Qui en veut une ?
+
+@ One single yellow flower with a green stem, very big, centred, alone on a plain flat white background, nothing else in the picture
+Six ! Six fleurs. Hmm, ça sent bon !
+
+@ One single blue butterfly with open wings, very big, centred, alone on a plain flat white background, nothing else in the picture
+Sept ! Sept papillons. Ils volent, ils volent…
+
+@ One single round red balloon on a string, very big, centred, alone on a plain flat white background, nothing else in the picture
+Huit ! Huit ballons. Tiens-les bien !
+
+@ One single smooth grey round pebble, very big, centred, alone on a plain flat white background, nothing else in the picture
+Neuf ! Neuf cailloux. Tic, tic, tic, dans la poche.
+
+@ One single golden yellow star, very big, centred, alone on a plain flat white background, nothing else in the picture
+Dix ! Dix étoiles. Bravo, tu sais compter !

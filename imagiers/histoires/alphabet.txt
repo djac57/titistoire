@@ -1,0 +1,87 @@
+=== alphabet
+titre: L'alphabet de Plume
+sous: L'alphabet
+
+@ {plume} perched on a branch of a big tree in a sunny forest, one wing raised like a teacher, smiling. Exactly one owl
+Plume connaît toutes les lettres. Tu viens ? On les dit ensemble !
+
+@ One single smiling striped yellow and black bee, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+A ! Comme une abeille. Bzzz, bzzz !
+
+@ One single round red balloon on a string, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+B ! Comme un ballon. Il monte, il monte !
+
+@ One single smiling orange cat, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+C ! Comme un chat. Miaou !
+
+@ One single smiling green baby dinosaur, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+D ! Comme un dinosaure. Boum, boum, il marche !
+
+@ One single smiling grey baby elephant, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+E ! Comme un éléphant. Pfouuu, fait sa trompe !
+
+@ One single pink flower with a green stem and two leaves, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+F ! Comme une fleur. Hmm, ça sent bon !
+
+@ One single round birthday cake with white icing and one lit candle, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+G ! Comme un gâteau. On souffle ? Pfff !
+
+@ {plume} perched on a branch in a sunny forest, pointing at itself with one wing, laughing. Exactly one owl
+H ! Comme un hibou. Hou, hou ! C'est moi, Plume !
+
+@ One single tiny round green island with one palm tree in a calm blue sea, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+I ! Comme une île. Toute petite sur la mer.
+
+@ One single plain green skirt, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+J ! Comme une jupe. Elle tourne, elle tourne !
+
+@ One single smiling grey koala, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+K ! Comme un koala. Il fait un gros câlin.
+
+@ One single smiling yellow crescent moon, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+L ! Comme une lune. Bonne nuit, la lune !
+
+@ One single little house with a red roof, a door and two windows, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+M ! Comme une maison. Toc, toc ! Qui est là ?
+
+@ One single fluffy white cloud, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+N ! Comme un nuage. Il flotte dans le ciel.
+
+@ One single smiling small blue bird, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+O ! Comme un oiseau. Cui, cui, cui !
+
+@ One single smiling orange fish with bubbles, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+P ! Comme un poisson. Glou, glou, glou !
+
+@ One single golden quiche tart in a round dish, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+Q ! Comme une quiche. Miam, c'est chaud !
+
+@ One single smiling red fox, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+R ! Comme un renard. Coucou, Filou !
+
+@ One single smiling bright yellow sun, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+S ! Comme un soleil. Il chauffe, il brille !
+
+@ One single smiling green turtle, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+T ! Comme une tortue. Tout… dou… ce… ment.
+
+@ One single small wooden ukulele, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+U ! Comme un ukulélé. Gling, gling, gling !
+
+@ One single small red bicycle, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+V ! Comme un vélo. Dring, dring !
+
+@ One single small blue train wagon on rails, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+W ! Comme un wagon. Tchou, tchou !
+
+@ One single colourful rainbow toy xylophone with two little mallets, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+X ! Comme un xylophone. Ding, ding, dong !
+
+@ One single pot of white yoghurt with a spoon, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+Y ! Comme un yaourt. Miam, une cuillère !
+
+@ One single smiling black and white striped zebra, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+Z ! Comme un zèbre. Il galope, tagada !
+
+@ {plume} flying happily above a sunny forest, wings wide open, a few coloured confetti in the air. Exactly one owl
+De A jusqu'à Z ! Bravo, tu connais l'alphabet !

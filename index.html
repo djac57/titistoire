@@ -242,7 +242,7 @@
   </section>
 
   <section class="screen" id="sRec"><button class="back" data-go="s0">← Retour</button><h2 class="q" id="recTitle"></h2><p id="recSub" style="text-align:center;color:var(--ink2);margin:-12px 0 18px"></p><div class="grid g4" id="recGrid"></div></section>
-  <section class="screen" id="s1"><button class="back" data-go="s0">← Retour</button><h2 class="q">Qui est le héros ?</h2><div class="grid g4" id="grid1"></div></section>
+  <section class="screen" id="s1"><button class="back" data-go="s0">← Retour</button><h2 class="q">Qui est le héros ?</h2><div class="grid g4" id="grid1"></div><h2 class="q" id="q1b" hidden style="margin-top:26px">J'apprends…</h2><div class="grid g4" id="grid1b"></div></section>
   <section class="screen" id="s2"><button class="back" data-go="s1">← Retour</button><h2 class="q" id="q2">Où part-on ?</h2><div class="grid g5" id="grid2"></div></section>
   <section class="screen" id="sSubj"><button class="back" data-go="s0">← Retour</button><h2 class="q">Une histoire pour parler de…</h2><div class="fams" id="fams"></div></section>
 
@@ -311,6 +311,7 @@
 <script src="stories.js?v=2"></script>
 <script src="cometes/recueil.js?v=1"></script>
 <script src="galaxies/recueil.js?v=1"></script>
+<script src="imagiers/recueil.js?v=1"></script>
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
 const AIW = "https://titistoire-ai.djac-gene.workers.dev";
@@ -450,7 +451,7 @@ function renderMain(){ const g=groupe(), rec=(g==='cometes'||g==='galaxies')?g:n
     $('mainSub').textContent=rec==='cometes'?'Douze histoires avec Jeanne, Gaspard, Suzie et Marin, une par mois':'Un feuilleton à énigmes en huit épisodes, sur l\'île de Lodenn';
     $('modeMain').onclick=()=>{ renderRecueil(rec); goto('sRec'); }; }
   else { im.className='vimg quatre'; im.innerHTML=PERSOS.slice(0,4).map(p=>`<img alt="" src="assets/${p.id}_foret.png" onerror="this.remove()">`).join('');
-    $('mainSur').textContent=g==='lucioles'?'Les toutes petites histoires':'Quarante histoires'; $('mainLab').textContent='Je choisis mon héros'; $('mainSub').textContent='Filou, Nestor, Rosie ou Plume… puis son aventure';
+    $('mainSur').textContent=g==='lucioles'?'Les toutes petites histoires':'Quarante histoires'; $('mainLab').textContent='Je choisis mon héros'; $('mainSub').textContent=g==='lucioles'&&aRecueil('imagiers')?'Une aventure avec Filou, Nestor, Rosie ou Plume… ou les couleurs, les nombres, les formes, l\'alphabet':'Filou, Nestor, Rosie ou Plume… puis son aventure';
     $('modeMain').onclick=()=>{ renderHeroes(); goto('s1'); }; } }
 function renderRecueil(rec){ const grid=$('recGrid'), heard=heardAll(), cours=enCours(rec); grid.innerHTML='';
   $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
@@ -463,7 +464,7 @@ function renderRecueil(rec){ const grid=$('recGrid'), heard=heardAll(), cours=en
   armThumbs(grid); }
 async function openRecueil(rec,id){ const st=RECUEILS[rec][id]; if(!st) return;
   const pages=[], sc=[], imgs=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); imgs.push(`${rec}/scenes/${id}_${st.im[k]}.jpg`); }));
-  book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':'🌌'},decor:null,voix:null,piste:null,libre:null};
+  book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':(rec==='imagiers'?'✨':'🌌')},decor:null,voix:null,piste:null,libre:null};
   showBook(); const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
 function renderHome(){ renderGroupes(); renderMain(); const estRec=['cometes','galaxies'].includes(groupe());
   const box=$('season');
@@ -477,7 +478,12 @@ function renderHeroes(){ const g=$('grid1'); g.innerHTML='';
   PERSOS.forEach(p=>{ const b=document.createElement('button'); b.className='card';
     b.innerHTML=thumbHTML([`assets/${p.id}_foret.png`],p.emoji,['#bfe9ff','#bfe8c6'])+`<span class="lab">${p.nom}</span><span class="sm">${p.trait}</span>`;
     b.addEventListener('click',()=>{ renderPlaces(p); goto('s2'); }); g.appendChild(b); });
-  armThumbs(g); }
+  armThumbs(g);
+  /* Lucioles : les imagiers (couleurs, nombres, formes, alphabet) */
+  const g2=$('grid1b'), im=groupe()==='lucioles'&&aRecueil('imagiers'), heard=heardAll(); g2.innerHTML=''; $('q1b').hidden=!im;
+  if(im){ const ordre=['couleurs','nombres','formes','alphabet']; Object.keys(RECUEILS.imagiers).sort((x,y)=>ordre.indexOf(x)-ordre.indexOf(y)).forEach(id=>{ const st=RECUEILS.imagiers[id], b=document.createElement('button'); b.className='card';
+      b.innerHTML=(heard.includes('imagiers/'+id)?'<span class="heard">✓</span>':'')+thumbHTML([`imagiers/scenes/${id}_1.jpg`],'✨',['#bfe9ff','#bfe8c6'])+`<span class="lab">${esc(st.u||st.t)}</span><span class="sm">${esc(st.t)}</span>`;
+      b.addEventListener('click',()=>openRecueil('imagiers',id)); g2.appendChild(b); }); armThumbs(g2); } }
 function renderPlaces(p){ const g=$('grid2'); g.innerHTML=''; $('q2').textContent=`Où part ${p.nom} ?`;
   const us=UNIVERS.slice().sort((a,b)=>((b.id===SAISON)-(a.id===SAISON)));     // la saison en cours passe en premier
   us.forEach(u=>{ const sid=p.id+'_'+u.id; if(!STORIES[sid]||!enSaison(sid)) return;

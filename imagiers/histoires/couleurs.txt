@@ -1,0 +1,36 @@
+=== couleurs
+titre: Rosie et les couleurs
+sous: Les couleurs
+
+@ {rosie} standing in a sunny green meadow, holding a paintbrush, next to a row of little open pots of paint of many bright colours, looking delighted. Exactly one rabbit
+Rosie a trouvé des pots de peinture. Oh ! Que de couleurs !
+
+@ One single big shiny bright red strawberry, very big, centred, alone on a plain flat cream background, nothing else in the picture
+Rouge ! Rouge comme la fraise. Miam, miam !
+
+@ One single round smiling bright blue whale, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+Bleu ! Bleu comme la baleine. Splash !
+
+@ One single fluffy bright yellow baby chick, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+Jaune ! Jaune comme le poussin. Piou, piou !
+
+@ One single smiling bright green frog, very big, centred, alone on a plain flat cream background, nothing else in the picture
+Vert ! Vert comme la grenouille. Hop, elle saute !
+
+@ One single big bright orange carrot with green leaves, very big, centred, alone on a plain flat pale blue background, nothing else in the picture
+Orange ! Orange comme la carotte. Croc, croc !
+
+@ One single round bright pink piglet, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+Rose ! Rose comme le petit cochon. Groin, groin !
+
+@ One single big bunch of deep purple grapes, very big, centred, alone on a plain flat cream background, nothing else in the picture
+Violet ! Violet comme le raisin. Un grain, deux grains…
+
+@ One single big shiny chocolate brown chestnut, very big, centred, alone on a plain flat pale cream background, nothing else in the picture
+Marron ! Marron comme la châtaigne. Toc, elle tombe !
+
+@ One single jet black kitten with yellow eyes, very big, centred, alone on a plain flat pale yellow background, nothing else in the picture
+Noir ! Noir comme le petit chat. Miaou !
+
+@ {rosie} sitting in the middle of a sunny green meadow with a few colourful flowers, smiling, arms open, with a small dab of colourful paint on the tip of the nose. Exactly one rabbit
+Et blanc ? Blanc comme… Rosie ! Au revoir, les couleurs !
