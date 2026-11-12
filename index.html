@@ -557,7 +557,7 @@ $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
 $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompte(); });
 
 /* ===== DON : lien de paiement (Stripe). Vide = rien n'est affiché. Proposé aux parents, juste avant de créer une histoire et en bas de l'accueil. ===== */
-const DON_URL='';
+const DON_URL='https://ko-fi.com/titistoire';
 if(DON_URL){ $('donLien').href=DON_URL; $('donPied').href=DON_URL; ['donBloc','donPied','donSep'].forEach(i=>{ $(i).hidden=false; }); }
 
 /* ===== COMPTE (parents) : connexion par code reçu par e-mail ; réglages, histoires gardées et crédits suivent le compte ===== */
