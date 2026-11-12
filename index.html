@@ -100,6 +100,17 @@
   .season h2{margin:0 0 4px;text-align:center;font-size:clamp(1.35rem,5.4vw,1.9rem);font-weight:700;color:var(--gold);}
   .season p{margin:0 0 14px;text-align:center;color:var(--ink2);font-size:.95rem;}
   .season .card .lab{font-size:clamp(.92rem,3.5vw,1.05rem);line-height:1.25;}
+  .vedette{flex-direction:row;align-items:stretch;width:100%;text-align:left;border-color:rgba(255,203,77,.55);}
+  .vedette .vimg{flex:0 0 42%;max-width:260px;aspect-ratio:4/3;position:relative;overflow:hidden;background:rgba(0,0,0,.18);display:grid;}
+  .vedette .vimg.quatre{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;}
+  .vedette .vimg img{width:100%;height:100%;object-fit:cover;display:block;min-height:0;}
+  .vedette .vtxt{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 14px;min-width:0;}
+  .vedette .sur{font-size:.78rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--gold);}
+  .vedette .lab{padding:3px 0 3px;font-size:clamp(1.15rem,4.6vw,1.5rem);line-height:1.2;}
+  .vedette .sm{padding:0;font-size:clamp(.82rem,3vw,.95rem);}
+  .minces{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:14px;}
+  .mince{flex-direction:row;align-items:center;justify-content:center;gap:10px;padding:12px 10px;font-family:var(--font-d);font-weight:600;font-size:clamp(.88rem,3.4vw,1rem);}
+  .mince svg{width:26px;height:26px;flex:0 0 26px;color:var(--gold);}
   .sep{text-align:center;color:var(--ink2);font-family:var(--font-d);font-weight:500;font-size:1rem;margin:0 0 12px;}
 
   /* choix par sujet */
@@ -210,19 +221,20 @@
       <p id="seasonSub"></p>
       <div class="grid g4" id="seasonGrid"></div>
     </div>
-    <div class="season" id="recueil" hidden>
+    <button class="card vedette" id="modeMain"><span class="vimg" id="mainImg"></span><span class="vtxt"><span class="sur" id="mainSur"></span><span class="lab" id="mainLab"></span><span class="sm" id="mainSub"></span></span></button>
+    <div class="grid" style="margin-top:14px">
+      <button class="card" id="modeRandom"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="30" height="30" rx="7"/><circle cx="17" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="31" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="24" cy="24" r="2" fill="currentColor" stroke="none"/><circle cx="17" cy="31" r="2" fill="currentColor" stroke="none"/><circle cx="31" cy="31" r="2" fill="currentColor" stroke="none"/></svg></div><span class="lab">Une histoire au hasard</span></button>
+      <button class="card" id="modeFree"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 33L33 15"/><path d="M31 11l1.6 3.4L36 16l-3.4 1.6L31 21l-1.6-3.4L26 16l3.4-1.6z" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.4" fill="currentColor" stroke="none"/><circle cx="36" cy="31" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="lab">Je crée mon histoire</span></button>
+    </div>
+    <div class="minces">
+      <button class="card mince" id="modeSubject"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40S8 30 8 19a8 8 0 0116-3 8 8 0 0116 3c0 11-16 21-16 21z"/></svg><span>Choisir un sujet</span></button>
+      <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
+    </div>
+    <div class="season" id="recueil" hidden style="margin-top:24px;margin-bottom:0">
       <h2 id="recTitle"></h2>
       <p id="recSub"></p>
       <div class="grid g4" id="recGrid"></div>
     </div>
-    <p class="sep" id="sepAll" hidden>Toutes les histoires</p>
-    <div class="grid g4">
-      <button class="card" id="modeHero"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5.5l5.4 11 12.1 1.8-8.8 8.5 2.1 12.1L24 33.2l-10.8 5.7 2.1-12.1-8.8-8.5 12.1-1.8z" fill="currentColor" fill-opacity=".18"/><circle cx="20" cy="22.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="28" cy="22.5" r="1.5" fill="currentColor" stroke="none"/><path d="M20.5 27.5c2 2 5 2 7 0"/></svg></div><span class="lab">Choisir un héros</span></button>
-      <button class="card" id="modeSubject"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40S8 30 8 19a8 8 0 0116-3 8 8 0 0116 3c0 11-16 21-16 21z"/></svg></div><span class="lab">Choisir un sujet</span></button>
-      <button class="card" id="modeRandom"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="30" height="30" rx="7"/><circle cx="17" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="31" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="24" cy="24" r="2" fill="currentColor" stroke="none"/><circle cx="17" cy="31" r="2" fill="currentColor" stroke="none"/><circle cx="31" cy="31" r="2" fill="currentColor" stroke="none"/></svg></div><span class="lab">Surprise !</span></button>
-      <button class="card" id="modeFree"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 33L33 15"/><path d="M31 11l1.6 3.4L36 16l-3.4 1.6L31 21l-1.6-3.4L26 16l3.4-1.6z" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.4" fill="currentColor" stroke="none"/><circle cx="36" cy="31" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="lab">J'invente la mienne</span></button>
-    </div>
-    <button class="card" id="modeSaved" style="width:100%;margin-top:14px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:12px;padding:14px"><span class="icon" style="padding:0"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg></span><span class="lab" style="padding:0">Mes histoires inventées</span></button>
   </section>
 
   <section class="screen" id="sSaved">
@@ -295,7 +307,7 @@
   <img id="carteImg" alt="La carte du capitaine" style="display:block;width:100%;max-width:1200px;margin:0 auto">
   <button id="carteFermer" class="btn sec" style="position:fixed;top:12px;right:12px">Fermer</button>
 </div>
-<script src="stories.js?v=1"></script>
+<script src="stories.js?v=2"></script>
 <script src="cometes/recueil.js?v=1"></script>
 <script src="galaxies/recueil.js?v=1"></script>
 <script>
@@ -406,14 +418,28 @@ function renderGroupes(){ const box=$('groupes'); if(!box) return; box.innerHTML
     b.innerHTML=ico+`<b>${nom}</b><small>${off?'bientôt':age}</small>`;
     b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderHome(); });
     box.appendChild(b); });
-  const fa=$('fAge'); if(fa&&!fa.dataset.choisi) fa.value=g0==='lucioles'?'petit':'moyen'; }
+  const fa=$('fAge'); if(fa&&!fa.dataset.choisi) fa.value=g0==='lucioles'?'petit':(g0==='etoiles'?'moyen':'grand'); }
 /* Recueils des grands (Comètes, Galaxies) : une liste d'histoires ou d'épisodes, dans l'ordre. */
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+/* L'histoire en cours d'un recueil : Comètes = celle du mois ; Galaxies = le premier épisode pas encore écouté. */
+function enCours(rec){ const ids=Object.keys(RECUEILS[rec]), heard=heardAll();
+  if(rec==='cometes'){ const m=MOIS[new Date().getMonth()], id=ids.find(i=>(RECUEILS[rec][i].u||'').toLowerCase()===m); if(id) return {id,sur:"L'histoire de "+m}; }
+  const k=ids.findIndex(i=>!heard.includes(rec+'/'+i));
+  return k<0?{id:ids[0],sur:'Tout est écouté : on recommence ?'}:{id:ids[k],sur:k?'La suite':'Pour commencer'}; }
+function renderMain(){ const g=groupe(), rec=(g==='cometes'||g==='galaxies')?g:null, im=$('mainImg');
+  if(rec){ const {id,sur}=enCours(rec), st=RECUEILS[rec][id], k=Object.keys(RECUEILS[rec]).indexOf(id);
+    im.className='vimg'; im.innerHTML=`<img alt="" src="${rec}/scenes/${id}_1.jpg" onerror="this.remove()">`;
+    $('mainSur').textContent=sur; $('mainLab').textContent=st.t; $('mainSub').textContent=rec==='galaxies'?'Épisode '+(k+1)+' · Le Trésor coupé en deux':'Une année à Virevent';
+    $('modeMain').onclick=()=>openRecueil(rec,id); }
+  else { im.className='vimg quatre'; im.innerHTML=PERSOS.slice(0,4).map(p=>`<img alt="" src="assets/${p.id}_foret.png" onerror="this.remove()">`).join('');
+    $('mainSur').textContent=g==='lucioles'?'Les toutes petites histoires':'Quarante histoires'; $('mainLab').textContent='Je choisis mon héros'; $('mainSub').textContent='Filou, Nestor, Rosie ou Plume… puis son aventure';
+    $('modeMain').onclick=()=>{ renderHeroes(); goto('s1'); }; } }
 function renderRecueil(){ const g=groupe(), box=$('recueil'), rec=(g==='cometes'||g==='galaxies')?g:null;
-  ['modeHero','modeSubject','modeRandom'].forEach(id=>{ $(id).style.display=rec?'none':''; });
+  $('modeSubject').style.display=rec?'none':''; renderMain();
   box.hidden=!rec; if(!rec) return;
   const grid=$('recGrid'), heard=heardAll(); grid.innerHTML='';
   $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
-  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Un feuilleton en huit épisodes, sur l\'île de Lodenn : commence par le premier.';
+  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Un feuilleton en huit épisodes, sur l\'île de Lodenn : à écouter dans l\'ordre.';
   Object.keys(RECUEILS[rec]).forEach((id,k)=>{ const st=RECUEILS[rec][id], b=document.createElement('button'); b.className='card';
     b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
       +`<span class="lab">${esc(st.t)}</span><span class="sm">${esc(st.u||('Épisode '+(k+1)))}</span>`;
@@ -428,8 +454,8 @@ function renderHome(){ renderGroupes(); renderRecueil();
   if(SAISON&&$('recueil').hidden){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
     $('seasonTitle').textContent=S.titre; $('seasonSub').textContent=S.sub;
     PERSOS.forEach(p=>{ const sid=p.id+'_'+SAISON; if(STORIES[sid]) g.appendChild(storyCard(sid)); });
-    armThumbs(g); box.hidden=false; $('sepAll').hidden=false; }
-  else { box.hidden=true; $('sepAll').hidden=true; }
+    armThumbs(g); box.hidden=false; }
+  else box.hidden=true;
 }
 function renderHeroes(){ const g=$('grid1'); g.innerHTML='';
   PERSOS.forEach(p=>{ const b=document.createElement('button'); b.className='card';
@@ -448,9 +474,13 @@ function renderSubjects(){ const root=$('fams'); root.innerHTML=''; const heard=
       b.innerHTML=`<span class="av"><img alt="" src="assets/${h}_foret.png" onerror="this.remove()"></span><span><b>${esc(st.s)}</b><small>${esc(st.t)}</small></span>`+(heard.includes(sid)?'<span class="ok">✓</span>':'');
       b.addEventListener('click',()=>openStory(sid)); box.appendChild(b); });
     root.appendChild(box); }); }
-$('modeHero').addEventListener('click',()=>{ renderHeroes(); goto('s1'); });
 $('modeSubject').addEventListener('click',()=>{ renderSubjects(); goto('sSubj'); });
-$('modeRandom').addEventListener('click',()=>{ const all=Object.keys(STORIES), heard=heardAll(); let pool=all.filter(s=>!heard.includes(s)); if(!pool.length) pool=all;
+$('modeRandom').addEventListener('click',()=>{ const g=groupe(), heard0=heardAll();
+  if(g==='cometes'||g==='galaxies'){ let ids=Object.keys(RECUEILS[g]);
+    if(g==='galaxies'){ const k=ids.findIndex(i=>!heard0.includes(g+'/'+i)); if(k>=0) ids=ids.slice(0,k+1); }      /* feuilleton : jamais un épisode en avance */
+    else { const pas=ids.filter(i=>!heard0.includes(g+'/'+i)); if(pas.length) ids=pas; }
+    return openRecueil(g,ids[Math.floor(Math.random()*ids.length)]); }
+  const all=Object.keys(STORIES), heard=heardAll(); let pool=all.filter(s=>!heard.includes(s)); if(!pool.length) pool=all;
   pool=pool.filter(enSaison); if(!pool.length) pool=all.filter(enSaison);
   openStory(pool[Math.floor(Math.random()*pool.length)]); });
 $('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
