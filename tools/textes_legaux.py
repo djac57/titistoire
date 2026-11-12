@@ -105,8 +105,17 @@ _h = pages.page("a-propos.html", "Qui sommes-nous ? | Titistoire", "Titistoire, 
 <p>J'ai fabriqué un site d'histoires à écouter et à regarder : la voix raconte, les images tournent comme dans un album, et le texte s'allume mot à mot pour que l'enfant suive et apprenne à lire sans s'en rendre compte. Il y en a pour tous les âges, de 1 à 10 ans : des imagiers pour les tout-petits, des histoires du soir, des aventures, un feuilleton à énigmes.</p>
 <p>Tout est gratuit, sans publicité, sans traceur. Je le fais seul, sur mon temps libre.</p>
 <p>Mais ça coûte de l'argent : chaque image, chaque voix, chaque histoire créée à la demande est facturée par les services qui les produisent, et l'hébergement aussi. Si Titistoire plaît à vos enfants et que vous le pouvez, un petit don m'aide à le garder gratuit pour tout le monde et à écrire la suite.</p>
-<p><a class="btn" href="https://ko-fi.com/titistoire" target="_blank" rel="noopener">Soutenir Titistoire</a></p>
+<p><a class="btn" id="don" href="https://ko-fi.com/titistoire" target="_blank" rel="noopener">Soutenir Titistoire</a></p>
 <p>Merci, et bonne histoire !</p>
-<p><a class="btn" href="./" style="background:#ffcb4d;color:#2d2570">▶ Écouter une histoire</a></p></div>""")
+<p><a class="btn" href="./" style="background:#ffcb4d;color:#2d2570">▶ Écouter une histoire</a></p></div>
+<div id="donVue" hidden style="position:fixed;inset:0;z-index:60;background:rgba(10,8,30,.82);overflow:auto;padding:14px">
+<div style="max-width:440px;margin:0 auto;background:#f9f9f9;border-radius:18px;overflow:hidden">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0 16px;color:#2d2570;font-family:Fredoka,system-ui,sans-serif;font-weight:600"><span>Soutenir Titistoire</span><button id="donFermer" aria-label="Fermer" style="border:none;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:#2d2570;padding:6px 10px">×</button></div>
+<iframe id="donCadre" title="Faire un don à Titistoire" style="border:none;width:100%;height:570px;display:block;background:#f9f9f9"></iframe>
+<p style="margin:0;padding:6px 12px 12px;text-align:center;font-size:.8rem"><a href="https://ko-fi.com/titistoire" target="_blank" rel="noopener" style="color:#2d2570">Si rien ne s'affiche, ouvrir la page de don</a></p></div></div>
+<script>(function(){var v=document.getElementById('donVue'),c=document.getElementById('donCadre');
+document.getElementById('don').addEventListener('click',function(e){e.preventDefault();if(!c.src)c.src='https://ko-fi.com/titistoire/?hidefeed=true&widget=true&embed=true';v.hidden=false;});
+document.getElementById('donFermer').addEventListener('click',function(){v.hidden=true;});
+v.addEventListener('click',function(e){if(e.target===v)v.hidden=true;});})();</script>""")
 (ROOT / "a-propos.html").write_text(_h.replace('href="../', 'href="./'), encoding="utf-8")
 print("✅ mentions-legales.html, confidentialite.html, cgu.html")
