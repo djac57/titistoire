@@ -2,7 +2,10 @@
 # Déployé par le projet Cloudflare « titistoire » (Workers Builds) avec :  npx wrangler deploy -c wrangler.site.toml
 # Le worker d'IA (histoires à la demande) reste décrit par wrangler.toml et déployé par .github/workflows/deploy-worker.yml.
 name = "titistoire"
-compatibility_date = "2024-11-01"
+compatibility_date = "2025-04-01"
+main = "site/range.js"
 
 [assets]
 directory = "."
+binding = "ASSETS"
+run_worker_first = ["/assets/voix/*"]      # le reste est servi directement, sans exécuter de code

@@ -32,7 +32,7 @@ footer{margin-top:40px;font-size:.9rem;opacity:.85}"""
 
 
 def page(chemin, titre, desc, corps, image="", ld=None):
-    url = f"{SITE}/{chemin}"
+    url = f"{SITE}/{chemin}".removesuffix(".html")          # l'hébergeur sert les pages sans « .html » (et y redirige)
     return f"""<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(titre)}</title>
@@ -70,7 +70,7 @@ def histoire(chemin, lien, titre, groupe, age, tranche, intro, image, tableaux, 
 <h2>Le texte de l'histoire</h2>
 <div class="texte">{texte}</div>
 <p><a class="btn" href="../?h={lien}">▶ L'écouter dans Titistoire</a></p>{suite}"""
-    ld = {"@context": "https://schema.org", "@type": "ShortStory", "name": titre, "inLanguage": "fr", "isAccessibleForFree": True, "url": f"{SITE}/{chemin}",
+    ld = {"@context": "https://schema.org", "@type": "ShortStory", "name": titre, "inLanguage": "fr", "isAccessibleForFree": True, "url": f"{SITE}/{chemin}".removesuffix(".html"),
           "image": f"{SITE}/{image}", "description": desc, "typicalAgeRange": tranche, "audience": {"@type": "PeopleAudience", "suggestedMinAge": int(tranche.split("-")[0]), "suggestedMaxAge": int(tranche.split("-")[1])},
           "publisher": {"@type": "Organization", "name": "Titistoire", "url": SITE}}
     return page(chemin, f"{titre} — histoire à écouter pour les {age} | Titistoire", desc, corps, image, ld)
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         if (ROOT / p).exists(): urls.append((p, "0.2"))
     jour = datetime.date.today().isoformat()
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + "".join(f"<url><loc>{SITE}/{u}</loc><lastmod>{jour}</lastmod><priority>{p}</priority></url>\n" for u, p in urls) + "</urlset>\n", encoding="utf-8")
+                                      + "".join(f"<url><loc>{SITE}/{u.removesuffix('.html')}</loc><lastmod>{jour}</lastmod><priority>{p}</priority></url>\n" for u, p in urls) + "</urlset>\n", encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /histoires/\nDisallow: /tools/\nDisallow: /worker/\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     for c in (192, 512): icone(c).save(ROOT / f"icone-{c}.png")
     partage().save(ROOT / "partage.jpg", quality=88)
