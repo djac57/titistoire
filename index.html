@@ -609,7 +609,8 @@ if(DON_URL){ ['donLien','donPied','donDehors'].forEach(i=>{ $(i).href=DON_URL; }
   $('donVue').addEventListener('click',e=>{ if(e.target===$('donVue')) $('donVue').hidden=true; }); }
 
 /* ===== COMPTE (parents) : connexion par code reçu par e-mail ; réglages, histoires gardées et crédits suivent le compte ===== */
-const API=new URLSearchParams(location.search).get('api')||(/(^|\.)titistoire\.fr$/.test(location.hostname)?'':'https://titistoire.fr');
+/* l'adresse de l'API ne se choisit JAMAIS par un paramètre de la page (un lien piégé ferait fuir la session) ; seul un essai sur localhost peut en désigner une autre */
+const API=/(^|\.)titistoire\.fr$/.test(location.hostname)?'':((location.hostname==='localhost'&&new URLSearchParams(location.search).get('api'))||'https://titistoire.fr');
 let compte=null, apresCompte='';
 function jeton(){ try{return localStorage.getItem('titi_jeton')||'';}catch(e){return '';} }
 async function api(m,p,corps){ const h={}; if(jeton()) h.authorization='Bearer '+jeton(); if(corps!==undefined) h['content-type']='application/json';
@@ -981,7 +982,7 @@ function renderSaved(){ const dist=(compte&&compte.histoires||[]).map(h=>Object.
   el.innerHTML='';
   a.forEach(it=>{ const row=document.createElement('div'); row.className='saved-row';
     const open=document.createElement('button'); open.className='card saved-open'; open.style.cssText='display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:12px 14px;text-align:left';
-    open.innerHTML=`<span style="font-size:1.8rem">${it.emoji||'📖'}</span><span class="lab" style="padding:0">${esc(it.titre||'Mon histoire')}</span>`;
+    open.innerHTML=`<span style="font-size:1.8rem">${esc(it.emoji||'📖')}</span><span class="lab" style="padding:0">${esc(it.titre||'Mon histoire')}</span>`;
     open.addEventListener('click',async()=>{ if(!it.distant) return openFree(it,false);
       try{ const r=await api('GET','/api/compte/histoires/'+it.id); if(r.ok) openFree(r.j,false); }catch(e){} });
     const del=document.createElement('button'); del.className='arrow saved-del'; del.title='Supprimer'; del.textContent='✕';
