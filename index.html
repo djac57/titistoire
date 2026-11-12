@@ -863,8 +863,8 @@ function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v
 
 renderHome();
 /* lien direct vers une histoire (pages h/…, partage) : ?h=filou_pirates ou ?h=cometes/c01 */
-(function(){ const h=new URLSearchParams(location.search).get('h'); if(!h) return; const [a,b]=h.split('/');
-  if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h); })();
+window.addEventListener('load',()=>{ const h=new URLSearchParams(location.search).get('h'); if(!h) return; const [a,b]=h.split('/');      // après tout le script : le lecteur doit être prêt
+  if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h); });
 goto('s0');
 </script>
 </body>
