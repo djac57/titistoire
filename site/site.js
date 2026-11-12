@@ -125,7 +125,7 @@ async function api(req, env, ctx, u) {
   }
   if (p === "/api/compte/prefs" && M === "PUT") {
     const b = await req.json().catch(() => null); if (!b || typeof b !== "object") return J({ erreur: "forme" }, 400);
-    const q = {}; for (const k of ["groupe", "conteur", "mode"]) if (typeof b[k] === "string") q[k] = b[k].slice(0, 30);
+    const q = {}; for (const k of ["groupe", "conteur", "mode", "vitesse"]) if (typeof b[k] === "string") q[k] = b[k].slice(0, 30);
     if (Array.isArray(b.heard)) q.heard = [...new Set(b.heard.map(x => String(x).slice(0, 60)))].slice(0, 400);
     c.prefs = q; await garder(); return J({ ok: true });
   }

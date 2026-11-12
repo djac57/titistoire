@@ -118,7 +118,7 @@
   .minces{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:14px;}
   .mince{flex-direction:row;align-items:center;justify-content:center;gap:10px;padding:12px 10px;font-family:var(--font-d);font-weight:600;font-size:clamp(.88rem,3.4vw,1rem);}
   .mince svg{width:26px;height:26px;flex:0 0 26px;color:var(--gold);}
-  .pied{text-align:center;margin:26px 0 0;font-size:.82rem;color:var(--ink2);} .pied a{color:inherit;}
+  .pied{text-align:center;margin:34px 0 0;font-size:.72rem;color:var(--ink2);opacity:.6;} .pied a{color:inherit;text-decoration:none;}
   .sep{text-align:center;color:var(--ink2);font-family:var(--font-d);font-weight:500;font-size:1rem;margin:0 0 12px;}
 
   /* choix par sujet */
@@ -152,7 +152,7 @@
   #libreLock{display:flex;flex-direction:column;}
   #libreForm[hidden],#libreLock[hidden]{display:none;}
   #cDehors,#cDedans{display:flex;flex-direction:column;} #cDehors[hidden],#cDedans[hidden]{display:none;}
-  .freeform .btn:not(.play){background:rgba(255,255,255,.16);}
+  .freeform .btn:not(.play){background:transparent;color:var(--ink);border:1.5px solid var(--ink2);box-shadow:none;}
   .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
   .genbar[hidden]{display:none;}
   .genbar span{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));transition:width .25s ease;}
@@ -244,7 +244,7 @@
       <button class="card mince" id="modeCompte"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M8 41c2-9 9-13 16-13s14 4 16 13"/></svg><span id="compteLab">Mon compte</span></button>
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
     </div>
-    <p class="pied"><a href="h/">Toutes les histoires</a> · <a id="donPied" hidden target="_blank" rel="noopener">Soutenir Titistoire</a><span id="donSep" hidden> · </span><a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="cgu.html">Conditions</a></p>
+    <p class="pied"><a href="h/">Toutes les histoires</a> · <a id="donPied" hidden target="_blank" rel="noopener">Soutenir Titistoire</a><span id="donSep" hidden> · </span><a href="mentions-legales.html">Mentions légales</a></p>
   </section>
 
   <section class="screen" id="sCompte">
@@ -267,7 +267,7 @@
         <button class="btn" id="cSupprimer" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Supprimer mon compte et mes histoires</button>
       </div>
       <div id="cMsg" class="genstatus"></div>
-      <p style="margin:6px 0 0;font-size:.8rem;color:var(--ink2);text-align:center"><a href="confidentialite.html" style="color:inherit">Confidentialité</a> · <a href="cgu.html" style="color:inherit">Conditions</a></p>
+      <p style="margin:10px 0 0;font-size:.72rem;color:var(--ink2);text-align:center;opacity:.65"><a href="confidentialite.html" style="color:inherit;text-decoration:none">Confidentialité</a> · <a href="cgu.html" style="color:inherit;text-decoration:none">Conditions</a></p>
     </div>
   </section>
 
@@ -420,7 +420,7 @@ function decor(){
   document.querySelector('meta[name=theme-color]').content=mode==='nuit'?'#2d2570':'#9fd4fa';
   const b=$('modeBtn'); b.innerHTML=mode==='nuit'?ICON_SUN:ICON_MOON; b.title=mode==='nuit'?'Passer en mode jour':'Passer en mode nuit';
 }
-$('modeBtn').addEventListener('click',()=>{ try{localStorage.setItem('titi_mode',modeChoisi()==='nuit'?'jour':'nuit');}catch(e){} decor(); });
+$('modeBtn').addEventListener('click',()=>{ try{localStorage.setItem('titi_mode',modeChoisi()==='nuit'?'jour':'nuit');}catch(e){} decor();  if(typeof pousserPrefs==='function') pousserPrefs(); });
 decor();
 
 /* ===== histoires écoutées (petite coche sur les vignettes) ===== */
@@ -568,7 +568,7 @@ async function api(m,p,corps){ const h={}; if(jeton()) h.authorization='Bearer '
   const r=await fetch(API+p,{method:m,headers:h,body:corps===undefined?undefined:JSON.stringify(corps)}); let j=null; try{ j=await r.json(); }catch(e){}
   if(r.status===401&&jeton()){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); }
   return {ok:r.ok,status:r.status,j:j||{}}; }
-const CLES_PREFS=[['groupe','titi_groupe'],['conteur','titi_conteur'],['mode','titi_mode']];
+const CLES_PREFS=[['groupe','titi_groupe'],['conteur','titi_conteur'],['mode','titi_mode'],['vitesse','titi_vitesse']];
 function prefsLocales(){ const q={heard:heardAll()}; CLES_PREFS.forEach(([k,c])=>{ try{ const v=localStorage.getItem(c); if(v) q[k]=v; }catch(e){} }); return q; }
 let envoiPrefs=0; function pousserPrefs(){ if(!jeton()) return; clearTimeout(envoiPrefs); envoiPrefs=setTimeout(()=>{ api('PUT','/api/compte/prefs',prefsLocales()).catch(()=>{}); },2500); }
 /* à la connexion : ce qui a été écouté ici et ailleurs s'ajoute ; les réglages du compte s'appliquent s'il en a */
@@ -707,6 +707,8 @@ function showEnd(){ ended=true; markHeard(book.id); clearHi();
 let auto=false, rafId=0, usingFallback=false, playToken=0, exactStarts=null, trackSc=0;
 const player=new Audio(); player.preload="auto";   // UN SEUL élément audio réutilisé (indispensable iOS/Safari)
 function rate(){ return parseFloat($('rate').value)||1; }
+try{ const v=parseFloat(localStorage.getItem('titi_vitesse')); if(v>=0.8&&v<=1.15) $('rate').value=v; }catch(e){}
+$('rate').addEventListener('change',()=>{ try{localStorage.setItem('titi_vitesse',$('rate').value);}catch(e){} if(typeof pousserPrefs==='function') pousserPrefs(); });
 function setPlay(on){ const b=$('playBtn'); b.textContent=on?'❚❚ Pause':'▶ Écouter'; b.classList.toggle('pause',on); }
 function resetPlay(){ auto=false; setPlay(false); }
 function stopAudio(){
@@ -953,7 +955,7 @@ function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v
 (function initVoice(){ const sel=$('voiceSel');
   CONTEURS.forEach(([id,n])=>{ const o=document.createElement('option'); o.value=id; o.textContent=n; sel.appendChild(o); });
   sel.value=conteur();
-  sel.addEventListener('change',async()=>{ try{localStorage.setItem('titi_conteur',sel.value);}catch(e){}
+  sel.addEventListener('change',async()=>{ try{localStorage.setItem('titi_conteur',sel.value);}catch(e){} pousserPrefs();
     stopAudio(); resetPlay(); if(!book) return;
     if(book.id){ book.voix=null; const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
     else { book.piste=null; book.voix=null; preparerVoix(); } });
