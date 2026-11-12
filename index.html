@@ -244,6 +244,11 @@
       <button class="card mince" id="modeCompte"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M8 41c2-9 9-13 16-13s14 4 16 13"/></svg><span id="compteLab">Mon compte</span></button>
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
     </div>
+    <div id="appli" hidden style="margin-top:14px">
+      <button class="card mince" id="appliBtn" style="width:100%"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="5" width="22" height="38" rx="5"/><path d="M24 14v13M18.500 22l5.500 5.500 5.500-5.500M21 36h6"/></svg><span>Installer l'appli Titistoire</span></button>
+      <p id="appliAide" hidden style="margin:10px 4px 0;font-size:.92rem;line-height:1.5;color:var(--ink);text-align:center"></p>
+      <p style="margin:6px 0 0;text-align:center"><button id="appliNon" style="border:none;background:none;color:var(--ink2);font-family:inherit;font-size:.78rem;cursor:pointer;opacity:.8">Plus tard</button></p>
+    </div>
     <p class="pied"><a href="h/">Toutes les histoires</a> · <a id="donPied" hidden target="_blank" rel="noopener">Soutenir Titistoire</a><span id="donSep" hidden> · </span><a href="mentions-legales.html">Mentions légales</a></p>
   </section>
 
@@ -563,6 +568,22 @@ function showLibreGate(){ const unl=!!librePass()||!!jeton(); const lk=$('libreL
   if(!unl) $('lockMsg').textContent=''; }
 $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
 $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompte(); });
+
+/* ===== APPLI : sur téléphone ou tablette, si elle n'est pas déjà installée, on propose de la mettre sur l'écran d'accueil.
+   Android (Chrome) : le navigateur fournit une invite ; iPhone/iPad (Safari) : pas d'invite, on explique le geste. ===== */
+(function(){ const ua=navigator.userAgent, ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1), mobile=ios||/Android/i.test(ua);
+  const installee=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+  if('serviceWorker' in navigator&&location.protocol==='https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+  let invite=null, remis=0; try{ remis=parseInt(localStorage.getItem('titi_appli_plus_tard'),10)||0; }catch(e){}
+  window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); invite=e; });
+  window.addEventListener('appinstalled',()=>{ $('appli').hidden=true; });
+  if(!mobile||installee||Date.now()-remis<14*86400000) return;
+  $('appli').hidden=false;
+  $('appliBtn').addEventListener('click',async()=>{ const a=$('appliAide');
+    if(invite){ invite.prompt(); try{ await invite.userChoice; }catch(e){} invite=null; return; }
+    a.hidden=false; a.innerHTML=ios?'Dans Safari, touchez le bouton <b>Partager</b> (le carré avec une flèche vers le haut), puis <b>« Sur l\'écran d\'accueil »</b>.':'Ouvrez le menu du navigateur (<b>⋮</b> en haut à droite), puis <b>« Ajouter à l\'écran d\'accueil »</b> ou <b>« Installer l\'application »</b>.'; });
+  $('appliNon').addEventListener('click',()=>{ try{localStorage.setItem('titi_appli_plus_tard',String(Date.now()));}catch(e){} $('appli').hidden=true; });
+})();
 
 /* ===== DON : lien de paiement (Stripe). Vide = rien n'est affiché. Proposé aux parents, juste avant de créer une histoire et en bas de l'accueil. ===== */
 const DON_URL='https://ko-fi.com/titistoire';
