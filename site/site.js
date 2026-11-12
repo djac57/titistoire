@@ -139,7 +139,7 @@ async function api(req, env, ctx, u) {
       t.imgs = await Promise.all((Array.isArray(t.imgs) ? t.imgs : [t.img]).slice(0, 6).map(async a => {
         if (typeof a !== "string" || !a) return null;
         if (vues.has(a)) return vues.get(a);
-        const chemin = a.startsWith(IA) ? a.slice(IA.length) : a; let neuf = null;
+        const chemin = a.startsWith(IA) ? a.slice(IA.length) : a; let neuf = (!env.MEDIAS && /^\/img\?/.test(chemin)) ? chemin : null;      // sans espace de stockage : on garde l'adresse du générateur
         if (env.MEDIAS && /^\/img\?/.test(chemin) && n < 30) {
           try { const r = await fetch(IA + chemin); if (r.ok) { const k = ++n; await env.MEDIAS.put(`m/${cle}/${k}`, r.body, { httpMetadata: { contentType: r.headers.get("content-type") || "image/jpeg" } }); neuf = `/api/m/${cle}/${k}`; } } catch (e) {}
         }

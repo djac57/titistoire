@@ -151,6 +151,8 @@
   #libreForm{display:flex;flex-direction:column;gap:16px;}
   #libreLock{display:flex;flex-direction:column;}
   #libreForm[hidden],#libreLock[hidden]{display:none;}
+  #cDehors,#cDedans{display:flex;flex-direction:column;} #cDehors[hidden],#cDedans[hidden]{display:none;}
+  .freeform .btn:not(.play){background:rgba(255,255,255,.16);}
   .genbar{height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
   .genbar[hidden]{display:none;}
   .genbar span{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--pur));transition:width .25s ease;}
@@ -239,9 +241,33 @@
       <button class="card" id="modeFree"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 33L33 15"/><path d="M31 11l1.6 3.4L36 16l-3.4 1.6L31 21l-1.6-3.4L26 16l3.4-1.6z" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.4" fill="currentColor" stroke="none"/><circle cx="36" cy="31" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="lab">Je crée mon histoire</span></button>
     </div>
     <div class="minces">
+      <button class="card mince" id="modeCompte"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M8 41c2-9 9-13 16-13s14 4 16 13"/></svg><span id="compteLab">Mon compte</span></button>
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
     </div>
     <p class="pied"><a href="h/">Toutes les histoires</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="cgu.html">Conditions</a></p>
+  </section>
+
+  <section class="screen" id="sCompte">
+    <button class="back" data-go="s0">← Retour</button>
+    <h2 class="q">Mon compte</h2>
+    <div class="freeform">
+      <div id="cDehors">
+        <p style="margin:0 0 12px;font-weight:700;color:var(--ink)">Le compte est pour les parents. Il garde vos réglages et vos histoires inventées, et il sert à en créer de nouvelles. Pas de mot de passe : vous recevez un code par e-mail.</p>
+        <label>Votre e-mail<input id="cMel" type="email" autocomplete="email" inputmode="email" placeholder="prenom@exemple.fr"></label>
+        <button class="btn play" id="cDemander" style="align-self:center;margin-top:14px">Recevoir un code</button>
+        <label id="cCodeL" hidden style="margin-top:14px">Le code reçu par e-mail<input id="cCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6 chiffres"></label>
+        <button class="btn play" id="cEntrer" hidden style="align-self:center;margin-top:14px">Entrer</button>
+      </div>
+      <div id="cDedans" hidden>
+        <p style="margin:0;font-weight:700;color:var(--ink)">Connecté : <span id="cQui"></span></p>
+        <p style="margin:8px 0 0;color:var(--ink)" id="cCredits"></p>
+        <p style="margin:8px 0 14px;color:var(--ink)" id="cHist"></p>
+        <button class="btn" id="cSortir" style="align-self:center">Se déconnecter</button>
+        <button class="btn" id="cSupprimer" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Supprimer mon compte et mes histoires</button>
+      </div>
+      <div id="cMsg" class="genstatus"></div>
+      <p style="margin:6px 0 0;font-size:.8rem;color:var(--ink2);text-align:center"><a href="confidentialite.html" style="color:inherit">Confidentialité</a> · <a href="cgu.html" style="color:inherit">Conditions</a></p>
+    </div>
   </section>
 
   <section class="screen" id="sSaved">
@@ -260,7 +286,9 @@
     <h2 class="q">Invente ton histoire</h2>
     <div class="freeform">
       <div id="libreLock">
-        <p style="text-align:center;font-weight:700;color:var(--ink);margin:2px 0 14px">Mode réservé — entre le mot de passe pour inventer tes histoires.</p>
+        <p style="text-align:center;font-weight:700;color:var(--ink);margin:2px 0 14px">Pour créer une histoire, il faut un compte (c'est pour les parents).</p>
+        <button class="btn play" id="libreCompte" style="align-self:center;margin-bottom:22px">Me connecter</button>
+        <p style="text-align:center;color:var(--ink2);margin:0 0 8px;font-size:.9rem">ou, si vous en avez un, le mot de passe :</p>
         <input id="librePass" type="password" placeholder="mot de passe" style="width:100%">
         <button class="btn play" id="libreUnlock" style="align-self:center;margin-top:14px">Déverrouiller</button>
         <div id="lockMsg" class="genstatus"></div>
@@ -392,7 +420,7 @@ decor();
 
 /* ===== histoires écoutées (petite coche sur les vignettes) ===== */
 function heardAll(){ try{return JSON.parse(localStorage.getItem('titi_heard')||'[]');}catch(e){return [];} }
-function markHeard(id){ if(!id) return; const a=heardAll(); if(!a.includes(id)){ a.push(id); try{localStorage.setItem('titi_heard',JSON.stringify(a));}catch(e){} } }
+function markHeard(id){ if(!id) return; const a=heardAll(); if(!a.includes(id)){ a.push(id); try{localStorage.setItem('titi_heard',JSON.stringify(a));}catch(e){} if(typeof pousserPrefs==='function') pousserPrefs(); } }
 
 /* ===== vignettes : illustration du 1er tableau, sinon ambiance, sinon décor, sinon dégradé ===== */
 function coverSources(sid){ const [h,u]=sid.split('_'); return [`assets/scenes/${sid}_1.jpg`,`assets/${h}_${u}.png`,`assets/decor_${u}.jpg`]; }
@@ -442,7 +470,7 @@ function renderGroupes(){ const box=$('groupes'); if(!box) return; box.innerHTML
   GROUPES.forEach(([id,nom,age,ico,bientot])=>{ const b=document.createElement('button'); const off=(bientot&&!aRecueil(id))||(id==='lucioles'&&!aLucioles);
     b.className=id===g0?'on':''; b.disabled=!!off; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===g0?'true':'false');
     b.innerHTML=ico+`<b>${nom}</b><small>${off?'bientôt':age}</small>`;
-    b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderHome(); });
+    b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} pousserPrefs(); renderHome(); });
     box.appendChild(b); });
   if(!fLibre.choisi){ fLibre.g=g0; renderFormLibre(); } }
 /* Recueils des grands (Comètes, Galaxies) : une liste d'histoires ou d'épisodes, dans l'ordre. */
@@ -517,10 +545,54 @@ $('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
 
 /* ===== verrou du mode libre ===== */
 function librePass(){ try{return localStorage.getItem('titi_libre_pass')||'';}catch(e){return '';} }
-function showLibreGate(){ const unl=!!librePass(); const lk=$('libreLock'), fm=$('libreForm');
+function showLibreGate(){ const unl=!!librePass()||!!jeton(); const lk=$('libreLock'), fm=$('libreForm');
   lk.hidden=unl; lk.style.display=unl?'none':'flex'; fm.hidden=!unl; fm.style.display=unl?'flex':'none';
   if(!unl) $('lockMsg').textContent=''; }
 $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
+$('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompte(); });
+
+/* ===== COMPTE (parents) : connexion par code reçu par e-mail ; réglages, histoires gardées et crédits suivent le compte ===== */
+const API=new URLSearchParams(location.search).get('api')||(/(^|\.)titistoire\.fr$/.test(location.hostname)?'':'https://titistoire.fr');
+let compte=null, apresCompte='';
+function jeton(){ try{return localStorage.getItem('titi_jeton')||'';}catch(e){return '';} }
+async function api(m,p,corps){ const h={}; if(jeton()) h.authorization='Bearer '+jeton(); if(corps!==undefined) h['content-type']='application/json';
+  const r=await fetch(API+p,{method:m,headers:h,body:corps===undefined?undefined:JSON.stringify(corps)}); let j=null; try{ j=await r.json(); }catch(e){}
+  if(r.status===401&&jeton()){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); }
+  return {ok:r.ok,status:r.status,j:j||{}}; }
+const CLES_PREFS=[['groupe','titi_groupe'],['conteur','titi_conteur'],['mode','titi_mode']];
+function prefsLocales(){ const q={heard:heardAll()}; CLES_PREFS.forEach(([k,c])=>{ try{ const v=localStorage.getItem(c); if(v) q[k]=v; }catch(e){} }); return q; }
+let envoiPrefs=0; function pousserPrefs(){ if(!jeton()) return; clearTimeout(envoiPrefs); envoiPrefs=setTimeout(()=>{ api('PUT','/api/compte/prefs',prefsLocales()).catch(()=>{}); },2500); }
+/* à la connexion : ce qui a été écouté ici et ailleurs s'ajoute ; les réglages du compte s'appliquent s'il en a */
+function recevoirCompte(c){ compte=c; const p=c.prefs||{};
+  try{ localStorage.setItem('titi_heard',JSON.stringify([...new Set([...(p.heard||[]),...heardAll()])])); CLES_PREFS.forEach(([k,cl])=>{ if(p[k]&&!localStorage.getItem(cl)) localStorage.setItem(cl,p[k]); }); }catch(e){}
+  majCompte(); pousserPrefs(); }
+function majCompte(){ $('compteLab').textContent=compte?'Mon compte ✓':'Mon compte';
+  $('cDehors').hidden=!!compte; $('cDehors').style.display=compte?'none':'flex'; $('cDedans').hidden=!compte; $('cDedans').style.display=compte?'flex':'none';
+  if(compte){ $('cQui').textContent=compte.email; const n=compte.credits||0, k=(compte.histoires||[]).length;
+    $('cCredits').textContent=n>1?`Il vous reste ${n} créations d'histoire.`:(n===1?'Il vous reste 1 création d\'histoire.':'Vous n\'avez plus de création d\'histoire pour le moment.');
+    $('cHist').textContent=`Histoires gardées : ${k} sur ${compte.max||20}.`; } }
+function ouvrirCompte(){ $('cMsg').textContent=''; majCompte(); goto('sCompte'); }
+$('modeCompte').addEventListener('click',()=>{ apresCompte=''; ouvrirCompte(); });
+$('cDemander').addEventListener('click',async()=>{ const e=$('cMel').value.trim(), m=$('cMsg'); if(!/^\S+@\S+\.\S+$/.test(e)){ m.textContent='Indiquez votre adresse e-mail.'; return; }
+  m.textContent='Envoi du code…'; $('cDemander').disabled=true;
+  try{ const r=await api('POST','/api/compte/code',{email:e});
+    if(r.ok){ m.textContent='Code envoyé. Regardez votre boîte (et les indésirables).'; $('cCodeL').hidden=false; $('cEntrer').hidden=false; $('cCode').focus(); }
+    else m.textContent=r.status===429?'Trop de demandes : réessayez dans une heure.':'Envoi impossible pour le moment. Réessayez un peu plus tard.';
+  }catch(x){ m.textContent='Problème de connexion, réessayez.'; }
+  $('cDemander').disabled=false; });
+async function entrerCompte(){ const m=$('cMsg'); m.textContent='Vérification…';
+  try{ const r=await api('POST','/api/compte/entrer',{email:$('cMel').value.trim(),code:$('cCode').value.trim()});
+    if(!r.ok){ m.textContent='Code incorrect ou expiré.'; return; }
+    try{localStorage.setItem('titi_jeton',r.j.jeton);}catch(e){} $('cCode').value=''; $('cCodeL').hidden=true; $('cEntrer').hidden=true; m.textContent='';
+    recevoirCompte(r.j.compte); renderHome();
+    if(apresCompte==='sFree'){ apresCompte=''; showLibreGate(); goto('sFree'); }
+  }catch(x){ m.textContent='Problème de connexion, réessayez.'; } }
+$('cEntrer').addEventListener('click',entrerCompte);
+$('cCode').addEventListener('keydown',e=>{ if(e.key==='Enter') entrerCompte(); });
+$('cSortir').addEventListener('click',async()=>{ try{ await api('POST','/api/compte/sortir'); }catch(e){} try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); });
+$('cSupprimer').addEventListener('click',async()=>{ if(!confirm('Supprimer définitivement votre compte et vos histoires gardées ?')) return;
+  try{ const r=await api('DELETE','/api/compte'); if(r.ok){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); $('cMsg').textContent='Compte supprimé.'; } else $('cMsg').textContent='Suppression impossible pour le moment.'; }catch(e){ $('cMsg').textContent='Problème de connexion, réessayez.'; } });
+if(jeton()) api('GET','/api/compte').then(r=>{ if(r.ok){ recevoirCompte(r.j); } }).catch(()=>{});
 async function doUnlock(){
   const v=$('librePass').value.trim(), lm=$('lockMsg'), btn=$('libreUnlock');
   if(!v){ lm.textContent='Entre un mot de passe.'; return; }
@@ -748,9 +820,11 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams(bande?{lieu,lecon,bande,qui,pass:librePass()}:{hero,lieu,lecon,age,pass:librePass()}).toString());
+    const r=await fetch(AIW+"/story?"+new URLSearchParams(Object.assign(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age},librePass()?{pass:librePass()}:{jeton:jeton()})).toString());
     if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
     const out=await r.json();
+    if(out.error==='credits'){ if(compte){ compte.credits=0; majCompte(); } gstatus("Vous n'avez plus de création d'histoire sur votre compte pour le moment."); return; }
+    if(typeof out.credits==='number'&&compte){ compte.credits=out.credits; majCompte(); }
     if(out.plafond){ gstatus("C'est tout pour aujourd'hui : "+out.max+" histoires inventées, la conteuse se repose. À demain !"); return; }
     if(out.refuse){ gstatus("La conteuse ne raconte que des histoires toutes douces pour les petits. Essaie une autre idée !"); return; }
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
@@ -772,7 +846,7 @@ async function generateFree(){
 }
 function openFree(it,fresh){
   const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
-  if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(imgBis[AIW+u]||AIW+u):null); })); }
+  if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(u.startsWith('/api/')?API+u:(imgBis[AIW+u]||AIW+u)):null); })); }
   else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
   book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,
         libre:fresh?it:null,src:it};
@@ -823,18 +897,29 @@ $('carteImg').addEventListener('click',()=>{ const i=$('carteImg'), grand=i.styl
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
 function savedAll(){ try{return JSON.parse(localStorage.getItem('titi_saved')||'[]');}catch(e){return [];} }
 function savedPut(a){ try{localStorage.setItem('titi_saved',JSON.stringify(a));}catch(e){} }
-function saveCurrent(){ if(!book||!book.libre) return; const a=savedAll();
+async function saveCurrent(){ if(!book||!book.libre) return;
+  if(jeton()){ const b=$('saveBtn'); b.disabled=true; b.textContent='Je la range…';       // sur le compte : les images y sont recopiées, l'histoire ne bougera plus
+    try{ const r=await api('POST','/api/compte/histoires',book.libre);
+      if(r.ok){ if(compte){ compte.histoires=r.j.histoires; majCompte(); } b.textContent='Gardée ✓'; }
+      else { b.disabled=false; b.textContent=r.status===409?'Étagère pleine (20)':'Garder'; if(r.status===409) alert('Vous gardez déjà 20 histoires : supprimez-en une dans « Mes histoires inventées » pour faire de la place.'); }
+    }catch(e){ b.disabled=false; b.textContent='Garder'; }
+    return; }
+  const a=savedAll();
   a.unshift(Object.assign({id:'s'+Date.now(),ts:Date.now()},book.libre)); savedPut(a);
   const b=$('saveBtn'); b.textContent='Gardée ✓'; b.disabled=true; }
-function renderSaved(){ const a=savedAll(), el=$('savedList');
+function renderSaved(){ const dist=(compte&&compte.histoires||[]).map(h=>Object.assign({distant:true},h)), a=dist.concat(savedAll()), el=$('savedList');
   if(!a.length){ el.innerHTML='<p style="text-align:center;color:var(--ink2);padding:10px">Aucune histoire gardée pour l\'instant. Invente-en une, puis appuie sur « Garder ».</p>'; return; }
   el.innerHTML='';
   a.forEach(it=>{ const row=document.createElement('div'); row.className='saved-row';
     const open=document.createElement('button'); open.className='card saved-open'; open.style.cssText='display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:12px 14px;text-align:left';
     open.innerHTML=`<span style="font-size:1.8rem">${it.emoji||'📖'}</span><span class="lab" style="padding:0">${esc(it.titre||'Mon histoire')}</span>`;
-    open.addEventListener('click',()=>openFree(it,false));
+    open.addEventListener('click',async()=>{ if(!it.distant) return openFree(it,false);
+      try{ const r=await api('GET','/api/compte/histoires/'+it.id); if(r.ok) openFree(r.j,false); }catch(e){} });
     const del=document.createElement('button'); del.className='arrow saved-del'; del.title='Supprimer'; del.textContent='✕';
-    del.addEventListener('click',()=>{ savedPut(savedAll().filter(x=>x.id!==it.id)); renderSaved(); });
+    del.addEventListener('click',async()=>{ if(it.distant){ if(!confirm('Supprimer « '+(it.titre||'cette histoire')+' » ?')) return;
+        try{ const r=await api('DELETE','/api/compte/histoires/'+it.id); if(r.ok&&compte){ compte.histoires=r.j.histoires; majCompte(); } }catch(e){} }
+      else savedPut(savedAll().filter(x=>x.id!==it.id));
+      renderSaved(); });
     row.appendChild(open); row.appendChild(del); el.appendChild(row); });
 }
 

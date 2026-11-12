@@ -20,5 +20,6 @@ run_worker_first = ["/assets/voix/*", "/api/*"]      # le reste est servi direct
 [[kv_namespaces]]
 binding = "COMPTES"
 
-[[r2_buckets]]
-binding = "MEDIAS"
+# Espace de stockage des images des histoires gardées : à rétablir quand R2 est activé sur le compte Cloudflare.
+# [[r2_buckets]]
+# binding = "MEDIAS"

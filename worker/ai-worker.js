@@ -128,9 +128,18 @@ export default {
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
         if (u.searchParams.get("diag")) return J({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY || env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: MDP !== "" });
-        if (!passOK(u.searchParams.get("pass"))) { await new Promise(r => setTimeout(r, 1200)); return J({ error: "locked" }, 403); }   // délai : freine les essais en série
+        // Deux façons d'entrer : le mot de passe (l'éditeur), ou un compte du site qui a encore des crédits.
+        // Le site est seul juge des comptes : on lui présente le jeton de l'utilisateur, et on ne débite qu'une histoire réussie.
+        const jeton = (u.searchParams.get("jeton") || "").trim(); let parCompte = false;
+        if (!passOK(u.searchParams.get("pass"))) {
+          let c = null;
+          if (/^[0-9a-f]{64}$/.test(jeton)) { try { const r = await fetch(SITE + "api/compte", { headers: { authorization: "Bearer " + jeton } }); if (r.ok) c = await r.json(); } catch (e) {} }
+          if (!c) { await new Promise(r => setTimeout(r, 1200)); return J({ error: "locked" }, 403); }   // délai : freine les essais en série
+          if (!(c.credits > 0)) return J({ error: "credits", credits: 0 }, 402);
+          parCompte = true;
+        }
         if (u.searchParams.get("check")) return J({ ok: true });
-        const dbg = !!u.searchParams.get("debug");
+        const dbg = !!u.searchParams.get("debug") && !parCompte;
         const hero = propre(u.searchParams.get("hero")), lieu = propre(u.searchParams.get("lieu")), lecon = propre(u.searchParams.get("lecon"));
         // « avec la bande » : les enfants d'un recueil (Comètes, Galaxies), dessinés d'après leurs fiches publiées, dans le style du recueil
         const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
@@ -205,8 +214,14 @@ export default {
             tableaux.push({ pages: t.pages, imgs, img: imgs[0] });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
-          if (!dbg) compter();                             // les essais de mise au point ne comptent pas dans le plafond du jour
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
+          let credits;
+          if (parCompte) {                                 // l'histoire est écrite et contrôlée : c'est maintenant qu'on débite
+            let d = null; try { const r = await fetch(SITE + "api/compte/credit", { method: "POST", headers: { authorization: "Bearer " + jeton } }); if (r.ok) d = await r.json(); } catch (e) {}
+            if (!d || !d.ok) return J({ error: "credits", credits: 0 }, 402);
+            credits = d.credits;
+          }
+          if (!dbg || parCompte) compter();                // les essais de mise au point ne comptent pas dans le plafond du jour
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
         if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });
         return J({ error: "Conteuse indisponible", busy: occupe, detail: dbg ? journal : undefined }, 502);
