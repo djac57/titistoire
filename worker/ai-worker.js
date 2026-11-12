@@ -22,7 +22,7 @@
 import { octets, base64, pcmDepuis, wav, reech, tranches, alignerMots, caler } from "./voix.js";
 import { motInterdit, normaliser } from "./controle.js";
 import { BANDES } from "./bandes.js";
-const SITE = "https://djac57.github.io/titistoire/";      // les fiches des bandes y sont publiées
+const SITE = "https://titistoire.fr/";      // les fiches des bandes y sont publiées
 
 const STYLE = "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles, no humans. ";
 const FIN = " Cute gentle animal characters, each one drawn only once, warm mood for toddlers, nothing scary.";
@@ -425,7 +425,7 @@ function redacteurs(env, GKEY, forceIA) {
     const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 40000);
     try {
       const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method: "POST", signal: ctrl.signal,
-        headers: { "Authorization": "Bearer " + env.OPENROUTER_KEY, "content-type": "application/json", "HTTP-Referer": "https://djac57.github.io/titistoire/", "X-Title": "Titistoire" },
+        headers: { "Authorization": "Bearer " + env.OPENROUTER_KEY, "content-type": "application/json", "HTTP-Referer": "https://titistoire.fr/", "X-Title": "Titistoire" },
         body: JSON.stringify({ model: modele, messages: [{ role: "system", content: sys }, { role: "user", content: prompt }], max_tokens: 5000 }) });
       const d = await r.json(), c = extraireJSON(d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content);
       return c ? { txt: c } : { err: ((d && d.error && (d.error.message || JSON.stringify(d.error))) || "réponse illisible").slice(0, 120) };
