@@ -2,7 +2,7 @@
 
 De belles histoires à écouter et à regarder, dans le navigateur, pour les enfants de 1 à 10 ans (dans l'esprit de *Lunii* et des albums jeunesse).
 
-**En ligne :** https://djac57.github.io/titistoire/
+**En ligne :** https://titistoire.fr
 
 ## Quatre groupes d'âge
 
@@ -16,7 +16,7 @@ De belles histoires à écouter et à regarder, dans le navigateur, pour les enf
 
 Le groupe se choisit en haut de l'accueil et reste mémorisé. Les histoires de saison des Étoiles (Noël, Halloween, ski, plage) n'apparaissent que pendant leur période (`?saison=noel|halloween|ski|mer|aucune` pour prévisualiser). Deux habillages : nuit étoilée et jour.
 
-**« J'invente la mienne »** (réservé, mot de passe) : on décrit un héros, un lieu, un sujet et un âge ; l'histoire est écrite, contrôlée, illustrée et lue à la demande.
+**« Je crée mon histoire »** (compte parent, 3 créations offertes) : on choisit l'âge, puis son propre héros ou — chez les Comètes et les Galaxies — la bande du recueil ; l'histoire est écrite, contrôlée, illustrée (8 images) et lue à la demande.
 
 ## La méthode (apprise à nos dépens)
 
@@ -77,9 +77,24 @@ Limites à connaître : le meilleur modèle de voix est plafonné à 100 demande
 
 Les actions GitHub (`gen-voix.yml`, `gen-images2.yml`, `deploy.yml`) font la même chose dans le nuage ; l'action des voix régénère `stories.js` dans le même envoi que les enregistrements, pour que le texte publié suive toujours la voix.
 
-## « J'invente la mienne » et le worker (`worker/`)
+## Le site en production
 
-Réservé (mot de passe), en Cloudflare payant à la demande, avec un plafond d'histoires par jour. Le worker :
+| Quoi | Où | Déploiement |
+|---|---|---|
+| Le site (pages, images, voix) et l'API des comptes | projet Cloudflare `titistoire`, `wrangler.site.toml`, `site/site.js` | automatique à chaque envoi (Workers Builds : `npx wrangler deploy -c wrangler.site.toml`) |
+| Le worker d'IA (histoires à la demande) | `titistoire-ai`, `wrangler.toml`, `worker/` | action GitHub `deploy-worker.yml` |
+
+`.assetsignore` liste ce qui n'est pas publié (sources, outils, code). Le site est fait de fichiers statiques ; `site/site.js` ne voit passer que `/assets/voix/*` (lecture partielle, exigée par Safari) et `/api/*`.
+
+**Comptes** (réservés aux parents) : connexion par code à 6 chiffres reçu par e-mail (Cloudflare Email Service), sans mot de passe ni cookie. Base KV `titistoire-comptes` (comptes, sessions, crédits, histoires gardées, plafonds de dépense), stockage R2 `titistoire-medias` (images des 20 histoires gardées par compte). Export et suppression des données par boutons. Le worker d'IA lit et débite les crédits dans la même base ; il plafonne les créations à 10 par jour et 100 par mois, tous comptes confondus (`LIBRE_MAX_JOUR`, `LIBRE_MAX_MOIS`).
+
+**Référencement et pages** : `python3 tools/pages.py` écrit une page par histoire (`h/`), le plan du site, l'icône et la fiche de l'appli installable ; `python3 tools/textes_legaux.py` écrit les mentions légales, la confidentialité, les conditions et « Qui sommes-nous ? ». À relancer après toute retouche de texte.
+
+**Voix** : le texte publié suit la voix, histoire par histoire (`build_stories.py` garde l'ancien texte tant que la voix par défaut n'a pas enregistré le nouveau). Le meilleur modèle est plafonné à 100 demandes par jour.
+
+## « Je crée mon histoire » et le worker d'IA (`worker/`)
+
+Ouvert aux comptes qui ont des crédits (et au mot de passe de l'éditeur), en Cloudflare payant à la demande, avec des plafonds par jour et par mois. Le worker :
 
 1. **contrôle la demande** (liste de mots, Llama Guard, puis un juge « convient à un enfant de cet âge ? ») ;
 2. **fait écrire l'histoire** en 8 tableaux, dans une langue adaptée à l'âge choisi, et écarte les textes pauvres ; puis **contrôle le texte et les descriptions d'images** ;
@@ -87,7 +102,7 @@ Réservé (mot de passe), en Cloudflare payant à la demande, avec un plafond d'
 4. **dessine une fiche** pour le héros et pour son ami, puis **chaque page d'après ces fiches** ; chaque image est regardée par un modèle de vision avant d'être envoyée ;
 5. **fait lire** l'histoire tableau par tableau (on écoute dès que le premier est prêt) et cale le texte mot à mot.
 
-Tout est fermé par défaut : au moindre doute ou à la moindre panne d'un contrôle, rien n'est affiché. Aucun filtre automatique n'étant infaillible, le mot de passe reste la première barrière.
+Tout est fermé par défaut : au moindre doute ou à la moindre panne d'un contrôle, rien n'est affiché. Aucun filtre automatique n'étant infaillible, les conditions demandent au parent de lire une histoire créée avant de la proposer à un enfant.
 
 Tests hors ligne : `node tools/test_controle.mjs`, `node tools/test_voix.mjs <dossier>`.
 
