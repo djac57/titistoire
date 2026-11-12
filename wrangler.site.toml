@@ -16,9 +16,10 @@ directory = "."
 binding = "ASSETS"
 run_worker_first = ["/assets/voix/*", "/api/*"]      # le reste est servi directement, sans exécuter de code
 
-# Comptes : créés automatiquement au premier déploiement (pas d'identifiant à recopier).
-[[kv_namespaces]]
-binding = "COMPTES"
+# Comptes : la base (KV) se crée dans le tableau de bord Cloudflare, puis on recopie son identifiant ici.
+# [[kv_namespaces]]
+# binding = "COMPTES"
+# id = "…"
 
 # Espace de stockage des images des histoires gardées : à rétablir quand R2 est activé sur le compte Cloudflare.
 # [[r2_buckets]]
