@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /histoires/
+Disallow: /tools/
+Disallow: /worker/
+
+Sitemap: https://titistoire.fr/sitemap.xml

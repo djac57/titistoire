@@ -7,9 +7,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Titistoire">
-<title>Titistoire — Mon Petit Conteur</title>
+<title>Titistoire — histoires à écouter et à regarder pour les enfants de 1 à 10 ans</title>
+<meta name="description" content="De belles histoires illustrées, lues à voix haute, pour les enfants de 1 à 10 ans : imagiers, histoires du soir, aventures et feuilleton à énigmes. Gratuit, sans publicité.">
+<link rel="canonical" href="https://titistoire.fr/">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Titistoire"><meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Titistoire — de belles histoires à écouter et à regarder"><meta property="og:description" content="De belles histoires illustrées, lues à voix haute, pour les enfants de 1 à 10 ans : imagiers, histoires du soir, aventures et feuilleton à énigmes. Gratuit, sans publicité.">
+<meta property="og:url" content="https://titistoire.fr/"><meta property="og:image" content="https://titistoire.fr/partage.jpg"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Titistoire", "url": "https://titistoire.fr/", "inLanguage": "fr", "description": "De belles histoires illustrées, lues à voix haute, pour les enfants de 1 à 10 ans : imagiers, histoires du soir, aventures et feuilleton à énigmes. Gratuit, sans publicité."}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%232d2570'/><path d='M32 20c-5-3-12-3-17-2v26c5-1 12-1 17 2 5-3 12-3 17-2V18c-5-1-12-1-17 2z' fill='none' stroke='%23ffcb4d' stroke-width='3.6' stroke-linejoin='round'/><path d='M32 20v26' stroke='%23ffcb4d' stroke-width='3.6'/><path d='M47 9l1.6 3.4 3.7.5-2.7 2.6.6 3.7-3.2-1.7-3.2 1.7.6-3.7-2.7-2.6 3.7-.5z' fill='%23ffd86b'/></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%232d2570'/><path d='M32 20c-5-3-12-3-17-2v26c5-1 12-1 17 2 5-3 12-3 17-2V18c-5-1-12-1-17 2z' fill='none' stroke='%23ffcb4d' stroke-width='3.6' stroke-linejoin='round'/><path d='M32 20v26' stroke='%23ffcb4d' stroke-width='3.6'/></svg>">
+<link rel="apple-touch-icon" href="icone-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -111,6 +118,7 @@
   .minces{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:14px;}
   .mince{flex-direction:row;align-items:center;justify-content:center;gap:10px;padding:12px 10px;font-family:var(--font-d);font-weight:600;font-size:clamp(.88rem,3.4vw,1rem);}
   .mince svg{width:26px;height:26px;flex:0 0 26px;color:var(--gold);}
+  .pied{text-align:center;margin:26px 0 0;font-size:.82rem;color:var(--ink2);} .pied a{color:inherit;}
   .sep{text-align:center;color:var(--ink2);font-family:var(--font-d);font-weight:500;font-size:1rem;margin:0 0 12px;}
 
   /* choix par sujet */
@@ -233,6 +241,7 @@
     <div class="minces">
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
     </div>
+    <p class="pied"><a href="h/">Toutes les histoires</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="cgu.html">Conditions</a></p>
   </section>
 
   <section class="screen" id="sSaved">
@@ -853,6 +862,9 @@ function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v
 })();
 
 renderHome();
+/* lien direct vers une histoire (pages h/…, partage) : ?h=filou_pirates ou ?h=cometes/c01 */
+(function(){ const h=new URLSearchParams(location.search).get('h'); if(!h) return; const [a,b]=h.split('/');
+  if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h); })();
 goto('s0');
 </script>
 </body>
