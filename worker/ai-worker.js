@@ -127,7 +127,7 @@ export default {
       // ---------- HISTOIRE INVENTÉE ----------
       if (u.pathname.startsWith("/story")) {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
-        if (u.searchParams.get("diag")) return J({ hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY || env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: MDP !== "" });
+        if (u.searchParams.get("diag")) return J({ compteurs: !!env.COMPTES, hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY || env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: MDP !== "" });
         // Deux façons d'entrer : le mot de passe (l'éditeur), ou un compte du site qui a encore des crédits.
         // Le site est seul juge des comptes : on lui présente le jeton de l'utilisateur, et on ne débite qu'une histoire réussie.
         const jeton = (u.searchParams.get("jeton") || "").trim(); let parCompte = false;
@@ -152,13 +152,20 @@ export default {
         if (!c1.ok) return J({ error: "refus", refuse: true, etape: "demande", detail: dbg ? c1.raison : undefined });
         if (u.searchParams.get("controle")) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
 
-        // PLAFOND DE DÉPENSE : au plus N histoires inventées par jour (défaut 10). Comme seule une histoire
-        // validée ici peut ensuite faire dessiner (8 images) ou lire (1 voix), ce plafond borne tout le coût payant.
-        const MAXJ = Math.max(1, parseInt(env.LIBRE_MAX_JOUR || "10", 10) || 10);
-        const cleJour = new Request("https://cache.titistoire/compteur/" + new Date().toISOString().slice(0, 10), { method: "GET" });
-        let fait = 0; try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {}
-        if (fait >= MAXJ) return J({ error: "plafond", plafond: true, max: MAXJ }, 429);
-        const compter = () => { try { ctx.waitUntil(caches.default.put(cleJour, new Response(String(fait + 1), { headers: { "cache-control": "public, max-age=172800" } }))); } catch (e) {} };
+        // PLAFOND DE DÉPENSE : au plus N histoires créées par jour (défaut 10) et par mois (défaut 100), tous utilisateurs confondus.
+        // Comme seule une histoire validée ici peut ensuite faire dessiner (8 images) ou lire (8 pistes), ces plafonds bornent tout le coût payant.
+        // Les compteurs sont dans la base du site (les mêmes partout dans le monde) ; à défaut, dans le cache du centre de données.
+        const MAXJ = Math.max(1, parseInt(env.LIBRE_MAX_JOUR || "10", 10) || 10), MAXM = Math.max(1, parseInt(env.LIBRE_MAX_MOIS || "100", 10) || 100);
+        const jour = new Date().toISOString().slice(0, 10), kJ = "b:j:" + jour, kM = "b:m:" + jour.slice(0, 7);
+        const cleJour = new Request("https://cache.titistoire/compteur/" + jour, { method: "GET" });
+        let fait = 0, faitM = 0;
+        if (env.COMPTES) { try { fait = parseInt(await env.COMPTES.get(kJ), 10) || 0; faitM = parseInt(await env.COMPTES.get(kM), 10) || 0; } catch (e) {} }
+        else { try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {} }
+        if (fait >= MAXJ || faitM >= MAXM) return J({ error: "plafond", plafond: true, max: MAXJ, mois: faitM >= MAXM }, 429);
+        const compter = () => { try {
+          if (env.COMPTES) ctx.waitUntil(Promise.all([env.COMPTES.put(kJ, String(fait + 1), { expirationTtl: 3 * 86400 }), env.COMPTES.put(kM, String(faitM + 1), { expirationTtl: 70 * 86400 })]));
+          else ctx.waitUntil(caches.default.put(cleJour, new Response(String(fait + 1), { headers: { "cache-control": "public, max-age=172800" } })));
+        } catch (e) {} };
 
         // 2. écriture : on essaie les rédacteurs du meilleur au moins bon. Une histoire trop maigre (phrases
         //    tronquées, pages très courtes) est mise de côté et ne sert que si personne ne fait mieux.

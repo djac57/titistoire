@@ -346,6 +346,14 @@
   </section>
 </div>
 
+<div id="donVue" hidden style="position:fixed;inset:0;z-index:60;background:rgba(10,8,30,.82);overflow:auto;-webkit-overflow-scrolling:touch;padding:14px">
+  <div style="max-width:440px;margin:0 auto;background:#f9f9f9;border-radius:18px;overflow:hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0 16px;color:#2d2570;font-family:var(--font-d);font-weight:600"><span>Soutenir Titistoire</span><button id="donFermer" aria-label="Fermer" style="border:none;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:#2d2570;padding:6px 10px">×</button></div>
+    <iframe id="donCadre" title="Faire un don à Titistoire" style="border:none;width:100%;height:570px;display:block;background:#f9f9f9"></iframe>
+    <p style="margin:0;padding:6px 12px 12px;text-align:center;font-size:.8rem"><a id="donDehors" target="_blank" rel="noopener" style="color:#2d2570">Si rien ne s'affiche, ouvrir la page de don</a></p>
+  </div>
+</div>
+
 <div id="carteVue" hidden style="position:fixed;inset:0;z-index:50;background:rgba(10,8,30,.92);overflow:auto;-webkit-overflow-scrolling:touch;cursor:zoom-in">
   <img id="carteImg" alt="La carte du capitaine" style="display:block;width:100%;max-width:1200px;margin:0 auto">
   <button id="carteFermer" class="btn sec" style="position:fixed;top:12px;right:12px">Fermer</button>
@@ -558,7 +566,12 @@ $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompt
 
 /* ===== DON : lien de paiement (Stripe). Vide = rien n'est affiché. Proposé aux parents, juste avant de créer une histoire et en bas de l'accueil. ===== */
 const DON_URL='https://ko-fi.com/titistoire';
-if(DON_URL){ $('donLien').href=DON_URL; $('donPied').href=DON_URL; ['donBloc','donPied','donSep'].forEach(i=>{ $(i).hidden=false; }); }
+if(DON_URL){ ['donLien','donPied','donDehors'].forEach(i=>{ $(i).href=DON_URL; }); ['donBloc','donPied','donSep'].forEach(i=>{ $(i).hidden=false; });
+  /* le don se fait dans un cadre, sans quitter le site (le lien reste là en secours) */
+  const ouvrirDon=e=>{ e.preventDefault(); const c=$('donCadre'); if(!c.src) c.src=DON_URL+'/?hidefeed=true&widget=true&embed=true'; $('donVue').hidden=false; };
+  $('donLien').addEventListener('click',ouvrirDon); $('donPied').addEventListener('click',ouvrirDon);
+  $('donFermer').addEventListener('click',()=>{ $('donVue').hidden=true; });
+  $('donVue').addEventListener('click',e=>{ if(e.target===$('donVue')) $('donVue').hidden=true; }); }
 
 /* ===== COMPTE (parents) : connexion par code reçu par e-mail ; réglages, histoires gardées et crédits suivent le compte ===== */
 const API=new URLSearchParams(location.search).get('api')||(/(^|\.)titistoire\.fr$/.test(location.hostname)?'':'https://titistoire.fr');
@@ -840,7 +853,7 @@ async function generateFree(){
     const out=await r.json();
     if(out.error==='credits'){ if(compte){ compte.credits=0; majCompte(); } gstatus("Vous n'avez plus de création d'histoire sur votre compte pour le moment."); return; }
     if(typeof out.credits==='number'&&compte){ compte.credits=out.credits; majCompte(); }
-    if(out.plafond){ gstatus("C'est tout pour aujourd'hui : "+out.max+" histoires inventées, la conteuse se repose. À demain !"); return; }
+    if(out.plafond){ gstatus("La création d'histoires est temporairement indisponible, pour cause de coûts : chaque histoire créée coûte de l'argent. Elle rouvrira "+(out.mois?"le mois prochain":"demain")+". Pensez à soutenir Titistoire si vous le pouvez !"); return; }
     if(out.refuse){ gstatus("La conteuse ne raconte que des histoires toutes douces pour les petits. Essaie une autre idée !"); return; }
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
     if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');

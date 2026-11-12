@@ -7,3 +7,8 @@ compatibility_date = "2024-11-01"
 # dashboard Cloudflare : wrangler deploy ne les touche pas.
 [ai]
 binding = "AI"
+
+# Compteurs de dépense (histoires créées par jour et par mois) : dans la base du site, « titistoire-comptes ».
+[[kv_namespaces]]
+binding = "COMPTES"
+id = "169417cbb7364df68abfaf25617d22f0"
