@@ -3,7 +3,7 @@
 # Le worker d'IA (histoires à la demande) reste décrit par wrangler.toml et déployé par .github/workflows/deploy-worker.yml.
 name = "titistoire"
 compatibility_date = "2025-04-01"
-main = "site/range.js"
+main = "site/site.js"
 workers_dev = true
 # Le domaine est rattaché ici pour qu'il le reste à chaque déploiement.
 routes = [
@@ -14,4 +14,11 @@ routes = [
 [assets]
 directory = "."
 binding = "ASSETS"
-run_worker_first = ["/assets/voix/*"]      # le reste est servi directement, sans exécuter de code
+run_worker_first = ["/assets/voix/*", "/api/*"]      # le reste est servi directement, sans exécuter de code
+
+# Comptes : créés automatiquement au premier déploiement (pas d'identifiant à recopier).
+[[kv_namespaces]]
+binding = "COMPTES"
+
+[[r2_buckets]]
+binding = "MEDIAS"
