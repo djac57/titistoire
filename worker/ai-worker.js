@@ -189,7 +189,7 @@ export default {
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
             const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
             for (let k = 0; k < t.pages.length; k++) {
-              const d = t.images[k] || t.images.slice(0, k).reverse().find(Boolean) || t.images.find(Boolean) || "";
+              const d = t.images.find(Boolean) || "";       // une seule image par tableau : trois fois moins de dessins, et la même à l'écran pendant ses trois pages
               if (!d) { imgs.push(null); continue; }
               const aH = /\bHERO\b/.test(d) && fH, aA = /\bFRIEND\b/.test(d) && fA; let n = 0;
               const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same ${bande ? "face, hair, " : ""}clothes and accessories)` : ""); }; };
@@ -367,12 +367,13 @@ ${A.langue}
 - L'histoire se passe du début à la fin dans le lieu demandé (ou y revient).
 - Un vrai moment d'émotion, dit simplement. La fin fait écho au début et laisse une image douce.
 - N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours".
+- VOCABULAIRE REFUSÉ D'OFFICE par le contrôleur, même au sens figuré ou innocent — n'emploie AUCUN de ces mots ni leurs dérivés : terreur, terrifiant, terrorisé, horreur, horrible, effrayant, épouvante, cauchemar, monstre, fantôme, sorcière, mort, tuer, sang, blessure, arme, fusil, couteau, épée, guerre, bataille, soldat, poison, feu qui brûle, noyer, étouffer, frapper, gifle, prison, voleur, bandit, diable, enfer, alcool, vin, bière, cigarette, pipe. Pour une peur, dis « il n'était pas rassuré », « son cœur battait fort », « il recula d'un pas ».
 - Histoire douce, qui sera relue par un contrôleur très strict : aucune violence, aucune blessure, aucune mort, aucune arme, aucun gros mot, et AUCUN DANGER PHYSIQUE ni scène inquiétante (pas de noyade, de chute, d'eau glacée ou sombre, d'orage menaçant, d'enfant perdu la nuit, de créature qui fait peur). Le suspense vient des sentiments et des malentendus, jamais d'un péril. ${B ? "Les seuls personnages sont les enfants de la bande et, s'il le faut, un adulte bienveillant de leur monde (jamais de personne réelle, de personnage de film ou de marque)." : "Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques)."}
 
 FORME : ${recit ? "récit au PASSÉ SIMPLE et à l'imparfait, comme dans un roman (dialogues au présent)" : "au présent"}. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
-Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
+Pour chaque tableau, "images" contient UNE SEULE description EN ANGLAIS (20 à 35 mots) : l'image du tableau, celle de son moment le plus fort, qui reste à l'écran pendant ses trois pages (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
   * écris HERO pour le héros et FRIEND pour le deuxième personnage, jamais leur prénom, et ne redécris PAS leur apparence (elle est fixée par "heros" et "ami") ;
-  * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte la page, pas la page d'avant ni celle d'après ;
+  * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte ce tableau, pas celui d'avant ni celui d'après ;
 ${B ? `  * HERO et FRIEND sont les SEULS personnages dessinés : aucun autre enfant, aucun adulte, aucun animal dans les images, même si le texte en parle ;
   * (règle sans objet ici) si un figurant` : `  * deux personnages au plus par image ; si un figurant`} est indispensable, donne son espèce précise et son nombre ("one green frog"), jamais "friends", "others", "animals", "everyone", et jamais la même espèce que HERO ou FRIEND ;
   * un objet important de l'histoire est décrit avec EXACTEMENT les mêmes mots (couleur, forme) à chaque image où il apparaît ;
@@ -381,7 +382,7 @@ ${B ? `  * HERO et FRIEND sont les SEULS personnages dessinés : aucun autre enf
 ${B ? `"heros" et "ami" contiennent UNIQUEMENT l'identifiant de l'enfant choisi, parmi : ${ids.join(", ")} (deux identifiants différents${qui ? ` ; "heros" vaut "${qui}"` : ""}). La phrase suivante ne s'applique donc pas.\n(sans objet) ` : ""}"heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots : UNE espèce animale précise (deux espèces DIFFÉRENTES, faciles à distinguer), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Commence par "one small ...".
 "lieu" décrit EN ANGLAIS le décor en 12 à 20 mots : l'endroit, deux ou trois éléments fixes reconnaissables, le moment de la journée et les couleurs (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
-{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["...","...","..."]}]}`;
+{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["..."]}]}`;
 }
 // Forme imposée à la réponse de Gemini : sans elle, les histoires longues reviennent parfois dans un JSON invalide (guillemets non échappés).
 const SCHEMA_HISTOIRE = { type: "OBJECT", required: ["titre", "decor", "emoji", "heros", "ami", "lieu", "tableaux"], properties: {

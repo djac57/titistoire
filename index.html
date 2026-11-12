@@ -749,7 +749,7 @@ async function generateFree(){
     const it={titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig};
     if(it.sig) lancerVoix(it);                              // la voix se prépare pendant que les images se dessinent
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
-    const urls=it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)); let faites=0;
+    const urls=[...new Set(it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)))]; let faites=0;       // une image par tableau : chaque adresse n'est demandée qu'une fois
     clearInterval(prog); const maj=()=>{ gstatus(`La conteuse dessine les illustrations… ${faites} / ${urls.length}`); fill.style.width=(60+38*faites/Math.max(1,urls.length)).toFixed(0)+'%'; };
     const charge=(u,compte)=>new Promise(res=>{ const im=new Image(); let n=0; im.onload=()=>{ if(n) imgBis[u]=u+"&r=2"; if(compte){ faites++; maj(); } res(); }; im.onerror=()=>{ if(n++<1) im.src=u+"&r=2"; else res(); }; im.src=u; });   // imgBis : l'adresse du 2e essai, pour ne pas faire redessiner l'image à l'affichage
     // D'abord les fiches des personnages (une image de référence chacun) : toutes les pages sont ensuite dessinées d'après elles.
