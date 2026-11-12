@@ -263,6 +263,7 @@
         <p style="margin:8px 0 0;color:var(--ink)" id="cCredits"></p>
         <p style="margin:8px 0 14px;color:var(--ink)" id="cHist"></p>
         <button class="btn" id="cSortir" style="align-self:center">Se déconnecter</button>
+        <button class="btn" id="cExport" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Télécharger mes données</button>
         <button class="btn" id="cSupprimer" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Supprimer mon compte et mes histoires</button>
       </div>
       <div id="cMsg" class="genstatus"></div>
@@ -590,6 +591,10 @@ async function entrerCompte(){ const m=$('cMsg'); m.textContent='Vérification�
 $('cEntrer').addEventListener('click',entrerCompte);
 $('cCode').addEventListener('keydown',e=>{ if(e.key==='Enter') entrerCompte(); });
 $('cSortir').addEventListener('click',async()=>{ try{ await api('POST','/api/compte/sortir'); }catch(e){} try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); });
+$('cExport').addEventListener('click',async()=>{ const m=$('cMsg'); m.textContent='Préparation…';
+  try{ const r=await fetch(API+'/api/compte/export',{headers:{authorization:'Bearer '+jeton()}}); if(!r.ok) throw 0;
+    const a=document.createElement('a'); a.href=URL.createObjectURL(await r.blob()); a.download='titistoire-mes-donnees.json'; document.body.appendChild(a); a.click(); a.remove(); m.textContent='Fichier téléchargé.';
+  }catch(e){ m.textContent='Téléchargement impossible pour le moment.'; } });
 $('cSupprimer').addEventListener('click',async()=>{ if(!confirm('Supprimer définitivement votre compte et vos histoires gardées ?')) return;
   try{ const r=await api('DELETE','/api/compte'); if(r.ok){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); $('cMsg').textContent='Compte supprimé.'; } else $('cMsg').textContent='Suppression impossible pour le moment.'; }catch(e){ $('cMsg').textContent='Problème de connexion, réessayez.'; } });
 if(jeton()) api('GET','/api/compte').then(r=>{ if(r.ok){ recevoirCompte(r.j); } }).catch(()=>{});

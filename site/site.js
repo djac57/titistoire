@@ -12,6 +12,7 @@
  */
 const IA = "https://titistoire-ai.djac-gene.workers.dev";      // seul endroit d'où une image peut être conservée
 const MAX_HISTOIRES = 20, CREDITS_OFFERTS = 3, SESSION = 180 * 86400;
+const INACTIF = 730 * 86400;        // un compte où personne ne s'est connecté depuis 24 mois s'efface de lui-même (durée de vie des données)
 const CORS = { "access-control-allow-origin": "*", "access-control-allow-methods": "GET,POST,PUT,DELETE,OPTIONS", "access-control-allow-headers": "content-type, authorization", "access-control-max-age": "86400" };
 const J = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...CORS } });
 const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
@@ -98,16 +99,25 @@ async function api(req, env, ctx, u) {
     await env.COMPTES.delete("c:" + uid);
     let c = await env.COMPTES.get("u:" + uid, "json");
     if (!c) c = { email, cree: Date.now(), credits: CREDITS_OFFERTS, prefs: {}, histoires: [] };
-    c.vu = Date.now(); await env.COMPTES.put("u:" + uid, JSON.stringify(c));
+    c.vu = Date.now(); await env.COMPTES.put("u:" + uid, JSON.stringify(c), { expirationTtl: INACTIF });
     const jeton = hasard(32); await env.COMPTES.put("s:" + await sha(jeton), uid, { expirationTtl: SESSION });
     return J({ jeton, compte: vue(c) });
   }
 
   // --- tout le reste demande une session
   const S = await session(req, env); if (!S) return J({ erreur: "session" }, 401);
-  const { uid, c } = S, garder = () => env.COMPTES.put("u:" + uid, JSON.stringify(c));
+  const { uid, c } = S, garder = () => env.COMPTES.put("u:" + uid, JSON.stringify(c), { expirationTtl: INACTIF });
+  if (Date.now() - (c.vu || 0) > 30 * 86400000) {              // une visite par mois suffit à garder le compte et ses histoires en vie
+    c.vu = Date.now(); await garder();
+    for (const h of c.histoires || []) { const it = await env.COMPTES.get(`h:${uid}:${h.id}`); if (it) await env.COMPTES.put(`h:${uid}:${h.id}`, it, { expirationTtl: INACTIF }); }
+  }
 
   if (p === "/api/compte" && M === "GET") return J(vue(c));
+  if (p === "/api/compte/export" && M === "GET") {               // droit d'accès et de portabilité : tout ce que le compte contient, sans nous écrire
+    const histoires = []; for (const h of c.histoires || []) { const it = await env.COMPTES.get(`h:${uid}:${h.id}`, "json"); if (it) histoires.push(it); }
+    return new Response(JSON.stringify({ service: "Titistoire", exporte_le: new Date().toISOString(), compte: { email: c.email, cree_le: new Date(c.cree).toISOString(), derniere_visite: new Date(c.vu || c.cree).toISOString(), credits: c.credits, reglages: c.prefs || {} }, histoires_gardees: histoires }, null, 1),
+      { headers: { "content-type": "application/json; charset=utf-8", "content-disposition": 'attachment; filename="titistoire-mes-donnees.json"', "cache-control": "no-store", ...CORS } });
+  }
   if (p === "/api/compte/sortir" && M === "POST") { await env.COMPTES.delete("s:" + await sha(S.jeton)); return J({ ok: true }); }
   if (p === "/api/compte" && M === "DELETE") {                 // suppression du compte et de tout ce qu'il contient
     for (const h of c.histoires || []) await oublier(env, uid, h);
@@ -148,7 +158,7 @@ async function api(req, env, ctx, u) {
       t.img = t.imgs.find(Boolean) || null;
     }
     const h = { id, cle, n, titre: String(it.titre || "Mon histoire").slice(0, 90), emoji: [...String(it.emoji || "📖")][0], ts: Date.now() };
-    await env.COMPTES.put(`h:${uid}:${id}`, JSON.stringify({ ...h, decor: String(it.decor || "").slice(0, 20), sig: String(it.sig || "").slice(0, 200), tableaux: it.tableaux.map(t => ({ pages: t.pages, imgs: t.imgs, img: t.img })) }));
+    await env.COMPTES.put(`h:${uid}:${id}`, JSON.stringify({ ...h, decor: String(it.decor || "").slice(0, 20), sig: String(it.sig || "").slice(0, 200), tableaux: it.tableaux.map(t => ({ pages: t.pages, imgs: t.imgs, img: t.img })) }), { expirationTtl: INACTIF });
     c.histoires = [h, ...(c.histoires || [])]; await garder();
     return J({ ok: true, histoire: h, histoires: c.histoires });
   }
