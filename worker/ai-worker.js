@@ -21,6 +21,8 @@
  */
 import { octets, base64, pcmDepuis, wav, reech, tranches, alignerMots, caler } from "./voix.js";
 import { motInterdit, normaliser } from "./controle.js";
+import { BANDES } from "./bandes.js";
+const SITE = "https://djac57.github.io/titistoire/";      // les fiches des bandes y sont publiées
 
 const STYLE = "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles, no humans. ";
 const FIN = " Cute gentle animal characters, each one drawn only once, warm mood for toddlers, nothing scary.";
@@ -130,11 +132,14 @@ export default {
         if (u.searchParams.get("check")) return J({ ok: true });
         const dbg = !!u.searchParams.get("debug");
         const hero = propre(u.searchParams.get("hero")), lieu = propre(u.searchParams.get("lieu")), lecon = propre(u.searchParams.get("lecon"));
-        const age = ["petit", "moyen", "grand"].includes(u.searchParams.get("age")) ? u.searchParams.get("age") : "moyen";
+        // « avec la bande » : les enfants d'un recueil (Comètes, Galaxies), dessinés d'après leurs fiches publiées, dans le style du recueil
+        const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
+        const qui = bande && Object.prototype.hasOwnProperty.call(BANDES[bande].enfants, u.searchParams.get("qui") || "") ? u.searchParams.get("qui") : "";
+        const age = bande ? (bande === "galaxies" ? "tresgrand" : "grand") : (["petit", "moyen", "grand", "tresgrand"].includes(u.searchParams.get("age")) ? u.searchParams.get("age") : "moyen");
 
         // 1. contrôle de ce qui est demandé
-        const demande = `Héros : ${hero || "(non précisé)"}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
-        const c1 = await controle(env, demande, "demande");
+        const demande = `Héros : ${bande ? "une bande d'enfants" : (hero || "(non précisé)")}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
+        const c1 = await controle(env, demande, "demande", age);
         if (!c1.ok) return J({ error: "refus", refuse: true, etape: "demande", detail: dbg ? c1.raison : undefined });
         if (u.searchParams.get("controle")) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
 
@@ -152,7 +157,7 @@ export default {
         const forceIA = dbg ? u.searchParams.get("ia") : null;
         const journal = []; let occupe = false, refusContenu = null, secours = null, retenu = null;
         for (const [nom, redige] of redacteurs(env, GKEY, forceIA)) {
-          const r = await redige(consigneHistoire(hero, lieu, lecon, age));
+          const r = await redige(consigneHistoire(hero, lieu, lecon, age, bande, qui));
           if (!r.txt) { journal.push(nom + " : " + r.err); occupe = occupe || !!r.busy; continue; }
           const h = normaliser(r.txt);
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
@@ -170,9 +175,16 @@ export default {
         retenu = retenu || secours;
         if (retenu) {
           const h = retenu.h, tableaux = [];
+          let style = STYLE, fin = FIN, refH = "", refA = "";
+          if (bande) {                                     // "heros" et "ami" sont des identifiants de la bande : description fixe et fiche publiée
+            const E = BANDES[bande].enfants, ids = Object.keys(E), trouve = (s, sauf) => ids.find(i => i !== sauf && String(s || "").toLowerCase().includes(i)) || ids.find(i => i !== sauf && String(s || "").toLowerCase().includes(E[i].nom.toLowerCase()));
+            const iH = qui || trouve(h.heros) || ids[0], iA = trouve(h.ami, iH) || ids.find(i => i !== iH);
+            h.heros = E[iH].desc.replace(/^one /, ""); h.ami = E[iA].desc.replace(/^one /, ""); refH = "ref:" + bande + "/" + iH; refA = "ref:" + bande + "/" + iA;
+            style = BANDES[bande].style; fin = " Gentle warm mood, nothing scary.";
+          }
           // FICHES : une image de référence par personnage, dessinée une fois ; chaque page est ensuite dessinée d'après elles.
           const ficheP = d => d ? (STYLE + "Character reference sheet of one single character: " + d + ". Full body, standing, facing slightly left, friendly expression, centred on a plain white background, nothing else in the picture.").slice(0, 1800) : "";
-          const fH = ficheP(h.heros), fA = ficheP(h.ami), fiches = [];
+          const fH = refH || ficheP(h.heros), fA = refA || ficheP(h.ami), fiches = [];
           for (const fp of [fH, fA]) if (fp) fiches.push("/fiche?" + new URLSearchParams({ p: fp, s: await signer("img:" + fp, cleSig) }).toString());
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
             const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
@@ -180,12 +192,12 @@ export default {
               const d = t.images[k] || t.images.slice(0, k).reverse().find(Boolean) || t.images.find(Boolean) || "";
               if (!d) { imgs.push(null); continue; }
               const aH = /\bHERO\b/.test(d) && fH, aA = /\bFRIEND\b/.test(d) && fA; let n = 0;
-              const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same clothes and accessories)` : ""); }; };
+              const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same ${bande ? "face, hair, " : ""}clothes and accessories)` : ""); }; };
               const nomH = qui(h.heros, "the hero", aH), nomA = qui(h.ami, "the friend", aA);
               const texte = d.replace(/\b(HERO|FRIEND)\b/g, m => m === "HERO" ? nomH() : nomA());      // l'ordre d'apparition donne le numéro de l'image de référence
               const premierH = d.search(/\bHERO\b/), premierA = d.search(/\bFRIEND\b/);
               const ordre = (aH && aA && premierA < premierH) ? [fA, fH] : [aH ? fH : "", aA ? fA : ""].filter(Boolean);
-              const p = (STYLE + texte + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + " Full detailed background scene filling the whole picture. Draw only the characters described here, each one exactly once, as separate individuals; do not add any extra animal, creature or person." + FIN).slice(0, 1800);
+              const p = (style + texte + "." + (h.lieu ? " Setting: " + h.lieu + "." : "") + " Full detailed background scene filling the whole picture. Draw only the characters described here, each one exactly once, as separate individuals; do not add any extra animal, creature or person." + fin).slice(0, 1800);
               const q = { p }; if (ordre[0]) q.a = ordre[0]; if (ordre[1]) q.b = ordre[1];
               q.s = await signer("img:" + p + (q.a ? "|" + q.a : "") + (q.b ? "|" + q.b : ""), cleSig);
               imgs.push("/img?" + new URLSearchParams(q).toString());
@@ -226,6 +238,15 @@ async function ficheDe(env, ctx, p) {
   const h = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(p)))].map(b => b.toString(16).padStart(2, "0")).join("");
   const cle = new Request("https://cache.titistoire/fiche/" + h, { method: "GET" });
   try { const hit = await caches.default.match(cle); if (hit) return { img: new Uint8Array(await hit.arrayBuffer()) }; } catch (e) {}
+  const pub = /^ref:(cometes|galaxies)\/([a-z0-9_]+)$/.exec(p);
+  if (pub) {                                               // fiche d'un enfant d'une bande : déjà dessinée et relue, publiée avec le site
+    try { const r = await fetch(SITE + pub[1] + "/refs/" + pub[2] + ".jpg"); if (!r.ok) return { err: "fiche publiée introuvable (" + r.status + ")" };
+      const img = new Uint8Array(await r.arrayBuffer());
+      try { await caches.default.put(cle, new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=604800" } })); } catch (e) {}
+      return { img };
+    } catch (e) { return { err: String(e).slice(0, 120) }; }
+  }
+  if (p.startsWith("ref:")) return { err: "fiche inconnue" };
   let b64 = null, err = "";
   for (let essai = 0; essai < 6 && !b64; essai++) { try { b64 = await flux2(env, essai % 3 === 2 ? MODELE_SECOURS : MODELE_FICHE, p, [], 512); } catch (e) { err = String(e).slice(0, 120); await new Promise(r => setTimeout(r, 700 + 500 * essai)); } }
   if (!b64) return { err };
@@ -250,9 +271,17 @@ async function signatureOK(texte, sig, cle) {
 
 /* ===================== contrôle du contenu ===================== */
 async function controle(env, texte, quoi, age = "moyen") {
-  const ans = { petit: "2 ANS", moyen: "4 ANS", grand: "7 ANS" }[age] || "4 ANS";
   const mot = motInterdit(texte);
   if (mot) return { ok: false, raison: "mot interdit : " + mot };
+  // Les modèles de contrôle ne lisent bien qu'un texte court : une histoire longue est contrôlée EN ENTIER, morceau par morceau.
+  const morceaux = []; let cur = "";
+  for (const l of String(texte).split("\n")) { if (cur && cur.length + l.length + 1 > 5000) { morceaux.push(cur); cur = ""; } cur += (cur ? "\n" : "") + l.slice(0, 5000); }
+  if (cur) morceaux.push(cur);
+  const res = await Promise.all(morceaux.map(m => controleMorceau(env, m, quoi, age)));
+  return res.find(r => !r.ok) || { ok: true };
+}
+async function controleMorceau(env, texte, quoi, age) {
+  const ans = { petit: "2 ANS", moyen: "4 ANS", grand: "7 ANS", tresgrand: "9 ANS" }[age] || "4 ANS";
   if (!env.AI) return { ok: false, raison: "contrôle indisponible" };
   try {
     // a) Llama Guard : contenus dangereux au sens large
@@ -308,20 +337,28 @@ const AGES = {
     ton: "Histoire pour un enfant de 3 à 6 ans qui aime qu'on lui raconte de vraies aventures : une intrigue avec des surprises, des personnages qui ont du caractère, de l'humour, une langue riche." },
   grand: { qui: "les 6-8 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
     ton: "Histoire pour un enfant de 6 à 8 ans, grand lecteur d'albums : une intrigue construite avec un vrai retournement, un dilemme pour le héros, un second personnage qui a ses propres envies, de l'humour fin, du suspense doux, une langue soutenue (subordonnées, comparaisons, mots précis et savoureux)." },
+  tresgrand: { qui: "les 8-10 ans", page: "QUATRE ou CINQ phrases (55 à 85 mots)", mini: 170,
+    ton: "Histoire pour un enfant de 8 à 10 ans, lecteur de romans d'aventure : une vraie intrigue à mystère ou à énigme, avec des indices loyaux que l'auditeur peut repérer avant les personnages, une fausse piste, un retournement, des personnages qui se chamaillent et se réconcilient, de l'humour, une langue soutenue et vive (subordonnées, comparaisons, mots précis et savoureux)." },
 };
-function consigneHistoire(hero, lieu, lecon, age = "moyen") {
-  const A = AGES[age] || AGES.moyen;
+function consigneHistoire(hero, lieu, lecon, age = "moyen", bande = "", qui = "") {
+  const A = AGES[age] || AGES.moyen, B = bande ? BANDES[bande] : null, ids = B ? Object.keys(B.enfants) : [];
+  const recit = !!B || age === "tresgrand";
   A.langue = age === "petit"
     ? `- UNE LANGUE TOUTE SIMPLE ET JOLIE : des mots que dit un enfant de 2-3 ans (pas de mots savants comme « grève », « réplique », « tout de go »), des phrases courtes, sujet-verbe-complément. Les verbes de parole restent simples et variés (demande, répond, crie, chuchote, rit) ; « dit » au plus cinq fois.`
     : `- UNE LANGUE RICHE ET SOIGNÉE, celle des beaux albums qu'un parent a plaisir à lire : le mot juste plutôt que le mot vague (« il trottine », « il se faufile », « il dégringole » plutôt que « il va » ; « une brindille », « un talus », « une ribambelle » plutôt que « un truc », « plein de »). Dans chaque tableau, glisse un ou deux beaux mots qu'un enfant ne connaît peut-être pas encore mais comprend grâce à la phrase (« il grelotte de froid », « elle est penaude, les oreilles toutes basses »).
 - Les verbes de parole sont VARIÉS et disent l'émotion : répond, demande, s'étonne, s'écrie, murmure, chuchote, ajoute, soupire, bougonne, marmonne, propose, annonce, s'exclame, proteste, avoue, promet, réplique… « dit » apparaît AU PLUS TROIS FOIS dans toute l'histoire, jamais deux fois de suite. Souvent, pas de verbe de parole du tout : un geste suffit (« Nina hausse les épaules. "Bof." »).
 - Des phrases de longueurs différentes : une longue qui déroule, puis une toute courte qui claque. Ne commence pas deux phrases de suite par le prénom du héros ni par « Il » ou « Elle ».`;
-  return `Tu es une autrice d'albums jeunesse pour ${A.qui} (dans l'esprit des histoires Lunii et des albums de l'École des loisirs). ${A.ton} Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
-Héros : ${hero || "un petit animal attachant"}. Lieu : ${lieu || "un endroit qui fait rêver"}. Ce dont l'histoire parle, en profondeur : ${lecon || "la gentillesse"}.
+  return `Tu es une autrice ${age === "tresgrand" ? "de romans d'aventure illustrés" : "d'albums jeunesse"} pour ${A.qui} (dans l'esprit des histoires Lunii et des ${age === "tresgrand" ? "romans de l'École des loisirs" : "albums de l'École des loisirs"}). ${A.ton} Écris en FRANÇAIS une vraie histoire, tendre et drôle, à lire à voix haute.
+${B ? `L'histoire met en scène ${B.nom}, des enfants que l'auditeur connaît déjà. Respecte EXACTEMENT leur caractère, leur façon de parler et leur monde :
+MONDE : ${B.monde}
+LES ENFANTS :
+${ids.map(i => `- ${B.enfants[i].nom} (identifiant "${i}") : ${B.enfants[i].qui}`).join("\n")}
+Le héros de cette histoire : ${qui ? B.enfants[qui].nom : "celui ou celle que tu choisis parmi eux"}. Le deuxième personnage principal est un AUTRE enfant de la bande, celui dont le caractère se cogne le mieux au sien. Les autres peuvent apparaître dans le texte.
+Où cela se passe, dans ce monde : ${lieu || "l'endroit de ce monde qui convient le mieux"}.` : `Héros : ${hero || "un petit animal attachant"}. Lieu : ${lieu || "un endroit qui fait rêver"}.`} Ce dont l'histoire parle, en profondeur : ${lecon || "la gentillesse"}.
 
 CE QUI FAIT UNE BONNE HISTOIRE (respecte tout) :
 - Le héros a un caractère : une envie forte et un petit défaut touchant. Donne-lui une expression à lui, qui revient.
-- Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.
+${B ? `- Le deuxième personnage compte autant : il a ses propres envies et ses raisons, et les deux caractères se frottent.` : `- Un deuxième personnage qui compte (ami, rival, ou "méchant" qui a en réalité une bonne raison d'être comme il est). Donne-lui un prénom et une vraie personnalité.`}
 - Un problème CONCRET qu'un enfant comprend. Des péripéties qui surprennent : évite le schéma mécanique « trois essais ratés puis la solution ». Chaque tentative est différente, l'une d'elles tourne autrement que prévu, quelqu'un change d'avis, un détail du début resservira à la fin. Le héros doute, puis fait LUI-MÊME un choix qui change tout.
 - Des détails précis et sensoriels (objets, bruits, odeurs), des onomatopées, des dialogues, des répétitions qui font plaisir à l'oreille. Jamais de phrases creuses.
 ${A.langue}
@@ -330,17 +367,18 @@ ${A.langue}
 - L'histoire se passe du début à la fin dans le lieu demandé (ou y revient).
 - Un vrai moment d'émotion, dit simplement. La fin fait écho au début et laisse une image douce.
 - N'explique JAMAIS la leçon : interdit d'écrire "la morale", "cette histoire montre", "il avait compris que", "il faut toujours".
-- Histoire douce, qui sera relue par un contrôleur très strict : aucune violence, aucune blessure, aucune mort, aucune arme, aucun gros mot, et AUCUN DANGER PHYSIQUE ni scène inquiétante (pas de noyade, de chute, d'eau glacée ou sombre, d'orage menaçant, d'enfant perdu la nuit, de créature qui fait peur). Le suspense vient des sentiments et des malentendus, jamais d'un péril. Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques).
+- Histoire douce, qui sera relue par un contrôleur très strict : aucune violence, aucune blessure, aucune mort, aucune arme, aucun gros mot, et AUCUN DANGER PHYSIQUE ni scène inquiétante (pas de noyade, de chute, d'eau glacée ou sombre, d'orage menaçant, d'enfant perdu la nuit, de créature qui fait peur). Le suspense vient des sentiments et des malentendus, jamais d'un péril. ${B ? "Les seuls personnages sont les enfants de la bande et, s'il le faut, un adulte bienveillant de leur monde (jamais de personne réelle, de personnage de film ou de marque)." : "Tous les personnages sont des animaux ou des créatures gentilles (pas d'humains, pas de personnes réelles, pas de personnages de films ou de marques)."}
 
-FORME : au présent. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
+FORME : ${recit ? "récit au PASSÉ SIMPLE et à l'imparfait, comme dans un roman (dialogues au présent)" : "au présent"}. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
 Pour chaque tableau, "images" contient TROIS descriptions EN ANGLAIS (15 à 30 mots chacune), une par page, dans l'ordre : ce qu'on voit à ce moment précis (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
   * écris HERO pour le héros et FRIEND pour le deuxième personnage, jamais leur prénom, et ne redécris PAS leur apparence (elle est fixée par "heros" et "ami") ;
   * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte la page, pas la page d'avant ni celle d'après ;
-  * deux personnages au plus par image ; si un figurant est indispensable, donne son espèce précise et son nombre ("one green frog"), jamais "friends", "others", "animals", "everyone", et jamais la même espèce que HERO ou FRIEND ;
+${B ? `  * HERO et FRIEND sont les SEULS personnages dessinés : aucun autre enfant, aucun adulte, aucun animal dans les images, même si le texte en parle ;
+  * (règle sans objet ici) si un figurant` : `  * deux personnages au plus par image ; si un figurant`} est indispensable, donne son espèce précise et son nombre ("one green frog"), jamais "friends", "others", "animals", "everyone", et jamais la même espèce que HERO ou FRIEND ;
   * un objet important de l'histoire est décrit avec EXACTEMENT les mêmes mots (couleur, forme) à chaque image où il apparaît ;
   * mots simples et doux : jamais "dead", "scary", "dark creature", "skeleton", "weapon" (dis "bare tree", "dry leaves", "shadow") ;
-  * rien d'écrit dans l'image : pas de panneau, lettre, livre ouvert, bulle ; pas d'humain ; pas de métaphore ni d'expression imagée.
-"heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots : UNE espèce animale précise (deux espèces DIFFÉRENTES, faciles à distinguer), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Commence par "one small ...".
+  * rien d'écrit dans l'image : pas de panneau, lettre, livre ouvert, bulle ; ${B ? "personne d'autre que HERO et FRIEND" : "pas d'humain"} ; pas de métaphore ni d'expression imagée.
+${B ? `"heros" et "ami" contiennent UNIQUEMENT l'identifiant de l'enfant choisi, parmi : ${ids.join(", ")} (deux identifiants différents${qui ? ` ; "heros" vaut "${qui}"` : ""}). La phrase suivante ne s'applique donc pas.\n(sans objet) ` : ""}"heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots : UNE espèce animale précise (deux espèces DIFFÉRENTES, faciles à distinguer), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Commence par "one small ...".
 "lieu" décrit EN ANGLAIS le décor en 12 à 20 mots : l'endroit, deux ou trois éléments fixes reconnaissables, le moment de la journée et les couleurs (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
 {"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["...","...","..."]}]}`;

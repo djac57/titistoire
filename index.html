@@ -134,6 +134,10 @@
   .groupes button:disabled{opacity:.5;cursor:default;}
   .freeform label{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:1.02rem;color:var(--ink);}
   .freeform input,.freeform select{font-family:inherit;font-weight:600;font-size:1.05rem;padding:13px 15px;border-radius:14px;border:1.5px solid transparent;background:#fff;color:var(--paper-ink);transition:box-shadow .15s;}
+  .freeform .groupes button{background:rgba(255,255,255,.08);}
+  .deux{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .deux button{font-family:var(--font-d);font-weight:600;font-size:1rem;padding:11px 8px;border-radius:14px;border:1.5px solid transparent;background:rgba(255,255,255,.10);color:var(--ink);cursor:pointer;}
+  .deux button.on{background:rgba(255,203,77,.20);border-color:#ffcb4d;}
   .freeform input:focus,.freeform select:focus{outline:none;box-shadow:0 0 0 4px rgba(255,203,77,.4);}
   .genstatus{text-align:center;color:var(--ink2);min-height:1.3em;font-weight:700;}
   #libreForm{display:flex;flex-direction:column;gap:16px;}
@@ -227,13 +231,7 @@
       <button class="card" id="modeFree"><div class="icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 33L33 15"/><path d="M31 11l1.6 3.4L36 16l-3.4 1.6L31 21l-1.6-3.4L26 16l3.4-1.6z" fill="currentColor" stroke="none"/><circle cx="13" cy="14" r="1.4" fill="currentColor" stroke="none"/><circle cx="36" cy="31" r="1.4" fill="currentColor" stroke="none"/></svg></div><span class="lab">Je crée mon histoire</span></button>
     </div>
     <div class="minces">
-      <button class="card mince" id="modeSubject"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40S8 30 8 19a8 8 0 0116-3 8 8 0 0116 3c0 11-16 21-16 21z"/></svg><span>Choisir un sujet</span></button>
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
-    </div>
-    <div class="season" id="recueil" hidden style="margin-top:24px;margin-bottom:0">
-      <h2 id="recTitle"></h2>
-      <p id="recSub"></p>
-      <div class="grid g4" id="recGrid"></div>
     </div>
   </section>
 
@@ -243,6 +241,7 @@
     <div id="savedList"></div>
   </section>
 
+  <section class="screen" id="sRec"><button class="back" data-go="s0">← Retour</button><h2 class="q" id="recTitle"></h2><p id="recSub" style="text-align:center;color:var(--ink2);margin:-12px 0 18px"></p><div class="grid g4" id="recGrid"></div></section>
   <section class="screen" id="s1"><button class="back" data-go="s0">← Retour</button><h2 class="q">Qui est le héros ?</h2><div class="grid g4" id="grid1"></div></section>
   <section class="screen" id="s2"><button class="back" data-go="s1">← Retour</button><h2 class="q" id="q2">Où part-on ?</h2><div class="grid g5" id="grid2"></div></section>
   <section class="screen" id="sSubj"><button class="back" data-go="s0">← Retour</button><h2 class="q">Une histoire pour parler de…</h2><div class="fams" id="fams"></div></section>
@@ -258,10 +257,12 @@
         <div id="lockMsg" class="genstatus"></div>
       </div>
       <div id="libreForm" hidden>
-        <label>Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
+        <div class="groupes" id="fGroupes" role="tablist" aria-label="Âge de l'enfant" style="margin:0"></div>
+        <div class="deux" id="fMode" hidden><button type="button" data-m="bande"></button><button type="button" data-m="libre">Mon propre héros</button></div>
+        <label id="fQuiL" hidden>Qui est le héros ?<select id="fQui"></select></label>
+        <label id="fHeroL">Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
-        <label>Pour quel âge ?<select id="fAge"><option value="petit">Lucioles, 1-3 ans — toute simple</option><option value="moyen" selected>Étoiles, 3-6 ans — une vraie aventure</option><option value="grand">Comètes, 6-8 ans — plus longue, langue soutenue</option></select></label>
         <button class="btn play" id="genBtn" style="align-self:center">Invente l'histoire</button>
         <div id="genStatus" class="genstatus"></div>
         <div id="genBar" class="genbar" hidden><span></span></div>
@@ -399,7 +400,7 @@ function storyCard(sid,opts){ opts=opts||{}; const st=STORIES[sid], [h,u]=sid.sp
 
 /* ===== NAV ===== */
 function goto(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));
-  $('wrap').classList.toggle('wide',id==='s4'||id==='s0'||id==='s1'||id==='s2'||id==='sSubj'); window.scrollTo({top:0,behavior:'smooth'}); stopAudio(); }
+  $('wrap').classList.toggle('wide',id==='s4'||id==='s0'||id==='s1'||id==='s2'||id==='sSubj'||id==='sRec'); window.scrollTo({top:0,behavior:'smooth'}); stopAudio(); }
 document.querySelectorAll('.back[data-go]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.go)));
 
 /* une histoire de saison n'est proposée que pendant sa période */
@@ -412,13 +413,28 @@ const GROUPES=[
   ["cometes","Comètes","6-8 ans",ICO('<circle cx="31" cy="17" r="8"/><path d="M24 22L7 39M27 26L14 42M21 18L6 29"/>'),true],
   ["galaxies","Galaxies","8-10 ans",ICO('<path d="M24 24c0-3 3-5 6-4 4 1 6 6 4 10-3 6-11 8-17 4-7-5-8-15-2-21 7-7 19-7 26 0"/><circle cx="24" cy="24" r="1.600"/><path d="M40 34l.100 0M8 38l.100 0M38 8l.100 0"/>'),true]];
 function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; if((g==='cometes'||g==='galaxies')&&aRecueil(g)) return g; }catch(e){} return 'etoiles'; }
+/* Formulaire « Je crée mon histoire » : le même choix d'âge qu'à l'accueil ; chez les Comètes et les Galaxies, avec la bande ou avec son propre héros. */
+const BANDES_LIBRE={cometes:['La bande de Virevent',[['jeanne','Jeanne'],['gaspard','Gaspard'],['suzie','Suzie'],['marin','Marin']]],
+  galaxies:['Les Bottes et les Tongs',[['mael','Maël'],['enora','Enora'],['tino','Tino'],['victoire','Victoire'],['awa','Awa'],['oscar','Oscar']]]};
+const AGE_LIBRE={lucioles:'petit',etoiles:'moyen',cometes:'grand',galaxies:'tresgrand'};
+const fLibre={g:'etoiles',mode:'bande',choisi:false};
+function renderFormLibre(){ const box=$('fGroupes'); if(!box) return; box.innerHTML='';
+  GROUPES.forEach(([id,nom,age,ico])=>{ const b=document.createElement('button'); b.type='button'; b.className=id===fLibre.g?'on':''; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===fLibre.g?'true':'false');
+    b.innerHTML=ico+`<b>${nom}</b><small>${age}</small>`; b.addEventListener('click',()=>{ fLibre.g=id; fLibre.choisi=true; renderFormLibre(); }); box.appendChild(b); });
+  const B=BANDES_LIBRE[fLibre.g], bande=!!B&&fLibre.mode==='bande';
+  $('fMode').hidden=!B; $('fMode').style.display=B?'':'none';
+  if(B){ $('fMode').querySelectorAll('button').forEach(b=>{ if(b.dataset.m==='bande') b.textContent=B[0]; b.className=b.dataset.m===fLibre.mode?'on':''; b.onclick=()=>{ fLibre.mode=b.dataset.m; renderFormLibre(); }; });
+    const q=$('fQui'), v=q.dataset.g===fLibre.g?q.value:''; q.innerHTML='<option value="">Au choix de la conteuse</option>'+B[1].map(([i,n])=>`<option value="${i}">${n}</option>`).join(''); q.value=v; q.dataset.g=fLibre.g; }
+  $('fQuiL').hidden=!bande; $('fQuiL').style.display=bande?'':'none'; $('fHeroL').hidden=bande; $('fHeroL').style.display=bande?'none':'';
+  $('fLieu').placeholder=bande?(fLibre.g==='cometes'?'ex : sur l\'île au saule, un jour de brouillard':'ex : à la plage des Dames, à marée basse'):'ex : une forêt enchantée sous la pluie';
+  $('fLecon').placeholder=bande?'ex : un secret trop lourd à garder':'ex : apprendre à attendre son tour'; }
 function renderGroupes(){ const box=$('groupes'); if(!box) return; box.innerHTML=''; const g0=groupe(), aLucioles=Object.values(STORIES).some(x=>x.p);
   GROUPES.forEach(([id,nom,age,ico,bientot])=>{ const b=document.createElement('button'); const off=(bientot&&!aRecueil(id))||(id==='lucioles'&&!aLucioles);
     b.className=id===g0?'on':''; b.disabled=!!off; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===g0?'true':'false');
     b.innerHTML=ico+`<b>${nom}</b><small>${off?'bientôt':age}</small>`;
     b.addEventListener('click',()=>{ try{localStorage.setItem('titi_groupe',id);}catch(e){} renderHome(); });
     box.appendChild(b); });
-  const fa=$('fAge'); if(fa&&!fa.dataset.choisi) fa.value=g0==='lucioles'?'petit':(g0==='etoiles'?'moyen':'grand'); }
+  if(!fLibre.choisi){ fLibre.g=g0; renderFormLibre(); } }
 /* Recueils des grands (Comètes, Galaxies) : une liste d'histoires ou d'épisodes, dans l'ordre. */
 const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 /* L'histoire en cours d'un recueil : Comètes = celle du mois ; Galaxies = le premier épisode pas encore écouté. */
@@ -427,21 +443,21 @@ function enCours(rec){ const ids=Object.keys(RECUEILS[rec]), heard=heardAll();
   const k=ids.findIndex(i=>!heard.includes(rec+'/'+i));
   return k<0?{id:ids[0],sur:'Tout est écouté : on recommence ?'}:{id:ids[k],sur:k?'La suite':'Pour commencer'}; }
 function renderMain(){ const g=groupe(), rec=(g==='cometes'||g==='galaxies')?g:null, im=$('mainImg');
-  if(rec){ const {id,sur}=enCours(rec), st=RECUEILS[rec][id], k=Object.keys(RECUEILS[rec]).indexOf(id);
+  if(rec){ const {id}=enCours(rec);
     im.className='vimg'; im.innerHTML=`<img alt="" src="${rec}/scenes/${id}_1.jpg" onerror="this.remove()">`;
-    $('mainSur').textContent=sur; $('mainLab').textContent=st.t; $('mainSub').textContent=rec==='galaxies'?'Épisode '+(k+1)+' · Le Trésor coupé en deux':'Une année à Virevent';
-    $('modeMain').onclick=()=>openRecueil(rec,id); }
+    $('mainSur').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
+    $('mainLab').textContent=rec==='cometes'?'Je choisis mon histoire':'Je choisis mon épisode';
+    $('mainSub').textContent=rec==='cometes'?'Douze histoires avec Jeanne, Gaspard, Suzie et Marin, une par mois':'Un feuilleton à énigmes en huit épisodes, sur l\'île de Lodenn';
+    $('modeMain').onclick=()=>{ renderRecueil(rec); goto('sRec'); }; }
   else { im.className='vimg quatre'; im.innerHTML=PERSOS.slice(0,4).map(p=>`<img alt="" src="assets/${p.id}_foret.png" onerror="this.remove()">`).join('');
     $('mainSur').textContent=g==='lucioles'?'Les toutes petites histoires':'Quarante histoires'; $('mainLab').textContent='Je choisis mon héros'; $('mainSub').textContent='Filou, Nestor, Rosie ou Plume… puis son aventure';
     $('modeMain').onclick=()=>{ renderHeroes(); goto('s1'); }; } }
-function renderRecueil(){ const g=groupe(), box=$('recueil'), rec=(g==='cometes'||g==='galaxies')?g:null;
-  $('modeSubject').style.display=rec?'none':''; renderMain();
-  box.hidden=!rec; if(!rec) return;
-  const grid=$('recGrid'), heard=heardAll(); grid.innerHTML='';
+function renderRecueil(rec){ const grid=$('recGrid'), heard=heardAll(), cours=enCours(rec); grid.innerHTML='';
   $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
-  $('recSub').textContent=rec==='cometes'?'Douze histoires, une par mois : à écouter dans l\'ordre, ou comme on veut.':'Un feuilleton en huit épisodes, sur l\'île de Lodenn : à écouter dans l\'ordre.';
+  $('recSub').textContent=rec==='cometes'?'Une histoire par mois : dans l\'ordre, ou comme on veut.':'Un feuilleton : à écouter dans l\'ordre.';
   Object.keys(RECUEILS[rec]).forEach((id,k)=>{ const st=RECUEILS[rec][id], b=document.createElement('button'); b.className='card';
-    b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
+    b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+(id===cours.id?`<span class="badge">${rec==='cometes'?'ce mois-ci':(heard.includes(rec+'/'+id)?'à réécouter':'à suivre')}</span>`:'')
+      +thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
       +`<span class="lab">${esc(st.t)}</span><span class="sm">${esc(st.u||('Épisode '+(k+1)))}</span>`;
     b.addEventListener('click',()=>openRecueil(rec,id)); grid.appendChild(b); });
   armThumbs(grid); }
@@ -449,9 +465,9 @@ async function openRecueil(rec,id){ const st=RECUEILS[rec][id]; if(!st) return;
   const pages=[], sc=[], imgs=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); imgs.push(`${rec}/scenes/${id}_${st.im[k]}.jpg`); }));
   book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':'🌌'},decor:null,voix:null,piste:null,libre:null};
   showBook(); const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
-function renderHome(){ renderGroupes(); renderRecueil();
+function renderHome(){ renderGroupes(); renderMain(); const estRec=['cometes','galaxies'].includes(groupe());
   const box=$('season');
-  if(SAISON&&$('recueil').hidden){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
+  if(SAISON&&!estRec){ const S=SAISONS[SAISON], g=$('seasonGrid'); g.innerHTML='';
     $('seasonTitle').textContent=S.titre; $('seasonSub').textContent=S.sub;
     PERSOS.forEach(p=>{ const sid=p.id+'_'+SAISON; if(STORIES[sid]) g.appendChild(storyCard(sid)); });
     armThumbs(g); box.hidden=false; }
@@ -474,7 +490,6 @@ function renderSubjects(){ const root=$('fams'); root.innerHTML=''; const heard=
       b.innerHTML=`<span class="av"><img alt="" src="assets/${h}_foret.png" onerror="this.remove()"></span><span><b>${esc(st.s)}</b><small>${esc(st.t)}</small></span>`+(heard.includes(sid)?'<span class="ok">✓</span>':'');
       b.addEventListener('click',()=>openStory(sid)); box.appendChild(b); });
     root.appendChild(box); }); }
-$('modeSubject').addEventListener('click',()=>{ renderSubjects(); goto('sSubj'); });
 $('modeRandom').addEventListener('click',()=>{ const g=groupe(), heard0=heardAll();
   if(g==='cometes'||g==='galaxies'){ let ids=Object.keys(RECUEILS[g]);
     if(g==='galaxies'){ const k=ids.findIndex(i=>!heard0.includes(g+'/'+i)); if(k>=0) ids=ids.slice(0,k+1); }      /* feuilleton : jamais un épisode en avance */
@@ -705,13 +720,13 @@ const imgBis={};
 function gstatus(m){ $('genStatus').textContent=m||''; }
 async function generateFree(){
   const hero=$('fHero').value.trim(),lieu=$('fLieu').value.trim(),lecon=$('fLecon').value.trim();
-  const age=$('fAge').value; try{localStorage.setItem('titi_age',age);}catch(e){}
+  const age=AGE_LIBRE[fLibre.g]||'moyen', bande=BANDES_LIBRE[fLibre.g]&&fLibre.mode==='bande'?fLibre.g:'', qui=bande?$('fQui').value:'';
   const gb=$('genBar'), gbtn=$('genBtn'), fill=gb.firstElementChild;
   gstatus('La conteuse invente ton histoire…'); gb.hidden=false; gbtn.disabled=true; fill.style.width='3%';
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams({hero,lieu,lecon,age,pass:librePass()}).toString());
+    const r=await fetch(AIW+"/story?"+new URLSearchParams(bande?{lieu,lecon,bande,qui,pass:librePass()}:{hero,lieu,lecon,age,pass:librePass()}).toString());
     if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
     const out=await r.json();
     if(out.plafond){ gstatus("C'est tout pour aujourd'hui : "+out.max+" histoires inventées, la conteuse se repose. À demain !"); return; }
@@ -782,7 +797,6 @@ $('genBtn').addEventListener('click',generateFree);
 $('carteBtn').addEventListener('click',()=>{ const i=$('carteImg'); i.src=`galaxies/carte_${etatCarte()}.svg`; i.style.width='100%'; i.style.maxWidth='1200px'; $('carteVue').hidden=false; });
 $('carteFermer').addEventListener('click',e=>{ e.stopPropagation(); $('carteVue').hidden=true; });
 $('carteImg').addEventListener('click',()=>{ const i=$('carteImg'), grand=i.style.width==='240%'; i.style.width=grand?'100%':'240%'; i.style.maxWidth=grand?'1200px':'none'; $('carteVue').style.cursor=grand?'zoom-in':'zoom-out'; });   // un toucher : agrandir / réduire
-$('fAge').addEventListener('change',()=>{ $('fAge').dataset.choisi='1'; });       // sans choix explicite, l'âge suit le groupe choisi à l'accueil
 
 /* ===== BIBLIOTHÈQUE des histoires inventées (dans le navigateur) ===== */
 function savedAll(){ try{return JSON.parse(localStorage.getItem('titi_saved')||'[]');}catch(e){return [];} }
