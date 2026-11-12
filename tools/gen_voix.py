@@ -189,7 +189,12 @@ def aligner(pcm, rate, pages):
                 (j0, t0), (j1, t1) = av[-1], ap[0]
                 debut[i] = t0 + (t1 - t0) * (i - j0) / (j1 - j0)
             elif ap:
-                debut[i] = max(0.0, ap[0][1] - 0.05)
+                # Mots du TOUT DÉBUT non reconnus : on remonte depuis le premier mot reconnu, au débit moyen de la lecture.
+                # (Les coller au premier mot reconnu faisait couper le début de l'histoire au découpage.)
+                j0, t0 = ap[0]; jn, tn = connus[-1]
+                car = lambda a_, b_: sum(len(norm(tokens[k][1])) + 1 for k in range(a_, b_))
+                cps = car(j0, jn) / (tn - t0) if tn - t0 > 2 and jn > j0 else 14.0
+                debut[i] = max(0.0, t0 - car(i, j0) / max(8.0, min(22.0, cps)))
             else:
                 debut[i] = av[-1][1] + 0.05
     for i in range(1, len(debut)):                    # jamais de retour en arrière
@@ -226,6 +231,19 @@ def produire(pages, voix, key, m4a, modele):
             encoder(wav, m4a)
         return {"d": round(duree, 2), "w": w, "q": round(qual, 3), "m": modele}
     raise RuntimeError(dernier or "échec")
+
+
+def attaque(pcm, rate):
+    """Instant où la voix commence : premier passage d'au moins 0,1 s nettement au-dessus du bruit de fond."""
+    import numpy as np
+    x = np.frombuffer(pcm, dtype="<i2").astype("float32")
+    pas = int(rate * 0.02); n = len(x) // pas
+    if n < 10: return 0.0
+    rms = np.sqrt((x[: n * pas].reshape(n, pas) ** 2).mean(axis=1) + 1e-9)
+    seuil = max(np.median(rms) * 0.2, rms.max() * 0.03); fort = rms > seuil
+    for i in range(n - 5):
+        if fort[i:i + 5].all(): return i * 0.02
+    return 0.0
 
 
 def coupes(pcm, rate, bornes):
@@ -269,7 +287,9 @@ def produire_histoire(s, voix, key, modele, decal=0):
     # Un simple blanc au début ou à la fin n'est pas un défaut : on le coupe.
     if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / 7) or w[0][0] > 8.0:
         raise RuntimeError(f"enregistrement refusé (qualité {qual:.2f}, durée {duree:.0f}s pour {n_car} car., début {w[0][0] if w else '?'} s)")
-    debut = max(0.0, w[0][0] - 0.3)
+    # Début de la piste : là où la voix commence VRAIMENT (énergie du signal), pas au premier mot reconnu —
+    # la reconnaissance vocale rate parfois les premiers mots, et l'histoire commençait alors au milieu d'une phrase.
+    debut = max(0.0, min(w[0][0] - 0.3, attaque(pcm, rate) - 0.15))
     if debut > 0.2:
         pcm = pcm[int(debut * rate) * 2:]; w = [[round(t - debut, 2) for t in pg] for pg in w]; duree -= debut
     fin = min(duree, w[-1][-1] + 2.5)
