@@ -32,13 +32,19 @@ const TTS_MODELES = ["gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "ge
 export default {
   async fetch(req, env, ctx) {
     const u = new URL(req.url);
-    const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "GET,POST,OPTIONS", "access-control-allow-headers": "content-type" };
+    const cors = { "access-control-allow-origin": "*", "access-control-allow-methods": "GET,POST,OPTIONS", "access-control-allow-headers": "content-type, authorization" };
     const J = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { "content-type": "application/json", "cache-control": "no-store", ...cors } });
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
     // Cache de bord : une même page lue ou une même image demandée deux fois n'est facturée qu'une fois.
     const cachable = req.method === "GET" && (u.pathname.startsWith("/tts") || u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) && !u.searchParams.get("debug");
-    const ckey = new Request(u.toString(), { method: "GET" });
+    let cleCache = u.toString();
+    if (u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) {       // seuls les paramètres signés comptent (et « r=2 », le second essai) : aucun moyen de faire redessiner à volonté
+      const q = new URLSearchParams(); for (const k of ["p", "a", "b", "s"]) { const v = u.searchParams.get(k); if (v) q.set(k, v); }
+      if (u.searchParams.get("r") === "2") q.set("r", "2");
+      cleCache = u.origin + (u.pathname.startsWith("/img") ? "/img?" : "/fiche?") + q.toString();
+    }
+    const ckey = new Request(cleCache, { method: "GET" });
     if (cachable) { try { const hit = await caches.default.match(ckey); if (hit) return hit; } catch (e) {} }
     const keep = (resp, key = ckey) => { if (resp.ok) { try { ctx.waitUntil(caches.default.put(key, resp.clone())); } catch (e) {} } return resp; };
 
@@ -129,17 +135,23 @@ export default {
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
         if (u.searchParams.get("diag")) return J({ compteurs: !!env.COMPTES, hasOpenRouter: !!env.OPENROUTER_KEY, hasGemini: !!GKEY, hasEleven: !!(env.ELEVEN_KEY || env.ELEVENLABS_KEY), hasAI: !!env.AI, locked: MDP !== "" });
         // Deux façons d'entrer : le mot de passe (l'éditeur), ou un compte du site qui a encore des crédits.
-        // Le site est seul juge des comptes : on lui présente le jeton de l'utilisateur, et on ne débite qu'une histoire réussie.
-        const jeton = (u.searchParams.get("jeton") || "").trim(); let parCompte = false;
+        // Les comptes sont dans la base du site (COMPTES) : session « s:<empreinte du jeton> », compte « u:<uid> », crédits « cr:<uid> ».
+        const jeton = ((req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "") || u.searchParams.get("jeton") || "").trim(); let parCompte = "";
         if (!passOK(u.searchParams.get("pass"))) {
-          let c = null;
-          if (/^[0-9a-f]{64}$/.test(jeton)) { try { const r = await fetch(SITE + "api/compte", { headers: { authorization: "Bearer " + jeton } }); if (r.ok) c = await r.json(); } catch (e) {} }
-          if (!c) { await new Promise(r => setTimeout(r, 1200)); return J({ error: "locked" }, 403); }   // délai : freine les essais en série
-          if (!(c.credits > 0)) return J({ error: "credits", credits: 0 }, 402);
-          parCompte = true;
+          let uid = "";
+          if (env.COMPTES && /^[0-9a-f]{64}$/.test(jeton)) { try {
+            const h = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(jeton)))].map(b => b.toString(16).padStart(2, "0")).join("");
+            const v = await env.COMPTES.get("s:" + h);
+            if (v) { let o = { uid: v, gen: "" }; if (v[0] === "{") o = JSON.parse(v); const c = await env.COMPTES.get("u:" + o.uid, "json"); if (c && (c.gen || "") === (o.gen || "")) uid = o.uid; }
+          } catch (e) {} }
+          if (!uid) { await new Promise(r => setTimeout(r, 1200)); return J({ error: "locked" }, 403); }   // délai : freine les essais en série
+          parCompte = uid;
         }
         if (u.searchParams.get("check")) return J({ ok: true });
         const dbg = !!u.searchParams.get("debug") && !parCompte;
+        // crédits du compte ; « controle=1 » (essai du seul contrôle) est réservé au mot de passe
+        const lireCredits = async () => { const v = await env.COMPTES.get("cr:" + parCompte); if (v !== null) return parseInt(v, 10) || 0; const c = await env.COMPTES.get("u:" + parCompte, "json"); return Math.max(0, parseInt(c && c.credits, 10) || 0); };
+        if (parCompte && !(await lireCredits() > 0)) return J({ error: "credits", credits: 0 }, 402);
         const hero = propre(u.searchParams.get("hero")), lieu = propre(u.searchParams.get("lieu")), lecon = propre(u.searchParams.get("lecon"));
         // « avec la bande » : les enfants d'un recueil (Comètes, Galaxies), dessinés d'après leurs fiches publiées, dans le style du recueil
         const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
@@ -150,7 +162,7 @@ export default {
         const demande = `Héros : ${bande ? "une bande d'enfants" : (hero || "(non précisé)")}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
         const c1 = await controle(env, demande, "demande", age);
         if (!c1.ok) return J({ error: "refus", refuse: true, etape: "demande", detail: dbg ? c1.raison : undefined });
-        if (u.searchParams.get("controle")) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
+        if (u.searchParams.get("controle") && !parCompte) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
 
         // PLAFOND DE DÉPENSE : au plus N histoires créées par jour (défaut 10) et par mois (défaut 100), tous utilisateurs confondus.
         // Comme seule une histoire validée ici peut ensuite faire dessiner (8 images) ou lire (8 pistes), ces plafonds bornent tout le coût payant.
@@ -162,10 +174,26 @@ export default {
         if (env.COMPTES) { try { fait = parseInt(await env.COMPTES.get(kJ), 10) || 0; faitM = parseInt(await env.COMPTES.get(kM), 10) || 0; } catch (e) {} }
         else { try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {} }
         if (fait >= MAXJ || faitM >= MAXM) return J({ error: "plafond", plafond: true, max: MAXJ, mois: faitM >= MAXM }, 429);
-        const compter = () => { try {
-          if (env.COMPTES) ctx.waitUntil(Promise.all([env.COMPTES.put(kJ, String(fait + 1), { expirationTtl: 3 * 86400 }), env.COMPTES.put(kM, String(faitM + 1), { expirationTtl: 70 * 86400 })]));
-          else ctx.waitUntil(caches.default.put(cleJour, new Response(String(fait + 1), { headers: { "cache-control": "public, max-age=172800" } })));
+        // RÉSERVATION : on compte et on débite AVANT d'écrire (plusieurs demandes simultanées ne passent pas toutes), et on rend si l'histoire n'aboutit pas.
+        let reserve = false, credits;
+        const ecrireCompteurs = d => env.COMPTES ? Promise.all([env.COMPTES.put(kJ, String(Math.max(0, fait + d)), { expirationTtl: 3 * 86400 }), env.COMPTES.put(kM, String(Math.max(0, faitM + d)), { expirationTtl: 70 * 86400 })])
+          : caches.default.put(cleJour, new Response(String(Math.max(0, fait + d)), { headers: { "cache-control": "public, max-age=172800" } }));
+        const rendre = async () => { if (!reserve) return; reserve = false; try {
+          if (env.COMPTES) { fait = (parseInt(await env.COMPTES.get(kJ), 10) || 1) - 1; faitM = (parseInt(await env.COMPTES.get(kM), 10) || 1) - 1; }
+          await ecrireCompteurs(0);
+          if (parCompte) { await env.COMPTES.put("cr:" + parCompte, String(await lireCredits() + 1), { expirationTtl: 730 * 86400 }); await env.COMPTES.delete("v:" + parCompte); }
         } catch (e) {} };
+        if (!dbg) {
+          if (parCompte) {
+            if (await env.COMPTES.get("v:" + parCompte)) return J({ error: "encours" }, 409);          // une création à la fois par compte
+            await env.COMPTES.put("v:" + parCompte, "1", { expirationTtl: 240 });
+            const n = await lireCredits(); if (!(n > 0)) { await env.COMPTES.delete("v:" + parCompte); return J({ error: "credits", credits: 0 }, 402); }
+            credits = n - 1; await env.COMPTES.put("cr:" + parCompte, String(credits), { expirationTtl: 730 * 86400 });
+          }
+          try { await ecrireCompteurs(1); } catch (e) {}
+          reserve = true;
+        }
+        try {      // toute panne imprévue pendant l'écriture rend la réservation (crédit, compteurs, verrou)
 
         // 2. écriture : on essaie les rédacteurs du meilleur au moins bon. Une histoire trop maigre (phrases
         //    tronquées, pages très courtes) est mise de côté et ne sert que si personne ne fait mieux.
@@ -221,17 +249,13 @@ export default {
             tableaux.push({ pages: t.pages, imgs, img: imgs[0] });
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
-          let credits;
-          if (parCompte) {                                 // l'histoire est écrite et contrôlée : c'est maintenant qu'on débite
-            let d = null; try { const r = await fetch(SITE + "api/compte/credit", { method: "POST", headers: { authorization: "Bearer " + jeton } }); if (r.ok) d = await r.json(); } catch (e) {}
-            if (!d || !d.ok) return J({ error: "credits", credits: 0 }, 402);
-            credits = d.credits;
-          }
-          if (!dbg || parCompte) compter();                // les essais de mise au point ne comptent pas dans le plafond du jour
+          if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // la réservation devient définitive
           return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
+        await rendre();                                    // rien n'a été remis : le crédit et les compteurs sont rendus
         if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });
         return J({ error: "Conteuse indisponible", busy: occupe, detail: dbg ? journal : undefined }, 502);
+        } catch (e) { await rendre(); throw e; }
       }
 
       return new Response("titistoire-ai", { headers: cors });

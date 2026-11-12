@@ -29,3 +29,7 @@ bucket_name = "titistoire-medias"
 # Envoi des codes de connexion (Cloudflare Email Service, domaine titistoire.fr activé).
 [[send_email]]
 name = "EMAIL"
+
+# Ménage hebdomadaire des images orphelines (dimanche, 4 h UTC).
+[triggers]
+crons = ["0 4 * * SUN"]

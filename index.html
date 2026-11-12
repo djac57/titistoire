@@ -890,9 +890,11 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams(Object.assign(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age},librePass()?{pass:librePass()}:{jeton:jeton()})).toString());
-    if(r.status===403){ try{localStorage.removeItem('titi_libre_pass');}catch(e){} gstatus(''); showLibreGate(); $('lockMsg').textContent='Mot de passe incorrect.'; return; }
+    const r=await fetch(AIW+"/story?"+new URLSearchParams(Object.assign(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age},librePass()?{pass:librePass()}:{})).toString(),(!librePass()&&jeton())?{headers:{authorization:'Bearer '+jeton()}}:{});
+    if(r.status===403){ const avecPass=!!librePass(); try{ localStorage.removeItem(avecPass?'titi_libre_pass':'titi_jeton'); }catch(e){}
+      if(!avecPass){ compte=null; majCompte(); } gstatus(''); showLibreGate(); $('lockMsg').textContent=avecPass?'Mot de passe incorrect.':'Votre session a expiré : reconnectez-vous.'; return; }
     const out=await r.json();
+    if(out.error==='encours'){ gstatus("Une histoire est déjà en cours de création sur votre compte. Patientez un instant."); return; }
     if(out.error==='credits'){ if(compte){ compte.credits=0; majCompte(); } gstatus("Vous n'avez plus de création d'histoire sur votre compte pour le moment."); return; }
     if(typeof out.credits==='number'&&compte){ compte.credits=out.credits; majCompte(); }
     if(out.plafond){ gstatus("La création d'histoires est temporairement indisponible, pour cause de coûts : chaque histoire créée coûte de l'argent. Elle rouvrira "+(out.mois?"le mois prochain":"demain")+". Pensez à soutenir Titistoire si vous le pouvez !"); return; }
@@ -969,10 +971,11 @@ function savedAll(){ try{return JSON.parse(localStorage.getItem('titi_saved')||'
 function savedPut(a){ try{localStorage.setItem('titi_saved',JSON.stringify(a));}catch(e){} }
 async function saveCurrent(){ if(!book||!book.libre) return;
   if(jeton()){ const b=$('saveBtn'); b.disabled=true; b.textContent='Je la range…';       // sur le compte : les images y sont recopiées, l'histoire ne bougera plus
-    try{ const r=await api('POST','/api/compte/histoires',book.libre);
-      if(r.ok){ if(compte){ compte.histoires=r.j.histoires; majCompte(); } b.textContent='Gardée ✓'; }
-      else { b.disabled=false; b.textContent=r.status===409?'Étagère pleine (20)':'Garder'; if(r.status===409) alert('Vous gardez déjà 20 histoires : supprimez-en une dans « Mes histoires inventées » pour faire de la place.'); }
-    }catch(e){ b.disabled=false; b.textContent='Garder'; }
+    try{ const env=Object.assign({},book.libre,{tableaux:(book.libre.tableaux||[]).map(t=>Object.assign({},t,{imgs:(t.imgs||[t.img]).map(u=>u&&imgBis[AIW+u]?u+'&r=2':u)}))});
+      const r=await api('POST','/api/compte/histoires',env);
+      if(r.ok){ if(compte){ compte.histoires=r.j.histoires; majCompte(); } b.textContent=r.j.images_manquantes?'Gardée (sans toutes ses images)':'Gardée ✓'; }
+      else { b.disabled=false; b.textContent=r.status===409?'Étagère pleine (20)':(r.status===401?'Reconnectez-vous':'Réessayer'); if(r.status===409) alert('Vous gardez déjà 20 histoires : supprimez-en une dans « Mes histoires inventées » pour faire de la place.'); }
+    }catch(e){ b.disabled=false; b.textContent='Réessayer'; }
     return; }
   const a=savedAll();
   a.unshift(Object.assign({id:'s'+Date.now(),ts:Date.now()},book.libre)); savedPut(a);
@@ -984,7 +987,7 @@ function renderSaved(){ const dist=(compte&&compte.histoires||[]).map(h=>Object.
     const open=document.createElement('button'); open.className='card saved-open'; open.style.cssText='display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:12px 14px;text-align:left';
     open.innerHTML=`<span style="font-size:1.8rem">${esc(it.emoji||'📖')}</span><span class="lab" style="padding:0">${esc(it.titre||'Mon histoire')}</span>`;
     open.addEventListener('click',async()=>{ if(!it.distant) return openFree(it,false);
-      try{ const r=await api('GET','/api/compte/histoires/'+it.id); if(r.ok) openFree(r.j,false); }catch(e){} });
+      try{ const r=await api('GET','/api/compte/histoires/'+it.id); if(r.ok) openFree(r.j,false); else alert(r.status===404?'Cette histoire n\'est plus disponible.':'Ouverture impossible pour le moment.'); }catch(e){ alert('Problème de connexion, réessayez.'); } });
     const del=document.createElement('button'); del.className='arrow saved-del'; del.title='Supprimer'; del.textContent='✕';
     del.addEventListener('click',async()=>{ if(it.distant){ if(!confirm('Supprimer « '+(it.titre||'cette histoire')+' » ?')) return;
         try{ const r=await api('DELETE','/api/compte/histoires/'+it.id); if(r.ok&&compte){ compte.histoires=r.j.histoires; majCompte(); } }catch(e){} }
