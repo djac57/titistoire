@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Écrit les trois pages légales (mentions-legales.html, confidentialite.html, cgu.html) avec la mise en page des pages d'histoire.
-Les passages [À COMPLÉTER] attendent l'identité de l'éditeur et le nom des prestataires (e-mail, paiement, médiateur).
+Tant que le site est gratuit, l'éditeur (un particulier) ne publie pas son identité, comme la loi le permet. À L'OUVERTURE DES ACHATS il faudra :
+nom ou dénomination, adresse, SIRET, nom du prestataire d'e-mail, du prestataire de paiement et du médiateur.
 PROJET à faire relire par un juriste avant l'ouverture des achats.
 
     python3 tools/textes_legaux.py
@@ -20,7 +21,7 @@ def doc(nom, titre, desc, corps):
 
 doc("mentions-legales.html", "Mentions légales", "Mentions légales du site Titistoire.", f"""
 <h2>Éditeur du site</h2>
-<p>Le site titistoire.fr est édité par {AC} (nom et prénom, ou dénomination de l'entreprise), {AC} (adresse), {AC} (numéro SIREN/SIRET dès qu'il existe).<br>Directeur de la publication : {AC}.<br>Contact : {MEL}.</p>
+<p>Le site titistoire.fr est édité à titre non professionnel par un particulier. Comme le permet l'article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, l'éditeur a choisi de ne pas publier son identité ; elle est connue de l'hébergeur ci-dessous, qui la communiquerait à l'autorité judiciaire si elle le demandait.<br>Contact : {MEL}.</p>
 <h2>Hébergement</h2>
 <p>Le site et ses services sont hébergés par Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis — <a href="https://www.cloudflare.com">www.cloudflare.com</a>.<br>Le nom de domaine est enregistré auprès d'OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
 <h2>Propriété intellectuelle</h2>
@@ -32,7 +33,7 @@ doc("mentions-legales.html", "Mentions légales", "Mentions légales du site Tit
 doc("confidentialite.html", "Politique de confidentialité", "Quelles données Titistoire traite, pourquoi, et quels sont vos droits.", f"""
 <p>Titistoire est fait pour des enfants. Nous avons donc choisi de collecter le moins de données possible : <strong>aucune publicité, aucun traceur publicitaire, aucun outil tiers de mesure d'audience, aucune donnée sur l'enfant.</strong></p>
 <h2>Responsable du traitement</h2>
-<p>{AC} (identité de l'éditeur, voir les <a href="mentions-legales.html">mentions légales</a>). Contact : {MEL}.</p>
+<p>L'éditeur du site (voir les <a href="mentions-legales.html">mentions légales</a>). Contact : {MEL}.</p>
 <h2>Sans compte : ce qui reste sur votre appareil</h2>
 <p>Pour écouter les histoires, aucun compte n'est nécessaire. Vos réglages (âge choisi, voix, thème clair ou sombre, histoires déjà écoutées) sont enregistrés uniquement dans votre navigateur, sur votre appareil. Ils ne nous sont pas transmis. Vous les effacez en vidant les données du site dans votre navigateur.</p>
 <h2>Avec un compte (réservé aux adultes)</h2>
@@ -47,8 +48,8 @@ doc("confidentialite.html", "Politique de confidentialité", "Quelles données T
 <h2>Destinataires et sous-traitants</h2>
 <ul><li>Cloudflare, Inc. (hébergement, base de données, génération d'images et contrôle de contenu) ;</li>
 <li>Google (modèles Gemini : écriture des histoires et voix) ;</li>
-<li>{AC} (prestataire d'envoi des e-mails de connexion) ;</li>
-<li>{AC} (prestataire de paiement, lorsqu'il sera en place).</li></ul>
+<li>un prestataire d'envoi d'e-mails, pour les codes de connexion, lorsque les comptes seront ouverts ;</li>
+<li>un prestataire de paiement, lorsque les achats seront ouverts. Leur nom sera indiqué ici à ce moment-là.</li></ul>
 <p>Certains de ces prestataires sont établis aux États-Unis. Les transferts sont encadrés par les clauses contractuelles types de la Commission européenne ou par le cadre de protection des données UE–États-Unis.</p>
 <h2>Durées de conservation</h2>
 <ul><li>Compte et contenus : tant que le compte existe ; supprimés dans les 30 jours après sa suppression.</li>
@@ -81,5 +82,5 @@ doc("cgu.html", "Conditions d'utilisation", "Conditions générales d'utilisatio
 <h2>8. Données personnelles</h2>
 <p>Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p>
 <h2>9. Droit applicable, litiges</h2>
-<p>Les présentes conditions sont soumises au droit français. En cas de litige, écrivez-nous d'abord : {MEL}. Vous pouvez ensuite recourir gratuitement à un médiateur de la consommation : {AC} (médiateur à désigner à l'ouverture des achats).</p>""")
+<p>Les présentes conditions sont soumises au droit français. En cas de litige, écrivez-nous d'abord : {MEL}. Vous pouvez ensuite recourir gratuitement à un médiateur de la consommation, dont les coordonnées seront indiquées ici à l'ouverture des achats.</p>""")
 print("✅ mentions-legales.html, confidentialite.html, cgu.html")
