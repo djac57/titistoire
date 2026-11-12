@@ -79,6 +79,8 @@
   .sub{color:var(--ink2);margin:6px 0 0;font-size:clamp(.92rem,3.3vw,1.05rem);font-weight:600;}
   .wrap{width:100%;max-width:720px;}
   .wrap.wide{max-width:1000px;}
+  /* plein écran : il ne reste que le livre */
+  body.plein header,body.plein .modebtn{display:none;} body.plein{padding-top:10px;} body.plein .wrap.wide{max-width:1250px;}
   .screen{display:none;animation:pop .45s cubic-bezier(.2,.7,.3,1);}
   .screen.show{display:block;}
   @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
@@ -322,6 +324,7 @@
   <!-- livre -->
   <section class="screen" id="s4">
     <button class="back" id="homeBtn2">← Autre histoire</button>
+    <button class="back" id="pleinBtn" hidden style="float:right" aria-label="Plein écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> <span id="pleinLab">Plein écran</span></button>
     <div class="book">
       <h2 class="title" id="title"></h2>
       <div class="spread">
@@ -570,6 +573,15 @@ function showLibreGate(){ const unl=!!librePass()||!!jeton(); const lk=$('libreL
   if(!unl) $('lockMsg').textContent=''; }
 $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
 $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompte(); });
+
+/* ===== PLEIN ÉCRAN (lecteur) : là où le navigateur le permet (pas sur iPhone, où l'appli installée est déjà en plein écran) ===== */
+(function(){ const el=document.documentElement, entrer=el.requestFullscreen||el.webkitRequestFullscreen, sortir=document.exitFullscreen||document.webkitExitFullscreen;
+  if(!entrer||!sortir) return; const b=$('pleinBtn'); b.hidden=false;
+  const actif=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+  const maj=()=>{ document.body.classList.toggle('plein',actif()); $('pleinLab').textContent=actif()?'Quitter le plein écran':'Plein écran'; };
+  b.addEventListener('click',()=>{ try{ const r=actif()?sortir.call(document):entrer.call(el); if(r&&r.catch) r.catch(()=>{}); }catch(e){} });
+  document.addEventListener('fullscreenchange',maj); document.addEventListener('webkitfullscreenchange',maj);
+})();
 
 /* ===== APPLI : sur téléphone ou tablette, si elle n'est pas déjà installée, on propose de la mettre sur l'écran d'accueil.
    Android (Chrome) : le navigateur fournit une invite ; iPhone/iPad (Safari) : pas d'invite, on explique le geste. ===== */
