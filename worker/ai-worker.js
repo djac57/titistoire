@@ -409,7 +409,7 @@ function redacteurs(env, GKEY, forceIA) {
     } catch (e) { return { err: String(e).slice(0, 120) }; }
   };
   const gemini = modele => async prompt => {
-    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), /lite/.test(modele) ? 25000 : 45000);
+    const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), /lite/.test(modele) ? 45000 : 80000);
     try {
       const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,

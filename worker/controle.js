@@ -7,7 +7,7 @@ const INTERDITS_FR = /(^|[^a-zà-ÿ])(tuer|tu[ée]e?s?|tuent|tua|meurtres?|meurt
 const INTERDITS_EN = /(?<![a-zà-ÿ])(kill\w*|murder\w*|dead|death|die[sd]?|dying|corpse\w*|blood\w*|bleed\w*|gore|gory|gun\w*|rifle\w*|pistol\w*|knife|knives|weapon\w*|bombs?|bombed|bombing|bomber\w*|war|soldier\w*|tortur\w*|raped?|raping|rapist\w*|sex\w*|naked|nude|nudity|breasts?|penis|vagina|drug\w*|cocaine|alcohol\w*|drunk|beer|whisky|whiskey|vodka|cigarette\w*|suicid\w*|hanged|demon\w*|devil|satan\w*|zombie\w*|vampire\w*|horror|terrif\w+|nazi\w*|hitler|creepy|skull\w*|skeleton\w*|wounded|wounds|injur\w*)(?![a-zà-ÿ])/i;
 
 // expressions innocentes de la nature, qu'il ne faut pas prendre pour des mots interdits
-const INNOCENTS = /feuilles? mortes?|branches? mortes?|bois mort|arbres? morts?|dead (leaves|leaf|trees?|branch(es)?|wood|grass)|morte? de (rire|fatigue|faim|froid)|morts? de (rire|fatigue|faim|froid)|à tue-tête|bomb(e|ant|ait|é|ée|ées|és|er) le torse|torse bombé|s'(est|était|étaient|sont|étant) tue?s?(?![a-zà-ÿ])|se sont tue?s(?![a-zà-ÿ])/gi;
+const INNOCENTS = /salopettes?|feuilles? mortes?|branches? mortes?|bois mort|arbres? morts?|dead (leaves|leaf|trees?|branch(es)?|wood|grass)|morte? de (rire|fatigue|faim|froid)|morts? de (rire|fatigue|faim|froid)|à tue-tête|bomb(e|ant|ait|é|ée|ées|és|er) le torse|torse bombé|s'(est|était|étaient|sont|étant) tue?s?(?![a-zà-ÿ])|se sont tue?s(?![a-zà-ÿ])/gi;
 export function motInterdit(texte) {
   texte = String(texte || "").replace(INNOCENTS, " ");
   const mf = INTERDITS_FR.exec(texte); if (mf) return mf[2];

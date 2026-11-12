@@ -616,6 +616,13 @@ function stopAudio(){
   try{ speechSynthesis.cancel(); }catch(e){} usingFallback=false; }
 
 /* --- A. piste pré-enregistrée d'un tableau : la voix enchaîne les pages, le texte suit --- */
+/* Le calage donne parfois le même instant à plusieurs mots de suite (« Au château ») : on les répartit jusqu'au mot suivant, sinon les premiers ne sont jamais surlignés. */
+const etales=new WeakMap();
+function etale(w){ if(!w||!w.length) return w||[]; let e=etales.get(w); if(e) return e; e=w.slice();
+  for(let i=0;i<e.length;){ let j=i; while(j+1<e.length&&w[j+1]===w[i]) j++;
+    if(j>i){ const fin=j+1<e.length?w[j+1]:w[i]+0.3*(j-i+1); for(let k=i+1;k<=j;k++) e[k]=w[i]+(fin-w[i])*(k-i)/(j-i+1); }
+    i=j+1; }
+  etales.set(w,e); return e; }
 function scenePages(s){ const out=[]; book.sc.forEach((x,i)=>{ if(x===s) out.push(i); }); return out; }
 function pageStart(s,k){ const w=book.voix.sc[s].w[k]; return k===0?0:Math.max(0,(w&&w.length?w[0]:0)-0.18); }
 function playTrack(s,fromPage){
@@ -625,7 +632,7 @@ function playTrack(s,fromPage){
   function tick(){ if(my!==playToken) return; if(!player.paused&&!player.ended){ const t=player.currentTime; let k=0;
       for(let j=0;j<idx.length;j++){ if(pageStart(s,j)<=t+0.02) k=j; else break; }
       if(idx[k]!==cur) renderPage(idx[k]);
-      const w=meta.w[k]||[]; let wi=-1; for(let j=0;j<w.length;j++){ if(w[j]<=t+0.05) wi=j; else break; } setWord(wi); }
+      const w=etale(meta.w[k]); let wi=-1; for(let j=0;j<w.length;j++){ if(w[j]<=t+0.05) wi=j; else break; } setWord(wi); }
     rafId=requestAnimationFrame(tick); }
   player.onended=()=>{ if(my!==playToken) return; if(rafId) cancelAnimationFrame(rafId); clearHi();
     const next=idx[idx.length-1]+1; if(!auto) return;
@@ -642,7 +649,7 @@ function playPiste(fromPage){
   function tick(){ if(my!==playToken) return; if(!player.paused&&!player.ended){ const t=player.currentTime; let k=0;
       for(let j=0;j<P.pages.length;j++){ if(P.pages[j]<=t+0.02) k=j; else break; }
       if(k!==cur) renderPage(k);
-      const w=P.mots[k]||[]; let wi=-1; for(let j=0;j<w.length;j++){ if(w[j]<=t+0.05) wi=j; else break; } if(k===cur) setWord(wi); }
+      const w=etale(P.mots[k]); let wi=-1; for(let j=0;j<w.length;j++){ if(w[j]<=t+0.05) wi=j; else break; } if(k===cur) setWord(wi); }
     rafId=requestAnimationFrame(tick); }
   player.onended=()=>{ if(my!==playToken) return; if(rafId) cancelAnimationFrame(rafId); showEnd(); };
   player.onerror=()=>{ if(my!==playToken) return; book.piste=null; readPage(fromPage); };
