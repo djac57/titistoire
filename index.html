@@ -244,7 +244,7 @@
       <button class="card mince" id="modeCompte"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M8 41c2-9 9-13 16-13s14 4 16 13"/></svg><span id="compteLab">Mon compte</span></button>
       <button class="card mince" id="modeSaved"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px"><path d="M24 13c-4-2.6-10-2.6-14-1.6v24c4-1 10-1 14 1.6 4-2.6 10-2.6 14-1.6v-24c-4-1-10-1-14 1.6z"/><path d="M24 13v24"/></svg><span>Mes histoires inventées</span></button>
     </div>
-    <p class="pied"><a href="h/">Toutes les histoires</a> · <a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="cgu.html">Conditions</a></p>
+    <p class="pied"><a href="h/">Toutes les histoires</a> · <a id="donPied" hidden target="_blank" rel="noopener">Soutenir Titistoire</a><span id="donSep" hidden> · </span><a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="cgu.html">Conditions</a></p>
   </section>
 
   <section class="screen" id="sCompte">
@@ -301,6 +301,10 @@
         <label id="fHeroL">Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
+        <div id="donBloc" hidden style="background:rgba(255,203,77,.16);border:1.5px solid #ffcb4d;border-radius:16px;padding:14px 14px 12px;text-align:center">
+          <p style="margin:0 0 10px;font-weight:700;color:var(--ink);font-size:.95rem;line-height:1.45">Titistoire est gratuit et sans publicité, mais chaque histoire créée coûte de l'argent à celui qui le fabrique, seul. Si vous le pouvez, un petit don le fait vivre.</p>
+          <a class="btn play" id="donLien" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex">Faire un don</a>
+        </div>
         <button class="btn play" id="genBtn" style="align-self:center">Invente l'histoire</button>
         <div id="genStatus" class="genstatus"></div>
         <div id="genBar" class="genbar" hidden><span></span></div>
@@ -551,6 +555,10 @@ function showLibreGate(){ const unl=!!librePass()||!!jeton(); const lk=$('libreL
   if(!unl) $('lockMsg').textContent=''; }
 $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
 $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompte(); });
+
+/* ===== DON : lien de paiement (Stripe). Vide = rien n'est affiché. Proposé aux parents, juste avant de créer une histoire et en bas de l'accueil. ===== */
+const DON_URL='';
+if(DON_URL){ $('donLien').href=DON_URL; $('donPied').href=DON_URL; ['donBloc','donPied','donSep'].forEach(i=>{ $(i).hidden=false; }); }
 
 /* ===== COMPTE (parents) : connexion par code reçu par e-mail ; réglages, histoires gardées et crédits suivent le compte ===== */
 const API=new URLSearchParams(location.search).get('api')||(/(^|\.)titistoire\.fr$/.test(location.hostname)?'':'https://titistoire.fr');
