@@ -3,9 +3,10 @@ name: Enregistrer les voix (Gemini TTS)
 on:
   # Niveau payant Gemini : le meilleur modèle est plafonné à 100 requêtes par jour (remise à zéro vers 08h UTC).
   # Ces passages terminent les enregistrements manquants, puis ne font plus rien (et ne coûtent plus rien).
-  schedule:
-    - cron: "20 8 * * *"
-    - cron: "20 13 * * *"
+  # Planification suspendue le 12/11/2026 : le passage du matin n'a rien enregistré (cause non élucidée) ; les voix sont enregistrées depuis le Mac.
+  # schedule:
+  #   - cron: "20 8 * * *"
+  #   - cron: "20 13 * * *"
   # Lancement à la main sans passer par le site de GitHub : modifier ce fichier-témoin et l'envoyer.
   push:
     paths:
