@@ -717,7 +717,7 @@ function renderScene(){
   })(0);
 }
 function preloadNext(){ if(!book) return;
-  if(book.id){ const s=sceneOf(cur)+1; if(s<=book.sc[book.sc.length-1]){ const pf=new Image(); pf.src=`assets/scenes/${book.id}_${s}.jpg`; } }
+  if(book.id&&!book.rec){ const s=sceneOf(cur)+1; if(s<=book.sc[book.sc.length-1]){ const pf=new Image(); pf.src=`assets/scenes/${book.id}_${s}.jpg`; } }
   if(book.imgs){ const u=book.imgs[cur+1]; if(u){ const pf=new Image(); pf.src=u; } } }
 function renderWords(text){ wordSpans=[]; let html=''; const re=/(\s+)|(\S+)/g, el=$('ptext'); let m;
   while((m=re.exec(text))){ if(m[1])html+=' '; else { wordSpans.push({raw:m[2]}); html+=`<span class="word" data-i="${wordSpans.length-1}">${esc(m[2])}</span>`; } }

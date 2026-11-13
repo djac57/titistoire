@@ -73,7 +73,9 @@ def recaler(x, rate, w, pages):
             if w[k][i] > plafond: w[k][i] = plafond; n += 1
     prec = 0.0                                                 # garde-fou : jamais de retour en arrière, d'une page à l'autre non plus
     for pg in w:
-        for i in range(len(pg)): pg[i] = prec = max(pg[i], prec)
+        for i in range(len(pg)):
+            if pg[i] < prec: n += 1
+            pg[i] = prec = max(pg[i], prec)
     return [[round(t, 2) for t in pg] for pg in w], n
 
 
