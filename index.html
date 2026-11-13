@@ -380,6 +380,7 @@
 <script src="cometes/recueil.js?v=1"></script>
 <script src="galaxies/recueil.js?v=1"></script>
 <script src="imagiers/recueil.js?v=1"></script>
+<script src="langues/ar/histoires.js?v=1"></script>
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
 const AIW = "https://titistoire-ai.djac-gene.workers.dev";
@@ -739,15 +740,17 @@ function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
 
 /* Galaxies : la carte du capitaine, dans l'état où elle est à cet épisode (moitiés séparées, réunies, puis prolongée). */
 function etatCarte(){ const n=parseInt((book&&book.rid||'').replace(/\D/g,''),10)||1; return n<=2?1:(n<=6?2:3); }
-function showBook(){ $('title').textContent=book.titre||''; shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
+function showBook(){ $('title').textContent=book.titre||''; const rtl=book.lang==='ar'; for(const e of [$('title'),$('ptext')]){ e.dir=rtl?'rtl':'ltr'; e.lang=book.lang||'fr'; } shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
   $('carteBtn').style.display=book.rec==='galaxies'?'inline-flex':'none';
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
-async function openStory(sid){ const st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
-  const petit=groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
+/* `langue` : histoire traduite (essai : ?h=<id>&l=ar). Mêmes images, texte et voix de la langue, écriture de droite à gauche pour l'arabe. */
+async function openStory(sid,langue){ let st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
+  const tr=langue&&window.TITI_LANGUES&&TITI_LANGUES[langue]&&TITI_LANGUES[langue][sid]; if(tr) st=Object.assign({},st,{t:tr.t,sc:tr.sc});
+  const petit=!tr&&groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
   const pages=[], sc=[]; if(petit) st.p.forEach((t,k)=>{ pages.push(t); sc.push(k+1); }); else st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
-  book={id:sid,petit,titre:st.t,pages,sc,im:petit?null:(st.im||null),imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,piste:null,libre:null};
+  book={id:sid,petit,titre:st.t,pages,sc,im:petit?null:(st.im||null),imgs:null,hero:byId(PERSOS,h),decor:u,voix:null,piste:null,libre:null,lang:tr?langue:''};
   showBook();
   const pb=$('playBtn'); pb.disabled=true;                      // le temps de savoir si la voix enregistrée existe (fichier local, très rapide)
   await loadVoix(sid);
@@ -760,7 +763,7 @@ function sigTexte(pages){ const t=pages.join("\n"), o=new TextEncoder().encode(t
 async function loadVoix(sid){
   const ordre=[conteur()].concat(CONTEURS.map(c=>c[0]).filter(v=>v!==conteur()));
   for(const v of ordre){
-    const sous=book&&book.rec?'/'+book.rec:(book&&book.petit?'/petits':''), fic=book&&book.rec?book.rid:sid;
+    const sous=book&&book.lang?'/'+book.lang:(book&&book.rec?'/'+book.rec:(book&&book.petit?'/petits':'')), fic=book&&book.rec?book.rid:sid;
     try{ const r=await fetch(`assets/voix/${v}${sous}/${fic}.json`,{cache:'no-cache'}); if(!r.ok) continue; const j=await r.json();
       if(!(book&&book.id===sid&&j&&j.sc)) continue;
       // un enregistrement n'est gardé que s'il lit bien le texte affiché (signature du texte au moment de l'enregistrement)
@@ -841,6 +844,7 @@ function startAt(i){ const s=book.sc?sceneOf(i):0;
   else if(book.vp&&book.vp[s]){                              // histoire inventée : la piste de ce tableau arrive, on l'attend plutôt que de changer de voix
     const my=++playToken, moi=book; $('voixNote').textContent='La conteuse prépare la suite…';
     book.vp[s].then(()=>{ if(my!==playToken||book!==moi) return; noteVoix(); if(book.voix&&book.voix.sc[s]) playTrack(s,i); else readPage(i); }); }
+  else if(book.lang){ auto=false; setPlay(false); noteVoix(); }      // histoire traduite sans voix enregistrée : pas de lecture par une voix française
   else readPage(i); }
 
 /* --- B. lecture en direct page par page (mode libre, ou piste pas encore enregistrée) --- */
@@ -1049,6 +1053,7 @@ function conteur(){ let v=''; try{v=localStorage.getItem('titi_conteur')||'';}ca
 function curVoice(){ return conteur()==="Algieba"?"IKne3meq5aSn9XLyUdCD":"Xb7hH8MSUJpSbSDYk0k2"; }
 /* Dit clairement quelle voix on va entendre : la voix choisie n'est pas forcément déjà enregistrée pour cette histoire. */
 function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v=>(CONTEURS.find(c=>c[0]===v)||[0,v])[1];
+  if(book.lang&&!(book.voix&&book.sc.every(x=>book.voix.sc[x]))){ n.textContent='La voix de cette langue n\'est pas encore enregistrée : le texte peut déjà se lire.'; return; }
   if(!book.id){ n.textContent=(book.piste||(book.voix&&book.voix.sc[1]))?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
   const d=book.voix&&(book.voix.v||book.voix.dir), complet=d&&book.sc.every(x=>book.voix.sc[x]);
   n.textContent = complet&&d===conteur() ? '' :
@@ -1066,7 +1071,7 @@ function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v
 renderHome();
 /* lien direct vers une histoire (pages h/…, partage) : ?h=filou_pirates ou ?h=cometes/c01 */
 window.addEventListener('load',()=>{ const h=new URLSearchParams(location.search).get('h'); if(!h) return; const [a,b]=h.split('/');      // après tout le script : le lecteur doit être prêt
-  if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h); });
+  if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h,new URLSearchParams(location.search).get('l')||''); });
 /* lien de partage d'une histoire inventée : ?p=<code> */
 window.addEventListener('load',async()=>{ const p=new URLSearchParams(location.search).get('p'); if(!p||!/^[0-9a-f]{32}$/.test(p)) return;
   try{ const r=await fetch(API+'/api/p/'+p); if(r.ok) openFree(await r.json(),false,p); else alert('Cette histoire partagée n\'existe plus.'); }catch(e){} });
