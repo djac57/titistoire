@@ -40,14 +40,22 @@ CONSIGNE = ("# AUDIO PROFILE: La conteuse\n"
 QUALITE_MIN = 0.86      # part du texte retrouvée dans la reconnaissance vocale
 # Histoires traduites (--langue) : consigne dans la langue, et reconnaissance vocale réglée sur elle.
 LANGUE = "fr"
-CONSIGNES = {"ar": ("# AUDIO PROFILE: الحكواتية\n"
+CONSIGNES = {"ar": ("# AUDIO PROFILE: الراوية\n"
+                    "راوية عربية حنونة، تقرأ قصة مصورة لطفل في الرابعة من عمره.\n\n"
+                    "### DIRECTOR'S NOTES\n"
+                    "Style : صوت دافئ ومبتسم وحيّ؛ تمثّل الحوار والأصوات تمثيلا خفيفا.\n"
+                    "Rythme : هادئ بلا بطء، مع وقفات قصيرة بين الجمل.\n"
+                    "Langue : العربية الفصحى المعاصرة، بنطق واضح وإعراب سليم.\n\n"
+                    "#### TRANSCRIPT\n"),
+             "ary": ("# AUDIO PROFILE: الحكواتية\n"
                     "حكواتية مغربية حنينة، كتقرا قصة لطفل عندو ربع سنين.\n\n"
                     "### DIRECTOR'S NOTES\n"
                     "Style : صوت دافي ومبتسم وحيّ؛ كتمثّل شوية الحوار والأصوات.\n"
                     "Rythme : بالمهل، مع وقفات صغار بين الجمل.\n"
                     "Langue : الدارجة المغربية ديال كل نهار، بنطق مغربي، ماشي العربية الفصحى.\n\n"
                     "#### TRANSCRIPT\n")}
-LENT = lambda: 4.5 if LANGUE == "ar" else 7      # débit le plus lent admis, en caractères par seconde (l'arabe n'écrit pas ses voyelles : moins de lettres pour la même durée)
+ECRIT_ARABE = lambda: LANGUE in ("ar", "ary")      # ar : arabe standard moderne ; ary : darija (arabe marocain)
+LENT = lambda: 4.5 if ECRIT_ARABE() else 7      # débit le plus lent admis, en caractères par seconde (l'arabe n'écrit pas ses voyelles : moins de lettres pour la même durée)
 # L'arabe s'écrit de plusieurs façons pour un même son : on ramène tout à une forme simple avant de comparer le texte à ce qui est entendu.
 ARABE = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ى": "ي", "ئ": "ي", "ؤ": "و", "ة": "ه", "گ": "ك", "ڭ": "ك", "ڤ": "ف", "پ": "ب", "ـ": ""})
 
@@ -172,7 +180,7 @@ def asr():
 def norm(s):
     s = unicodedata.normalize("NFD", s.lower())
     s = "".join(ch for ch in s if ch.isalnum() and not unicodedata.combining(ch))
-    return s.translate(ARABE) if LANGUE == "ar" else s
+    return s.translate(ARABE) if ECRIT_ARABE() else s
 
 
 def aligner(pcm, rate, pages):
@@ -182,7 +190,7 @@ def aligner(pcm, rate, pages):
     if rate != 16000:                                 # whisper attend du 16 kHz
         n = int(len(x) * 16000 / rate)
         x = np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype("float32")
-    segs, info = asr().transcribe(x, language=LANGUE, word_timestamps=True, beam_size=5,
+    segs, info = asr().transcribe(x, language="ar" if ECRIT_ARABE() else LANGUE, word_timestamps=True, beam_size=5,
                                   initial_prompt=" ".join(pages)[:400], condition_on_previous_text=False)
     hc, ht = [], []                                   # caractères reconnus + instant de chacun
     for sg in segs:

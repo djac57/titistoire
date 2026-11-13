@@ -381,6 +381,7 @@
 <script src="galaxies/recueil.js?v=1"></script>
 <script src="imagiers/recueil.js?v=1"></script>
 <script src="langues/ar/histoires.js?v=1"></script>
+<script src="langues/ary/histoires.js?v=1"></script>
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
 const AIW = "https://titistoire-ai.djac-gene.workers.dev";
@@ -740,12 +741,12 @@ function turnTo(i,cb){ if(i<0||i>=book.pages.length){cb&&cb();return;}
 
 /* Galaxies : la carte du capitaine, dans l'état où elle est à cet épisode (moitiés séparées, réunies, puis prolongée). */
 function etatCarte(){ const n=parseInt((book&&book.rid||'').replace(/\D/g,''),10)||1; return n<=2?1:(n<=6?2:3); }
-function showBook(){ $('title').textContent=book.titre||''; const rtl=book.lang==='ar'; for(const e of [$('title'),$('ptext')]){ e.dir=rtl?'rtl':'ltr'; e.lang=book.lang||'fr'; } shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
+function showBook(){ $('title').textContent=book.titre||''; const rtl=book.lang==='ar'||book.lang==='ary';      /* ar : arabe standard ; ary : darija */ for(const e of [$('title'),$('ptext')]){ e.dir=rtl?'rtl':'ltr'; e.lang=book.lang||'fr'; } shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
   $('carteBtn').style.display=book.rec==='galaxies'?'inline-flex':'none';
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
-/* `langue` : histoire traduite (essai : ?h=<id>&l=ar). Mêmes images, texte et voix de la langue, écriture de droite à gauche pour l'arabe. */
+/* `langue` : histoire traduite (essai : ?h=<id>&l=ar pour l'arabe standard, &l=ary pour le darija). Mêmes images, texte et voix de la langue, écriture de droite à gauche pour l'arabe. */
 async function openStory(sid,langue){ let st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
   const tr=langue&&window.TITI_LANGUES&&TITI_LANGUES[langue]&&TITI_LANGUES[langue][sid]; if(tr) st=Object.assign({},st,{t:tr.t,sc:tr.sc});
   const petit=!tr&&groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
