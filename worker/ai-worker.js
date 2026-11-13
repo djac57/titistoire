@@ -150,8 +150,10 @@ export default {
         if (u.searchParams.get("check")) return J({ ok: true });
         const dbg = !!u.searchParams.get("debug") && !parCompte;
         // crédits du compte ; « controle=1 » (essai du seul contrôle) est réservé au mot de passe
+        // Compte de l'éditeur (clé « a:<uid> » posée à la main dans la base) : créations illimitées, comptées à part (« ba: ») pour ne pas entamer le plafond du public.
+        const admin = !!parCompte && !!(await env.COMPTES.get("a:" + parCompte));
         const lireCredits = async () => { const v = await env.COMPTES.get("cr:" + parCompte); if (v !== null) return parseInt(v, 10) || 0; const c = await env.COMPTES.get("u:" + parCompte, "json"); return Math.max(0, parseInt(c && c.credits, 10) || 0); };
-        if (parCompte && !(await lireCredits() > 0)) return J({ error: "credits", credits: 0 }, 402);
+        if (parCompte && !admin && !(await lireCredits() > 0)) return J({ error: "credits", credits: 0 }, 402);
         const hero = propre(u.searchParams.get("hero")), lieu = propre(u.searchParams.get("lieu")), lecon = propre(u.searchParams.get("lecon"));
         // « avec la bande » : les enfants d'un recueil (Comètes, Galaxies), dessinés d'après leurs fiches publiées, dans le style du recueil
         const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
@@ -168,27 +170,30 @@ export default {
         // Comme seule une histoire validée ici peut ensuite faire dessiner (8 images) ou lire (8 pistes), ces plafonds bornent tout le coût payant.
         // Les compteurs sont dans la base du site (les mêmes partout dans le monde) ; à défaut, dans le cache du centre de données.
         const MAXJ = Math.max(1, parseInt(env.LIBRE_MAX_JOUR || "10", 10) || 10), MAXM = Math.max(1, parseInt(env.LIBRE_MAX_MOIS || "100", 10) || 100);
-        const jour = new Date().toISOString().slice(0, 10), kJ = "b:j:" + jour, kM = "b:m:" + jour.slice(0, 7);
+        const jour = new Date().toISOString().slice(0, 10), kJ = (admin ? "ba:j:" : "b:j:") + jour, kM = (admin ? "ba:m:" : "b:m:") + jour.slice(0, 7);
         const cleJour = new Request("https://cache.titistoire/compteur/" + jour, { method: "GET" });
         let fait = 0, faitM = 0;
         if (env.COMPTES) { try { fait = parseInt(await env.COMPTES.get(kJ), 10) || 0; faitM = parseInt(await env.COMPTES.get(kM), 10) || 0; } catch (e) {} }
         else { try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {} }
-        if (fait >= MAXJ || faitM >= MAXM) return J({ error: "plafond", plafond: true, max: MAXJ, mois: faitM >= MAXM }, 429);
+        if (!admin && (fait >= MAXJ || faitM >= MAXM)) return J({ error: "plafond", plafond: true, max: MAXJ, mois: faitM >= MAXM }, 429);
         // RÉSERVATION : on compte et on débite AVANT d'écrire (plusieurs demandes simultanées ne passent pas toutes), et on rend si l'histoire n'aboutit pas.
         let reserve = false, credits;
-        const ecrireCompteurs = d => env.COMPTES ? Promise.all([env.COMPTES.put(kJ, String(Math.max(0, fait + d)), { expirationTtl: 3 * 86400 }), env.COMPTES.put(kM, String(Math.max(0, faitM + d)), { expirationTtl: 70 * 86400 })])
+        const ecrireCompteurs = d => env.COMPTES ? Promise.all([env.COMPTES.put(kJ, String(Math.max(0, fait + d)), { expirationTtl: 400 * 86400 }), env.COMPTES.put(kM, String(Math.max(0, faitM + d)), { expirationTtl: 1100 * 86400 })])      // gardés longtemps : ils servent aussi au tableau de bord
           : caches.default.put(cleJour, new Response(String(Math.max(0, fait + d)), { headers: { "cache-control": "public, max-age=172800" } }));
         const rendre = async () => { if (!reserve) return; reserve = false; try {
           if (env.COMPTES) { fait = (parseInt(await env.COMPTES.get(kJ), 10) || 1) - 1; faitM = (parseInt(await env.COMPTES.get(kM), 10) || 1) - 1; }
           await ecrireCompteurs(0);
-          if (parCompte) { await env.COMPTES.put("cr:" + parCompte, String(await lireCredits() + 1), { expirationTtl: 730 * 86400 }); await env.COMPTES.delete("v:" + parCompte); }
+          if (parCompte && !admin) await env.COMPTES.put("cr:" + parCompte, String(await lireCredits() + 1), { expirationTtl: 730 * 86400 });
+          if (parCompte) await env.COMPTES.delete("v:" + parCompte);
         } catch (e) {} };
         if (!dbg) {
           if (parCompte) {
             if (await env.COMPTES.get("v:" + parCompte)) return J({ error: "encours" }, 409);          // une création à la fois par compte
             await env.COMPTES.put("v:" + parCompte, "1", { expirationTtl: 240 });
-            const n = await lireCredits(); if (!(n > 0)) { await env.COMPTES.delete("v:" + parCompte); return J({ error: "credits", credits: 0 }, 402); }
-            credits = n - 1; await env.COMPTES.put("cr:" + parCompte, String(credits), { expirationTtl: 730 * 86400 });
+            if (!admin) {
+              const n = await lireCredits(); if (!(n > 0)) { await env.COMPTES.delete("v:" + parCompte); return J({ error: "credits", credits: 0 }, 402); }
+              credits = n - 1; await env.COMPTES.put("cr:" + parCompte, String(credits), { expirationTtl: 730 * 86400 });
+            }
           }
           try { await ecrireCompteurs(1); } catch (e) {}
           reserve = true;
@@ -250,7 +255,7 @@ export default {
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
           if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // la réservation devient définitive
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
+          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: admin ? undefined : MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
         await rendre();                                    // rien n'a été remis : le crédit et les compteurs sont rendus
         if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });

@@ -279,6 +279,8 @@
         <p style="margin:8px 0 0;color:var(--ink)" id="cCredits"></p>
         <p style="margin:8px 0 14px;color:var(--ink)" id="cHist"></p>
         <button class="btn" id="cSortir" style="align-self:center">Se déconnecter</button>
+        <button class="btn play" id="cAdmin" hidden style="align-self:center;margin-top:12px">Tableau de bord</button>
+        <div id="cTableau" hidden style="margin-top:12px;font-size:.92rem;line-height:1.55;color:var(--ink);text-align:left;font-weight:500"></div>
         <button class="btn" id="cExport" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Télécharger mes données</button>
         <button class="btn" id="cSupprimer" style="align-self:center;margin-top:10px;font-size:.85rem;opacity:.8">Supprimer mon compte et mes histoires</button>
       </div>
@@ -648,8 +650,19 @@ function recevoirCompte(c){ compte=c; const p=c.prefs||{};
 function majCompte(){ $('compteLab').textContent=compte?'Mon compte ✓':'Mon compte';
   $('cDehors').hidden=!!compte; $('cDehors').style.display=compte?'none':'flex'; $('cDedans').hidden=!compte; $('cDedans').style.display=compte?'flex':'none';
   if(compte){ $('cQui').textContent=compte.email; const n=compte.credits||0, k=(compte.histoires||[]).length;
-    $('cCredits').textContent=n>1?`Il vous reste ${n} créations d'histoire.`:(n===1?'Il vous reste 1 création d\'histoire.':'Vous n\'avez plus de création d\'histoire pour le moment.');
+    $('cAdmin').hidden=!compte.admin; if(!compte.admin) $('cTableau').hidden=true;
+    $('cCredits').textContent=compte.admin?'Compte de l\'éditeur : créations illimitées.':n>1?`Il vous reste ${n} créations d'histoire.`:(n===1?'Il vous reste 1 création d\'histoire.':'Vous n\'avez plus de création d\'histoire pour le moment.');
     $('cHist').textContent=`Histoires gardées : ${k} sur ${compte.max||20}.`; } }
+/* tableau de bord de l'éditeur (le serveur ne le donne qu'à son compte) */
+$('cAdmin').addEventListener('click',async()=>{ const el=$('cTableau'); el.hidden=false; el.textContent='Chargement…';
+  try{ const r=await api('GET','/api/admin'); if(!r.ok) throw 0; const d=r.j, eur=x=>x.toFixed(2).replace('.',',')+' €', L=[];
+    const tab=(tetes,lignes)=>'<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;margin:6px 0 14px;font-variant-numeric:tabular-nums"><tr>'+tetes.map(x=>`<th style="text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid currentColor;font-weight:700">${x}</th>`).join('')+'</tr>'+lignes.map(l=>'<tr>'+l.map(x=>`<td style="padding:4px 10px 4px 0">${x}</td>`).join('')+'</tr>').join('')+'</table></div>';
+    L.push(`<b>Comptes</b> : ${d.comptes} (supprimés depuis l'ouverture : ${d.comptes_supprimes}) · <b>histoires gardées</b> : ${d.histoires_gardees} · <b>partagées</b> : ${d.histoires_partagees}`);
+    L.push('<b style="display:block;margin-top:12px">Par mois</b>'+tab(['Mois','Créées (public)','Créées (moi)','Nouveaux comptes','Coût estimé','Dons reçus'],d.mois.map(m=>[m.mois,m.public,m.moi,m.nouveaux_comptes,eur(m.cout_estime),m.dons.n?`${m.dons.n} · ${m.dons.total.toFixed(2).replace('.',',')} ${esc(m.dons.devise)}`:'—'])));
+    L.push('<b>Dix derniers jours</b>'+tab(['Jour','Créées (public)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
+    L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés à partir d'aujourd'hui. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Les écoutes du catalogue ne sont pas comptées (aucun traceur sur le site).</span>`);
+    el.innerHTML=L.join('');
+  }catch(e){ el.textContent='Tableau de bord indisponible pour le moment.'; } });
 function ouvrirCompte(){ $('cMsg').textContent=''; majCompte(); goto('sCompte'); }
 $('modeCompte').addEventListener('click',()=>{ apresCompte=''; ouvrirCompte(); });
 $('cDemander').addEventListener('click',async()=>{ const e=$('cMel').value.trim(), m=$('cMsg'); if(!/^\S+@\S+\.\S+$/.test(e)){ m.textContent='Indiquez votre adresse e-mail.'; return; }

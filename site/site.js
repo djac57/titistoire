@@ -10,6 +10,7 @@
  *   s:<empreinte du jeton>  une session {uid, gen}                                    c:<uid>   un code en attente
  *   h:<uid>:<id>  une histoire gardée                                                 x:<uid>   trace d'un compte supprimé (empreinte seule) : crédits déjà offerts
  *   p:<clé>  lien de partage d'une histoire gardée -> <uid>:<id>
+ *   a:<uid>  compte de l'éditeur (créations illimitées, tableau de bord)   n:m:<mois> nouveaux comptes   d:m:<mois> dons reçus (montants seuls)   k:kofi secret de l'avis de don
  *   l:…  limites d'essais                                                             b:… v:…   plafonds de dépense et verrous, tenus par le worker d'IA
  * Images des histoires gardées : R2 « MEDIAS », m/<clé de l'histoire>/<n>.
  * Aucun mot de passe, aucun cookie : la session est un jeton tiré au hasard, gardé par le navigateur.
@@ -73,7 +74,7 @@ async function session(req, env) {
   return { uid, c, jeton: t };
 }
 async function credits(env, uid, c) { const v = await env.COMPTES.get("cr:" + uid); return v === null ? Math.max(0, parseInt(c && c.credits, 10) || 0) : (parseInt(v, 10) || 0); }
-const vue = (c, cr) => ({ email: c.email, credits: cr, prefs: c.prefs || {}, histoires: (c.histoires || []).map(h => ({ id: h.id, titre: h.titre, emoji: h.emoji, ts: h.ts })), max: MAX_HISTOIRES });
+const vue = (c, cr, admin) => ({ email: c.email, credits: cr, admin: admin || undefined, prefs: c.prefs || {}, histoires: (c.histoires || []).map(h => ({ id: h.id, titre: h.titre, emoji: h.emoji, ts: h.ts })), max: MAX_HISTOIRES });
 
 async function api(req, env, ctx, u) {
   const p = u.pathname.replace(/\/+$/, ""), M = req.method;
@@ -93,6 +94,23 @@ async function api(req, env, ctx, u) {
   if (m && M === "GET") {
     const v = await env.COMPTES.get("p:" + m[1]), it = v && await env.COMPTES.get("h:" + v, "json");
     return it ? J({ titre: it.titre, emoji: it.emoji, decor: it.decor, sig: it.sig, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
+  }
+
+  // --- dons : Ko-fi prévient cette adresse (dont la fin est un secret gardé dans la base, « k:kofi ») à chaque don.
+  //     On n'en retient que le montant et le mois — ni nom, ni adresse, ni message.
+  m = /^\/api\/kofi\/([0-9a-f]{32})$/.exec(p);
+  if (m && M === "POST") {
+    if (m[1] !== await env.COMPTES.get("k:kofi")) return J({ erreur: "inconnu" }, 404);
+    let d = null; try { d = JSON.parse((await req.formData()).get("data")); } catch (e) {}
+    const montant = d && parseFloat(d.amount);
+    if (d && montant > 0 && montant < 100000) {
+      const k = "d:m:" + new Date().toISOString().slice(0, 7), o = await env.COMPTES.get(k, "json") || { n: 0, total: 0, devise: "" };
+      if (!(o.ids || []).includes(d.message_id)) {             // Ko-fi renvoie parfois deux fois le même avis
+        o.n++; o.total = Math.round((o.total + montant) * 100) / 100; o.devise = String(d.currency || o.devise || "").slice(0, 4); o.ids = [...(o.ids || []), String(d.message_id || "").slice(0, 60)].slice(-200);
+        await env.COMPTES.put(k, JSON.stringify(o), { expirationTtl: 1100 * 86400 });
+      }
+    }
+    return J({ ok: true });
   }
 
   // --- 1. demander un code de connexion
@@ -124,10 +142,11 @@ async function api(req, env, ctx, u) {
     if (!c) {                                                  // nouveau compte ; s'il a déjà existé, il retrouve les créations qui lui restaient (pas trois de plus)
       const trace = await env.COMPTES.get("x:" + uid); cr = trace === null ? CREDITS_OFFERTS : (parseInt(trace, 10) || 0);
       c = { email, cree: Date.now(), vu: Date.now(), gen: hasard(8), prefs: {}, histoires: [] };
+      if (trace === null) { const kn = "n:m:" + new Date().toISOString().slice(0, 7); await env.COMPTES.put(kn, String((parseInt(await env.COMPTES.get(kn), 10) || 0) + 1), { expirationTtl: 1100 * 86400 }); }      // nouveaux comptes du mois (tableau de bord)
       await env.COMPTES.put("cr:" + uid, String(cr), { expirationTtl: INACTIF }); await env.COMPTES.put("u:" + uid, JSON.stringify(c), { expirationTtl: INACTIF });
     } else cr = await credits(env, uid, c);
     const jeton = hasard(32); await env.COMPTES.put("s:" + await sha(jeton), JSON.stringify({ uid, gen: c.gen || "" }), { expirationTtl: SESSION });
-    return J({ jeton, compte: vue(c, cr) });
+    return J({ jeton, compte: vue(c, cr, !!(await env.COMPTES.get("a:" + uid))) });
   }
 
   // --- tout le reste demande une session
@@ -141,7 +160,9 @@ async function api(req, env, ctx, u) {
     if (M === "GET") await garder();                            // sinon l'écriture de la requête elle-même s'en charge (une seule écriture du compte par requête)
   }
 
-  if (p === "/api/compte" && M === "GET") return J(vue(c, cr));
+  const admin = !!(await env.COMPTES.get("a:" + uid));         // compte de l'éditeur : clé posée à la main dans la base, jamais par le site
+  if (p === "/api/compte" && M === "GET") return J(vue(c, cr, admin));
+  if (p === "/api/admin" && M === "GET") return admin ? J(await tableau(env)) : J({ erreur: "inconnu" }, 404);
   if (p === "/api/compte/export" && M === "GET") {               // droit d'accès et de portabilité : tout ce que le compte contient, sans nous écrire
     const histoires = []; for (const h of c.histoires || []) { const it = await env.COMPTES.get(`h:${uid}:${h.id}`, "json"); if (it) histoires.push(it); }
     return new Response(JSON.stringify({ service: "Titistoire", exporte_le: new Date().toISOString(), compte: { email: c.email, cree_le: new Date(c.cree).toISOString(), derniere_visite: new Date(c.vu || c.cree).toISOString(), credits: cr, reglages: c.prefs || {} }, histoires_gardees: histoires }, null, 1),
@@ -210,6 +231,20 @@ async function api(req, env, ctx, u) {
     return J({ ok: true, histoires: vue(frais, cr).histoires });
   }
   return J({ erreur: "inconnu" }, 404);
+}
+/** Tableau de bord de l'éditeur : des nombres seulement, aucune donnée d'un compte. */
+const COUT_HISTOIRE = 0.20;         // ESTIMATION en euros d'une histoire créée (8 images, texte, voix) — à recaler sur les factures
+async function tableau(env) {
+  const compter = async prefixe => { let n = 0, curseur, tours = 0; do { const L = await env.COMPTES.list({ prefix: prefixe, limit: 1000, cursor: curseur }); n += L.keys.length; curseur = L.list_complete ? undefined : L.cursor; } while (curseur && ++tours < 3); return n; };
+  const nb = async k => parseInt(await env.COMPTES.get(k), 10) || 0;
+  const [comptes, gardees, partagees, supprimes] = await Promise.all(["u:", "h:", "p:", "x:"].map(compter));
+  const jours = [], mois = [], t = new Date();
+  for (let i = 0; i < 10; i++) { const j = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10); jours.push(j); }
+  for (let i = 0; i < 3; i++) { const d = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() - i, 1)); mois.push(d.toISOString().slice(0, 7)); }
+  const pj = await Promise.all(jours.map(async j => ({ jour: j, public: await nb("b:j:" + j), moi: await nb("ba:j:" + j) })));
+  const pm = await Promise.all(mois.map(async m => { const pub = await nb("b:m:" + m), moi = await nb("ba:m:" + m), don = await env.COMPTES.get("d:m:" + m, "json");
+    return { mois: m, public: pub, moi, nouveaux_comptes: await nb("n:m:" + m), cout_estime: Math.round((pub + moi) * COUT_HISTOIRE * 100) / 100, dons: don ? { n: don.n, total: don.total, devise: don.devise } : { n: 0, total: 0, devise: "" } }; }));
+  return { comptes, comptes_supprimes: supprimes, histoires_gardees: gardees, histoires_partagees: partagees, jours: pj, mois: pm, cout_par_histoire: COUT_HISTOIRE, dons_branches: !!(await env.COMPTES.get("k:kofi")) };
 }
 async function oublier(env, uid, h) {
   await env.COMPTES.delete(`h:${uid}:${h.id}`); if (h.cle) await env.COMPTES.delete("p:" + h.cle);      // le lien de partage tombe avec l'histoire
