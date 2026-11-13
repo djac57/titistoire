@@ -45,7 +45,7 @@ Ni baguette, ni formule, ni pouvoir personnel : le merveilleux est dans les **ch
 4. **L'encre vive** bouge encore quand on a fini de dessiner. Elle ne quitte jamais sa feuille : elle va jusqu'au bord, et elle attend.
 5. **Les titres chuchotés.** Un livre ne s'ouvre que si on lui chuchote son titre.
 
-Matières : le soin des lanternes, la lecture des heures (Maître Idris), l'encre vive (Madame Ada). Rien ne s'ajoute en cours de saison.
+Matières : le soin des lanternes, la lecture des heures (Maître Idris), l'encre vive (Miss Ada). Rien ne s'ajoute en cours de saison.
 
 ## 4. Les personnages
 
@@ -62,7 +62,9 @@ Matières : le soin des lanternes, la lecture des heures (Maître Idris), l'encr
 
 **Trois duos** (on écrit par duos, jamais à six) : Elias × Kenza, le règlement contre la grandeur ; Maya × Nour, celle qui invente tout haut contre celle qui cache poliment ce qu'elle pense ; Tom × Sami, celui qui compte tout contre celui qui ne fait rien. Sami, à force de chercher les coins tièdes, connaît tous les courants d'air du château.
 
-**Adultes** (trois, jamais la solution) : **Zora**, la passeuse, mène la barque, garde les clés et les écharpes, parle peu (« Tout le monde descend, même les menteurs ! ») ; **Maître Idris**, très vieux, remonte les horloges (« Recompte ») ; **Madame Ada**, directrice, les doigts noirs d'encre, a commandé pour la tour une lampe ordinaire, qui s'allume même quand on ment.
+**Adultes** (trois, jamais la solution) : **Zora**, la passeuse, mène la barque, garde les clés et les écharpes, parle peu (« Tout le monde descend, même les menteurs ! ») ; **Maître Idris**, très vieux, remonte les horloges (« Recompte ») ; **Miss Ada**, directrice, les doigts noirs d'encre, a commandé pour la tour une lampe ordinaire, qui s'allume même quand on ment.
+
+**La touche britannique** (demande du propriétaire, 13/11/2026) : Haute-Lanterne a l'air d'un vieux pensionnat anglais sans que le pays soit jamais nommé. Elle tient à peu de choses, toujours les mêmes : le thé (il a son horloge) et le pain grillé à la marmelade, la pluie fine et le brouillard dont personne ne se plaint, la pelouse où l'on ne marche pas, la cloche, les capes et les écharpes aux couleurs de l'aile, « Miss » pour la directrice, et surtout le ton : flegme, politesse imperturbable, humour pince-sans-rire, adultes qui ne s'étonnent de rien. Jamais de lieu, de monument, de fête ni de personnage réels ; ni porc ni alcool.
 
 ## 5. La légende et la carte
 
