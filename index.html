@@ -470,9 +470,9 @@ function storyCard(sid,opts){ opts=opts||{}; const st=STORIES[sid], [h,u]=sid.sp
 /* ===== NAV ===== */
 /* Dans le livre, l'écran reste allumé (sinon le téléphone se met en veille pendant qu'on écoute). Le navigateur relâche ce maintien
    dès qu'on quitte la page : on le redemande au retour. */
-let eveil=null, auLivre=false;
-async function tenirEveil(){ try{ if(auLivre&&!eveil&&navigator.wakeLock&&document.visibilityState==='visible'){ const v=await navigator.wakeLock.request('screen'); eveil=v; v.addEventListener('release',()=>{ if(eveil===v) eveil=null; });
-    if(!auLivre){ eveil=null; v.release().catch(()=>{}); } } }catch(e){} }
+let eveil=null, auLivre=false, eveilDemande=false;
+async function tenirEveil(){ if(eveilDemande) return; eveilDemande=true; try{ if(auLivre&&!eveil&&navigator.wakeLock&&document.visibilityState==='visible'){ const v=await navigator.wakeLock.request('screen'); eveil=v; v.addEventListener('release',()=>{ if(eveil===v) eveil=null; });
+    if(!auLivre){ eveil=null; v.release().catch(()=>{}); } } }catch(e){} eveilDemande=false; }
 function lacherEveil(){ const v=eveil; eveil=null; if(v) try{ v.release().catch(()=>{}); }catch(e){} }
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') tenirEveil(); });
 function goto(id){ auLivre=id==='s4'; if(auLivre) tenirEveil(); else lacherEveil(); document.body.classList.toggle('livre',auLivre);
@@ -659,7 +659,7 @@ $('cAdmin').addEventListener('click',async()=>{ const el=$('cTableau'); el.hidde
     const tab=(tetes,lignes)=>'<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;margin:6px 0 14px;font-variant-numeric:tabular-nums"><tr>'+tetes.map(x=>`<th style="text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid currentColor;font-weight:700">${x}</th>`).join('')+'</tr>'+lignes.map(l=>'<tr>'+l.map(x=>`<td style="padding:4px 10px 4px 0">${x}</td>`).join('')+'</tr>').join('')+'</table></div>';
     L.push(`<b>Comptes</b> : ${d.comptes} (supprimés depuis l'ouverture : ${d.comptes_supprimes}) · <b>histoires gardées</b> : ${d.histoires_gardees} · <b>partagées</b> : ${d.histoires_partagees}`);
     L.push('<b style="display:block;margin-top:12px">Par mois</b>'+tab(['Mois','Créées (public)','Créées (moi)','Nouveaux comptes','Coût estimé','Dons reçus'],d.mois.map(m=>[m.mois,m.public,m.moi,m.nouveaux_comptes,eur(m.cout_estime),m.dons.n?`${m.dons.n} · ${m.dons.total.toFixed(2).replace('.',',')} ${esc(m.dons.devise)}`:'—'])));
-    L.push('<b>Dix derniers jours</b>'+tab(['Jour','Créées (public)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
+    L.push('<b>Sept derniers jours</b>'+tab(['Jour','Créées (public)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
     L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés à partir d'aujourd'hui. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Les écoutes du catalogue ne sont pas comptées (aucun traceur sur le site).</span>`);
     el.innerHTML=L.join('');
   }catch(e){ el.textContent='Tableau de bord indisponible pour le moment.'; } });
@@ -709,7 +709,7 @@ function renderScene(){
   const cands=sceneCandidates(), key=cands[0]||''; if(key===shownKey) return; shownKey=key;
   const U=byId(UNIVERS,book.decor)||UNIVERS[4], withEmo=!book.id;          // mode libre : le héros en emoji par-dessus le décor
   (function go(i){
-    if(i>=cands.length){ scene.innerHTML=`<svg viewBox="0 0 10 10" preserveAspectRatio="none"><defs><linearGradient id="z" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${U.g[0]}"/><stop offset="1" stop-color="${U.g[1]}"/></linearGradient></defs><rect width="10" height="10" fill="url(#z)"/></svg><div class="hero-emo">${book.hero.emoji||'🧒'}</div>`; return; }
+    if(i>=cands.length){ scene.innerHTML=`<svg viewBox="0 0 10 10" preserveAspectRatio="none"><defs><linearGradient id="z" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${U.g[0]}"/><stop offset="1" stop-color="${U.g[1]}"/></linearGradient></defs><rect width="10" height="10" fill="url(#z)"/></svg><div class="hero-emo">${esc(book.hero.emoji||'🧒')}</div>`; return; }
     const img=new Image(); img.className='scene-img';
     img.onload=()=>{ if(shownKey!==key) return; scene.replaceChildren(img);
       if(withEmo && cands[i].indexOf('assets/decor_')===0){ const e=document.createElement('div'); e.className='hero-emo'; e.textContent=book.hero.emoji||'🧒'; scene.appendChild(e); } };
@@ -1008,9 +1008,9 @@ async function partager(){ if(!book) return; const titre=book.titre||'Titistoire
   else if(book.partage) url='https://titistoire.fr/?p='+book.partage;
   else { if(!jeton()){ alert('Pour partager une histoire inventée, connectez-vous (« Mon compte ») : elle sera gardée sur votre compte, puis vous aurez son lien.'); return; }
     lab.textContent='Un instant…';
-    if(!book.distant&&book.libre) await saveCurrent();
+    if(!book.distant&&book.libre&&!$('saveBtn').disabled) await saveCurrent();
     if(!book.distant){ dire('Partager'); alert('Pour partager cette histoire, il faut d\'abord la garder sur votre compte.'); return; }
-    try{ const r=await api('POST','/api/compte/histoires/'+book.distant+'/partage'); if(!r.ok||!r.j.code) throw 0; book.partage=r.j.code; url='https://titistoire.fr/?p='+r.j.code; }
+    try{ const r=await api('POST','/api/compte/histoires/'+book.distant+'/partage'); if(r.status===403){ dire('Partager'); alert('Cette histoire ne peut pas être partagée.'); return; } if(!r.ok||!r.j.code) throw 0; book.partage=r.j.code; url='https://titistoire.fr/?p='+r.j.code; }
     catch(e){ dire('Partager'); alert('Partage impossible pour le moment, réessayez.'); return; }
     lab.textContent='Partager'; }
   if(navigator.share){ try{ await navigator.share({title:titre,text:'« '+titre+' », une histoire à écouter sur Titistoire',url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }

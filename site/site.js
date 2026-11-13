@@ -93,7 +93,7 @@ async function api(req, env, ctx, u) {
   m = /^\/api\/p\/([0-9a-f]{32})$/.exec(p);
   if (m && M === "GET") {
     const v = await env.COMPTES.get("p:" + m[1]), it = v && await env.COMPTES.get("h:" + v, "json");
-    return it ? J({ titre: it.titre, emoji: it.emoji, decor: it.decor, sig: it.sig, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
+    return it ? J({ titre: it.titre, emoji: [...String(it.emoji || "")].filter(ch => ch.codePointAt(0) > 0x2000).slice(0, 4).join("") || "📖", decor: it.decor, sig: it.sig, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
   }
 
   // --- dons : Ko-fi prévient cette adresse (dont la fin est un secret gardé dans la base, « k:kofi ») à chaque don.
@@ -156,7 +156,8 @@ async function api(req, env, ctx, u) {
   if (Date.now() - (c.vu || 0) > 30 * 86400000) {              // une visite par mois suffit à garder le compte, ses crédits et ses histoires en vie
     c.vu = Date.now();
     await env.COMPTES.put("cr:" + uid, String(cr), { expirationTtl: INACTIF });
-    for (const h of c.histoires || []) { const it = await env.COMPTES.get(`h:${uid}:${h.id}`); if (it) await env.COMPTES.put(`h:${uid}:${h.id}`, it, { expirationTtl: INACTIF }); }
+    for (const h of c.histoires || []) { const it = await env.COMPTES.get(`h:${uid}:${h.id}`); if (it) await env.COMPTES.put(`h:${uid}:${h.id}`, it, { expirationTtl: INACTIF });
+      if (h.cle && await env.COMPTES.get("p:" + h.cle)) await env.COMPTES.put("p:" + h.cle, uid + ":" + h.id, { expirationTtl: INACTIF }); }      // le lien de partage vit aussi longtemps que l'histoire
     if (M === "GET") await garder();                            // sinon l'écriture de la requête elle-même s'en charge (une seule écriture du compte par requête)
   }
 
@@ -221,6 +222,13 @@ async function api(req, env, ctx, u) {
   m = /^\/api\/compte\/histoires\/(h[0-9a-z]{6,24})\/partage$/.exec(p);
   if (m && M === "POST") {                                     // l'auteur demande un lien de partage : le code est la clé (secrète) de l'histoire ; supprimer l'histoire coupe le lien
     const h = (c.histoires || []).find(x => x.id === m[1]); if (!h || !h.cle) return J({ erreur: "introuvable" }, 404);
+    if (await env.COMPTES.get("p:" + h.cle)) return J({ ok: true, code: h.cle });
+    // Ce qui est gardé vient du navigateur : avant de le rendre public, le worker d'IA confirme que le texte est bien celui qu'il a écrit et contrôlé
+    // (signature), et contrôle le titre. Une histoire retouchée à la main ne se partage pas.
+    if (!(await permis(env, "partage:" + uid, 20, 86400))) return J({ erreur: "trop" }, 429);
+    const it = await env.COMPTES.get(`h:${uid}:${h.id}`, "json"); if (!it) return J({ erreur: "introuvable" }, 404);
+    let v = null; try { v = await (await fetch(IA + "/verif", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ tableaux: it.tableaux.map(t => t.pages), sig: it.sig, titre: it.titre }) })).json(); } catch (e) {}
+    if (!v || v.ok !== true) return J({ erreur: "refus" }, 403);
     await env.COMPTES.put("p:" + h.cle, uid + ":" + h.id, { expirationTtl: INACTIF }); return J({ ok: true, code: h.cle });
   }
   m = /^\/api\/compte\/histoires\/(h[0-9a-z]{6,24})$/.exec(p);
@@ -233,13 +241,13 @@ async function api(req, env, ctx, u) {
   return J({ erreur: "inconnu" }, 404);
 }
 /** Tableau de bord de l'éditeur : des nombres seulement, aucune donnée d'un compte. */
-const COUT_HISTOIRE = 0.20;         // ESTIMATION en euros d'une histoire créée (8 images, texte, voix) — à recaler sur les factures
+const COUT_HISTOIRE = 0.30;         // ESTIMATION en euros d'une histoire créée (8 images, texte, voix) — à recaler sur les factures
 async function tableau(env) {
   const compter = async prefixe => { let n = 0, curseur, tours = 0; do { const L = await env.COMPTES.list({ prefix: prefixe, limit: 1000, cursor: curseur }); n += L.keys.length; curseur = L.list_complete ? undefined : L.cursor; } while (curseur && ++tours < 3); return n; };
   const nb = async k => parseInt(await env.COMPTES.get(k), 10) || 0;
   const [comptes, gardees, partagees, supprimes] = await Promise.all(["u:", "h:", "p:", "x:"].map(compter));
   const jours = [], mois = [], t = new Date();
-  for (let i = 0; i < 10; i++) { const j = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10); jours.push(j); }
+  for (let i = 0; i < 7; i++) { const j = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10); jours.push(j); }
   for (let i = 0; i < 3; i++) { const d = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() - i, 1)); mois.push(d.toISOString().slice(0, 7)); }
   const pj = await Promise.all(jours.map(async j => ({ jour: j, public: await nb("b:j:" + j), moi: await nb("ba:j:" + j) })));
   const pm = await Promise.all(mois.map(async m => { const pub = await nb("b:m:" + m), moi = await nb("ba:m:" + m), don = await env.COMPTES.get("d:m:" + m, "json");

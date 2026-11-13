@@ -49,7 +49,7 @@ export default {
     const keep = (resp, key = ckey) => { if (resp.ok) { try { ctx.waitUntil(caches.default.put(key, resp.clone())); } catch (e) {} } return resp; };
 
     const MDP = (env.LIBRE_PASS || "").trim();
-    const passOK = p => MDP !== "" && String(p || "").trim() === MDP;      // fermé si aucun mot de passe n'est configuré
+    const passOK = p => MDP.length >= 16 && String(p || "").trim() === MDP;      // un mot de passe court (devinable) est tenu pour absent      // fermé si aucun mot de passe n'est configuré
     const cleSig = env.GEMINI_KEY || env.GEMINI_API_KEY || env.ELEVEN_KEY || "";
 
     try {
@@ -128,6 +128,17 @@ export default {
         const corps = new Uint8Array(4 + meta.length + w.length);                 // [longueur du JSON sur 4 octets][JSON][WAV]
         new DataView(corps.buffer).setUint32(0, meta.length, true); corps.set(meta, 4); corps.set(w, 4 + meta.length);
         return keep(new Response(corps, { headers: { "content-type": "application/octet-stream", "cache-control": "public, max-age=31536000", ...cors } }), cle2);
+      }
+
+      // ---------- PARTAGE : le site demande si cette histoire est bien une histoire écrite et contrôlée ici (texte signé), et si son titre convient ----------
+      if (u.pathname.startsWith("/verif")) {
+        if (req.method !== "POST") return J({ error: "POST attendu" }, 405);
+        const b = await req.json().catch(() => null);
+        const tb = b && Array.isArray(b.tableaux) ? b.tableaux.map(t => (Array.isArray(t) ? t : []).map(x => String(x))) : null;
+        if (!tb || !tb.length || !cleSig || !(await signatureOK("txt:" + tb.map(t => t.join("\n")).join("\n\n"), String(b.sig || ""), cleSig))) return J({ ok: false, raison: "texte" });
+        const titre = propre(b.titre).slice(0, 90);
+        if (titre) { const c = await controle(env, "Titre d'une histoire pour enfants : " + titre, "demande", "moyen"); if (!c.ok) return J({ ok: false, raison: "titre" }); }
+        return J({ ok: true });
       }
 
       // ---------- HISTOIRE INVENTÉE ----------

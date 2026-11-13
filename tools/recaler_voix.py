@@ -62,7 +62,8 @@ def recaler(x, rate, w, pages):
             b = next((t for t, m in zip(w[k + 1], mots[k + 1]) if mot(m)), b)
         if len(mots[k]) == len(w[k]):                         # a : le dernier VRAI mot de la page (« ! » et « » » sont souvent datés dans le silence)
             a = next((t for t, m in zip(reversed(w[k]), reversed(mots[k])) if mot(m)), a)
-        cand = [(abs(f - b), d, f) for d, f in sil if d > a and f > a + 0.1 and d < b + 0.45]      # le silence qui finit le plus près du mot
+        apres = min([t for t in w[k + 1] if t > b + 0.01] + [w[k + 2][0] if k + 2 < len(w) else 1e9])      # le mot (ou la page) qui suit : la reprise ne peut pas être au-delà
+        cand = [(abs(f - b), d, f) for d, f in sil if d > a and f > a + 0.1 and d < b + 0.45 and f < apres - 0.05]      # le silence qui finit le plus près du mot
         if not cand: continue
         _, d, f = min(cand)
         if abs(f - b) > 0.06 or w[k + 1][0] < d or (w[k + 1][0] < b - 0.01 and abs(w[k + 1][0] - (f - 0.06)) > 0.05):
@@ -70,6 +71,9 @@ def recaler(x, rate, w, pages):
         plafond = round(max(w[k][0], d - 0.12), 2)            # la fin de la page reste avant le silence
         for i in range(len(w[k])):
             if w[k][i] > plafond: w[k][i] = plafond; n += 1
+    prec = 0.0                                                 # garde-fou : jamais de retour en arrière, d'une page à l'autre non plus
+    for pg in w:
+        for i in range(len(pg)): pg[i] = prec = max(pg[i], prec)
     return [[round(t, 2) for t in pg] for pg in w], n
 
 
