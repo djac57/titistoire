@@ -310,8 +310,10 @@ def produire_histoire(s, voix, key, modele, decal=0):
             wav = pathlib.Path(td) / f"{i}.wav"
             ecrire_wav(pcm[ia:ib], rate, wav)
             encoder(wav, OUT / f"{s['id']}_{i + decal}.m4a")       # decal : numéro du premier tableau du morceau (histoires longues lues en plusieurs requêtes)
-            res[str(i + decal)] = {"d": round(b - a, 2), "w": [[round(max(0.0, t - a), 2) for t in pg] for pg in par_sc[i - 1]],
-                           "sig": signature(sc["pages"])}
+            # minutage recalé sur les silences du signal (début de piste, mots charnières entre deux pages) : tools/recaler_voix.py
+            import numpy as np, recaler_voix
+            wp, _ = recaler_voix.recaler(np.frombuffer(pcm[ia:ib], dtype="<i2").astype("float32"), rate, [[round(max(0.0, t - a), 2) for t in pg] for pg in par_sc[i - 1]], sc["pages"])
+            res[str(i + decal)] = {"d": round(b - a, 2), "w": wp, "sig": signature(sc["pages"])}
     return res, qual, duree
 
 
