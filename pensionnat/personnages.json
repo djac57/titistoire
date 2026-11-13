@@ -21,7 +21,14 @@
     "perchoir": "a round attic bedroom under the pointed roof of an old castle, thick slanting wooden beams, three small beds with yellow blankets, one big round window showing the sky and a mountain lake far below, a sturdy round wooden table in the middle, shelves crowded with rolled papers, old ink pots and brushes",
     "taniere": "a low vaulted stone bedroom at water level in an old castle, three small beds with violet blankets, one wide arched window just above a mountain lake, a workbench covered with old brass lantern parts, small panes of glass and tools, heaps of cushions on the stone floor",
     "bibliotheque": "a tall round library inside a stone tower, curved wooden shelves up to the ceiling filled with old books whose covers are all held shut by small leather straps, a spiral staircase of dark wood, reading desks with unlit brass lanterns, soft daylight falling from a round skylight",
-    "chambre_deux_fenetres": "a small round stone workroom inside a tower, dusty and untouched for a very long time, two tall narrow windows exactly opposite each other, one long worktable in the middle covered with rolled parchments, ink pots, brass lantern parts and tools, three old silent clocks on the wall with plain dials marked with small dots instead of numbers, two wooden stools side by side"
+    "terrasse": "a narrow stone terrace in front of an old castle of pale grey stone, high above a wide mountain lake, in its middle a small square lawn of perfect bright green grass edged with low iron hoops, a stone balustrade, a flight of stone steps going down toward the water",
+    "mur_couloir": "a bare stone landing inside an old castle, ending in a plain blank wall of pale stone where a doorway should be, a worn dark red carpet stopping dead against the wall",
+    "porte_cachee": "the middle of a long narrow castle corridor hung with faded blue cloth, a worn dark red carpet on the floor, the blue cloth pulled aside like a curtain to show a small low door of dark wood with no handle and no keyhole",
+    "escalier_tour": "a narrow spiral staircase of pale stone climbing inside a round tower, small arched windows, worn steps",
+    "sommet_tour": "the round lamp room at the top of a lighthouse tower, tall panes of glass all around, in the middle a huge old lantern of brass and glass as tall as a child standing on a stone base, a wide mountain lake and distant peaks far below",
+    "rive": "a wooden jetty on the pine-covered shore of a wide mountain lake, a small boat shed with a slate roof beside it, far away across the water a castle on a rock with a tall round tower",
+    "remise": "a small stone boat shed at the foot of a castle rock, oars leaning in a corner, coils of rope and tins of varnish on a shelf, on the wall a wooden board covered with rows of small chalk squares, most of them crossed out, a tiny boat drawn in chalk in the last square, no numbers",
+    "chambre_deux_fenetres": "a small round stone workroom inside a tower, dusty and untouched for a very long time, two tall narrow windows without glass exactly opposite each other, each with one wooden shutter, one long worktable in the middle covered with rolled parchments, ink pots, brass lantern parts and tools, three old silent clocks on the wall with plain dials marked with small dots instead of numbers, two wooden stools side by side"
   },
   "objets": {
     "moitie_levant": "the right half of an old hand-drawn map on yellowed parchment, its left edge cut in a sharp zigzag of seven saw teeth, a few thin faded ink lines on it and no writing, lying flat and seen from the side, at a low angle",
@@ -36,6 +43,17 @@
     "coffre": "an old wooden chest bound with iron bands, as big as a suitcase, its lid open",
     "corbeille": "a big round wicker basket full of small round bread rolls",
     "metre": "a folding wooden carpenter's rule, unfolded in a zigzag",
-    "premiere_lanterne": "a very small old lantern of dark brass and thick glass, no bigger than a pear, with two ring handles, one on each side"
+    "premiere_lanterne": "a very small old lantern of dark brass and thick glass, no bigger than a pear, with two ring handles, one on each side",
+    "chaussures": "twelve children's shoes and ankle boots lined up in six neat pairs on the floor",
+    "parapluie": "a big black umbrella",
+    "theiere": "a big round brown teapot under a knitted tea cosy, steaming cups, a rack of toast and a pot of orange marmalade",
+    "pupitre": "an old sloping wooden reading desk on four thin legs, one leg shorter than the others",
+    "livre_fondateurs": "a thick old book bound in midnight blue leather, flattened and worn, with no title, held shut by two leather straps with small brass buckles, one on each side",
+    "livre_ouvert": "a thick old book bound in midnight blue leather lying wide open, its two leather straps hanging loose, its pages covered with tiny ink drawings and no writing, seen from the side at a low angle",
+    "portraits": "two old oval painted portraits in dark wooden frames hanging on a stone wall, on the left an old woman with white hair in a bun and a quill pen behind her ear, on the right an old man with a short grey beard holding a small brass lantern, each one turned away from the other",
+    "portraits_face": "two old oval painted portraits in dark wooden frames hanging on a stone wall, on the left an old woman with white hair in a bun and a quill pen behind her ear, on the right an old man with a short grey beard holding a small brass lantern, each one turned toward the other",
+    "trait_craie": "a straight white chalk line drawn across the wooden floor from the door to the opposite wall, passing under the table",
+    "caisse": "a big wooden crate as large as a trunk, tied with thick rope",
+    "echarpe_deux": "a long knitted scarf, bright violet at one end and bright yellow at the other"
   }
 }
