@@ -38,6 +38,18 @@ CONSIGNE = ("# AUDIO PROFILE: La conteuse\n"
             "Langue : français de France.\n\n"
             "#### TRANSCRIPT\n")
 QUALITE_MIN = 0.86      # part du texte retrouvée dans la reconnaissance vocale
+# Histoires traduites (--langue) : consigne dans la langue, et reconnaissance vocale réglée sur elle.
+LANGUE = "fr"
+CONSIGNES = {"ar": ("# AUDIO PROFILE: الحكواتية\n"
+                    "حكواتية مغربية حنينة، كتقرا قصة لطفل عندو ربع سنين.\n\n"
+                    "### DIRECTOR'S NOTES\n"
+                    "Style : صوت دافي ومبتسم وحيّ؛ كتمثّل شوية الحوار والأصوات.\n"
+                    "Rythme : بالمهل، مع وقفات صغار بين الجمل.\n"
+                    "Langue : الدارجة المغربية ديال كل نهار، بنطق مغربي، ماشي العربية الفصحى.\n\n"
+                    "#### TRANSCRIPT\n")}
+LENT = lambda: 4.5 if LANGUE == "ar" else 7      # débit le plus lent admis, en caractères par seconde (l'arabe n'écrit pas ses voyelles : moins de lettres pour la même durée)
+# L'arabe s'écrit de plusieurs façons pour un même son : on ramène tout à une forme simple avant de comparer le texte à ce qui est entendu.
+ARABE = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ى": "ي", "ئ": "ي", "ؤ": "و", "ة": "ه", "گ": "ك", "ڭ": "ك", "ڤ": "ف", "پ": "ب", "ـ": ""})
 
 
 def cle():
@@ -106,7 +118,7 @@ def _budget():
 
 def _tts(texte, voix, modele, key):
     _budget()
-    body = {"contents": [{"parts": [{"text": CONSIGNE + texte}]}],
+    body = {"contents": [{"parts": [{"text": CONSIGNES.get(LANGUE, CONSIGNE) + texte}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voix}}}}}
     req = urllib.request.Request(
@@ -159,7 +171,8 @@ def asr():
 
 def norm(s):
     s = unicodedata.normalize("NFD", s.lower())
-    return "".join(ch for ch in s if ch.isalnum() and not unicodedata.combining(ch))
+    s = "".join(ch for ch in s if ch.isalnum() and not unicodedata.combining(ch))
+    return s.translate(ARABE) if LANGUE == "ar" else s
 
 
 def aligner(pcm, rate, pages):
@@ -169,7 +182,7 @@ def aligner(pcm, rate, pages):
     if rate != 16000:                                 # whisper attend du 16 kHz
         n = int(len(x) * 16000 / rate)
         x = np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype("float32")
-    segs, info = asr().transcribe(x, language="fr", word_timestamps=True, beam_size=5,
+    segs, info = asr().transcribe(x, language=LANGUE, word_timestamps=True, beam_size=5,
                                   initial_prompt=" ".join(pages)[:400], condition_on_previous_text=False)
     hc, ht = [], []                                   # caractères reconnus + instant de chacun
     for sg in segs:
@@ -234,7 +247,7 @@ def produire(pages, voix, key, m4a, modele):
         w, qual, duree = aligner(pcm, rate, pages)
         n_car = len(texte)
         # refus : texte mal lu, débit aberrant, ou voix qui ne démarre pas sur le texte (consigne lue, long blanc)
-        if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / 7) or w[0][0] > 2.0 or duree - w[-1][-1] > 6.0:
+        if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / LENT()) or w[0][0] > 2.0 or duree - w[-1][-1] > 6.0:
             print(f"      …piste refusée (qualité {qual:.2f}, durée {duree:.1f}s, début {w[0][0] if w else '?'}s), nouvel essai", flush=True)
             dernier = f"qualité {qual:.2f}"
             continue
@@ -299,7 +312,7 @@ def produire_histoire(s, voix, key, modele, decal=0):
     w, qual, duree = aligner(pcm, rate, pages)
     # Refus seulement si le texte est mal lu, le débit aberrant, ou si la voix lit autre chose avant le texte (> 8 s).
     # Un simple blanc au début ou à la fin n'est pas un défaut : on le coupe.
-    if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / 7) or w[0][0] > 8.0:
+    if w is None or qual < QUALITE_MIN or not (n_car / 26 < duree < n_car / LENT()) or w[0][0] > 8.0:
         raise RuntimeError(f"enregistrement refusé (qualité {qual:.2f}, durée {duree:.0f}s pour {n_car} car., début {w[0][0] if w else '?'} s)")
     # Début de la piste : là où la voix commence VRAIMENT (énergie du signal), pas au premier mot reconnu —
     # la reconnaissance vocale rate parfois les premiers mots, et l'histoire commençait alors au milieu d'une phrase.
@@ -344,6 +357,7 @@ def main():
     ap.add_argument("--refaire", action="store_true")
     ap.add_argument("--petits", action="store_true", help="versions Lucioles (1-3 ans) : histoires/petits/, pistes dans assets/voix/<Voix>/petits/")
     ap.add_argument("--recueil", default="", help="recueil des grands (cometes, galaxies) : <recueil>/histoires/, pistes dans assets/voix/<Voix>/<recueil>/")
+    ap.add_argument("--langue", default="", help="histoires traduites (langues/<langue>/) : pistes dans assets/voix/<Voix>/<langue>/")
     a = ap.parse_args()
     # assets/voix/voix.txt : les voix proposées dans l'appli, une par ligne. La 1re est celle par défaut ;
     # elle est enregistrée pour TOUTES les histoires avant qu'on passe à la suivante.
@@ -357,6 +371,11 @@ def main():
         stories = _rec.load(a.recueil)
     else:
         stories = titi.load_petits() if a.petits else titi.load()
+    if a.langue:                                        # mêmes histoires, texte de la langue ; seules les histoires traduites sont enregistrées
+        global LANGUE, QUALITE_MIN
+        import langues as _lg
+        T = _lg.load(a.langue); LANGUE = a.langue; QUALITE_MIN = float(os.environ.get("TITI_QUALITE_MIN", "0.6"))
+        stories = [dict(s, titre=T[s["id"]]["t"], scenes=[dict(sc, pages=T[s["id"]]["sc"][k]) for k, sc in enumerate(s["scenes"])]) for s in stories if s["id"] in T]
     dispo = list(MODELES)                               # modèles dont le quota du jour n'est pas épuisé
 
     if a.essai:                                         # banc d'essai de voix
@@ -382,7 +401,7 @@ def main():
     fait = saute = 0
     for voix, s in [(v, s) for v in liste for s in stories]:
         a.voix = voix
-        OUT = BASE / voix / a.recueil if a.recueil else (BASE / voix / "petits" if a.petits else BASE / voix)
+        OUT = BASE / voix / a.langue if a.langue else BASE / voix / a.recueil if a.recueil else (BASE / voix / "petits" if a.petits else BASE / voix)
         if a.only and not s["id"].startswith(a.only):
             continue
         if not dispo:
