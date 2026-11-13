@@ -91,7 +91,21 @@ def tts(texte, voix, modele, key):
             fcntl.flock(f, fcntl.LOCK_UN)
 
 
+def _budget():
+    """Réserve pour le site : au plus TITI_TTS_BUDGET appels par « jour de quota » (remis à zéro à 08:00 UTC). Sans cela, les enregistrements
+    du catalogue consomment tout le quota de la voix et les histoires inventées n'en ont plus de la journée."""
+    maxi = int(os.environ.get("TITI_TTS_BUDGET", "0") or 0)
+    if not maxi: return
+    import datetime
+    jour = (datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=8)).strftime("%Y%m%d")
+    f = pathlib.Path.home() / ".cache" / f"titistoire_tts_{jour}.txt"; f.parent.mkdir(exist_ok=True)
+    n = int(f.read_text().strip() or 0) if f.exists() else 0
+    if n >= maxi: raise QuotaJour(f"PerDay : réserve du site ({maxi} appels par jour pour le catalogue, {n} faits)")
+    f.write_text(str(n + 1))
+
+
 def _tts(texte, voix, modele, key):
+    _budget()
     body = {"contents": [{"parts": [{"text": CONSIGNE + texte}]}],
             "generationConfig": {"responseModalities": ["AUDIO"],
                                  "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voix}}}}}

@@ -658,9 +658,9 @@ $('cAdmin').addEventListener('click',async()=>{ const el=$('cTableau'); el.hidde
   try{ const r=await api('GET','/api/admin'); if(!r.ok) throw 0; const d=r.j, eur=x=>x.toFixed(2).replace('.',',')+' €', L=[];
     const tab=(tetes,lignes)=>'<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;margin:6px 0 14px;font-variant-numeric:tabular-nums"><tr>'+tetes.map(x=>`<th style="text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid currentColor;font-weight:700">${x}</th>`).join('')+'</tr>'+lignes.map(l=>'<tr>'+l.map(x=>`<td style="padding:4px 10px 4px 0">${x}</td>`).join('')+'</tr>').join('')+'</table></div>';
     L.push(`<b>Comptes</b> : ${d.comptes} (supprimés depuis l'ouverture : ${d.comptes_supprimes}) · <b>histoires gardées</b> : ${d.histoires_gardees} · <b>partagées</b> : ${d.histoires_partagees}`);
-    L.push('<b style="display:block;margin-top:12px">Par mois</b>'+tab(['Mois','Créées (public)','Créées (moi)','Nouveaux comptes','Coût estimé','Dons reçus'],d.mois.map(m=>[m.mois,m.public,m.moi,m.nouveaux_comptes,eur(m.cout_estime),m.dons.n?`${m.dons.n} · ${m.dons.total.toFixed(2).replace('.',',')} ${esc(m.dons.devise)}`:'—'])));
-    L.push('<b>Sept derniers jours</b>'+tab(['Jour','Créées (public)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
-    L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés à partir d'aujourd'hui. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Les écoutes du catalogue ne sont pas comptées (aucun traceur sur le site).</span>`);
+    L.push('<b style="display:block;margin-top:12px">Par mois</b>'+tab(['Mois','Créées (autres comptes)','Créées (moi)','Nouveaux comptes','Coût estimé','Dons reçus'],d.mois.map(m=>[m.mois,m.public,m.moi,m.nouveaux_comptes,eur(m.cout_estime),m.dons.n?`${m.dons.n} · ${m.dons.total.toFixed(2).replace('.',',')} ${esc(m.dons.devise)}`:'—'])));
+    L.push('<b>Sept derniers jours</b>'+tab(['Jour','Créées (autres comptes)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
+    L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés depuis le 13/11/2026 (un compte ouvert avant n'y figure pas). Sans compte, personne ne peut créer d'histoire. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Les écoutes du catalogue ne sont pas comptées (aucun traceur sur le site).</span>`);
     el.innerHTML=L.join('');
   }catch(e){ el.textContent='Tableau de bord indisponible pour le moment.'; } });
 function ouvrirCompte(){ $('cMsg').textContent=''; majCompte(); goto('sCompte'); }
@@ -904,6 +904,7 @@ $('homeBtn2').addEventListener('click',home);
 /* ===== « J'INVENTE LA MIENNE » : histoire écrite, contrôlée et signée par le worker ===== */
 const imgBis={};
 function gstatus(m){ $('genStatus').textContent=m||''; }
+let perdue='';                                               // la dernière demande restée sans réponse
 async function generateFree(){
   const hero=$('fHero').value.trim(),lieu=$('fLieu').value.trim(),lecon=$('fLecon').value.trim();
   const age=AGE_LIBRE[fLibre.g]||'moyen', bande=BANDES_LIBRE[fLibre.g]&&fLibre.mode==='bande'?fLibre.g:'', qui=bande?$('fQui').value:'';
@@ -912,11 +913,18 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const r=await fetch(AIW+"/story?"+new URLSearchParams(Object.assign(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age},librePass()?{pass:librePass()}:{})).toString(),(!librePass()&&jeton())?{headers:{authorization:'Bearer '+jeton()}}:{});
+    const dem=new URLSearchParams(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age}).toString();
+    // Une demande restée sans réponse (réseau coupé, téléphone en veille) a peut-être abouti : on la redemande avec « reprise », et le serveur rend l'histoire déjà écrite.
+    const demander=()=>fetch(AIW+"/story?"+dem+(perdue===dem?'&reprise=1':''),jeton()?{headers:{authorization:'Bearer '+jeton()}}:{});
+    let r; try{ r=await demander(); }catch(e){ perdue=dem; throw new Error('connexion interrompue'); }
+    // Une création est déjà en cours sur ce compte (la précédente n'a pas fini) : on attend et on réessaie tout seul, sans rien demander.
+    for(let k=0;r.status===409&&k<30;k++){ perdue=dem; gstatus("La conteuse termine d'abord l'histoire précédente… La vôtre arrive juste après, il n'y a rien à faire.");
+      await new Promise(z=>setTimeout(z,8000)); try{ r=await demander(); }catch(e){ throw new Error('connexion interrompue'); } }
+    if(r.status===409){ gstatus("La conteuse est encore occupée. Réessayez dans une minute."); return; }
     if(r.status===403){ const avecPass=!!librePass(); try{ localStorage.removeItem(avecPass?'titi_libre_pass':'titi_jeton'); }catch(e){}
       if(!avecPass){ compte=null; majCompte(); } gstatus(''); showLibreGate(); $('lockMsg').textContent=avecPass?'Mot de passe incorrect.':'Votre session a expiré : reconnectez-vous.'; return; }
-    const out=await r.json();
-    if(out.error==='encours'){ gstatus("Une histoire est déjà en cours de création sur votre compte. Patientez un instant."); return; }
+    const out=await r.json(); if(!out.error) perdue='';
+    if(out.voix){ gstatus("La conteuse a beaucoup raconté aujourd'hui : sa voix se repose. La création d'histoires rouvre demain matin."); return; }
     if(out.error==='credits'){ if(compte){ compte.credits=0; majCompte(); } gstatus("Vous n'avez plus de création d'histoire sur votre compte pour le moment."); return; }
     if(typeof out.credits==='number'&&compte){ compte.credits=out.credits; majCompte(); }
     if(out.plafond){ gstatus("La création d'histoires est temporairement indisponible, pour cause de coûts : chaque histoire créée coûte de l'argent. Elle rouvrira "+(out.mois?"le mois prochain":"demain")+". Pensez à soutenir Titistoire si vous le pouvez !"); return; }
