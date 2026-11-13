@@ -44,7 +44,7 @@ doc("confidentialite.html", "Politique de confidentialité", "Quelles données T
 <p>Le compte est créé par un parent ou un adulte responsable, jamais par l'enfant. Nous traitons alors :</p>
 <ul><li>votre adresse e-mail, pour vous connecter (envoi d'un code) et vous écrire au sujet du service ;</li>
 <li>vos réglages et la liste des histoires écoutées, pour les retrouver sur vos appareils ;</li>
-<li>les histoires que vous choisissez de garder (leur texte et leurs images), pour vous les conserver ; ce que vous avez saisi pour les créer n'est pas conservé ;</li>
+<li>les histoires que vous choisissez de garder (leur texte et leurs images), pour vous les conserver ; ce que vous avez saisi pour les créer n'est pas conservé. Si vous appuyez sur « Partager », cette histoire devient lisible par toute personne à qui vous donnez son lien (sans votre adresse e-mail ni aucune information sur vous) ; la supprimer de votre compte coupe le lien ;</li>
 <li>en cas d'achat : l'historique de vos crédits. Le paiement est traité par notre prestataire de paiement ; nous ne voyons ni ne conservons votre numéro de carte.</li></ul>
 <p>Base légale : l'exécution du service que vous demandez (article 6.1.b du RGPD) et, pour la sécurité du service, notre intérêt légitime (article 6.1.f).</p>
 <h2>Création d'histoires : ce qui est transmis</h2>

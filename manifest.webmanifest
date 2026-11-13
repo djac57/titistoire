@@ -5,6 +5,12 @@
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
+ "related_applications": [
+  {
+   "platform": "webapp",
+   "url": "https://titistoire.fr/manifest.webmanifest"
+  }
+ ],
  "background_color": "#2d2570",
  "theme_color": "#2d2570",
  "description": "De belles histoires à écouter et à regarder, pour les enfants de 1 à 10 ans.",

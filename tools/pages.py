@@ -130,7 +130,7 @@ if __name__ == "__main__":
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /histoires/\nDisallow: /tools/\nDisallow: /worker/\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     for c in (192, 512): icone(c).save(ROOT / f"icone-{c}.png")
     partage().save(ROOT / "partage.jpg", quality=88)
-    (ROOT / "manifest.webmanifest").write_text(json.dumps({"name": "Titistoire — histoires à écouter", "short_name": "Titistoire", "lang": "fr", "start_url": "./", "scope": "./", "display": "standalone",
+    (ROOT / "manifest.webmanifest").write_text(json.dumps({"name": "Titistoire — histoires à écouter", "short_name": "Titistoire", "lang": "fr", "start_url": "./", "scope": "./", "display": "standalone", "related_applications": [{"platform": "webapp", "url": "https://titistoire.fr/manifest.webmanifest"}],
         "background_color": "#2d2570", "theme_color": "#2d2570", "description": "De belles histoires à écouter et à regarder, pour les enfants de 1 à 10 ans.",
         "icons": [{"src": "icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"}, {"src": "icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"✅ {len(urls)} adresses dans sitemap.xml, {len(list(H.glob('*.html')))} pages d'histoire")

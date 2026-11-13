@@ -9,6 +9,7 @@
  *   u:<uid>   le compte (e-mail, dates, réglages, liste des histoires, « gen »)      cr:<uid>  ses crédits (à part : aucune autre écriture ne peut les rétablir)
  *   s:<empreinte du jeton>  une session {uid, gen}                                    c:<uid>   un code en attente
  *   h:<uid>:<id>  une histoire gardée                                                 x:<uid>   trace d'un compte supprimé (empreinte seule) : crédits déjà offerts
+ *   p:<clé>  lien de partage d'une histoire gardée -> <uid>:<id>
  *   l:…  limites d'essais                                                             b:… v:…   plafonds de dépense et verrous, tenus par le worker d'IA
  * Images des histoires gardées : R2 « MEDIAS », m/<clé de l'histoire>/<n>.
  * Aucun mot de passe, aucun cookie : la session est un jeton tiré au hasard, gardé par le navigateur.
@@ -85,6 +86,13 @@ async function api(req, env, ctx, u) {
     const o = env.MEDIAS && await env.MEDIAS.get(`m/${m[1]}/${m[2]}`); if (!o) return new Response("introuvable", { status: 404, headers: CORS });
     const type = (o.httpMetadata && o.httpMetadata.contentType) || "";
     return new Response(o.body, { headers: { "content-type": /^image\/(png|jpeg|webp)$/.test(type) ? type : "image/jpeg", "x-content-type-options": "nosniff", "cache-control": "public, max-age=604800", ...CORS } });
+  }
+
+  // --- histoire partagée par son auteur : lisible par quiconque a le lien (code impossible à deviner), sans compte
+  m = /^\/api\/p\/([0-9a-f]{32})$/.exec(p);
+  if (m && M === "GET") {
+    const v = await env.COMPTES.get("p:" + m[1]), it = v && await env.COMPTES.get("h:" + v, "json");
+    return it ? J({ titre: it.titre, emoji: it.emoji, decor: it.decor, sig: it.sig, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
   }
 
   // --- 1. demander un code de connexion
@@ -189,6 +197,11 @@ async function api(req, env, ctx, u) {
     await env.COMPTES.put("u:" + uid, JSON.stringify(frais), { expirationTtl: INACTIF });
     return J({ ok: true, histoire: vue(frais, cr).histoires[0], histoires: vue(frais, cr).histoires, images_manquantes: manque });
   }
+  m = /^\/api\/compte\/histoires\/(h[0-9a-z]{6,24})\/partage$/.exec(p);
+  if (m && M === "POST") {                                     // l'auteur demande un lien de partage : le code est la clé (secrète) de l'histoire ; supprimer l'histoire coupe le lien
+    const h = (c.histoires || []).find(x => x.id === m[1]); if (!h || !h.cle) return J({ erreur: "introuvable" }, 404);
+    await env.COMPTES.put("p:" + h.cle, uid + ":" + h.id, { expirationTtl: INACTIF }); return J({ ok: true, code: h.cle });
+  }
   m = /^\/api\/compte\/histoires\/(h[0-9a-z]{6,24})$/.exec(p);
   if (m && M === "GET") { const it = await env.COMPTES.get(`h:${uid}:${m[1]}`, "json"); return it ? J(it) : J({ erreur: "introuvable" }, 404); }
   if (m && M === "DELETE") {
@@ -199,7 +212,7 @@ async function api(req, env, ctx, u) {
   return J({ erreur: "inconnu" }, 404);
 }
 async function oublier(env, uid, h) {
-  await env.COMPTES.delete(`h:${uid}:${h.id}`);
+  await env.COMPTES.delete(`h:${uid}:${h.id}`); if (h.cle) await env.COMPTES.delete("p:" + h.cle);      // le lien de partage tombe avec l'histoire
   if (env.MEDIAS && h.cle && h.n) await env.MEDIAS.delete(Array.from({ length: h.n }, (_, k) => `m/${h.cle}/${k + 1}`));      // un seul appel pour toutes les images
 }
 /** Efface les images dont l'histoire n'existe plus dans la base (compte expiré après 24 mois, écriture perdue). */

@@ -213,6 +213,13 @@
     .ptext{font-size:1.5rem;min-height:8em;padding:0 6px;}
     .fams{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;}
   }
+  /* téléphone, tablette debout : les boutons de lecture restent collés en bas de l'écran ; dans le livre, le titre du site s'efface pour laisser la place */
+  @media (max-width:859px){
+    .side .controls{position:sticky;bottom:0;z-index:6;background:var(--paper);margin:10px -6px 0;padding:10px 6px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -10px 14px -12px rgba(60,48,110,.35);border-radius:14px 14px 0 0;}
+    body.livre header,body.livre .modebtn{display:none;} body.livre{padding-top:10px;}
+    #pleinLab,#partLab{display:none;}
+  }
+  @media (max-width:859px) and (max-height:760px){ .frame{max-height:38vh;} .title{margin:2px 0 8px;font-size:1.15rem;} }
   @media (max-width:430px){
     h1{font-size:2rem;} .q{font-size:1.3rem;margin-bottom:16px;} .grid{gap:11px;}
     .book{padding:12px 12px 16px;border-radius:22px;} .ptext{font-size:1.24rem;padding:14px 4px 2px;}
@@ -298,9 +305,7 @@
       <div id="libreLock">
         <p style="text-align:center;font-weight:700;color:var(--ink);margin:2px 0 14px">Pour créer une histoire, il faut un compte (c'est pour les parents).</p>
         <button class="btn play" id="libreCompte" style="align-self:center;margin-bottom:22px">Me connecter</button>
-        <p style="text-align:center;color:var(--ink2);margin:0 0 8px;font-size:.9rem">ou, si vous en avez un, le mot de passe :</p>
-        <input id="librePass" type="password" placeholder="mot de passe" style="width:100%">
-        <button class="btn play" id="libreUnlock" style="align-self:center;margin-top:14px">Déverrouiller</button>
+        <p style="text-align:center;color:var(--ink2);margin:0 0 8px;font-size:.9rem">Le compte est gratuit : une adresse e-mail suffit, et trois créations sont offertes.</p>
         <div id="lockMsg" class="genstatus"></div>
       </div>
       <div id="libreForm" hidden>
@@ -325,6 +330,7 @@
   <section class="screen" id="s4">
     <button class="back" id="homeBtn2">← Autre histoire</button>
     <button class="back" id="pleinBtn" hidden style="float:right" aria-label="Plein écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> <span id="pleinLab">Plein écran</span></button>
+    <button class="back" id="partBtn" style="float:right;margin-right:8px" aria-label="Partager cette histoire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px"><path d="M12 15V4M8 8l4-4 4 4M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg> <span id="partLab">Partager</span></button>
     <div class="book">
       <h2 class="title" id="title"></h2>
       <div class="spread">
@@ -460,7 +466,15 @@ function storyCard(sid,opts){ opts=opts||{}; const st=STORIES[sid], [h,u]=sid.sp
   b.addEventListener('click',()=>openStory(sid)); return b; }
 
 /* ===== NAV ===== */
-function goto(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));
+/* Dans le livre, l'écran reste allumé (sinon le téléphone se met en veille pendant qu'on écoute). Le navigateur relâche ce maintien
+   dès qu'on quitte la page : on le redemande au retour. */
+let eveil=null, auLivre=false;
+async function tenirEveil(){ try{ if(auLivre&&!eveil&&navigator.wakeLock&&document.visibilityState==='visible'){ const v=await navigator.wakeLock.request('screen'); eveil=v; v.addEventListener('release',()=>{ if(eveil===v) eveil=null; });
+    if(!auLivre){ eveil=null; v.release().catch(()=>{}); } } }catch(e){} }
+function lacherEveil(){ const v=eveil; eveil=null; if(v) try{ v.release().catch(()=>{}); }catch(e){} }
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') tenirEveil(); });
+function goto(id){ auLivre=id==='s4'; if(auLivre) tenirEveil(); else lacherEveil(); document.body.classList.toggle('livre',auLivre);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('show',s.id===id));
   $('wrap').classList.toggle('wide',id==='s4'||id==='s0'||id==='s1'||id==='s2'||id==='sSubj'||id==='sRec'); window.scrollTo({top:0,behavior:'smooth'}); stopAudio(); }
 document.querySelectorAll('.back[data-go]').forEach(b=>b.addEventListener('click',()=>goto(b.dataset.go)));
 
@@ -567,8 +581,9 @@ $('modeRandom').addEventListener('click',()=>{ const g=groupe(), heard0=heardAll
 $('modeSaved').addEventListener('click',()=>{ renderSaved(); goto('sSaved'); });
 
 /* ===== verrou du mode libre ===== */
-function librePass(){ try{return localStorage.getItem('titi_libre_pass')||'';}catch(e){return '';} }
-function showLibreGate(){ const unl=!!librePass()||!!jeton(); const lk=$('libreLock'), fm=$('libreForm');
+function librePass(){ return ''; }                            // la création demande un compte : l'ancien mot de passe n'ouvre plus rien
+try{ localStorage.removeItem('titi_libre_pass'); }catch(e){}
+function showLibreGate(){ const unl=!!jeton(); const lk=$('libreLock'), fm=$('libreForm');
   lk.hidden=unl; lk.style.display=unl?'none':'flex'; fm.hidden=!unl; fm.style.display=unl?'flex':'none';
   if(!unl) $('lockMsg').textContent=''; }
 $('modeFree').addEventListener('click',()=>{ showLibreGate(); goto('sFree'); });
@@ -589,12 +604,18 @@ $('libreCompte').addEventListener('click',()=>{ apresCompte='sFree'; ouvrirCompt
   const installee=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
   if('serviceWorker' in navigator&&location.protocol==='https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
   let invite=null, remis=0; try{ remis=parseInt(localStorage.getItem('titi_appli_plus_tard'),10)||0; }catch(e){}
-  window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); invite=e; });
-  window.addEventListener('appinstalled',()=>{ $('appli').hidden=true; });
-  if(!mobile||installee||Date.now()-remis<14*86400000) return;
-  $('appli').hidden=false;
+  let dejaLa=false; try{ dejaLa=localStorage.getItem('titi_appli_ok')==='1'; }catch(e){}
+  const montrer=()=>{ if(!dejaLa) $('appli').hidden=false; };
+  window.addEventListener('appinstalled',()=>{ dejaLa=true; try{localStorage.setItem('titi_appli_ok','1');}catch(e){} $('appli').hidden=true; });
+  if(!mobile||installee||dejaLa||Date.now()-remis<14*86400000) return;
+  // Android : le navigateur n'envoie « beforeinstallprompt » que si l'appli n'est PAS déjà installée -> on attend ce signal pour proposer.
+  // iPhone/iPad : aucun signal ; on propose (et on ne repropose plus une fois le geste expliqué).
+  window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); invite=e; montrer(); });
+  if(ios) montrer();
+  if(navigator.getInstalledRelatedApps) navigator.getInstalledRelatedApps().then(a=>{ if(a&&a.length){ dejaLa=true; $('appli').hidden=true; } }).catch(()=>{});
   $('appliBtn').addEventListener('click',async()=>{ const a=$('appliAide');
     if(invite){ invite.prompt(); try{ await invite.userChoice; }catch(e){} invite=null; return; }
+    try{localStorage.setItem('titi_appli_plus_tard',String(Date.now()+76*86400000));}catch(e){}      // geste expliqué : on ne repropose pas avant trois mois
     a.hidden=false; a.innerHTML=ios?'Dans Safari, touchez le bouton <b>Partager</b> (le carré avec une flèche vers le haut), puis <b>« Sur l\'écran d\'accueil »</b>.':'Ouvrez le menu du navigateur (<b>⋮</b> en haut à droite), puis <b>« Ajouter à l\'écran d\'accueil »</b> ou <b>« Installer l\'application »</b>.'; });
   $('appliNon').addEventListener('click',()=>{ try{localStorage.setItem('titi_appli_plus_tard',String(Date.now()));}catch(e){} $('appli').hidden=true; });
 })();
@@ -655,18 +676,6 @@ $('cExport').addEventListener('click',async()=>{ const m=$('cMsg'); m.textConten
 $('cSupprimer').addEventListener('click',async()=>{ if(!confirm('Supprimer définitivement votre compte et vos histoires gardées ?')) return;
   try{ const r=await api('DELETE','/api/compte'); if(r.ok){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); $('cMsg').textContent='Compte supprimé.'; } else $('cMsg').textContent='Suppression impossible pour le moment.'; }catch(e){ $('cMsg').textContent='Problème de connexion, réessayez.'; } });
 if(jeton()) api('GET','/api/compte').then(r=>{ if(r.ok){ recevoirCompte(r.j); } }).catch(()=>{});
-async function doUnlock(){
-  const v=$('librePass').value.trim(), lm=$('lockMsg'), btn=$('libreUnlock');
-  if(!v){ lm.textContent='Entre un mot de passe.'; return; }
-  lm.textContent='Vérification…'; btn.disabled=true;
-  try{ const r=await fetch(AIW+"/story?check=1&pass="+encodeURIComponent(v));
-    if(r.ok){ try{localStorage.setItem('titi_libre_pass',v);}catch(e){} lm.textContent='Déverrouillé ✨'; setTimeout(showLibreGate,700); }
-    else lm.textContent='Mot de passe incorrect.';
-  }catch(e){ lm.textContent='Problème de connexion, réessaie.'; }
-  btn.disabled=false;
-}
-$('libreUnlock').addEventListener('click',doUnlock);
-$('librePass').addEventListener('keydown',e=>{ if(e.key==='Enter') doUnlock(); });
 
 /* ===== LIVRE =====
    book = { id, titre, pages:[texte], sc:[n° de tableau de chaque page] ou null, imgs:[url par page] ou null,
@@ -916,12 +925,12 @@ async function generateFree(){
   }catch(e){ gstatus('Raté ('+e.message+'). Réessaie.'); }
   finally{ endBar(); }
 }
-function openFree(it,fresh){
+function openFree(it,fresh,partage){
   const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
   if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(u.startsWith('/api/')?API+u:(imgBis[AIW+u]||AIW+u)):null); })); }
   else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
   book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,
-        libre:fresh?it:null,src:it};
+        libre:fresh?it:null,src:it,partage:partage||'',distant:(!partage&&!fresh&&it.distant!==false&&/^h[0-9a-z]{6,24}$/.test(it.id||''))?it.id:''};
   showBook(); preparerVoix();
 }
 /* La voix d'une histoire inventée : demandée au worker (texte signé), gardée dans le navigateur pour les réécoutes.
@@ -973,13 +982,27 @@ async function saveCurrent(){ if(!book||!book.libre) return;
   if(jeton()){ const b=$('saveBtn'); b.disabled=true; b.textContent='Je la range…';       // sur le compte : les images y sont recopiées, l'histoire ne bougera plus
     try{ const env=Object.assign({},book.libre,{tableaux:(book.libre.tableaux||[]).map(t=>Object.assign({},t,{imgs:(t.imgs||[t.img]).map(u=>u&&imgBis[AIW+u]?u+'&r=2':u)}))});
       const r=await api('POST','/api/compte/histoires',env);
-      if(r.ok){ if(compte){ compte.histoires=r.j.histoires; majCompte(); } b.textContent=r.j.images_manquantes?'Gardée (sans toutes ses images)':'Gardée ✓'; }
+      if(r.ok){ if(compte){ compte.histoires=r.j.histoires; majCompte(); } if(r.j.histoire) book.distant=r.j.histoire.id; b.textContent=r.j.images_manquantes?'Gardée (sans toutes ses images)':'Gardée ✓'; }
       else { b.disabled=false; b.textContent=r.status===409?'Étagère pleine (20)':(r.status===401?'Reconnectez-vous':'Réessayer'); if(r.status===409) alert('Vous gardez déjà 20 histoires : supprimez-en une dans « Mes histoires inventées » pour faire de la place.'); }
     }catch(e){ b.disabled=false; b.textContent='Réessayer'; }
     return; }
   const a=savedAll();
   a.unshift(Object.assign({id:'s'+Date.now(),ts:Date.now()},book.libre)); savedPut(a);
   const b=$('saveBtn'); b.textContent='Gardée ✓'; b.disabled=true; }
+/* ===== PARTAGE : le lien ouvre précisément cette histoire. Une histoire inventée doit d'abord être gardée sur le compte (son lien tombe si on la supprime). ===== */
+async function partager(){ if(!book) return; const titre=book.titre||'Titistoire', lab=$('partLab'), dire=x=>{ lab.textContent=x; setTimeout(()=>{ lab.textContent='Partager'; },2600); }; let url='';
+  if(book.id) url='https://titistoire.fr/?h='+book.id;
+  else if(book.partage) url='https://titistoire.fr/?p='+book.partage;
+  else { if(!jeton()){ alert('Pour partager une histoire inventée, connectez-vous (« Mon compte ») : elle sera gardée sur votre compte, puis vous aurez son lien.'); return; }
+    lab.textContent='Un instant…';
+    if(!book.distant&&book.libre) await saveCurrent();
+    if(!book.distant){ dire('Partager'); alert('Pour partager cette histoire, il faut d\'abord la garder sur votre compte.'); return; }
+    try{ const r=await api('POST','/api/compte/histoires/'+book.distant+'/partage'); if(!r.ok||!r.j.code) throw 0; book.partage=r.j.code; url='https://titistoire.fr/?p='+r.j.code; }
+    catch(e){ dire('Partager'); alert('Partage impossible pour le moment, réessayez.'); return; }
+    lab.textContent='Partager'; }
+  if(navigator.share){ try{ await navigator.share({title:titre,text:'« '+titre+' », une histoire à écouter sur Titistoire',url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+  try{ await navigator.clipboard.writeText(url); dire('Lien copié ✓'); }catch(e){ prompt('Lien de cette histoire :',url); } }
+$('partBtn').addEventListener('click',partager);
 function renderSaved(){ const dist=(compte&&compte.histoires||[]).map(h=>Object.assign({distant:true},h)), a=dist.concat(savedAll()), el=$('savedList');
   if(!a.length){ el.innerHTML='<p style="text-align:center;color:var(--ink2);padding:10px">Aucune histoire gardée pour l\'instant. Invente-en une, puis appuie sur « Garder ».</p>'; return; }
   el.innerHTML='';
@@ -1023,6 +1046,9 @@ renderHome();
 /* lien direct vers une histoire (pages h/…, partage) : ?h=filou_pirates ou ?h=cometes/c01 */
 window.addEventListener('load',()=>{ const h=new URLSearchParams(location.search).get('h'); if(!h) return; const [a,b]=h.split('/');      // après tout le script : le lecteur doit être prêt
   if(b&&RECUEILS[a]&&RECUEILS[a][b]) openRecueil(a,b); else if(STORIES[h]) openStory(h); });
+/* lien de partage d'une histoire inventée : ?p=<code> */
+window.addEventListener('load',async()=>{ const p=new URLSearchParams(location.search).get('p'); if(!p||!/^[0-9a-f]{32}$/.test(p)) return;
+  try{ const r=await fetch(API+'/api/p/'+p); if(r.ok) openFree(await r.json(),false,p); else alert('Cette histoire partagée n\'existe plus.'); }catch(e){} });
 goto('s0');
 </script>
 </body>
