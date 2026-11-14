@@ -639,6 +639,8 @@ if(DON_URL){ ['donLien','donPied','donDehors'].forEach(i=>{ $(i).href=DON_URL; }
 const API=/(^|\.)titistoire\.fr$/.test(location.hostname)?'':((location.hostname==='localhost'&&new URLSearchParams(location.search).get('api'))||'https://titistoire.fr');
 let compte=null, apresCompte='';
 function jeton(){ try{return localStorage.getItem('titi_jeton')||'';}catch(e){return '';} }
+/* audience : « une visite » par session d'onglet, sans identifiant (le serveur n'en garde qu'un total par jour) */
+try{ if(/(^|\.)titistoire\.fr$/.test(location.hostname)&&!sessionStorage.getItem('vu')){ sessionStorage.setItem('vu','1'); fetch('/api/vu',{method:'POST',keepalive:true}).catch(()=>{}); } }catch(e){}
 async function api(m,p,corps){ const h={}; if(jeton()) h.authorization='Bearer '+jeton(); if(corps!==undefined) h['content-type']='application/json';
   const r=await fetch(API+p,{method:m,headers:h,body:corps===undefined?undefined:JSON.stringify(corps)}); let j=null; try{ j=await r.json(); }catch(e){}
   if(r.status===401&&jeton()){ try{localStorage.removeItem('titi_jeton');}catch(e){} compte=null; majCompte(); }
@@ -662,8 +664,9 @@ $('cAdmin').addEventListener('click',async()=>{ const el=$('cTableau'); el.hidde
     const tab=(tetes,lignes)=>'<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;margin:6px 0 14px;font-variant-numeric:tabular-nums"><tr>'+tetes.map(x=>`<th style="text-align:left;padding:4px 10px 4px 0;border-bottom:1px solid currentColor;font-weight:700">${x}</th>`).join('')+'</tr>'+lignes.map(l=>'<tr>'+l.map(x=>`<td style="padding:4px 10px 4px 0">${x}</td>`).join('')+'</tr>').join('')+'</table></div>';
     L.push(`<b>Comptes</b> : ${d.comptes} (supprimés depuis l'ouverture : ${d.comptes_supprimes}) · <b>histoires gardées</b> : ${d.histoires_gardees} · <b>partagées</b> : ${d.histoires_partagees}`);
     L.push('<b style="display:block;margin-top:12px">Par mois</b>'+tab(['Mois','Créées (autres comptes)','Créées (moi)','Nouveaux comptes','Coût estimé','Dons reçus'],d.mois.map(m=>[m.mois,m.public,m.moi,m.nouveaux_comptes,eur(m.cout_estime),m.dons.n?`${m.dons.n} · ${m.dons.total.toFixed(2).replace('.',',')} ${esc(m.dons.devise)}`:'—'])));
-    L.push('<b>Sept derniers jours</b>'+tab(['Jour','Créées (autres comptes)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.public,j.moi])));
-    L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés depuis le 13/11/2026 (un compte ouvert avant n'y figure pas). Sans compte, personne ne peut créer d'histoire. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Les écoutes du catalogue ne sont pas comptées (aucun traceur sur le site).</span>`);
+    L.push('<b>Sept derniers jours</b>'+tab(['Jour','Visites','Histoires ouvertes','Créées (autres comptes)','Créées (moi)'],d.jours.map(j=>[j.jour.slice(8)+'/'+j.jour.slice(5,7),j.visites||0,j.ecoutes||0,j.public,j.moi])));
+    if((d.top_mois||[]).length) L.push('<b>Histoires les plus ouvertes ce mois-ci</b>'+tab(['Histoire','Ouvertures'],d.top_mois.map(t=>[esc(t.histoire),t.n])));
+    L.push(`<span style="opacity:.75">Coût estimé : ${eur(d.cout_par_histoire)} par histoire créée, hors voix du catalogue ; le vrai montant est sur les factures Cloudflare et Google. Nouveaux comptes : comptés depuis le 13/11/2026 (un compte ouvert avant n'y figure pas). Sans compte, personne ne peut créer d'histoire. Dons : ${d.dons_branches?'reçus de Ko-fi au fil de l\'eau':'pas encore branchés à Ko-fi'}. Visites et ouvertures : comptées depuis le 14/11/2026, sans cookie ni identifiant (totaux seuls), exactes jusqu'à 100 par jour puis à environ 10 % près.</span>`);
     el.innerHTML=L.join('');
   }catch(e){ el.textContent='Tableau de bord indisponible pour le moment.'; } });
 function ouvrirCompte(){ $('cMsg').textContent=''; majCompte(); goto('sCompte'); }

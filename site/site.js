@@ -35,16 +35,19 @@ export default {
       if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
       try { return await api(req, env, ctx, u); } catch (e) { console.error(e); return J({ erreur: "panne" }, 500); }
     }
-    return voix(req, env);
+    return voix(req, env, ctx);
   },
   /* Ménage hebdomadaire : les images d'une histoire qui n'existe plus (compte expiré, écriture perdue) sont effacées. */
   async scheduled(evt, env, ctx) { ctx.waitUntil(menage(env)); }
 };
 
 /* ===================== pistes de voix : demandes partielles ===================== */
-async function voix(req, env) {
+async function voix(req, env, ctx) {
   const r = await env.ASSETS.fetch(req), range = req.headers.get("range");
   if (req.method !== "GET" || r.status !== 200) return r;
+  // Audience : la fiche .json d'une histoire est lue à chaque ouverture -> un total par jour et par histoire et par mois. Rien sur la personne.
+  const e = /^\/assets\/voix\/[^/]+(?:\/([a-z]{2,8}))?\/([\w-]{1,60})\.json$/.exec(new URL(req.url).pathname);
+  if (e && env.COMPTES) { const j = new Date().toISOString(); ctx.waitUntil(Promise.all([compter(env, "e:j:" + j.slice(0, 10)), compter(env, `e:m:${j.slice(0, 7)}:${e[2]}${e[1] && e[1] !== "petits" ? "@" + e[1] : ""}`)]).catch(() => {})); }
   const h = new Headers(r.headers); h.set("accept-ranges", "bytes");
   const m = range && /^bytes=(\d*)-(\d*)$/.exec(range.trim());
   if (!m || (m[1] === "" && m[2] === "")) return new Response(r.body, { status: 200, headers: h });
@@ -112,6 +115,9 @@ async function api(req, env, ctx, u) {
     }
     return J({ ok: true });
   }
+
+  // --- audience : une visite (le navigateur ne l'envoie qu'une fois par session d'onglet). Aucun identifiant, aucune adresse : un total par jour.
+  if (p === "/api/vu" && M === "POST") { ctx.waitUntil(compter(env, "vu:j:" + new Date().toISOString().slice(0, 10)).catch(() => {})); return new Response(null, { status: 204, headers: CORS }); }
 
   // --- 1. demander un code de connexion
   if (p === "/api/compte/code" && M === "POST") {
@@ -240,6 +246,13 @@ async function api(req, env, ctx, u) {
   }
   return J({ erreur: "inconnu" }, 404);
 }
+/** Compteur d'audience (total seul, gardé 400 jours). Pour ménager les écritures de la base (quota quotidien) :
+    exact jusqu'à 100, puis par pas tirés au hasard (au-delà de 100, +k une fois sur k, k = n/100) -> environ ±10 %, et peu d'écritures. */
+async function compter(env, k) {
+  const n = parseInt(await env.COMPTES.get(k), 10) || 0, pas = Math.max(1, Math.floor(n / 100));
+  if (pas > 1 && Math.random() * pas >= 1) return;
+  await env.COMPTES.put(k, String(n + pas), { expirationTtl: 400 * 86400, metadata: { n: n + pas } });      // le nombre aussi en métadonnée : une seule liste suffit au tableau
+}
 /** Tableau de bord de l'éditeur : des nombres seulement, aucune donnée d'un compte. */
 const COUT_HISTOIRE = 0.30;         // ESTIMATION en euros d'une histoire créée (8 images, texte, voix) — à recaler sur les factures
 async function tableau(env) {
@@ -249,10 +262,12 @@ async function tableau(env) {
   const jours = [], mois = [], t = new Date();
   for (let i = 0; i < 7; i++) { const j = new Date(t.getTime() - i * 86400000).toISOString().slice(0, 10); jours.push(j); }
   for (let i = 0; i < 3; i++) { const d = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() - i, 1)); mois.push(d.toISOString().slice(0, 7)); }
-  const pj = await Promise.all(jours.map(async j => ({ jour: j, public: await nb("b:j:" + j), moi: await nb("ba:j:" + j) })));
+  const pj = await Promise.all(jours.map(async j => ({ jour: j, public: await nb("b:j:" + j), moi: await nb("ba:j:" + j), visites: await nb("vu:j:" + j), ecoutes: await nb("e:j:" + j) })));
+  const L = await env.COMPTES.list({ prefix: "e:m:" + mois[0] + ":", limit: 1000 });
+  const top = L.keys.map(k => ({ histoire: k.name.slice(("e:m:" + mois[0] + ":").length), n: (k.metadata && k.metadata.n) || 0 })).sort((a, b) => b.n - a.n).slice(0, 15);
   const pm = await Promise.all(mois.map(async m => { const pub = await nb("b:m:" + m), moi = await nb("ba:m:" + m), don = await env.COMPTES.get("d:m:" + m, "json");
     return { mois: m, public: pub, moi, nouveaux_comptes: await nb("n:m:" + m), cout_estime: Math.round((pub + moi) * COUT_HISTOIRE * 100) / 100, dons: don ? { n: don.n, total: don.total, devise: don.devise } : { n: 0, total: 0, devise: "" } }; }));
-  return { comptes, comptes_supprimes: supprimes, histoires_gardees: gardees, histoires_partagees: partagees, jours: pj, mois: pm, cout_par_histoire: COUT_HISTOIRE, dons_branches: !!(await env.COMPTES.get("k:kofi")) };
+  return { comptes, comptes_supprimes: supprimes, histoires_gardees: gardees, histoires_partagees: partagees, jours: pj, mois: pm, top_mois: top, cout_par_histoire: COUT_HISTOIRE, dons_branches: !!(await env.COMPTES.get("k:kofi")) };
 }
 async function oublier(env, uid, h) {
   await env.COMPTES.delete(`h:${uid}:${h.id}`); if (h.cle) await env.COMPTES.delete("p:" + h.cle);      // le lien de partage tombe avec l'histoire
