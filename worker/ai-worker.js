@@ -5,7 +5,7 @@
  * sauf /tts, lecture en direct de secours tant qu'une voix n'est pas encore enregistrée.
  *
  * Mode « J'invente la mienne » (sous mot de passe, Cloudflare payant à la demande) :
- *   /story?hero=&lieu=&lecon=&pass=   -> histoire en 8 tableaux, VÉRIFIÉE, avec images et texte SIGNÉS
+ *   /story?hero=&lieu=&lecon=&pass=   -> histoire en 6 à 8 tableaux selon l'âge (voir AGES), VÉRIFIÉE, avec images et texte SIGNÉS
  *   /img?p=<description>&s=<signature> -> illustration (flux-1-schnell), seulement pour une description signée
  *   /gtts (POST {tableaux, voix, sig}) -> voix de conteuse (Gemini TTS) + minutage mot à mot, seulement pour un texte signé
  *
@@ -19,7 +19,7 @@
  * Secrets (posés par .github/workflows/deploy-worker.yml) : LIBRE_PASS, GEMINI_KEY, ELEVEN_KEY, OPENROUTER_KEY.
  * Binding : AI (Workers AI).
  */
-import { octets, base64, pcmDepuis, wav, reech, tranches, alignerMots, caler } from "./voix.js";
+import { octets, base64, pcmDepuis, wav, reech, tranches, alignerMots, caler, morceaux, rogner, assembler, fusionner, bilan } from "./voix.js";
 import { motInterdit, normaliser } from "./controle.js";
 import { BANDES } from "./bandes.js";
 const SITE = "https://titistoire.fr/";      // les fiches des bandes y sont publiées
@@ -86,27 +86,41 @@ export default {
         const fa = (u.searchParams.get("a") || "").slice(0, 1800), fb = (u.searchParams.get("b") || "").slice(0, 1800);   // fiches des personnages présents dans l'image
         if (!p || !s || !cleSig || !(await signatureOK("img:" + p + (fa ? "|" + fa : "") + (fb ? "|" + fb : ""), s, cleSig))) return new Response("image non autorisée", { status: 403, headers: cors });
         if (!env.AI) return new Response("image indisponible", { status: 502, headers: cors });
-        let b64 = null, par = "", journal = [];
-        if (fa || fb) {                                      // dessin d'après les fiches : mêmes personnages d'une page à l'autre
-          const refs = [];
-          for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
-          if (refs.length === [fa, fb].filter(Boolean).length) {
+        const journal = [], refs = [];
+        if (fa || fb) for (const fp of [fa, fb]) if (fp) { const f = await ficheDe(env, ctx, fp); if (f.img) refs.push(f.img); else journal.push("fiche : " + f.err); }
+        const dessiner = async () => {                       // -> { b64, par } ; chaque appel donne un dessin différent (graine tirée au hasard par le modèle)
+          let b64 = null, par = "";
+          if ((fa || fb) && refs.length === [fa, fb].filter(Boolean).length) {      // dessin d'après les fiches : mêmes personnages d'une page à l'autre
             // le modèle renvoie souvent une erreur interne passagère : on retente, en alternant avec sa petite variante, qui dessine aussi d'après les fiches
             const ordreM = [MODELE_PAGE, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_SECOURS, MODELE_PAGE, MODELE_SECOURS, MODELE_SECOURS];
             for (let essai = 0; essai < ordreM.length && !b64; essai++) {
               try { b64 = await flux2(env, ordreM[essai], p, refs); par = ordreM[essai]; } catch (e) { journal.push(String(e).slice(0, 60)); await new Promise(r => setTimeout(r, 700 + 500 * essai)); }
             }
           }
+          if (!b64) {                                        // secours : ancien modèle, sans fiche (le texte décrit tout)
+            const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p.slice(0, 1500), steps: 8 });
+            b64 = r && r.image; par = "flux-1-schnell";
+          }
+          return { b64, par };
+        };
+        // CONTRÔLE DU DESSIN (voir jugerDessin) : au plus 2 dessins de plus par page ; on garde le meilleur ; juge en panne -> l'image part telle quelle.
+        const attendus = [fa, fb].filter(Boolean).length, essais = [];
+        for (let n = 0; n < 1 + DESSINS_EN_PLUS; n++) {
+          const d = await dessiner(); if (!d.b64) break;
+          const [vue, juge] = await Promise.all([imageDouce(env, d.b64), jugerDessin(env, d.b64, p, attendus)]);     // en parallèle : le juge n'allonge presque pas une page saine
+          if (!vue.ok) {                                     // contrôle de sécurité : inchangé pour le 1er dessin ; un redessin refusé est simplement écarté
+            if (!essais.length) return new Response("image écartée par le contrôle", { status: 451, headers: { "x-controle": encodeURIComponent(String(vue.raison || "").slice(0, 300)), "access-control-expose-headers": "x-controle", ...cors } });
+            journal.push("redessin écarté par le contrôle"); continue;
+          }
+          essais.push({ ...d, juge });
+          if (juge.ok || juge.panne) break;
         }
-        if (!b64) {                                          // secours : ancien modèle, sans fiche (le texte décrit tout)
-          const r = await env.AI.run("@cf/black-forest-labs/flux-1-schnell", { prompt: p.slice(0, 1500), steps: 8 });
-          b64 = r && r.image; par = "flux-1-schnell";
-        }
-        if (!b64) return new Response("image indisponible", { status: 502, headers: cors });
-        const vue = await imageDouce(env, b64);
-        if (!vue.ok) return new Response("image écartée par le contrôle", { status: 451, headers: { "x-controle": encodeURIComponent(String(vue.raison || "").slice(0, 300)), "access-control-expose-headers": "x-controle", ...cors } });
-        const img = octets(b64);
-        return keep(new Response(img, { headers: { "content-type": typeImage(img), "cache-control": "public, max-age=31536000", "x-dessin": par, "x-journal": encodeURIComponent(journal.join(" | ").slice(0, 300)), "access-control-expose-headers": "x-dessin, x-journal", ...cors } }));
+        if (!essais.length) return new Response("image indisponible", { status: 502, headers: cors });
+        const choix = meilleurDessin(essais), rejets = essais.filter(e => !e.juge.ok && !e.juge.panne).length;
+        console.log(JSON.stringify({ img: "contrôle du dessin", dessins: essais.length, garde: essais.indexOf(choix) + 1, verdicts: essais.map(e => e.juge.panne ? "panne : " + e.juge.panne : (e.juge.ok ? "ok" : e.juge.defauts.join(", "))), par: essais.map(e => e.juge.par || "") }));
+        compterDessins(env, ctx, essais);
+        const img = octets(choix.b64);
+        return keep(new Response(img, { headers: { "content-type": typeImage(img), "cache-control": "public, max-age=31536000", "x-dessin": choix.par, "x-juge": encodeURIComponent((choix.juge.panne ? "panne" : (choix.juge.ok ? "ok" : choix.juge.defauts.join(", "))) + " (" + essais.length + " dessin(s), " + rejets + " rejet(s))"), "x-journal": encodeURIComponent(journal.join(" | ").slice(0, 300)), "access-control-expose-headers": "x-dessin, x-juge, x-journal", ...cors } }));
       }
 
       // ---------- VOIX : uniquement pour un texte SIGNÉ par /story ----------
@@ -121,10 +135,14 @@ export default {
         const n = parseInt(b.n, 10), unTableau = n >= 1 && n <= tb.length;       // n : un seul tableau (le livre peut commencer sans attendre toute l'histoire)
         const cle2 = new Request("https://cache.titistoire/gtts/" + voix + "/" + b.sig + (unTableau ? "/" + n : ""), { method: "GET" });
         try { const hit = await caches.default.match(cle2); if (hit) return hit; } catch (e) {}
+        // un tableau que la voix n'a pas su lire juste (voir voixConteuse) n'est pas redemandé avant demain : le quota du jour est précieux
+        const cleRefus = new Request(cle2.url + "/refus", { method: "GET" });
+        try { if (await caches.default.match(cleRefus)) return J({ error: "voix mal calée", refus: true }, 502); } catch (e) {}
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
         if (!GKEY) return J({ error: "voix indisponible" }, 502);
         const out = await voixConteuse(env, GKEY, unTableau ? [tb[n - 1]] : tb, voix);
         if (out.quota) await voixEpuisee(env);
+        if (out.refus) { try { ctx.waitUntil(caches.default.put(cleRefus, new Response("1", { headers: { "cache-control": "public, max-age=86400" } }))); } catch (e) {} }
         if (out.error) return J(out, out.quota ? 429 : 502);
         const meta = new TextEncoder().encode(JSON.stringify(out.meta)), w = wav(out.pcm, out.rate);
         const corps = new Uint8Array(4 + meta.length + w.length);                 // [longueur du JSON sur 4 octets][JSON][WAV]
@@ -186,7 +204,7 @@ export default {
         if (!dbg && !(await voixDispo(env, GKEY))) return J({ error: "voix", voix: true }, 503);
 
         // PLAFOND DE DÉPENSE : au plus N histoires créées par jour (défaut 10) et par mois (défaut 100), tous utilisateurs confondus.
-        // Comme seule une histoire validée ici peut ensuite faire dessiner (8 images) ou lire (8 pistes), ces plafonds bornent tout le coût payant.
+        // Comme seule une histoire validée ici peut ensuite faire dessiner (6 à 8 images) ou lire (6 à 8 pistes), ces plafonds bornent tout le coût payant.
         // Les compteurs sont dans la base du site (les mêmes partout dans le monde) ; à défaut, dans le cache du centre de données.
         const MAXJ = Math.max(1, parseInt(env.LIBRE_MAX_JOUR || "10", 10) || 10), MAXM = Math.max(1, parseInt(env.LIBRE_MAX_MOIS || "100", 10) || 100);
         const jour = new Date().toISOString().slice(0, 10), kJ = (admin ? "ba:j:" : "b:j:") + jour, kM = (admin ? "ba:m:" : "b:m:") + jour.slice(0, 7);
@@ -231,10 +249,7 @@ export default {
           const h = normaliser(r.txt);
           if (!h) { journal.push(nom + " : histoire illisible"); continue; }
           for (const t of h.tableaux) t.images = t.images.map(d => motInterdit(d) ? "" : d);      // description douteuse : écartée, la page reprendra l'image voisine
-          const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / pg.length;
-          const tx = pg.join(" "), mots = tx.toLowerCase().match(/[a-zà-ÿœ']+/g) || [], dits = (tx.match(/(^|[^a-zà-ÿ])dit(?![a-zà-ÿ])/gi) || []).length;
-          const pauvre = age !== "petit" && (dits > 5 || new Set(mots).size < mots.length * 0.36);       // « dit » partout, ou trop peu de mots différents
-          const maigre = pauvre || pg.length < 18 || moy < AGES[age].mini || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+          const { maigre, pg, moy, dits, mots } = jugerHistoire(h, age);
           const tout = h.titre + "\n" + pg.join("\n") + "\n" + [h.heros, h.ami, h.lieu].concat(h.tableaux.flatMap(t => t.images)).join("\n");
           const c2 = await controle(env, tout, "histoire", age);
           if (!c2.ok) { refusContenu = c2.raison; journal.push(nom + " : contrôle — " + c2.raison); continue; }
@@ -260,7 +275,7 @@ export default {
           for (const t of h.tableaux) {                    // 3. signature de ce qui est validé
             const imgs = [];                               // une illustration par page (à défaut, celle de la page précédente)
             for (let k = 0; k < t.pages.length; k++) {
-              const d = t.images.find(Boolean) || "";       // une seule image par tableau : trois fois moins de dessins, et la même à l'écran pendant ses trois pages
+              const d = t.images.find(Boolean) || "";       // une seule image par tableau : moins de dessins, et la même à l'écran pendant toutes ses pages
               if (!d) { imgs.push(null); continue; }
               const aH = /\bHERO\b/.test(d) && fH, aA = /\bFRIEND\b/.test(d) && fA; let n = 0;
               const qui = (desc, def, ref) => { let vu = false; return () => { if (vu) return def; vu = true; return (desc || def) + (ref ? ` (exactly the character shown in image ${++n}, with the same ${bande ? "face, hair, " : ""}clothes and accessories)` : ""); }; };
@@ -422,19 +437,87 @@ async function imageDouce(env, b64) {
   return { ok: false, raison: "vision indisponible — " + erreurs.join(" | ") };
 }
 
+/* ===================== contrôle du dessin (anatomie) =====================
+   FLUX.2 rate parfois l'anatomie : trois bras, deux têtes, corps fusionnés, personnage dessiné deux fois, lettres dans l'image.
+   Un modèle de vision répond à une question FERMÉE, en JSON ; c'est le code qui décide (lireVerdict).
+   Juges : mistral-small-3.1-24b (vision, déjà employé par imageDouce, le plus fiable du catalogue pour compter et détailler), puis gemma-3-12b en secours.
+   Écartés : llama-3.2-11b-vision (sa licence exclut les utilisateurs de l'Union européenne, voir imageDouce), llava-1.5-7b (ne sait pas compter des membres).
+   Coût estimé : ~2 700 jetons d'entrée par jugement (image 768 px ≈ 2 300 jetons + question) -> environ 0,001 $ ; un redessin coûte en plus un dessin FLUX.2 et un jugement.
+   Juge en panne, réponse illisible ou plus lent que JUGE_DELAI : { panne } -> l'image est servie (on ne bloque jamais une histoire).
+   Mesure : compteurs « img:juges:<jour> », « img:rejets:<jour> », « img:pannes:<jour> » dans la base (COMPTES). */
+const DESSINS_EN_PLUS = 2, JUGE_DELAI = 15000;
+const JUGES_DESSIN = ["@cf/mistralai/mistral-small-3.1-24b-instruct", "@cf/google/gemma-3-12b-it"];
+export function questionDessin(description, attendus) {
+  return "You are a careful quality checker for AI-generated children's picture-book illustrations. The illustration was drawn from this description:\n<<<\n" + String(description).slice(0, 1200) + "\n>>>\n"
+    + (attendus ? `It should show exactly ${attendus} main character${attendus > 1 ? "s" : ""}, each drawn only once (a small extra animal is fine only if the description asks for it). ` : "")
+    + "Look closely at EVERY character, person or animal, and count its body parts. Answer ONLY with this JSON object, nothing else:\n"
+    + '{"characters": <number of distinct characters or animals visible>, "extra_limbs": <true if any character has more arms, legs, paws, hands, wings or tails than it should>, "missing_limbs": <true if a character clearly lacks an arm or leg that should be visible>, "extra_heads": <true if any character has two heads or two faces>, "merged_bodies": <true if two bodies are fused together or a body is badly malformed>, "duplicate": <true if the same character appears twice>, "text": <true if letters, words or numbers are visible>}';
+}
+/** Réponse du juge -> { ok, defauts: [..], note } ; null si illisible. Poids : défaut grave 3, net 2, léger 1 ; rejet à partir de 2 (un seul défaut léger passe). */
+export function lireVerdict(t, attendus = 0) {
+  t = String(t || ""); let o = null;
+  const a = t.indexOf("{"), b = t.lastIndexOf("}"); if (a >= 0 && b > a) { try { o = JSON.parse(t.slice(a, b + 1)); } catch (e) {} }
+  if (!o) { o = {}; for (const k of ["extra_limbs", "missing_limbs", "extra_heads", "merged_bodies", "duplicate", "text"]) { const m = new RegExp('"?' + k + '"?\\s*[:=]\\s*"?(true|false|yes|no)', "i").exec(t); if (m) o[k] = m[1]; }
+    const c = /"?characters"?\s*[:=]\s*(\d+)/i.exec(t); if (c) o.characters = c[1]; if (!Object.keys(o).length) return null; }
+  const vrai = v => v === true || /^(true|yes|oui)$/i.test(String(v)), defauts = []; let note = 0;
+  for (const [k, nom, w] of [["extra_heads", "tête en double", 3], ["merged_bodies", "corps fusionnés", 3], ["extra_limbs", "membres en trop", 2], ["duplicate", "personnage en double", 2], ["text", "lettres visibles", 2], ["missing_limbs", "membre manquant", 1]])
+    if (vrai(o[k])) { defauts.push(nom); note += w; }
+  const n = parseInt(o.characters, 10);
+  if (attendus && n > attendus + 1) { defauts.push("personnages en trop (" + n + " pour " + attendus + ")"); note += 1; }
+  if (attendus && n >= 0 && n < attendus) { defauts.push("personnage manquant (" + n + " pour " + attendus + ")"); note += 1; }
+  return { ok: note < 2, defauts, note };
+}
+/** -> { ok, defauts, note, par } ou { panne } */
+async function jugerDessin(env, b64, description, attendus) {
+  const fin = Date.now() + JUGE_DELAI, q = questionDessin(description, attendus), erreurs = [];
+  for (const modele of JUGES_DESSIN) {
+    const reste = fin - Date.now(); if (reste < 1000) { erreurs.push("hors délai"); break; }
+    let minuteur;
+    try {
+      const r = await Promise.race([env.AI.run(modele, { messages: [{ role: "user", content: [{ type: "text", text: q }, { type: "image_url", image_url: { url: "data:image/jpeg;base64," + b64 } }] }], max_tokens: 120, temperature: 0 }),
+        new Promise((_, non) => { minuteur = setTimeout(() => non(new Error("hors délai")), reste); })]);
+      const t = r && (r.response || (r.choices && r.choices[0] && r.choices[0].message && r.choices[0].message.content));
+      const v = lireVerdict(typeof t === "object" ? JSON.stringify(t) : t, attendus);
+      if (v) return { ...v, par: modele.split("/").pop() };
+      erreurs.push(modele.split("/").pop() + " : illisible");
+    } catch (e) { erreurs.push(modele.split("/").pop() + " : " + String(e).slice(0, 50)); } finally { clearTimeout(minuteur); }
+  }
+  return { panne: erreurs.join(" | ") || "aucun juge" };
+}
+/** Le meilleur des dessins jugés : la note la plus basse (juge en panne = 1, inconnu mais probablement bon), le premier à égalité. */
+export function meilleurDessin(essais) {
+  const n = e => e.juge.panne ? 1 : e.juge.note; return essais.reduce((m, e) => n(e) < n(m) ? e : m, essais[0]);
+}
+function compterDessins(env, ctx, essais) {
+  if (!env.COMPTES) return;
+  const jour = new Date().toISOString().slice(0, 10), plus = { juges: essais.filter(e => !e.juge.panne).length, rejets: essais.filter(e => !e.juge.ok && !e.juge.panne).length, pannes: essais.filter(e => e.juge.panne).length };
+  const f = async () => { for (const [k, d] of Object.entries(plus)) if (d) { const c = "img:" + k + ":" + jour; await env.COMPTES.put(c, String((parseInt(await env.COMPTES.get(c), 10) || 0) + d), { expirationTtl: 400 * 86400 }); } };
+  try { ctx.waitUntil(f().catch(() => {})); } catch (e) {}
+}
+
 /* ===================== écriture de l'histoire ===================== */
-/* Trois âges : la langue, la longueur des pages et la complexité de l'intrigue changent. */
+/* Quatre âges : la langue, la longueur des pages, leur nombre (tab tableaux de ppt pages) et la complexité de l'intrigue changent. */
 const AGES = {
-  petit: { qui: "les 1-3 ans", page: "UNE ou DEUX phrases très courtes (8 à 20 mots)", mini: 35,
+  petit: { tab: 6, ppt: 2, qui: "les 1-3 ans", page: "UNE ou DEUX phrases très courtes (8 à 16 mots)", mini: 30,
     ton: "Histoire toute simple pour un tout-petit : une seule petite aventure, des gestes et des bruits, des mots de tous les jours, des répétitions rassurantes et des onomatopées. Un mot nouveau de temps en temps, pas plus." },
-  moyen: { qui: "les 3-6 ans", page: "DEUX ou TROIS phrases complètes (20 à 45 mots)", mini: 68,
+  moyen: { tab: 7, ppt: 3, qui: "les 3-6 ans", page: "DEUX ou TROIS phrases complètes (20 à 45 mots)", mini: 68,
     ton: "Histoire pour un enfant de 3 à 6 ans qui aime qu'on lui raconte de vraies aventures : une intrigue avec des surprises, des personnages qui ont du caractère, de l'humour, une langue riche." },
-  grand: { qui: "les 6-8 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
+  grand: { tab: 7, ppt: 3, qui: "les 6-8 ans", page: "TROIS ou QUATRE phrases (40 à 70 mots)", mini: 110,
     ton: "Histoire pour un enfant de 6 à 8 ans, grand lecteur d'albums : une intrigue construite avec un vrai retournement, un dilemme pour le héros, un second personnage qui a ses propres envies, de l'humour fin, du suspense doux, une langue soutenue (subordonnées, comparaisons, mots précis et savoureux)." },
-  tresgrand: { qui: "les 8-10 ans", page: "QUATRE ou CINQ phrases (55 à 85 mots)", mini: 170,
+  tresgrand: { tab: 8, ppt: 3, qui: "les 8-10 ans", page: "QUATRE ou CINQ phrases (55 à 85 mots)", mini: 170,
     ton: "Histoire pour un enfant de 8 à 10 ans, lecteur de romans d'aventure : une vraie intrigue à mystère ou à énigme, avec des indices loyaux que l'auditeur peut repérer avant les personnages, une fausse piste, un retournement, des personnages qui se chamaillent et se réconcilient, de l'humour, une langue soutenue et vive (subordonnées, comparaisons, mots précis et savoureux)." },
 };
-const PRENOMS = "Odilon Capucine Firmin Zélie Anatole Clémentine Octave Mirabelle Célestin Pétronille Lazare Apolline Gaspard Églantine Marius Colombe Ernest Philomène Achille Violette Hippolyte Suzon Auguste Garance Félicien Bertille Ignace Ondine Théodule Margot Balthazar Perrine Oscar Lison Aristide Noisette Fernand Olympe Justin Prune Séraphin Angèle Ulysse Rosalie Edgar Fanchon Titouan Maïwenn Corentin Azilis Eliott Naïa Sohan Lilou Timéo Yuna Ismaël Salomé Malo Jeanne Côme Adèle Marcel Louison Tao Inaya Abel Agathe Albin Alix Ambroise Anouk Anselme Armel Arsène Aubin Augustin Aurore Barnabé Basile Bastien Baptistine Blanche Blaise Brune Camille Célie Charlie Clarisse Cléo Colin Constance Cyprien Daphné Désiré Dorothée Edmée Éloi Émeline Émile Ernestine Eugène Eulalie Faustine Félix Flavie Florimond Gabin Gaston Georgette Gédéon Gisèle Gustave Hector Héloïse Henriette Honoré Hortense Isidore Jacinthe Joséphine Jules Juliette Lazarine Léandre Léon Léonie Léopold Louise Lubin Lucien Ludivine Madeleine Marceau Marguerite Martin Mathurin Maximin Mélusine Milo Mona Nestorine Nicodème Ninon Noé Norbert Octavie Odette Oriane Pacôme Paulin Pélagie Philibert Pia Pimprenelle Prosper Quitterie Raoul Raphaëlle Rémi Romane Rosalinde Sidonie Siméon Solal Soline Sylvestre Thaïs Théophile Tilda Tobie Toinette Ugo Valentine Victorin Violaine Virgile Yvette Zacharie Zoé Amir Aya Elias Ines Kenza Lina Malik Naël Nour Rayan Sami Yanis Aiko Kenji Luca Chiara Pablo Lola Nils Freya Kofi Awa Mei Lin Ravi Anouchka Sacha Milan Elio Nina".split(" ");
+/** Une histoire écrite est-elle « maigre » (mise de côté, ne sert que si aucun rédacteur ne fait mieux) ? Seuils relatifs à la forme demandée pour l'âge. */
+export function jugerHistoire(h, age) {
+  const A = AGES[age] || AGES.moyen, attendu = A.tab * A.ppt;
+  const pg = h.tableaux.flatMap(t => t.pages), moy = pg.reduce((a, x) => a + x.length, 0) / (pg.length || 1);
+  const tx = pg.join(" "), mots = tx.toLowerCase().match(/[a-zà-ÿœ']+/g) || [], dits = (tx.match(/(^|[^a-zà-ÿ])dit(?![a-zà-ÿ])/gi) || []).length;
+  const pauvre = age !== "petit" && (dits > 5 || new Set(mots).size < mots.length * 0.36);       // « dit » partout, ou trop peu de mots différents
+  const court = pg.length < Math.ceil(attendu * 0.75), long = pg.length > attendu * 1.5;        // nettement plus long que demandé : trop long pour l'âge
+  const maigre = pauvre || court || long || moy < A.mini || pg.filter(x => /[.!?…»]$/.test(x)).length < pg.length * 0.8;
+  return { maigre, pg, moy, dits, mots, attendu };
+}
+const PRENOMS ="Odilon Capucine Firmin Zélie Anatole Clémentine Octave Mirabelle Célestin Pétronille Lazare Apolline Gaspard Églantine Marius Colombe Ernest Philomène Achille Violette Hippolyte Suzon Auguste Garance Félicien Bertille Ignace Ondine Théodule Margot Balthazar Perrine Oscar Lison Aristide Noisette Fernand Olympe Justin Prune Séraphin Angèle Ulysse Rosalie Edgar Fanchon Titouan Maïwenn Corentin Azilis Eliott Naïa Sohan Lilou Timéo Yuna Ismaël Salomé Malo Jeanne Côme Adèle Marcel Louison Tao Inaya Abel Agathe Albin Alix Ambroise Anouk Anselme Armel Arsène Aubin Augustin Aurore Barnabé Basile Bastien Baptistine Blanche Blaise Brune Camille Célie Charlie Clarisse Cléo Colin Constance Cyprien Daphné Désiré Dorothée Edmée Éloi Émeline Émile Ernestine Eugène Eulalie Faustine Félix Flavie Florimond Gabin Gaston Georgette Gédéon Gisèle Gustave Hector Héloïse Henriette Honoré Hortense Isidore Jacinthe Joséphine Jules Juliette Lazarine Léandre Léon Léonie Léopold Louise Lubin Lucien Ludivine Madeleine Marceau Marguerite Martin Mathurin Maximin Mélusine Milo Mona Nestorine Nicodème Ninon Noé Norbert Octavie Odette Oriane Pacôme Paulin Pélagie Philibert Pia Pimprenelle Prosper Quitterie Raoul Raphaëlle Rémi Romane Rosalinde Sidonie Siméon Solal Soline Sylvestre Thaïs Théophile Tilda Tobie Toinette Ugo Valentine Victorin Violaine Virgile Yvette Zacharie Zoé Amir Aya Elias Ines Kenza Lina Malik Naël Nour Rayan Sami Yanis Aiko Kenji Luca Chiara Pablo Lola Nils Freya Kofi Awa Mei Lin Ravi Anouchka Sacha Milan Elio Nina".split(" ");
 function prenoms(n) { const L = PRENOMS.slice(), out = []; while (out.length < n && L.length) out.push(L.splice(Math.floor(Math.random() * L.length), 1)[0]); return out.join(", "); }
 export function consigneHistoire(hero, lieu, lecon, age = "moyen", bande = "", qui = "") {
   const A = AGES[age] || AGES.moyen, B = bande ? BANDES[bande] : null, ids = B ? Object.keys(B.enfants) : [];
@@ -466,8 +549,8 @@ ${A.langue}
 - VOCABULAIRE REFUSÉ D'OFFICE par le contrôleur, même au sens figuré ou innocent — n'emploie AUCUN de ces mots ni leurs dérivés : terreur, terrifiant, terrorisé, horreur, horrible, effrayant, épouvante, cauchemar, monstre, fantôme, sorcière, mort, tuer, sang, blessure, arme, fusil, couteau, épée, guerre, bataille, soldat, poison, feu qui brûle, noyer, étouffer, frapper, gifle, prison, voleur, bandit, diable, enfer, alcool, vin, bière, cigarette, pipe. Pour une peur, dis « il n'était pas rassuré », « son cœur battait fort », « il recula d'un pas ».
 - Histoire douce, qui sera relue par un contrôleur très strict : aucune violence, aucune blessure, aucune mort, aucune arme, aucun gros mot, et AUCUN DANGER PHYSIQUE ni scène inquiétante (pas de noyade, de chute, d'eau glacée ou sombre, d'orage menaçant, d'enfant perdu la nuit, de créature qui fait peur). Le suspense vient des sentiments et des malentendus, jamais d'un péril. ${age === "grand" || age === "tresgrand" ? "SEULE EXCEPTION : si le sujet demandé est le deuil (un proche ou un animal qui est mort), raconte-le avec douceur — le chagrin, le manque, les souvenirs qui consolent ; tu peux écrire « mort » ou « il est mort », sans jamais décrire la mort, ni accident, ni maladie détaillée, et l'histoire finit apaisée. Les descriptions d'images, elles, ne montrent ni ne nomment jamais la mort. " : ""}${B ? "Les seuls personnages sont les enfants de la bande et, s'il le faut, un adulte bienveillant de leur monde (jamais de personne réelle, de personnage de film ou de marque)." : "QUI EST LE HÉROS : si la demande désigne un enfant ou une personne (un prénom seul, « garçon », « fille », « bébé », « princesse », « prince », un âge, un métier), le héros est un ENFANT HUMAIN qui porte ce prénom — c'est presque toujours un enfant que le parent connaît : ne le change JAMAIS en animal. S'il est question de son frère, de sa sœur, d'un parent ou d'un copain, ce sont des humains aussi. Si la demande nomme un animal (« Léo le lion », « un petit dragon »), le héros est cet animal. Les autres personnages sont, au choix, des humains bienveillants ou des animaux gentils. Jamais de personne réelle ou célèbre, de personnage de film ou de marque."}
 
-FORME : ${recit ? "récit au PASSÉ SIMPLE et à l'imparfait, comme dans un roman (dialogues au présent)" : "au présent"}. EXACTEMENT 8 tableaux de 3 pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
-Pour chaque tableau, "images" contient UNE SEULE description EN ANGLAIS (20 à 35 mots) : l'image du tableau, celle de son moment le plus fort, qui reste à l'écran pendant ses trois pages (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
+FORME : ${recit ? "récit au PASSÉ SIMPLE et à l'imparfait, comme dans un roman (dialogues au présent)" : "au présent"}. EXACTEMENT ${A.tab} tableaux de ${A.ppt} pages chacun. Chaque page fait ${A.page}, qui se terminent par un point, jamais un simple bout de phrase. Guillemets français « » pour les dialogues.
+Pour chaque tableau, "images" contient UNE SEULE description EN ANGLAIS (20 à 35 mots) : l'image du tableau, celle de son moment le plus fort, qui reste à l'écran pendant ses ${A.ppt === 2 ? "deux" : "trois"} pages (qui est là, ce qu'ils font, leur expression). Règles STRICTES pour ces descriptions (un dessinateur les suivra au pied de la lettre) :
   * écris HERO pour le héros et FRIEND pour le deuxième personnage, jamais leur prénom, et ne redécris PAS leur apparence (elle est fixée par "heros" et "ami") ;
   * chaque description nomme au moins HERO ou FRIEND, dit OÙ ils sont dans le décor, ce qu'ils FONT avec leur corps et leur EXPRESSION ; elle montre exactement ce que raconte ce tableau, pas celui d'avant ni celui d'après ;
 ${B ? `  * HERO et FRIEND sont les SEULS personnages dessinés : aucun autre enfant, aucun adulte, aucun animal dans les images, même si le texte en parle ;
@@ -478,7 +561,7 @@ ${B ? `  * HERO et FRIEND sont les SEULS personnages dessinés : aucun autre enf
 ${B ? `"heros" et "ami" contiennent UNIQUEMENT l'identifiant de l'enfant choisi, parmi : ${ids.join(", ")} (deux identifiants différents${qui ? ` ; "heros" vaut "${qui}"` : ""}). La phrase suivante ne s'applique donc pas.\n(sans objet) ` : ""}"heros" et "ami" décrivent EN ANGLAIS leur apparence en 15 à 25 mots, en commençant par "one small ...". Pour un animal : UNE espèce précise (jamais la même pour les deux), taille, couleurs du pelage ou des plumes, et UN vêtement ou accessoire de couleur vive porté du début à la fin. Pour un enfant humain : "one small four-year-old boy" ou "girl" (son âge s'il est donné), coiffure et couleur des cheveux, puis sa tenue complète de tous les jours ou de son métier, aux couleurs vives, portée du début à la fin (toujours entièrement habillé) ; reprends les détails d'apparence donnés dans la demande, sans en inventer de moqueurs.
 "lieu" décrit EN ANGLAIS le décor en 12 à 20 mots : l'endroit, deux ou trois éléments fixes reconnaissables, le moment de la journée et les couleurs (il sera rappelé dans chaque illustration).
 Réponds UNIQUEMENT par cet objet JSON :
-{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":["...","...","..."],"images":["..."]}]}`;
+{"titre":"...","decor":"foret|ocean|espace|chevaliers|pirates|dino|noel|halloween|ski|mer","emoji":"un seul emoji représentant le héros","heros":"...","ami":"...","lieu":"...","tableaux":[{"pages":[${Array(A.ppt).fill('"..."').join(",")}],"images":["..."]}]}`;
 }
 // Forme imposée à la réponse de Gemini : sans elle, les histoires longues reviennent parfois dans un JSON invalide (guillemets non échappés).
 const SCHEMA_HISTOIRE = { type: "OBJECT", required: ["titre", "decor", "emoji", "heros", "ami", "lieu", "tableaux"], properties: {
@@ -542,13 +625,13 @@ const decrire = (image, h) => String(image || "").replace(/\bHERO\b/g, h.heros |
 const CONSIGNE_VOIX = "# AUDIO PROFILE: La conteuse\nUne conteuse française chaleureuse, qui lit un album à un enfant de quatre ans.\n\n### DIRECTOR'S NOTES\nStyle : voix douce, souriante et vivante ; elle joue légèrement les dialogues et les bruits.\nRythme : posé, sans lenteur, avec de petites pauses entre les phrases.\nLangue : français de France.\n\n#### TRANSCRIPT\n";
 /** Un appel à la voix. -> { son } ou { err, jour: quota du jour épuisé }. Graine et température fixes : sans elles, la hauteur de la voix
     varie beaucoup d'un tableau à l'autre (mesuré le 13/11 : écart-type de 23 Hz, contre 11 Hz avec, et 7 à 17 Hz dans les histoires du catalogue). */
-async function ttsBrut(GKEY, texte, voix) {
+async function ttsBrut(GKEY, texte, voix, graine = 7) {
   let err = "voix indisponible";
   for (let essai = 0; essai < 4; essai++) {
     try {
       const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELE_VOIX}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: CONSIGNE_VOIX + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: 7, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
+        body: JSON.stringify({ contents: [{ parts: [{ text: CONSIGNE_VOIX + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
       const brut = await r.text();
       if (r.status === 429) { if (/PerDay/i.test(brut)) return { err: "quota du jour atteint", jour: true }; err = "voix très demandée"; await new Promise(z => setTimeout(z, 4000 + 3000 * essai)); continue; }   // limite de débit : on patiente
       const i = brut.indexOf('"data"'); if (i < 0) { err = "pas d'audio (" + r.status + ")"; await new Promise(z => setTimeout(z, 1500)); continue; }
@@ -571,23 +654,69 @@ async function voixDispo(env, GKEY) {
   if (r.jour) { await voixEpuisee(env); return false; }
   return true;                                             // une panne passagère ne ferme pas la création
 }
+/* VOIX D'UN TABLEAU (le site la demande tableau par tableau : /gtts avec n, deux tableaux à la fois ; sans n, toute l'histoire).
+   Gemini TTS dérape parfois (phrase inventée en début de page) et un calage global peut décaler une page sur le son d'une autre.
+   Donc : le texte est lu en MORCEAUX de pages entières (au plus MAX_MORCEAU caractères, jamais plus de deux tableaux), deux appels à la fois,
+   même voix, graine et température ; chaque morceau est écouté (reconnaissance vocale), calé À PART et jugé (bilan, voix.js).
+   Morceau douteux : relu UNE fois, page par page (les débuts de pages sont alors exacts par construction), autre graine ; on garde le meilleur.
+   Encore faux après relecture : le tableau est refusé (le site passe à la lecture de secours) — jamais une page affichée sur le son d'une autre.
+   COÛT en appels à la voix (quota du jour partagé), par histoire, avec des pages de longueur moyenne, hors l'essai de voixDispo :
+     1-3 ans : 6 tableaux × 2 pages courtes (~150 car.)   -> 1 appel par tableau = 6 ;
+     3-6 ans : 7 × 3 pages (~600 car.)                     -> 1 à 2 par tableau  = 7 à 14 ;
+     6-8 ans : 7 × 3 pages (~1 000 car.)                   -> 2 par tableau      = 14 ;
+     8-10 ans : 8 × 3 pages (~1 300 car.)                  -> 3 par tableau      = 24.
+   Une relecture coûte autant d'appels que le morceau a de pages (1 à 3) : au pire, le total double. Avant : un appel par tableau (8).
+   RÉGLAGE RETENU (15/11/2026) : le site demande déjà la voix tableau par tableau, et le quota est partagé avec le catalogue ; on garde donc
+   UN appel par tableau (6, 7, 7 ou 8 par histoire) et l'on compte sur le calage par morceau, le contrôle et la relecture page par page.
+   Pour découper plus fin : variable VOIX_MAX_CAR (ex. 700 -> coûts ci-dessus). */
+const MAX_MORCEAU = 3000;
 async function voixConteuse(env, GKEY, tableaux, voix) {
-  const pages = tableaux.flat(), texte = tableaux.map(t => t.join("\n\n")).join("\n\n\n");
-  const r = await ttsBrut(GKEY, texte, voix);
-  if (!r.son) return { error: r.err, quota: !!r.jour };
-  const son = r.son;
-  const duree = son.pcm.length / son.rate;
-  // minutage exact par reconnaissance vocale, tranche par tranche ; sinon calage par les silences
-  let cal = null, mode = "reconnaissance";
+  const pages = tableaux.flat(), M = morceaux(tableaux, Math.max(150, parseInt(env.VOIX_MAX_CAR, 10) || MAX_MORCEAU));
+  let appels = 0, refaits = 0, quota = false, arret = null;
+  const lire = async (idx, texte, graine) => {               // un appel à la voix, puis l'écoute et le calage de ce seul morceau
+    appels++; const r = await ttsBrut(GKEY, texte, voix, graine);
+    if (!r.son) return { err: r.err, jour: !!r.jour };
+    const son = { pcm: rogner(r.son.pcm, r.son.rate), rate: r.son.rate, modele: r.son.modele };
+    return { son, pages: idx, ...(await ecouter(env, son, idx.map(i => pages[i]))) };
+  };
+  const note = L => L.reduce((a, x) => a + x.qualite - 0.05 * x.bilan.leger.length, 0) / L.length;
+  const faire = async m => {
+    const a = await lire(m.pages, m.texte, 7); if (a.err) return a;
+    if (!a.bilan.grave.length && !a.bilan.leger.length) return { parts: [a] };
+    refaits++; const B = [];
+    for (const i of m.pages) { const b = await lire([i], pages[i], 11); if (b.err) { if (b.jour) quota = true; break; } B.push(b); }
+    const bOK = B.length === m.pages.length && B.every(b => !b.bilan.grave.length);
+    if (bOK && (a.bilan.grave.length || note(B) >= note([a]))) return { parts: B };
+    if (!a.bilan.grave.length) return { parts: [a] };
+    if (quota) return { err: "quota du jour atteint", jour: true };
+    return { err: "voix mal calée", refus: true, detail: a.bilan.grave.concat(...B.map(b => b.bilan.grave)).slice(0, 4).join(" ; ") };
+  };
+  // deux morceaux à la fois ; à la première erreur (quota du jour, panne, lecture fausse) on n'en lance plus : jamais de piste à moitié
+  const res = new Array(M.length); let suivant = 0;
+  const ouvrier = async () => { while (!arret && suivant < M.length) { const k = suivant++, r = await faire(M[k]); if (r.err) arret = arret || r; else res[k] = r; } };
+  await Promise.all([ouvrier(), ouvrier()]);
+  if (arret) return { error: arret.err, quota: !!arret.jour || quota, refus: !!arret.refus, detail: arret.detail };
+  const parts = res.flatMap(r => r.parts), tout = assembler(parts.map(p => p.son), 0.45), cal = fusionner(parts, tout.debuts, pages.length);
+  for (let k = 1; k < pages.length; k++) if (!(cal.mots[k][0] > cal.mots[k - 1][0])) return { error: "voix mal calée", refus: true, quota, detail: "pages dans le désordre" };
+  const sil = parts.filter(p => p.mode !== "reconnaissance").length;
+  return { pcm: tout.pcm, rate: tout.rate, quota, meta: { duree: Math.round(tout.pcm.length / tout.rate * 100) / 100, pages: cal.pages, mots: cal.mots,
+    calage: sil ? "reconnaissance, silences pour " + sil + "/" + parts.length + " (" + parts.find(p => p.mode !== "reconnaissance").mode + ")" : "reconnaissance",
+    modele: parts[0].son.modele, voix, appels, morceaux: M.length, refaits } };
+}
+/** Écoute d'un morceau : minutage exact par reconnaissance vocale (tranche par tranche), sinon calage par les silences ; et son bilan. */
+async function ecouter(env, son, pagesM) {
+  const duree = son.pcm.length / son.rate; let a = null, mode = "reconnaissance";
   try {
     const p16 = reech(son.pcm, son.rate, 16000), tr = tranches(p16, 16000, 45);
     const rs = await Promise.all(tr.map(t => env.AI.run("@cf/openai/whisper-large-v3-turbo", { audio: base64(wav(t.pcm, 16000)), language: "fr" })));
     const entendus = [];
     rs.forEach((r, k) => { const ws = (r && r.words) || ((r && r.segments) || []).flatMap(s => s.words || []);
       for (const w of ws) entendus.push({ word: w.word, start: (w.start || 0) + tr[k].debut, end: (w.end || w.start || 0) + tr[k].debut }); });
-    const a = alignerMots(pages, entendus);
-    if (a.mots && a.qualite >= 0.8) cal = a; else mode = "silences (reconnaissance insuffisante : " + a.qualite.toFixed(2) + ", " + entendus.length + " mots)";
+    a = alignerMots(pagesM, entendus);
   } catch (e) { mode = "silences (" + String(e).slice(0, 60) + ")"; }
-  if (!cal) { const x = new Float32Array(son.pcm.length); for (let i = 0; i < x.length; i++) x[i] = son.pcm[i] / 32768; cal = caler(x, son.rate, pages); }
-  return { pcm: son.pcm, rate: son.rate, meta: { duree: Math.round(duree * 100) / 100, pages: cal.pages, mots: cal.mots, calage: mode, modele: son.modele, voix } };
+  let cal = a && a.mots && a.qualite >= 0.8 ? a : null;
+  if (!cal) { if (a) mode = "silences (reconnaissance insuffisante : " + a.qualite.toFixed(2) + ")";
+    const x = new Float32Array(son.pcm.length); for (let i = 0; i < x.length; i++) x[i] = son.pcm[i] / 32768; cal = caler(x, son.rate, pagesM); }
+  return { cal, mode, qualite: a ? a.qualite : 0, bilan: bilan(pagesM, a, duree) };
 }
+export { voixConteuse };                                     // pour tools/test_morceaux.mjs (essai hors ligne, réseau simulé)

@@ -62,13 +62,87 @@ export function tranches(pcm, rate, max = 45) {
   return out;
 }
 
+/* ---------- Lecture en MORCEAUX : Gemini TTS dérape sur les longs textes (mots « fantômes », phrase inventée en début de page).
+   Chaque appel lit quelques pages entières ; chaque morceau est calé à part (une erreur reste bornée à son morceau), puis les sons sont mis bout à bout. */
+/** -> [{ pages: [indices dans la liste à plat], texte }] : des pages entières, au plus `max` caractères (une page plus longue reste seule), jamais plus de deux tableaux. */
+export function morceaux(tableaux, max = 700) {
+  const out = []; let cur = null, k = 0;
+  tableaux.forEach((t, ti) => t.forEach(p => {
+    const autreTab = cur && cur.tab[cur.tab.length - 1] !== ti, sep = !cur ? "" : (autreTab ? "\n\n\n" : "\n\n");
+    if (!cur || cur.texte.length + sep.length + p.length > max || (autreTab && cur.tab.length >= 2)) { cur = { pages: [], texte: "", tab: [] }; out.push(cur); }
+    else cur.texte += sep;
+    cur.texte += p; cur.pages.push(k++); if (cur.tab[cur.tab.length - 1] !== ti) cur.tab.push(ti);
+  }));
+  return out.map(m => ({ pages: m.pages, texte: m.texte }));
+}
+/** Retire le silence du début et de la fin (on garde une petite marge) : les morceaux s'enchaînent ensuite avec une pause régulière. -> sous-tableau */
+export function rogner(pcm, rate, avant = 0.12, apres = 0.25) {
+  const pas = Math.max(1, Math.round(rate * 0.02)), n = Math.floor(pcm.length / pas); if (n < 3) return pcm;
+  const rms = new Float32Array(n); for (let i = 0; i < n; i++) { let s = 0; for (let j = i * pas, e = j + pas; j < e; j++) s += pcm[j] * pcm[j]; rms[i] = Math.sqrt(s / pas); }
+  const tri = Array.from(rms).sort((a, b) => a - b), seuil = (tri[Math.floor(n * 0.9)] || 1) * 0.06;
+  let d = 0, f = n - 1; while (d < n && rms[d] <= seuil) d++; while (f > d && rms[f] <= seuil) f--;
+  if (d >= n) return pcm;
+  return pcm.subarray(Math.max(0, d * pas - Math.round(avant * rate)), Math.min(pcm.length, (f + 1) * pas + Math.round(apres * rate)));
+}
+/** Sons [{pcm, rate}] mis bout à bout (au débit du premier), séparés par `pause` secondes de silence. -> { pcm, rate, debuts: [s] } */
+export function assembler(sons, pause = 0.45) {
+  const rate = sons[0].rate, pp = sons.map(s => reech(s.pcm, s.rate, rate)), blanc = Math.round(pause * rate);
+  const out = new Int16Array(pp.reduce((a, p) => a + p.length, 0) + blanc * (pp.length - 1)), debuts = []; let o = 0;
+  pp.forEach((p, i) => { if (i) o += blanc; debuts.push(o / rate); out.set(p, o); o += p.length; });
+  return { pcm: out, rate, debuts };
+}
+/** Minutage de l'ensemble : celui de chaque partie [{pages: indices, cal: {pages, mots}}], décalé du début de son son. */
+export function fusionner(parts, debuts, nPages) {
+  const r = x => Math.round(x * 100) / 100, pages = new Array(nPages).fill(null), mots = new Array(nPages).fill(null);
+  parts.forEach((p, c) => p.pages.forEach((gi, j) => {
+    mots[gi] = p.cal.mots[j].map(t => r(t + debuts[c]));
+    pages[gi] = j === 0 ? r(debuts[c]) : r(p.cal.pages[j] + debuts[c]);       // 1re page d'une partie : le début exact de son son
+  }));
+  if (nPages) pages[0] = 0;
+  return { pages, mots };
+}
+
 const norme = s => s.normalize("NFD").toLowerCase().replace(/[^0-9a-z]/g, "");
+const HALLU = /^(soustitr|amara|abonnez|mercidavoirregarde)/;         // phrases que la reconnaissance invente sur un silence, en fin de son
+const NOMBRES = { 0: "zero", 1: "un", 2: "deux", 3: "trois", 4: "quatre", 5: "cinq", 6: "six", 7: "sept", 8: "huit", 9: "neuf", 10: "dix", 11: "onze", 12: "douze", 20: "vingt", 100: "cent", 1000: "mille" };
+const motN = s => { const n = norme(s); return /^\d+$/.test(n) && NOMBRES[+n] ? NOMBRES[+n] : n; };   // la reconnaissance écrit souvent « 3 » pour « trois »
+const pareil = (a, b) => {                                    // deux mots « pareils » malgré une faute de la reconnaissance (« Zélie » / « Zelly »)
+  if (!a || !b) return false; if (a === b) return true;
+  const P = new Uint8Array(b.length + 1); for (let i = 0; i < a.length; i++) { let d = 0; for (let j = 1; j <= b.length; j++) { const t = P[j]; P[j] = a[i] === b[j - 1] ? d + 1 : Math.max(P[j], P[j - 1]); d = t; } }
+  const l = P[b.length], lo = Math.min(a.length, b.length); return l >= 0.6 * Math.max(a.length, b.length) || (lo >= 3 && l === lo);
+};
+/** Mots entendus absents du texte, par alignement MOT À MOT (le caractère à caractère « prête » les lettres d'un mot inventé au mot voisin).
+    -> trouve : [[1 si le mot du texte est entendu]] par page ; intrus : [{mot, k, t, fin, debutPage}] (entre deux pages ou avant la 1re = début de page) */
+function motsEnTrop(pages, jetons, entendus) {
+  const tn = jetons.map(([, t]) => motN(t)), hn = entendus.map(w => motN(String(w.word || ""))), n = tn.length, m = hn.length, W = m + 1;
+  const L = new Uint16Array((n + 1) * W), E = new Uint8Array(n * m), vu = new Int32Array(m).fill(-1), dit = new Uint8Array(n);
+  for (let i = 1; i <= n; i++) for (let j = 1; j <= m; j++) { const e = E[(i - 1) * m + j - 1] = pareil(tn[i - 1], hn[j - 1]) ? 1 : 0;
+    L[i * W + j] = e ? L[(i - 1) * W + j - 1] + 1 : Math.max(L[(i - 1) * W + j], L[i * W + j - 1]); }
+  for (let i = n, j = m; i > 0 && j > 0;) {
+    if (E[(i - 1) * m + j - 1] && L[i * W + j] === L[(i - 1) * W + j - 1] + 1) { vu[j - 1] = i - 1; dit[i - 1] = 1; i--; j--; }
+    else if (L[(i - 1) * W + j] >= L[i * W + j - 1]) i--; else j--;
+  }
+  const trouve = pages.map(() => []); jetons.forEach(([pi], wi) => trouve[pi].push(dit[wi] || !tn[wi] ? 1 : 0));
+  let dernier = -1; for (let j = 0; j < m; j++) if (vu[j] >= 0) dernier = j;
+  const intrus = [];
+  for (let k = 0; k < m; k++) {
+    if (!hn[k] || vu[k] >= 0) continue;
+    const fin = k > dernier;
+    if (fin && HALLU.test(hn.slice(k).join(""))) break;
+    let av = -1, ap = -1; for (let x = k - 1; x >= 0; x--) if (vu[x] >= 0) { av = vu[x]; break; }
+    for (let x = k + 1; x < m; x++) if (vu[x] >= 0) { ap = vu[x]; break; }
+    intrus.push({ mot: String(entendus[k].word || "").trim(), k, t: entendus[k].start, fin, debutPage: !fin && (av < 0 || jetons[av][0] !== jetons[ap][0]) });
+  }
+  return { trouve, intrus };
+}
 
 /** Calage exact : texte attendu (pages) contre mots entendus [{word,start,end}] (ordre chronologique).
-    -> { mots:[[débuts par page]], pages:[débuts], qualite: part du texte retrouvée } */
+    -> { mots:[[débuts par page]], pages:[débuts], qualite: part du texte retrouvée,
+         trouve:[[1 si le mot est entendu]], intrus:[{mot, k, t, fin, debutPage}] : mots entendus absents du texte (voir motsEnTrop) } */
 export function alignerMots(pages, entendus) {
   const jetons = []; pages.forEach((p, pi) => p.split(/\s+/).filter(Boolean).forEach(t => jetons.push([pi, t])));
-  const tc = [], tw = []; jetons.forEach(([, t], wi) => { for (const ch of norme(t)) { tc.push(ch); tw.push(wi); } });
+  const tc = [], tw = [];
+  jetons.forEach(([, t], wi) => { for (const ch of norme(t)) { tc.push(ch); tw.push(wi); } });
   const hc = [], ht = [];
   for (const w of entendus) { const n = norme(String(w.word || "")); for (let i = 0; i < n.length; i++) { hc.push(n[i]); ht.push(w.start + (w.end - w.start) * i / n.length); } }
   const n = tc.length, m = hc.length, debut = new Array(jetons.length).fill(null);
@@ -82,8 +156,9 @@ export function alignerMots(pages, entendus) {
       else if (L[(i - 1) * W + j] >= L[i * W + j - 1]) i--; else j--;
     }
   }
+  const { trouve, intrus } = motsEnTrop(pages, jetons, entendus);
   const connus = []; debut.forEach((t, i) => { if (t !== null) connus.push([i, t]); });
-  if (!connus.length) return { mots: null, pages: null, qualite: 0 };
+  if (!connus.length) return { mots: null, pages: null, qualite: 0, trouve, intrus };
   let c = 0;
   for (let i = 0; i < debut.length; i++) {                      // mots sans repère : interpolation entre voisins
     while (c < connus.length && connus[c][0] < i) c++;
@@ -93,7 +168,33 @@ export function alignerMots(pages, entendus) {
   }
   for (let i = 1; i < debut.length; i++) if (debut[i] < debut[i - 1]) debut[i] = debut[i - 1];
   const mots = pages.map(() => []); jetons.forEach(([pi], i) => mots[pi].push(Math.round(debut[i] * 100) / 100));
-  return { mots, pages: mots.map((w, k) => k === 0 ? 0 : Math.max(0, Math.round((w[0] - 0.18) * 100) / 100)), qualite: ok / (n || 1) };
+  return { mots, pages: mots.map((w, k) => k === 0 ? 0 : Math.max(0, Math.round((w[0] - 0.18) * 100) / 100)), qualite: ok / (n || 1), trouve, intrus };
+}
+
+/** Jugement d'un morceau lu : `a` = alignerMots (ou null si la reconnaissance est en panne), `duree` en secondes.
+    grave : le son ne lit pas exactement le texte, ou le début d'une page tomberait ailleurs -> à refaire, et en dernier recours à refuser ;
+    leger : doute (qualité < 0,9, un ou deux mots isolés en trop) -> à refaire une fois, on garde le meilleur. */
+export function bilan(pages, a, duree) {
+  const grave = [], leger = [];
+  if (!a) { if (pages.length > 1) grave.push("reconnaissance en panne"); return { grave, leger, inconnu: true }; }
+  if (!a.mots) { grave.push("rien reconnu"); return { grave, leger }; }
+  // qualité faible : sur une seule page (début exact par construction), simple doute, sauf si vraiment basse (onomatopées mal entendues des tout-petits)
+  if (a.qualite < (pages.length > 1 ? 0.8 : 0.6)) grave.push("qualité " + a.qualite.toFixed(2)); else if (a.qualite < 0.9) leger.push("qualité " + a.qualite.toFixed(2));
+  const milieu = a.intrus.filter(x => !x.fin), fin = a.intrus.filter(x => x.fin);
+  const suite = milieu.some((x, i) => i && x.k === milieu[i - 1].k + 1);
+  if (milieu.some(x => x.debutPage)) grave.push("mots en trop en début de page : " + milieu.filter(x => x.debutPage).map(x => x.mot).join(" "));
+  else if (milieu.length >= 3 || suite) grave.push("mots en trop : " + milieu.map(x => x.mot).join(" "));
+  else if (milieu.length) leger.push("mot en trop : " + milieu.map(x => x.mot).join(" "));
+  if (fin.length >= 3) grave.push("mots en trop à la fin : " + fin.map(x => x.mot).join(" "));
+  // chaque page doit commencer par ses propres mots (l'un des deux premiers au moins reconnu)
+  a.trouve.forEach((t, k) => { if (t.length && !(t[0] >= 0.5 || (t.length > 1 && t[1] >= 0.5))) grave.push("début de la page " + (k + 1) + " non reconnu"); });
+  // minutage des pages : croissant, et une durée en rapport avec la longueur du texte
+  const L = pages.map(p => p.replace(/\s+/g, " ").trim().length), d = a.mots.map((w, k) => (k + 1 < a.mots.length ? a.mots[k + 1][0] : duree) - (k ? w[0] : 0));
+  for (let k = 1; k < a.mots.length; k++) if (!(a.mots[k][0] > a.mots[k - 1][0] + 0.25)) grave.push("page " + (k + 1) + " : début non croissant");
+  const v = d.reduce((x, y) => x + y, 0) / (L.reduce((x, y) => x + y, 0) || 1);
+  d.forEach((s, k) => { if (L[k] < 30) return; const r = s / L[k];
+    if (r < 0.025 || r > 0.22 || (pages.length > 1 && (r < 0.4 * v || r > 2.5 * v))) grave.push("page " + (k + 1) + " : durée anormale (" + s.toFixed(1) + " s pour " + L[k] + " car.)"); });
+  return { grave, leger };
 }
 
 /* Calage de SECOURS, sans reconnaissance vocale : on raisonne en « temps de parole » (silences retirés),
