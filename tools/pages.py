@@ -16,8 +16,10 @@ import titi, recueil
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = "https://titistoire.fr"
 HEROS = {"filou": "Filou le renard", "nestor": "Nestor l'ourson", "rosie": "Rosie la lapine", "plume": "Plume la chouette"}
-RECUEILS = {"cometes": ("Les Comètes", "6-8 ans", "Une année à Virevent", "6-8"), "galaxies": ("Les Galaxies", "8-10 ans", "Le Trésor coupé en deux", "8-10"),
+# Le feuilleton des Galaxies est Haute-Lanterne (pensionnat/) depuis le 15/11/2026 ; « Le Trésor coupé en deux » (galaxies/) reste en ligne hors catalogue.
+RECUEILS = {"cometes": ("Les Comètes", "6-8 ans", "Une année à Virevent", "6-8"), "pensionnat": ("Les Galaxies", "8-10 ans", "Haute-Lanterne", "8-10"),
             "imagiers": ("Les Lucioles", "1-3 ans", "Les imagiers", "1-3")}
+FEUILLETONS = {"galaxies": "sur l'île de Lodenn", "pensionnat": "dans un vieux château-phare au milieu d'un lac"}
 e = html.escape
 
 CSS = """body{margin:0;font-family:Nunito,system-ui,sans-serif;background:#2d2570;color:#fff;line-height:1.65}
@@ -111,10 +113,11 @@ if __name__ == "__main__":
         st = recueil.load(rec)
         for k, s in enumerate(st):
             nom = f"{rec}-{s['id']}.html"; tb = [sc["pages"] for sc in s["scenes"]]
-            intro = {"cometes": f"{serie}, l'histoire du mois de {s['sous'].lower()} : Jeanne, Gaspard, Suzie et Marin.", "galaxies": f"{serie}, épisode {k + 1} sur {len(st)} : un feuilleton à énigmes sur l'île de Lodenn.",
-                     "imagiers": f"Un imagier pour les tout-petits : {s['sous'].lower()}."}[rec]
+            if rec in FEUILLETONS: intro = f"{serie}, épisode {k + 1} sur {len(st)} : un feuilleton à énigmes {FEUILLETONS[rec]}."
+            else: intro = {"cometes": f"{serie}, l'histoire du mois de {s['sous'].lower()} : Jeanne, Gaspard, Suzie et Marin.",
+                           "imagiers": f"Un imagier pour les tout-petits : {s['sous'].lower()}."}[rec]
             suite = ""
-            if rec == "galaxies" and k + 1 < len(st): suite = f'<p>Épisode suivant : <a href="{rec}-{st[k + 1]["id"]}.html">{e(st[k + 1]["titre"])}</a></p>'
+            if rec in FEUILLETONS and k + 1 < len(st): suite = f'<p>Épisode suivant : <a href="{rec}-{st[k + 1]["id"]}.html">{e(st[k + 1]["titre"])}</a></p>'
             (H / nom).write_text(histoire(f"h/{nom}", f"{rec}/{s['id']}", s["titre"], groupe, age, tranche, intro, f"{rec}/scenes/{s['id']}_1.jpg", tb, suite), encoding="utf-8")
             urls.append((f"h/{nom}", "0.8")); titres.append((f"h/{nom}", f"{s['titre']} ({groupe}, {age})"))
     # la liste de toutes les histoires : le point d'entrée des moteurs vers chaque page

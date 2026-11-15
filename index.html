@@ -380,7 +380,7 @@
 <script src="cometes/recueil.js?v=1"></script>
 <script src="galaxies/recueil.js?v=1"></script>
 <script src="imagiers/recueil.js?v=1"></script>
-<script src="pensionnat/recueil.js?v=1"></script>      <!-- pilote, hors catalogue : ?h=pensionnat/p01 -->
+<script src="pensionnat/recueil.js?v=1"></script>      <!-- Haute-Lanterne : le feuilleton des Galaxies (8-10 ans) -->
 <script src="langues/ar/histoires.js?v=1"></script>
 <script src="langues/ary/histoires.js?v=1"></script>
 <script>
@@ -389,6 +389,9 @@ const AIW = "https://titistoire-ai.djac-gene.workers.dev";
 const STORIES = window.TITI_STORIES || {};
 const RECUEILS = window.TITI_RECUEILS || {};       // recueils des grands : { cometes: {id: {t,u,s,sc,im}}, galaxies: {…} }
 const aRecueil=r=>!!(RECUEILS[r]&&Object.keys(RECUEILS[r]).length);
+/* Le feuilleton des Galaxies (8-10 ans) : Haute-Lanterne depuis le 15/11/2026. « Le Trésor coupé en deux » (galaxies/) reste en ligne, hors catalogue (?h=galaxies/g01). */
+const FEUILLETON='pensionnat', FEUILL={titre:'Haute-Lanterne',sub:'Un feuilleton à énigmes en huit épisodes, dans un vieux château-phare au milieu d\'un lac',emoji:'🏮'};
+const recDe=g=>g==='cometes'?'cometes':(g==='galaxies'?FEUILLETON:null);
 
 /* ===== DONNÉES ===== */
 const PERSOS=[
@@ -492,7 +495,7 @@ const GROUPES=[
   ["etoiles","Étoiles","3-6 ans",ICO('<path d="M24 6l5.200 11.200 12.300 1.500-9.100 8.400 2.500 12.100L24 33.200l-10.900 6 2.500-12.100-9.100-8.400 12.300-1.500z"/><path d="M20.500 25c1.500 2.200 5.500 2.200 7 0"/>')],
   ["cometes","Comètes","6-8 ans",ICO('<circle cx="31" cy="17" r="8"/><path d="M24 22L7 39M27 26L14 42M21 18L6 29"/>'),true],
   ["galaxies","Galaxies","8-10 ans",ICO('<path d="M24 24c0-3 3-5 6-4 4 1 6 6 4 10-3 6-11 8-17 4-7-5-8-15-2-21 7-7 19-7 26 0"/><circle cx="24" cy="24" r="1.600"/><path d="M40 34l.100 0M8 38l.100 0M38 8l.100 0"/>'),true]];
-function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; if((g==='cometes'||g==='galaxies')&&aRecueil(g)) return g; }catch(e){} return 'etoiles'; }
+function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='lucioles'&&Object.values(STORIES).some(x=>x.p)) return g; if((g==='cometes'||g==='galaxies')&&aRecueil(recDe(g))) return g; }catch(e){} return 'etoiles'; }
 /* Formulaire « Je crée mon histoire » : le même choix d'âge qu'à l'accueil ; chez les Comètes et les Galaxies, avec la bande ou avec son propre héros. */
 const BANDES_LIBRE={cometes:['La bande de Virevent',[['jeanne','Jeanne'],['gaspard','Gaspard'],['suzie','Suzie'],['marin','Marin']]],
   galaxies:['Les Bottes et les Tongs',[['mael','Maël'],['enora','Enora'],['tino','Tino'],['victoire','Victoire'],['awa','Awa'],['oscar','Oscar']]]};
@@ -522,28 +525,28 @@ function enCours(rec){ const ids=Object.keys(RECUEILS[rec]), heard=heardAll();
   if(rec==='cometes'){ const m=MOIS[new Date().getMonth()], id=ids.find(i=>(RECUEILS[rec][i].u||'').toLowerCase()===m); if(id) return {id,sur:"L'histoire de "+m}; }
   const k=ids.findIndex(i=>!heard.includes(rec+'/'+i));
   return k<0?{id:ids[0],sur:'Tout est écouté : on recommence ?'}:{id:ids[k],sur:k?'La suite':'Pour commencer'}; }
-function renderMain(){ const g=groupe(), rec=(g==='cometes'||g==='galaxies')?g:null, im=$('mainImg');
+function renderMain(){ const g=groupe(), rec=recDe(g), im=$('mainImg');
   if(rec){ const {id}=enCours(rec);
     im.className='vimg'; im.innerHTML=`<img alt="" src="${rec}/scenes/${id}_1.jpg" onerror="this.remove()">`;
-    $('mainSur').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
+    $('mainSur').textContent=rec==='cometes'?'Une année à Virevent':FEUILL.titre;
     $('mainLab').textContent=rec==='cometes'?'Je choisis mon histoire':'Je choisis mon épisode';
-    $('mainSub').textContent=rec==='cometes'?'Douze histoires avec Jeanne, Gaspard, Suzie et Marin, une par mois':'Un feuilleton à énigmes en huit épisodes, sur l\'île de Lodenn';
+    $('mainSub').textContent=rec==='cometes'?'Douze histoires avec Jeanne, Gaspard, Suzie et Marin, une par mois':FEUILL.sub;
     $('modeMain').onclick=()=>{ renderRecueil(rec); goto('sRec'); }; }
   else { im.className='vimg quatre'; im.innerHTML=PERSOS.slice(0,4).map(p=>`<img alt="" src="assets/${p.id}_foret.png" onerror="this.remove()">`).join('');
     $('mainSur').textContent=g==='lucioles'?'Les toutes petites histoires':'Quarante histoires'; $('mainLab').textContent='Je choisis mon héros'; $('mainSub').textContent=g==='lucioles'&&aRecueil('imagiers')?'Une aventure avec Filou, Nestor, Rosie ou Plume… ou les couleurs, les nombres, les formes, l\'alphabet':'Filou, Nestor, Rosie ou Plume… puis son aventure';
     $('modeMain').onclick=()=>{ renderHeroes(); goto('s1'); }; } }
 function renderRecueil(rec){ const grid=$('recGrid'), heard=heardAll(), cours=enCours(rec); grid.innerHTML='';
-  $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':'Le Trésor coupé en deux';
+  $('recTitle').textContent=rec==='cometes'?'Une année à Virevent':(rec===FEUILLETON?FEUILL.titre:'Le Trésor coupé en deux');
   $('recSub').textContent=rec==='cometes'?'Une histoire par mois : dans l\'ordre, ou comme on veut.':'Un feuilleton : à écouter dans l\'ordre.';
   Object.keys(RECUEILS[rec]).forEach((id,k)=>{ const st=RECUEILS[rec][id], b=document.createElement('button'); b.className='card';
     b.innerHTML=(heard.includes(rec+'/'+id)?'<span class="heard">✓</span>':'')+(id===cours.id?`<span class="badge">${rec==='cometes'?'ce mois-ci':(heard.includes(rec+'/'+id)?'à réécouter':'à suivre')}</span>`:'')
-      +thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':'🌌',['#2b2a6b','#5b4bb5'])
+      +thumbHTML([`${rec}/scenes/${id}_1.jpg`],rec==='cometes'?'☄️':(rec===FEUILLETON?FEUILL.emoji:'🌌'),['#2b2a6b','#5b4bb5'])
       +`<span class="lab">${esc(st.t)}</span><span class="sm">${esc(st.u||('Épisode '+(k+1)))}</span>`;
     b.addEventListener('click',()=>openRecueil(rec,id)); grid.appendChild(b); });
   armThumbs(grid); }
 async function openRecueil(rec,id){ const st=RECUEILS[rec][id]; if(!st) return;
   const pages=[], sc=[], imgs=[]; st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); imgs.push(`${rec}/scenes/${id}_${st.im[k]}.jpg`); }));
-  book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':(rec==='imagiers'?'✨':'🌌')},decor:null,voix:null,piste:null,libre:null};
+  book={id:rec+'/'+id,rec,rid:id,titre:st.t,pages,sc,im:null,imgs,hero:{emoji:rec==='cometes'?'☄️':(rec==='imagiers'?'✨':(rec===FEUILLETON?FEUILL.emoji:'🌌'))},decor:null,voix:null,piste:null,libre:null};
   showBook(); const pb=$('playBtn'); pb.disabled=true; await loadVoix(book.id); pb.disabled=false; }
 function renderHome(){ renderGroupes(); renderMain(); const estRec=['cometes','galaxies'].includes(groupe());
   const box=$('season');
@@ -576,10 +579,11 @@ function renderSubjects(){ const root=$('fams'); root.innerHTML=''; const heard=
       b.addEventListener('click',()=>openStory(sid)); box.appendChild(b); });
     root.appendChild(box); }); }
 $('modeRandom').addEventListener('click',()=>{ const g=groupe(), heard0=heardAll();
-  if(g==='cometes'||g==='galaxies'){ let ids=Object.keys(RECUEILS[g]);
-    if(g==='galaxies'){ const k=ids.findIndex(i=>!heard0.includes(g+'/'+i)); if(k>=0) ids=ids.slice(0,k+1); }      /* feuilleton : jamais un épisode en avance */
-    else { const pas=ids.filter(i=>!heard0.includes(g+'/'+i)); if(pas.length) ids=pas; }
-    return openRecueil(g,ids[Math.floor(Math.random()*ids.length)]); }
+  const r=recDe(g);
+  if(r){ let ids=Object.keys(RECUEILS[r]);
+    if(g==='galaxies'){ const k=ids.findIndex(i=>!heard0.includes(r+'/'+i)); if(k>=0) ids=ids.slice(0,k+1); }      /* feuilleton : jamais un épisode en avance */
+    else { const pas=ids.filter(i=>!heard0.includes(r+'/'+i)); if(pas.length) ids=pas; }
+    return openRecueil(r,ids[Math.floor(Math.random()*ids.length)]); }
   const all=Object.keys(STORIES), heard=heardAll(); let pool=all.filter(s=>!heard.includes(s)); if(!pool.length) pool=all;
   pool=pool.filter(enSaison); if(!pool.length) pool=all.filter(enSaison);
   openStory(pool[Math.floor(Math.random()*pool.length)]); });
