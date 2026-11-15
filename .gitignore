@@ -3,5 +3,6 @@
 *.key
 *.secret
 .env
+.env.*
 __pycache__/
 s.json
