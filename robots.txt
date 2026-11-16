@@ -3,5 +3,7 @@ Allow: /
 Disallow: /histoires/
 Disallow: /tools/
 Disallow: /worker/
+Disallow: /api/
+Disallow: /img
 
 Sitemap: https://titistoire.fr/sitemap.xml
