@@ -162,6 +162,10 @@
   /* LIVRE = papier ivoire */
   .book{background:var(--paper);color:var(--paper-ink);border-radius:26px;box-shadow:var(--sh-lg);padding:16px 16px 20px;position:relative;}
   .title{text-align:center;font-size:clamp(1.2rem,4.6vw,1.6rem);font-weight:600;margin:4px 0 14px;color:var(--paper-ink);line-height:1.2;}
+  .catlang{display:flex;justify-content:center;gap:6px;margin:-6px 0 14px;}
+  .catlang button{font-family:inherit;font-weight:700;font-size:.92rem;padding:5px 14px;border-radius:999px;border:1.5px solid var(--paper-line);background:transparent;color:var(--paper-ink2);cursor:pointer;line-height:1.25;}
+  .catlang button.on{background:rgba(255,203,77,.22);border-color:#ffcb4d;color:var(--paper-ink);}
+  .catlang button[lang=ar]{font-size:1.05rem;}
   .spread{display:block;}
   .frame{position:relative;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(60,48,110,.08);aspect-ratio:1/1;max-height:46vh;margin:0 auto;background:#ece7fb;}
   .frame.turning{animation:flip .55s cubic-bezier(.4,0,.3,1);}
@@ -317,6 +321,9 @@
         <label id="fHeroL">Le héros<input id="fHero" placeholder="ex : un petit lapin bleu nommé Pompon"></label>
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
+        <label style="gap:7px">Dans quelle langue ?
+          <div class="deux" id="fLang"><button type="button" data-l="fr" class="on">Français</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
+        </label>
         <div id="donBloc" hidden style="background:rgba(255,203,77,.16);border:1.5px solid #ffcb4d;border-radius:16px;padding:14px 14px 12px;text-align:center">
           <p style="margin:0 0 10px;font-weight:700;color:var(--ink);font-size:.95rem;line-height:1.45">Titistoire est gratuit et sans publicité, mais chaque histoire créée coûte de l'argent à celui qui le fabrique, seul. Si vous le pouvez, un petit don le fait vivre.</p>
           <a class="btn play" id="donLien" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex">Faire un don</a>
@@ -335,6 +342,7 @@
     <button class="back" id="partBtn" style="float:right;margin-right:8px" aria-label="Partager cette histoire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px"><path d="M12 15V4M8 8l4-4 4 4M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg> <span id="partLab">Partager</span></button>
     <div class="book">
       <h2 class="title" id="title"></h2>
+      <div class="catlang" id="catLang" hidden><button type="button" data-l="">Français</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
       <div class="spread">
         <div class="frame" id="frame"><div class="scene" id="scene"></div></div>
         <div class="side">
@@ -500,7 +508,7 @@ function groupe(){ try{ const g=localStorage.getItem('titi_groupe'); if(g==='luc
 const BANDES_LIBRE={cometes:['La bande de Virevent',[['jeanne','Jeanne'],['gaspard','Gaspard'],['suzie','Suzie'],['marin','Marin']]],
   galaxies:['Les Bottes et les Tongs',[['mael','Maël'],['enora','Enora'],['tino','Tino'],['victoire','Victoire'],['awa','Awa'],['oscar','Oscar']]]};
 const AGE_LIBRE={lucioles:'petit',etoiles:'moyen',cometes:'grand',galaxies:'tresgrand'};
-const fLibre={g:'etoiles',mode:'bande',choisi:false};
+const fLibre={g:'etoiles',mode:'bande',choisi:false,lang:'fr'};
 function renderFormLibre(){ const box=$('fGroupes'); if(!box) return; box.innerHTML='';
   GROUPES.forEach(([id,nom,age,ico])=>{ const b=document.createElement('button'); b.type='button'; b.className=id===fLibre.g?'on':''; b.setAttribute('role','tab'); b.setAttribute('aria-selected',id===fLibre.g?'true':'false');
     b.innerHTML=ico+`<b>${nom}</b><small>${age}</small>`; b.addEventListener('click',()=>{ fLibre.g=id; fLibre.choisi=true; renderFormLibre(); }); box.appendChild(b); });
@@ -752,10 +760,20 @@ function etatCarte(){ const n=parseInt((book&&book.rid||'').replace(/\D/g,''),10
 function showBook(){ $('title').textContent=book.titre||''; const rtl=book.lang==='ar'||book.lang==='ary';      /* ar : arabe standard ; ary : darija */ for(const e of [$('title'),$('ptext')]){ e.dir=rtl?'rtl':'ltr'; e.lang=book.lang||'fr'; } shownKey=''; scene.innerHTML=''; cur=0; renderPage(0); resetPlay();
   $('carteBtn').style.display=book.rec==='galaxies'?'inline-flex':'none';
   const sb=$('saveBtn'); sb.style.display=book.libre?'inline-flex':'none'; sb.disabled=false; sb.textContent='Garder';
+  majCatLang();
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
+/* Langue d'une histoire du catalogue : le choix (fr / ar) est retenu d'une histoire à l'autre. */
+function catLangPref(){ try{ return localStorage.getItem('titi_cat_lang')==='ar'?'ar':''; }catch(e){ return ''; } }
+function majCatLang(){ const box=$('catLang'); if(!box) return;
+  const dispo=!!(book&&book.id&&window.TITI_LANGUES&&TITI_LANGUES.ar&&TITI_LANGUES.ar[book.id]);   // seulement le catalogue traduit (pas les recueils ni les histoires inventées)
+  box.hidden=!dispo; if(!dispo) return;
+  const cur=book.lang==='ar'?'ar':'';
+  box.querySelectorAll('button').forEach(b=>{ b.className=b.dataset.l===cur?'on':'';
+    b.onclick=()=>{ if(b.dataset.l===cur) return; try{ localStorage.setItem('titi_cat_lang',b.dataset.l); }catch(e){} stopAudio&&stopAudio(); openStory(book.id,b.dataset.l); }; }); }
 /* `langue` : histoire traduite (essai : ?h=<id>&l=ar pour l'arabe standard, &l=ary pour le darija). Mêmes images, texte et voix de la langue, écriture de droite à gauche pour l'arabe. */
 async function openStory(sid,langue){ let st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
+  if(langue==null) langue=(window.TITI_LANGUES&&TITI_LANGUES.ar&&TITI_LANGUES.ar[sid])?catLangPref():'';   // reprend le choix de langue mémorisé (le lien de partage ?l= reste prioritaire)
   const tr=langue&&window.TITI_LANGUES&&TITI_LANGUES[langue]&&TITI_LANGUES[langue][sid]; if(tr) st=Object.assign({},st,{t:tr.t,sc:tr.sc});
   const petit=!tr&&groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
   const pages=[], sc=[]; if(petit) st.p.forEach((t,k)=>{ pages.push(t); sc.push(k+1); }); else st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
@@ -926,7 +944,8 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const dem=new URLSearchParams(bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age}).toString();
+    const base=bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age}; if(fLibre.lang==='ar') base.lang='ar';
+    const dem=new URLSearchParams(base).toString();
     // Une demande restée sans réponse (réseau coupé, téléphone en veille) a peut-être abouti : on la redemande avec « reprise », et le serveur rend l'histoire déjà écrite.
     const demander=()=>fetch(AIW+"/story?"+dem+(perdue===dem?'&reprise=1':''),jeton()?{headers:{authorization:'Bearer '+jeton()}}:{});
     let r; try{ r=await demander(); }catch(e){ perdue=dem; throw new Error('connexion interrompue'); }
@@ -944,7 +963,7 @@ async function generateFree(){
     if(out.refuse){ gstatus("La conteuse ne raconte que des histoires toutes douces pour les petits. Essaie une autre idée !"); return; }
     if(out.error){ gstatus(out.busy?'La conteuse est très demandée en ce moment. Réessaie dans un instant !':'Raté, la conteuse a eu un trou de mémoire. Réessaie.'); return; }
     if(!Array.isArray(out.tableaux)||out.tableaux.length<3) throw new Error('histoire trop courte');
-    const it={titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig};
+    const it={titre:out.titre||'Mon histoire',decor:out.decor||'foret',emoji:out.emoji||'🧒',tableaux:out.tableaux,sig:out.sig,lang:out.lang||''};
     if(it.sig) lancerVoix(it);                              // la voix se prépare pendant que les images se dessinent
     // Les illustrations sont dessinées à la demande : on les attend AVANT d'ouvrir le livre (au plus 100 s), pour ne jamais lire sur une image vide.
     const urls=[...new Set(it.tableaux.flatMap(t=>(t.imgs||[t.img]).filter(Boolean).map(u=>AIW+u)))]; let faites=0;       // une image par tableau : chaque adresse n'est demandée qu'une fois
@@ -963,7 +982,7 @@ function openFree(it,fresh,partage){
   const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
   if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(u.startsWith('/api/')?API+u:(imgBis[AIW+u]||AIW+u)):null); })); }
   else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
-  book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,
+  book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,lang:it.lang||'',
         libre:fresh?it:null,src:it,partage:partage||'',distant:(!partage&&!fresh&&it.distant!==false&&/^h[0-9a-z]{6,24}$/.test(it.id||''))?it.id:''};
   showBook(); preparerVoix();
 }
@@ -1005,6 +1024,8 @@ function preparerVoix(){
   P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
 }
 $('genBtn').addEventListener('click',generateFree);
+(function initLang(){ const box=$('fLang'); if(!box) return;      // choix de la langue de l'histoire inventée (fr par défaut ; ar = traduite après écriture et contrôle en français)
+  box.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ fLibre.lang=b.dataset.l; box.querySelectorAll('button').forEach(x=>x.className=x.dataset.l===fLibre.lang?'on':''); })); })();
 $('carteBtn').addEventListener('click',()=>{ const i=$('carteImg'); i.src=`galaxies/carte_${etatCarte()}.svg`; i.style.width='100%'; i.style.maxWidth='1200px'; $('carteVue').hidden=false; });
 $('carteFermer').addEventListener('click',e=>{ e.stopPropagation(); $('carteVue').hidden=true; });
 $('carteImg').addEventListener('click',()=>{ const i=$('carteImg'), grand=i.style.width==='240%'; i.style.width=grand?'100%':'240%'; i.style.maxWidth=grand?'1200px':'none'; $('carteVue').style.cursor=grand?'zoom-in':'zoom-out'; });   // un toucher : agrandir / réduire

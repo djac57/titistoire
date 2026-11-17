@@ -190,6 +190,7 @@ export default {
         const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
         const qui = bande && Object.prototype.hasOwnProperty.call(BANDES[bande].enfants, u.searchParams.get("qui") || "") ? u.searchParams.get("qui") : "";
         const age = bande ? (bande === "galaxies" ? "tresgrand" : "grand") : (["petit", "moyen", "grand", "tresgrand"].includes(u.searchParams.get("age")) ? u.searchParams.get("age") : "moyen");
+        const lang = u.searchParams.get("lang") === "ar" ? "ar" : "fr";       // l'histoire est TOUJOURS écrite et contrôlée en français ; « ar » n'ajoute qu'une traduction d'affichage
 
         // 1. contrôle de ce qui est demandé
         const demande = `Héros : ${bande ? "une bande d'enfants" : (hero || "(non précisé)")}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
@@ -198,7 +199,7 @@ export default {
         if (u.searchParams.get("controle") && !parCompte) return J({ ok: true });              // essai du seul contrôle, sans écrire d'histoire
         // REPRISE : la dernière histoire créée par ce compte est gardée 20 min. Si la réponse s'est perdue en route (téléphone en veille, réseau coupé),
         // la même demande, refaite avec « reprise=1 », la retrouve au lieu d'en payer une autre.
-        const cleDemande = [age, bande, qui, hero, lieu, lecon].join("|");
+        const cleDemande = [age, bande, qui, hero, lieu, lecon, lang].join("|");
         if (parCompte && u.searchParams.get("reprise")) { try { const d = await env.COMPTES.get("r:" + parCompte, "json"); if (d && d.k === cleDemande && d.out) return J({ ...d.out, reprise: true }); } catch (e) {} }
         // PAS D'HISTOIRE SANS LA VRAIE VOIX : si son quota du jour est épuisé, on ne crée rien (et on ne débite rien).
         if (!dbg && !(await voixDispo(env, GKEY))) return J({ error: "voix", voix: true }, 503);
@@ -292,9 +293,17 @@ export default {
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
           const out = { titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: admin ? undefined : MAXJ - fait - 1 };
+          if (lang === "ar") {      // histoire déjà écrite ET contrôlée en français : on ne traduit que ce qui s'affiche ; images (en anglais) et contrôle inchangés
+            const tr = await traduireArabe(GKEY, h.titre, tableaux.map(t => t.pages));
+            if (tr) {
+              tableaux.forEach((t, i) => { t.pages = tr.pages[i]; });      // out.tableaux pointe sur ce même tableau : la traduction s'y reflète
+              out.titre = tr.titre; out.lang = "ar";
+              out.sig = await signer("txt:" + tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);      // re-signe le texte arabe, sinon la voix (/gtts) le refuse
+            } else journal.push("traduction arabe échouée : histoire renvoyée en français");
+          }
           if (parCompte) { try { await env.COMPTES.put("r:" + parCompte, JSON.stringify({ k: cleDemande, out }), { expirationTtl: 1200 }); } catch (e) {} }
           if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // la réservation devient définitive
-          return J({ titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: admin ? undefined : MAXJ - fait - 1, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
+          return J({ ...out, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
         await rendre();                                    // rien n'a été remis : le crédit et les compteurs sont rendus
         if (refusContenu) return J({ error: "refus", refuse: true, etape: "histoire", detail: dbg ? journal : undefined });
@@ -310,6 +319,35 @@ export default {
 };
 
 const propre = s => String(s || "").replace(/[\u0000-\u001f<>{}`]/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
+
+/* Traduit vers l'ARABE STANDARD SIMPLE une histoire DÉJÀ écrite et contrôlée en français.
+   On ne traduit que le titre et les pages, segment par segment, en gardant EXACTEMENT le nombre de tableaux et de pages
+   (la voix et les images s'appuient sur cette structure). Rend { titre, pages:[[...],[...]] } ou null (→ on garde le français). */
+async function traduireArabe(GKEY, titre, pagesParTableau) {
+  if (!GKEY) return null;
+  const items = [{ r: "t", t: String(titre || "") }];
+  pagesParTableau.forEach((pg, i) => pg.forEach((p, j) => items.push({ r: i + "_" + j, t: String(p || "") })));
+  const prompt = `Tu traduis en ARABE STANDARD SIMPLE (فصحى مبسّطة) un album jeunesse DÉJÀ écrit et validé, pour un enfant de 2 à 8 ans qu'un parent lit à voix haute.
+Traduis CHAQUE segment un par un, fidèlement : garde le sens, le ton tendre et drôle, les dialogues, les onomatopées. Une langue naturelle, douce et belle, simple à comprendre pour un petit. N'ajoute rien, ne retire rien, ne résume pas, ne fusionne pas des segments. N'écris PAS les voyelles courtes (harakat/تشكيل) : arabe standard sans diacritiques, comme un livre d'enfants ordinaire. Pour le lever/coucher du soleil, dis « شروق/غروب الشمس », jamais « مشرق/مغرب ».
+Réponds UNIQUEMENT par un objet JSON {"items":[{"r":"<identifiant>","t":"<traduction arabe>"},...]} avec EXACTEMENT les mêmes identifiants "r", dans le même ordre, un par segment.
+SEGMENTS :
+${JSON.stringify(items)}`;
+  const schema = { type: "OBJECT", required: ["items"], properties: { items: { type: "ARRAY", items: { type: "OBJECT", required: ["r", "t"], properties: { r: { type: "STRING" }, t: { type: "STRING" } } } } } };
+  const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 60000);
+  try {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(GKEY)}`, {
+      method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, responseMimeType: "application/json", responseSchema: schema } })
+    });
+    const gd = await r.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
+    const c = t && extraireJSON(t); if (!c) return null;
+    const o = JSON.parse(c), map = {}; for (const it of (o.items || [])) if (it && it.r) map[it.r] = String(it.t || "").trim();
+    if (!map.t) return null;
+    const pages = pagesParTableau.map((pg, i) => pg.map((p, j) => map[i + "_" + j] || ""));
+    if (pages.some(pg => pg.some(p => !p))) return null;      // une page manquante → on renonce (on garde le français, jamais un mélange)
+    return { titre: map.t, pages };
+  } catch (e) { return null; } finally { clearTimeout(to); }
+}
 
 /* ===================== dessin d'après fiches (FLUX.2) ===================== */
 const MODELE_PAGE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_FICHE = "@cf/black-forest-labs/flux-2-klein-9b", MODELE_SECOURS = "@cf/black-forest-labs/flux-2-klein-4b";
@@ -623,6 +661,9 @@ const decrire = (image, h) => String(image || "").replace(/\bHERO\b/g, h.heros |
 
 /* ===================== voix de conteuse + minutage ===================== */
 const CONSIGNE_VOIX = "# AUDIO PROFILE: La conteuse\nUne conteuse française chaleureuse, qui lit un album à un enfant de quatre ans.\n\n### DIRECTOR'S NOTES\nStyle : voix douce, souriante et vivante ; elle joue légèrement les dialogues et les bruits.\nRythme : posé, sans lenteur, avec de petites pauses entre les phrases.\nLangue : français de France.\n\n#### TRANSCRIPT\n";
+// Lecture d'une histoire traduite en arabe (mode libre « ar ») : même voix, consigne en arabe pour une diction naturelle.
+const CONSIGNE_VOIX_AR = "# AUDIO PROFILE: الحاكية\nحاكية عربية حنونة تقرأ قصة مصوّرة لطفل في الرابعة من عمره.\n\n### DIRECTOR'S NOTES\nالأسلوب: صوت ناعم مبتسم وحيّ، تؤدّي الحوارات والأصوات بخفّة.\nالإيقاع: متمهّل دون بطء، مع وقفات صغيرة بين الجمل.\nاللغة: العربية الفصحى المبسّطة.\n\n#### TRANSCRIPT\n";
+const estArabe = s => /[؀-ۿ]/.test(String(s || ""));
 /** Un appel à la voix. -> { son } ou { err, jour: quota du jour épuisé }. Graine et température fixes : sans elles, la hauteur de la voix
     varie beaucoup d'un tableau à l'autre (mesuré le 13/11 : écart-type de 23 Hz, contre 11 Hz avec, et 7 à 17 Hz dans les histoires du catalogue). */
 async function ttsBrut(GKEY, texte, voix, graine = 7) {
@@ -631,7 +672,7 @@ async function ttsBrut(GKEY, texte, voix, graine = 7) {
     try {
       const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELE_VOIX}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: CONSIGNE_VOIX + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
+        body: JSON.stringify({ contents: [{ parts: [{ text: (estArabe(texte) ? CONSIGNE_VOIX_AR : CONSIGNE_VOIX) + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
       const brut = await r.text();
       if (r.status === 429) { if (/PerDay/i.test(brut)) return { err: "quota du jour atteint", jour: true }; err = "voix très demandée"; await new Promise(z => setTimeout(z, 4000 + 3000 * essai)); continue; }   // limite de débit : on patiente
       const i = brut.indexOf('"data"'); if (i < 0) { err = "pas d'audio (" + r.status + ")"; await new Promise(z => setTimeout(z, 1500)); continue; }
@@ -708,7 +749,8 @@ async function ecouter(env, son, pagesM) {
   const duree = son.pcm.length / son.rate; let a = null, mode = "reconnaissance";
   try {
     const p16 = reech(son.pcm, son.rate, 16000), tr = tranches(p16, 16000, 45);
-    const rs = await Promise.all(tr.map(t => env.AI.run("@cf/openai/whisper-large-v3-turbo", { audio: base64(wav(t.pcm, 16000)), language: "fr" })));
+    const lg = estArabe(pagesM.join(" ")) ? "ar" : "fr";
+    const rs = await Promise.all(tr.map(t => env.AI.run("@cf/openai/whisper-large-v3-turbo", { audio: base64(wav(t.pcm, 16000)), language: lg })));
     const entendus = [];
     rs.forEach((r, k) => { const ws = (r && r.words) || ((r && r.segments) || []).flatMap(s => s.words || []);
       for (const w of ws) entendus.push({ word: w.word, start: (w.start || 0) + tr[k].debut, end: (w.end || w.start || 0) + tr[k].debut }); });
