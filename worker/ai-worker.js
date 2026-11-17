@@ -132,6 +132,7 @@ export default {
         const texteSig = tb.map(t => t.join("\n")).join("\n\n");
         if (!cleSig || !(await signatureOK("txt:" + texteSig, String(b.sig || ""), cleSig))) return J({ error: "texte non autorisé" }, 403);
         const voix = VOIX.includes(b.voix) ? b.voix : VOIX[0];
+        const langReq = ["ar", "en", "fr"].includes(b.l) ? b.l : "";       // langue de lecture (consigne + reconnaissance) ; sinon devinée du texte
         const n = parseInt(b.n, 10), unTableau = n >= 1 && n <= tb.length;       // n : un seul tableau (le livre peut commencer sans attendre toute l'histoire)
         const cle2 = new Request("https://cache.titistoire/gtts/" + voix + "/" + b.sig + (unTableau ? "/" + n : ""), { method: "GET" });
         try { const hit = await caches.default.match(cle2); if (hit) return hit; } catch (e) {}
@@ -140,7 +141,7 @@ export default {
         try { if (await caches.default.match(cleRefus)) return J({ error: "voix mal calée", refus: true }, 502); } catch (e) {}
         const GKEY = env.GEMINI_KEY || env.GEMINI_API_KEY;
         if (!GKEY) return J({ error: "voix indisponible" }, 502);
-        const out = await voixConteuse(env, GKEY, unTableau ? [tb[n - 1]] : tb, voix);
+        const out = await voixConteuse(env, GKEY, unTableau ? [tb[n - 1]] : tb, voix, langReq);
         if (out.quota) await voixEpuisee(env);
         if (out.refus) { try { ctx.waitUntil(caches.default.put(cleRefus, new Response("1", { headers: { "cache-control": "public, max-age=86400" } }))); } catch (e) {} }
         if (out.error) return J(out, out.quota ? 429 : 502);
@@ -190,7 +191,7 @@ export default {
         const bande = Object.prototype.hasOwnProperty.call(BANDES, u.searchParams.get("bande") || "") ? u.searchParams.get("bande") : "";
         const qui = bande && Object.prototype.hasOwnProperty.call(BANDES[bande].enfants, u.searchParams.get("qui") || "") ? u.searchParams.get("qui") : "";
         const age = bande ? (bande === "galaxies" ? "tresgrand" : "grand") : (["petit", "moyen", "grand", "tresgrand"].includes(u.searchParams.get("age")) ? u.searchParams.get("age") : "moyen");
-        const lang = u.searchParams.get("lang") === "ar" ? "ar" : "fr";       // l'histoire est TOUJOURS écrite et contrôlée en français ; « ar » n'ajoute qu'une traduction d'affichage
+        const lang = ["ar", "en"].includes(u.searchParams.get("lang")) ? u.searchParams.get("lang") : "fr";       // l'histoire est TOUJOURS écrite et contrôlée en français ; « ar »/« en » n'ajoutent qu'une traduction d'affichage
 
         // 1. contrôle de ce qui est demandé
         const demande = `Héros : ${bande ? "une bande d'enfants" : (hero || "(non précisé)")}\nLieu : ${lieu || "(non précisé)"}\nSujet : ${lecon || "(non précisé)"}`;
@@ -293,13 +294,13 @@ export default {
           }
           const sig = await signer("txt:" + h.tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);
           const out = { titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: admin ? undefined : MAXJ - fait - 1 };
-          if (lang === "ar") {      // histoire déjà écrite ET contrôlée en français : on ne traduit que ce qui s'affiche ; images (en anglais) et contrôle inchangés
-            const tr = await traduireArabe(GKEY, h.titre, tableaux.map(t => t.pages));
+          if (lang !== "fr") {      // histoire déjà écrite ET contrôlée en français : on ne traduit que ce qui s'affiche ; images (descriptions en anglais) et contrôle inchangés
+            const tr = await traduire(GKEY, lang, h.titre, tableaux.map(t => t.pages));
             if (tr) {
               tableaux.forEach((t, i) => { t.pages = tr.pages[i]; });      // out.tableaux pointe sur ce même tableau : la traduction s'y reflète
-              out.titre = tr.titre; out.lang = "ar";
-              out.sig = await signer("txt:" + tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);      // re-signe le texte arabe, sinon la voix (/gtts) le refuse
-            } else journal.push("traduction arabe échouée : histoire renvoyée en français");
+              out.titre = tr.titre; out.lang = lang;
+              out.sig = await signer("txt:" + tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);      // re-signe le texte traduit, sinon la voix (/gtts) le refuse
+            } else journal.push("traduction " + lang + " échouée : histoire renvoyée en français");
           }
           if (parCompte) { try { await env.COMPTES.put("r:" + parCompte, JSON.stringify({ k: cleDemande, out }), { expirationTtl: 1200 }); } catch (e) {} }
           if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // la réservation devient définitive
@@ -320,16 +321,21 @@ export default {
 
 const propre = s => String(s || "").replace(/[\u0000-\u001f<>{}`]/g, " ").replace(/\s+/g, " ").trim().slice(0, 160);
 
-/* Traduit vers l'ARABE STANDARD SIMPLE une histoire DÉJÀ écrite et contrôlée en français.
+/* Traduit (arabe standard « ar », anglais « en ») une histoire DÉJÀ écrite et contrôlée en français.
    On ne traduit que le titre et les pages, segment par segment, en gardant EXACTEMENT le nombre de tableaux et de pages
    (la voix et les images s'appuient sur cette structure). Rend { titre, pages:[[...],[...]] } ou null (→ on garde le français). */
-async function traduireArabe(GKEY, titre, pagesParTableau) {
-  if (!GKEY) return null;
+const INSTR_TRAD = {
+  ar: "en ARABE STANDARD SIMPLE (فصحى مبسّطة). N'écris PAS les voyelles courtes (harakat/تشكيل) : arabe standard sans diacritiques, comme un livre d'enfants ordinaire. Pour le lever/coucher du soleil, dis « شروق/غروب الشمس », jamais « مشرق/مغرب ».",
+  en: "en ANGLAIS SIMPLE ET NATUREL (English), celui des albums jeunesse qu'un parent anglophone lit à voix haute : mots justes et imagés mais compréhensibles d'un petit, dialogues vivants, onomatopées adaptées à l'anglais."
+};
+async function traduire(GKEY, lang, titre, pagesParTableau) {
+  const instr = INSTR_TRAD[lang]; if (!GKEY || !instr) return null;
   const items = [{ r: "t", t: String(titre || "") }];
   pagesParTableau.forEach((pg, i) => pg.forEach((p, j) => items.push({ r: i + "_" + j, t: String(p || "") })));
-  const prompt = `Tu traduis en ARABE STANDARD SIMPLE (فصحى مبسّطة) un album jeunesse DÉJÀ écrit et validé, pour un enfant de 2 à 8 ans qu'un parent lit à voix haute.
-Traduis CHAQUE segment un par un, fidèlement : garde le sens, le ton tendre et drôle, les dialogues, les onomatopées. Une langue naturelle, douce et belle, simple à comprendre pour un petit. N'ajoute rien, ne retire rien, ne résume pas, ne fusionne pas des segments. N'écris PAS les voyelles courtes (harakat/تشكيل) : arabe standard sans diacritiques, comme un livre d'enfants ordinaire. Pour le lever/coucher du soleil, dis « شروق/غروب الشمس », jamais « مشرق/مغرب ».
-Réponds UNIQUEMENT par un objet JSON {"items":[{"r":"<identifiant>","t":"<traduction arabe>"},...]} avec EXACTEMENT les mêmes identifiants "r", dans le même ordre, un par segment.
+  const prompt = `Tu traduis ${instr}
+C'est un album jeunesse DÉJÀ écrit et validé, pour un enfant de 2 à 8 ans qu'un parent lit à voix haute.
+Traduis CHAQUE segment un par un, fidèlement : garde le sens, le ton tendre et drôle, les dialogues, les onomatopées. Une langue naturelle, douce et belle, simple à comprendre pour un petit. N'ajoute rien, ne retire rien, ne résume pas, ne fusionne pas des segments.
+Réponds UNIQUEMENT par un objet JSON {"items":[{"r":"<identifiant>","t":"<traduction>"},...]} avec EXACTEMENT les mêmes identifiants "r", dans le même ordre, un par segment.
 SEGMENTS :
 ${JSON.stringify(items)}`;
   const schema = { type: "OBJECT", required: ["items"], properties: { items: { type: "ARRAY", items: { type: "OBJECT", required: ["r", "t"], properties: { r: { type: "STRING" }, t: { type: "STRING" } } } } } };
@@ -663,16 +669,19 @@ const decrire = (image, h) => String(image || "").replace(/\bHERO\b/g, h.heros |
 const CONSIGNE_VOIX = "# AUDIO PROFILE: La conteuse\nUne conteuse française chaleureuse, qui lit un album à un enfant de quatre ans.\n\n### DIRECTOR'S NOTES\nStyle : voix douce, souriante et vivante ; elle joue légèrement les dialogues et les bruits.\nRythme : posé, sans lenteur, avec de petites pauses entre les phrases.\nLangue : français de France.\n\n#### TRANSCRIPT\n";
 // Lecture d'une histoire traduite en arabe (mode libre « ar ») : même voix, consigne en arabe pour une diction naturelle.
 const CONSIGNE_VOIX_AR = "# AUDIO PROFILE: الحاكية\nحاكية عربية حنونة تقرأ قصة مصوّرة لطفل في الرابعة من عمره.\n\n### DIRECTOR'S NOTES\nالأسلوب: صوت ناعم مبتسم وحيّ، تؤدّي الحوارات والأصوات بخفّة.\nالإيقاع: متمهّل دون بطء، مع وقفات صغيرة بين الجمل.\nاللغة: العربية الفصحى المبسّطة.\n\n#### TRANSCRIPT\n";
+const CONSIGNE_VOIX_EN = "# AUDIO PROFILE: The storyteller\nA warm, gentle storyteller reading a picture book to a four-year-old child.\n\n### DIRECTOR'S NOTES\nStyle: soft, smiling, lively voice; she lightly acts out the dialogue and the little sounds.\nPace: calm but not slow, with small pauses between sentences.\nLanguage: natural English.\n\n#### TRANSCRIPT\n";
+const CONSIGNES_VOIX = { fr: CONSIGNE_VOIX, ar: CONSIGNE_VOIX_AR, en: CONSIGNE_VOIX_EN };
 const estArabe = s => /[؀-ۿ]/.test(String(s || ""));
+const langVoix = (lang, texte) => CONSIGNES_VOIX[lang] ? lang : (estArabe(texte) ? "ar" : "fr");      // langue donnée si connue, sinon devinée du texte (repli)
 /** Un appel à la voix. -> { son } ou { err, jour: quota du jour épuisé }. Graine et température fixes : sans elles, la hauteur de la voix
     varie beaucoup d'un tableau à l'autre (mesuré le 13/11 : écart-type de 23 Hz, contre 11 Hz avec, et 7 à 17 Hz dans les histoires du catalogue). */
-async function ttsBrut(GKEY, texte, voix, graine = 7) {
+async function ttsBrut(GKEY, texte, voix, graine = 7, lang = "") {
   let err = "voix indisponible";
   for (let essai = 0; essai < 4; essai++) {
     try {
       const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELE_VOIX}:generateContent?key=${encodeURIComponent(GKEY)}`, {
         method: "POST", headers: { "content-type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: (estArabe(texte) ? CONSIGNE_VOIX_AR : CONSIGNE_VOIX) + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
+        body: JSON.stringify({ contents: [{ parts: [{ text: CONSIGNES_VOIX[langVoix(lang, texte)] + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
       const brut = await r.text();
       if (r.status === 429) { if (/PerDay/i.test(brut)) return { err: "quota du jour atteint", jour: true }; err = "voix très demandée"; await new Promise(z => setTimeout(z, 4000 + 3000 * essai)); continue; }   // limite de débit : on patiente
       const i = brut.indexOf('"data"'); if (i < 0) { err = "pas d'audio (" + r.status + ")"; await new Promise(z => setTimeout(z, 1500)); continue; }
@@ -711,14 +720,14 @@ async function voixDispo(env, GKEY) {
    UN appel par tableau (6, 7, 7 ou 8 par histoire) et l'on compte sur le calage par morceau, le contrôle et la relecture page par page.
    Pour découper plus fin : variable VOIX_MAX_CAR (ex. 700 -> coûts ci-dessus). */
 const MAX_MORCEAU = 3000;
-async function voixConteuse(env, GKEY, tableaux, voix) {
+async function voixConteuse(env, GKEY, tableaux, voix, lang = "") {
   const pages = tableaux.flat(), M = morceaux(tableaux, Math.max(150, parseInt(env.VOIX_MAX_CAR, 10) || MAX_MORCEAU));
   let appels = 0, refaits = 0, quota = false, arret = null;
   const lire = async (idx, texte, graine) => {               // un appel à la voix, puis l'écoute et le calage de ce seul morceau
-    appels++; const r = await ttsBrut(GKEY, texte, voix, graine);
+    appels++; const r = await ttsBrut(GKEY, texte, voix, graine, lang);
     if (!r.son) return { err: r.err, jour: !!r.jour };
     const son = { pcm: rogner(r.son.pcm, r.son.rate), rate: r.son.rate, modele: r.son.modele };
-    return { son, pages: idx, ...(await ecouter(env, son, idx.map(i => pages[i]))) };
+    return { son, pages: idx, ...(await ecouter(env, son, idx.map(i => pages[i]), lang)) };
   };
   const note = L => L.reduce((a, x) => a + x.qualite - 0.05 * x.bilan.leger.length, 0) / L.length;
   const faire = async m => {
@@ -745,11 +754,11 @@ async function voixConteuse(env, GKEY, tableaux, voix) {
     modele: parts[0].son.modele, voix, appels, morceaux: M.length, refaits } };
 }
 /** Écoute d'un morceau : minutage exact par reconnaissance vocale (tranche par tranche), sinon calage par les silences ; et son bilan. */
-async function ecouter(env, son, pagesM) {
+async function ecouter(env, son, pagesM, lang = "") {
   const duree = son.pcm.length / son.rate; let a = null, mode = "reconnaissance";
   try {
     const p16 = reech(son.pcm, son.rate, 16000), tr = tranches(p16, 16000, 45);
-    const lg = estArabe(pagesM.join(" ")) ? "ar" : "fr";
+    const lg = langVoix(lang, pagesM.join(" "));      // fr/ar/en pour Whisper (langue donnée, sinon devinée)
     const rs = await Promise.all(tr.map(t => env.AI.run("@cf/openai/whisper-large-v3-turbo", { audio: base64(wav(t.pcm, 16000)), language: lg })));
     const entendus = [];
     rs.forEach((r, k) => { const ws = (r && r.words) || ((r && r.segments) || []).flatMap(s => s.words || []);

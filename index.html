@@ -322,7 +322,7 @@
         <label>Le lieu<input id="fLieu" placeholder="ex : une forêt enchantée sous la pluie"></label>
         <label>De quoi ça parle ?<input id="fLecon" placeholder="ex : apprendre à attendre son tour"></label>
         <label style="gap:7px">Dans quelle langue ?
-          <div class="deux" id="fLang"><button type="button" data-l="fr" class="on">Français</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
+          <div class="deux" id="fLang" style="grid-template-columns:repeat(3,1fr)"><button type="button" data-l="fr" class="on">Français</button><button type="button" data-l="en">English</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
         </label>
         <div id="donBloc" hidden style="background:rgba(255,203,77,.16);border:1.5px solid #ffcb4d;border-radius:16px;padding:14px 14px 12px;text-align:center">
           <p style="margin:0 0 10px;font-weight:700;color:var(--ink);font-size:.95rem;line-height:1.45">Titistoire est gratuit et sans publicité, mais chaque histoire créée coûte de l'argent à celui qui le fabrique, seul. Si vous le pouvez, un petit don le fait vivre.</p>
@@ -944,7 +944,7 @@ async function generateFree(){
   const t0=Date.now(); const prog=setInterval(()=>{ const e=(Date.now()-t0)/1000; fill.style.width=Math.min(93,93*(1-Math.exp(-e/22))).toFixed(1)+'%'; },200);
   const endBar=()=>{ clearInterval(prog); fill.style.width='100%'; setTimeout(()=>{gb.hidden=true; fill.style.width='0%';},350); gbtn.disabled=false; };
   try{
-    const base=bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age}; if(fLibre.lang==='ar') base.lang='ar';
+    const base=bande?{lieu,lecon,bande,qui}:{hero,lieu,lecon,age}; if(fLibre.lang!=='fr') base.lang=fLibre.lang;
     const dem=new URLSearchParams(base).toString();
     // Une demande restée sans réponse (réseau coupé, téléphone en veille) a peut-être abouti : on la redemande avec « reprise », et le serveur rend l'histoire déjà écrite.
     const demander=()=>fetch(AIW+"/story?"+dem+(perdue===dem?'&reprise=1':''),jeton()?{headers:{authorization:'Bearer '+jeton()}}:{});
@@ -995,7 +995,7 @@ function chercherVoix(it,n){                                 // -> promesse { w:
   const p=(async()=>{
     let cache=null, buf=null;
     try{ cache=await caches.open('titi-voix'); const hit=await cache.match(cle); if(hit) buf=await hit.arrayBuffer(); }catch(e){}
-    if(!buf){ const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig,n})});
+    if(!buf){ const r=await fetch(AIW+"/gtts",{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tableaux:it.tableaux.map(t=>t.pages),voix,sig:it.sig,n,l:it.lang||'fr'})});
       if(!r.ok) throw new Error('voix '+r.status);
       buf=await r.arrayBuffer(); try{ if(cache) await cache.put(cle,new Response(buf.slice(0))); }catch(e){} }
     const m=new DataView(buf).getUint32(0,true), meta=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,4,m)));
