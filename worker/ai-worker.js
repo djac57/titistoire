@@ -27,8 +27,16 @@ const SITE = "https://titistoire.fr/";      // les fiches des bandes y sont publ
 const STYLE = "Children's picture book illustration, flat 2D vector art, clean thin dark outlines, flat soft pastel colours, simple rounded shapes. No text, no letters, no numbers, no signature, no watermark, no speech bubbles, no humans. ";
 const FIN = " Cute gentle animal characters, each one drawn only once, warm mood for toddlers, nothing scary.";
 const VOIX = ["Sulafat", "Vindemiatrix", "Algieba"];
+const VOIX_SECOURS = ["Xb7hH8MSUJpSbSDYk0k2", "IKne3meq5aSn9XLyUdCD"];      // /tts : voix « premade » du palier gratuit ElevenLabs, Alice (défaut) et Charlie
 // UNE SEULE voix : les anciens modèles changent de timbre et sonnent moins bien. Quand son quota du jour est épuisé, la création se ferme (voir voixDispo).
 const MODELE_VOIX = "gemini-3.8-flash-tts";
+// /tts (lecture de secours) n'est appelé que par les pages du site : une demande venue d'une autre page est refusée.
+// Sans Origin ni Referer (certains navigateurs n'envoient rien) on accepte : c'est un frein, pas une preuve — un script peut mentir sur ces en-têtes.
+const HOTES_SITE = ["titistoire.fr", "www.titistoire.fr", "djac57.github.io", "localhost"];
+const origineOK = req => ["origin", "referer"].every(n => { const v = req.headers.get(n); if (!v) return true; try { return HOTES_SITE.includes(new URL(v).hostname); } catch (e) { return false; } });
+// Créations en cours dans CE processus (uid -> heure) : le test et la pose sont faits d'un seul geste, ce que la base (KV) ne sait pas faire.
+// Une rafale de demandes simultanées d'un même compte arrive presque toujours sur le même processus ; le verrou en base couvre les autres cas.
+const EN_COURS = new Map(), VERROU = 240;
 
 export default {
   async fetch(req, env, ctx) {
@@ -38,8 +46,13 @@ export default {
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
     // Cache de bord : une même page lue ou une même image demandée deux fois n'est facturée qu'une fois.
-    const cachable = req.method === "GET" && (u.pathname.startsWith("/tts") || u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) && !u.searchParams.get("debug");
+    const estTts = u.pathname.startsWith("/tts");
+    if (estTts && !origineOK(req)) return new Response("origine non autorisée", { status: 403, headers: cors });
+    const cachable = req.method === "GET" && (estTts || ((u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) && !u.searchParams.get("debug")));
     let cleCache = u.toString();
+    // /tts : seuls le texte (coupé comme il sera lu) et la voix (validée) comptent ; un paramètre de plus ne fait pas relire, « debug » non plus
+    const ttsT = (u.searchParams.get("t") || "").slice(0, 900), ttsV = VOIX_SECOURS.includes(u.searchParams.get("v")) ? u.searchParams.get("v") : VOIX_SECOURS[0];
+    if (estTts) cleCache = u.origin + "/tts?" + new URLSearchParams({ v: ttsV, t: ttsT }).toString();
     if (u.pathname.startsWith("/img") || u.pathname.startsWith("/fiche")) {       // seuls les paramètres signés comptent (et « r=2 », le second essai) : aucun moyen de faire redessiner à volonté
       const q = new URLSearchParams(); for (const k of ["p", "a", "b", "s"]) { const v = u.searchParams.get(k); if (v) q.set(k, v); }
       if (u.searchParams.get("r") === "2") q.set("r", "2");
@@ -56,12 +69,19 @@ export default {
     try {
       // ---------- LECTURE EN DIRECT DE SECOURS (histoires du recueil pas encore enregistrées) ----------
       if (u.pathname.startsWith("/tts")) {
-        const t = (u.searchParams.get("t") || "").slice(0, 900);
+        const t = ttsT;
         if (!t) return new Response("manque ?t=", { status: 400, headers: cors });
         const ELEVEN = env.ELEVEN_KEY || env.ELEVENLABS_KEY;
         if (!ELEVEN) return new Response("TTS indisponible", { status: 502, headers: cors });
-        // voix « premade » du palier gratuit ElevenLabs : Alice (défaut), Charlie
-        const voice = ["Xb7hH8MSUJpSbSDYk0k2", "IKne3meq5aSn9XLyUdCD"].includes(u.searchParams.get("v")) ? u.searchParams.get("v") : "Xb7hH8MSUJpSbSDYk0k2";
+        const voice = ttsV;
+        // PLAFOND du jour, tous visiteurs confondus : seuls les appels réellement envoyés à ElevenLabs comptent (une page déjà en cache n'arrive pas ici).
+        // Compté AVANT l'appel ; sans compteur (base absente ou en panne) on n'appelle pas : le navigateur lit lui-même la page.
+        const maxTts = Math.max(1, parseInt(env.TTS_MAX_JOUR || "300", 10) || 300), kT = "t:j:" + new Date().toISOString().slice(0, 10);
+        try {
+          const nT = parseInt(await env.COMPTES.get(kT), 10) || 0;
+          if (nT >= maxTts) return new Response("TTS : plafond du jour atteint", { status: 429, headers: cors });
+          try { await env.COMPTES.put(kT, String(nT + 1), { expirationTtl: 3 * 86400 }); } catch (e) {}      // la base refuse deux écritures rapprochées de la même clé : un appel non compté vaut mieux qu'une page non lue
+        } catch (e) { console.log("tts : compteur indisponible — " + String(e).slice(0, 200)); return new Response("TTS indisponible", { status: 429, headers: cors }); }
         const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice + "/with-timestamps?output_format=mp3_44100_128", {
           method: "POST", headers: { "xi-api-key": ELEVEN, "content-type": "application/json" },
           body: JSON.stringify({ text: t, model_id: "eleven_multilingual_v2", voice_settings: { stability: 0.38, similarity_boost: 0.85, style: 0.45, use_speaker_boost: true } })
@@ -78,7 +98,7 @@ export default {
         if (!p || !s || !cleSig || !(await signatureOK("img:" + p, s, cleSig))) return new Response("image non autorisée", { status: 403, headers: cors });
         if (!env.AI) return new Response("image indisponible", { status: 502, headers: cors });
         const f = await ficheDe(env, ctx, p);
-        if (!f.img) return new Response("fiche indisponible : " + f.err, { status: f.refus ? 451 : 502, headers: cors });
+        if (!f.img) { console.log("fiche indisponible : " + f.err); return new Response("fiche indisponible", { status: f.refus ? 451 : 502, headers: cors }); }      // le détail reste dans le journal
         return keep(new Response(f.img, { headers: { "content-type": typeImage(f.img), "cache-control": "public, max-age=31536000", ...cors } }));
       }
       if (u.pathname.startsWith("/img")) {
@@ -134,7 +154,9 @@ export default {
         const voix = VOIX.includes(b.voix) ? b.voix : VOIX[0];
         const langReq = ["ar", "en", "fr"].includes(b.l) ? b.l : "";       // langue de lecture (consigne + reconnaissance) ; sinon devinée du texte
         const n = parseInt(b.n, 10), unTableau = n >= 1 && n <= tb.length;       // n : un seul tableau (le livre peut commencer sans attendre toute l'histoire)
-        const cle2 = new Request("https://cache.titistoire/gtts/" + voix + "/" + b.sig + (unTableau ? "/" + n : ""), { method: "GET" });
+        // La langue fait partie de la clé (et donc de celle du refus) : une demande faite exprès dans la mauvaise langue ne fige plus ni la piste ni un refus
+        // pour les autres. « fr » garde l'ancienne clé (les pistes déjà en cache restent valables) ; le site envoie toujours la langue de l'histoire.
+        const cle2 = new Request("https://cache.titistoire/gtts/" + voix + (langReq === "fr" ? "" : "/" + (langReq || "auto")) + "/" + b.sig + (unTableau ? "/" + n : ""), { method: "GET" });
         try { const hit = await caches.default.match(cle2); if (hit) return hit; } catch (e) {}
         // un tableau que la voix n'a pas su lire juste (voir voixConteuse) n'est pas redemandé avant demain : le quota du jour est précieux
         const cleRefus = new Request(cle2.url + "/refus", { method: "GET" });
@@ -144,7 +166,10 @@ export default {
         const out = await voixConteuse(env, GKEY, unTableau ? [tb[n - 1]] : tb, voix, langReq);
         if (out.quota) await voixEpuisee(env);
         if (out.refus) { try { ctx.waitUntil(caches.default.put(cleRefus, new Response("1", { headers: { "cache-control": "public, max-age=86400" } }))); } catch (e) {} }
-        if (out.error) return J(out, out.quota ? 429 : 502);
+        if (out.error) {      // le détail (qui peut contenir le texte d'une exception) reste dans le journal ; le site ne regarde que le code de réponse
+          console.log(JSON.stringify({ gtts: "échec", error: String(out.error).slice(0, 300), detail: out.detail }));
+          return J({ error: out.quota ? "quota du jour atteint" : (out.refus ? "voix mal calée" : "voix indisponible"), quota: !!out.quota, refus: !!out.refus }, out.quota ? 429 : 502);
+        }
         const meta = new TextEncoder().encode(JSON.stringify(out.meta)), w = wav(out.pcm, out.rate);
         const corps = new Uint8Array(4 + meta.length + w.length);                 // [longueur du JSON sur 4 octets][JSON][WAV]
         new DataView(corps.buffer).setUint32(0, meta.length, true); corps.set(meta, 4); corps.set(w, 4 + meta.length);
@@ -203,7 +228,9 @@ export default {
         const cleDemande = [age, bande, qui, hero, lieu, lecon, lang].join("|");
         if (parCompte && u.searchParams.get("reprise")) { try { const d = await env.COMPTES.get("r:" + parCompte, "json"); if (d && d.k === cleDemande && d.out) return J({ ...d.out, reprise: true }); } catch (e) {} }
         // PAS D'HISTOIRE SANS LA VRAIE VOIX : si son quota du jour est épuisé, on ne crée rien (et on ne débite rien).
-        if (!dbg && !(await voixDispo(env, GKEY))) return J({ error: "voix", voix: true }, 503);
+        // Ici on ne lit que la note « quota épuisé » (gratuit). L'essai réel de la voix coûte un appel : il vient plus bas, APRÈS le plafond
+        // et sous le verrou du compte — sinon cent demandes simultanées d'un même compte videraient le quota de voix du jour.
+        if (!dbg && (!GKEY || await voixFermee(env))) return J({ error: "voix", voix: true }, 503);
 
         // PLAFOND DE DÉPENSE : au plus N histoires créées par jour (défaut 10) et par mois (défaut 100), tous utilisateurs confondus.
         // Comme seule une histoire validée ici peut ensuite faire dessiner (6 à 8 images) ou lire (6 à 8 pistes), ces plafonds bornent tout le coût payant.
@@ -216,29 +243,49 @@ export default {
         else { try { const h = await caches.default.match(cleJour); if (h) fait = parseInt(await h.text(), 10) || 0; } catch (e) {} }
         if (!admin && (fait >= MAXJ || faitM >= MAXM)) return J({ error: "plafond", plafond: true, max: MAXJ, mois: faitM >= MAXM }, 429);
         // RÉSERVATION : on compte et on débite AVANT d'écrire (plusieurs demandes simultanées ne passent pas toutes), et on rend si l'histoire n'aboutit pas.
-        let reserve = false, credits;
+        // « avant » : crédits lus juste avant le débit. On ne rend jamais au-delà : deux demandes simultanées qui échouent ne peuvent plus créer un crédit.
+        // (La base n'a pas d'opération atomique : deux demandes qui passeraient le verrou en même temps peuvent encore ne payer qu'un crédit pour deux histoires.)
+        let reserve = false, credits, avant = null, verrou = false;
+        const liberer = async () => { if (!verrou) return; verrou = false; EN_COURS.delete(parCompte); try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} };
         const ecrireCompteurs = d => env.COMPTES ? Promise.all([env.COMPTES.put(kJ, String(Math.max(0, fait + d)), { expirationTtl: 400 * 86400 }), env.COMPTES.put(kM, String(Math.max(0, faitM + d)), { expirationTtl: 1100 * 86400 })])      // gardés longtemps : ils servent aussi au tableau de bord
           : caches.default.put(cleJour, new Response(String(Math.max(0, fait + d)), { headers: { "cache-control": "public, max-age=172800" } }));
-        const rendre = async () => { if (!reserve) return; reserve = false;
-          if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // le verrou d'abord : rien ne doit l'empêcher de sauter
+        const rendre = async () => {      // rend ce qui a été pris, et seulement cela ; le verrou saute en dernier (le crédit est rendu avant qu'une autre demande ne le relise) et quoi qu'il arrive
           try {
-          if (env.COMPTES) { fait = (parseInt(await env.COMPTES.get(kJ), 10) || 1) - 1; faitM = (parseInt(await env.COMPTES.get(kM), 10) || 1) - 1; }
-          await ecrireCompteurs(0);
-          if (parCompte && !admin) await env.COMPTES.put("cr:" + parCompte, String(await lireCredits() + 1), { expirationTtl: 730 * 86400 });
-        } catch (e) {} };
-        if (!dbg) {
-          if (parCompte) {
-            if (await env.COMPTES.get("v:" + parCompte)) return J({ error: "encours" }, 409);          // une création à la fois par compte
-            await env.COMPTES.put("v:" + parCompte, "1", { expirationTtl: 240 });
-            if (!admin) {
-              const n = await lireCredits(); if (!(n > 0)) { await env.COMPTES.delete("v:" + parCompte); return J({ error: "credits", credits: 0 }, 402); }
-              credits = n - 1; await env.COMPTES.put("cr:" + parCompte, String(credits), { expirationTtl: 730 * 86400 });
+            if (avant !== null) { const a = avant; avant = null; await env.COMPTES.put("cr:" + parCompte, String(Math.min(a, await lireCredits() + 1)), { expirationTtl: 730 * 86400 }); }
+          } catch (e) {}
+          try {
+            if (reserve) { reserve = false;
+              if (env.COMPTES) { fait = (parseInt(await env.COMPTES.get(kJ), 10) || 1) - 1; faitM = (parseInt(await env.COMPTES.get(kM), 10) || 1) - 1; }
+              await ecrireCompteurs(0); }
+          } catch (e) {}
+          await liberer();
+        };
+        if (!dbg && parCompte) {      // VERROU : une création à la fois par compte, posé avant toute lecture des crédits à débiter
+          const t0 = EN_COURS.get(parCompte);
+          if (t0 && Date.now() - t0 < VERROU * 1000) return J({ error: "encours" }, 409);
+          EN_COURS.set(parCompte, Date.now());      // test et pose sans attente entre les deux : une seule demande passe dans ce processus
+          const mien = crypto.randomUUID(); let pris = false;
+          try {
+            if (!(await env.COMPTES.get("v:" + parCompte))) {
+              await env.COMPTES.put("v:" + parCompte, mien, { expirationTtl: VERROU });
+              const lu = await env.COMPTES.get("v:" + parCompte);      // relu : si une autre demande (autre processus) l'a posé en même temps, la dernière écrite garde la main
+              pris = !lu || lu === mien;
             }
+          } finally { if (!pris) EN_COURS.delete(parCompte); }
+          if (!pris) return J({ error: "encours" }, 409);
+          verrou = true;
+        }
+        try {      // toute panne imprévue à partir d'ici rend la réservation (crédit, compteurs, verrou)
+        if (!dbg) {
+          // essai réel de la voix (un appel, très court), sous le verrou et AVANT tout débit : si elle n'est pas là, seul le verrou est à rendre
+          if (!(await voixDispo(env, GKEY))) { await rendre(); return J({ error: "voix", voix: true }, 503); }
+          if (parCompte && !admin) {
+            const n = await lireCredits(); if (!(n > 0)) { await rendre(); return J({ error: "credits", credits: 0 }, 402); }
+            credits = n - 1; await env.COMPTES.put("cr:" + parCompte, String(credits), { expirationTtl: 730 * 86400 }); avant = n;
           }
           try { await ecrireCompteurs(1); } catch (e) {}
           reserve = true;
         }
-        try {      // toute panne imprévue pendant l'écriture rend la réservation (crédit, compteurs, verrou)
 
         // 2. écriture : on essaie les rédacteurs du meilleur au moins bon. Une histoire trop maigre (phrases
         //    tronquées, pages très courtes) est mise de côté et ne sert que si personne ne fait mieux.
@@ -296,14 +343,21 @@ export default {
           const out = { titre: h.titre, decor: h.decor, emoji: h.emoji, tableaux, fiches, sig, credits, reste: admin ? undefined : MAXJ - fait - 1 };
           if (lang !== "fr") {      // histoire déjà écrite ET contrôlée en français : on ne traduit que ce qui s'affiche ; images (descriptions en anglais) et contrôle inchangés
             const tr = await traduire(GKEY, lang, h.titre, tableaux.map(t => t.pages));
-            if (tr) {
+            // La traduction est un texte NEUF (le traducteur peut s'écarter du français) : elle repasse le contrôle avant d'être signée.
+            // Refus ou panne du contrôle -> on garde le français, jamais une traduction non contrôlée.
+            // ARABE : pas de contrôle ici pour l'instant (18/11/2026) — la liste de mots est sans effet, la garde ne connaît pas l'arabe et le juge attend du français :
+            // il refuserait à tort et tout le mode arabe retomberait en français. À rouvrir avec un contrôle fait pour l'arabe.
+            // « terrific » (formidable) est retiré avant le contrôle : la liste le prendrait pour « terrifying ».
+            const ct = !tr ? null : lang === "en" ? await controle(env, (tr.titre + "\n" + tr.pages.flat().join("\n")).replace(/\bterrific(ally)?\b/gi, "great"), "histoire", age) : { ok: true };
+            if (tr && !ct.ok) journal.push("traduction " + lang + " écartée par le contrôle (" + ct.raison + ") : histoire renvoyée en français");
+            else if (tr) {
               tableaux.forEach((t, i) => { t.pages = tr.pages[i]; });      // out.tableaux pointe sur ce même tableau : la traduction s'y reflète
               out.titre = tr.titre; out.lang = lang;
               out.sig = await signer("txt:" + tableaux.map(t => t.pages.join("\n")).join("\n\n"), cleSig);      // re-signe le texte traduit, sinon la voix (/gtts) le refuse
             } else journal.push("traduction " + lang + " échouée : histoire renvoyée en français");
           }
           if (parCompte) { try { await env.COMPTES.put("r:" + parCompte, JSON.stringify({ k: cleDemande, out }), { expirationTtl: 1200 }); } catch (e) {} }
-          if (parCompte) { try { await env.COMPTES.delete("v:" + parCompte); } catch (e) {} }      // la réservation devient définitive
+          await liberer();                                 // la réservation devient définitive
           return J({ ...out, modele: dbg ? retenu.nom : undefined, journal: dbg ? journal : undefined });
         }
         await rendre();                                    // rien n'a été remis : le crédit et les compteurs sont rendus
@@ -314,7 +368,8 @@ export default {
 
       return new Response("titistoire-ai", { headers: cors });
     } catch (e) {
-      return new Response("Erreur : " + String(e).slice(0, 300), { status: 502, headers: cors });
+      console.log("erreur imprévue (" + u.pathname + ") : " + String((e && e.stack) || e).slice(0, 600));      // le détail reste dans le journal, jamais chez le client
+      return new Response("Erreur", { status: 502, headers: cors });
     }
   }
 };
@@ -341,8 +396,8 @@ ${JSON.stringify(items)}`;
   const schema = { type: "OBJECT", required: ["items"], properties: { items: { type: "ARRAY", items: { type: "OBJECT", required: ["r", "t"], properties: { r: { type: "STRING" }, t: { type: "STRING" } } } } } };
   const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 60000);
   try {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(GKEY)}`, {
-      method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {      // clé en en-tête : jamais dans une adresse (journaux, messages d'erreur)
+      method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": GKEY }, signal: ctrl.signal,
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, responseMimeType: "application/json", responseSchema: schema } })
     });
     const gd = await r.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
@@ -426,6 +481,8 @@ async function controleMorceau(env, texte, quoi, age) {
     const rg = g && g.response;
     if (rg === undefined || rg === null) return { ok: false, raison: "garde sans réponse" };
     const dangereux = typeof rg === "string" ? /unsafe/i.test(rg) : rg.safe === false;
+    // fermé par défaut : seule une réponse qui dit clairement « safe » laisse passer ; une réponse vide ou illisible vaut refus
+    if (!dangereux && !(typeof rg === "string" ? /\bsafe\b/i.test(rg) : rg.safe === true)) return { ok: false, raison: "garde illisible : " + (typeof rg === "string" ? rg : JSON.stringify(rg)).slice(0, 60) };
     if (dangereux) {
       // La garde classe « S4 » (protection de l'enfance) tout texte où une fillette a un âge (« une princesse de 5 ans ») : fausse alerte fréquente.
       // Pour cette seule catégorie, un second contrôleur, spécialisé et tout aussi strict, tranche ; pour toute autre catégorie, refus immédiat.
@@ -635,8 +692,8 @@ function redacteurs(env, GKEY, forceIA) {
   const gemini = modele => async prompt => {
     const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), /lite/.test(modele) ? 45000 : 80000);
     try {
-      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent?key=${encodeURIComponent(GKEY)}`, {
-        method: "POST", headers: { "content-type": "application/json" }, signal: ctrl.signal,
+      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`, {
+        method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": GKEY }, signal: ctrl.signal,
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.95, responseMimeType: "application/json", responseSchema: SCHEMA_HISTOIRE, ...(/lite/.test(modele) ? {} : { thinkingConfig: { thinkingBudget: 0 } }) } }) });
       const gd = await gr.json(), t = gd && gd.candidates && gd.candidates[0] && gd.candidates[0].content && gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] && gd.candidates[0].content.parts[0].text;
       const c = t && extraireJSON(t); if (c) return { txt: c };
@@ -679,8 +736,8 @@ async function ttsBrut(GKEY, texte, voix, graine = 7, lang = "") {
   let err = "voix indisponible";
   for (let essai = 0; essai < 4; essai++) {
     try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELE_VOIX}:generateContent?key=${encodeURIComponent(GKEY)}`, {
-        method: "POST", headers: { "content-type": "application/json" },
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELE_VOIX}:generateContent`, {
+        method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": GKEY },
         body: JSON.stringify({ contents: [{ parts: [{ text: CONSIGNES_VOIX[langVoix(lang, texte)] + texte }] }], generationConfig: { responseModalities: ["AUDIO"], seed: graine, temperature: 0.4, speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voix } } } } }) });
       const brut = await r.text();
       if (r.status === 429) { if (/PerDay/i.test(brut)) return { err: "quota du jour atteint", jour: true }; err = "voix très demandée"; await new Promise(z => setTimeout(z, 4000 + 3000 * essai)); continue; }   // limite de débit : on patiente
@@ -697,9 +754,11 @@ async function voixEpuisee(env) {
   const n = new Date(), r = new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate(), 8, 5)); if (r <= n) r.setUTCDate(r.getUTCDate() + 1);
   try { await env.COMPTES.put("q:tts", "1", { expirationTtl: Math.max(60, Math.round((r - n) / 1000)) }); } catch (e) {}
 }
+/** La note « quota du jour épuisé » est-elle posée ? Lecture seule de la base : aucun appel à la voix. */
+async function voixFermee(env) { try { return !!(env.COMPTES && await env.COMPTES.get("q:tts")); } catch (e) { return false; } }
 async function voixDispo(env, GKEY) {
   if (!GKEY) return false;
-  try { if (env.COMPTES && await env.COMPTES.get("q:tts")) return false; } catch (e) {}
+  if (await voixFermee(env)) return false;
   const r = await ttsBrut(GKEY, "Oui.", VOIX[0]);          // essai réel, très court
   if (r.jour) { await voixEpuisee(env); return false; }
   return true;                                             // une panne passagère ne ferme pas la création

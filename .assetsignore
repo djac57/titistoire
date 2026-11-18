@@ -19,3 +19,17 @@ style_*.json
 assets/essai-*
 *.py
 site
+# Secrets et fichiers de travail locaux : absents du dépôt (.gitignore), donc d'un déploiement fait par Cloudflare,
+# mais présents sur l'ordinateur — un « wrangler deploy » lancé à la main les publierait.
+.env
+.env.*
+.dev.vars*
+s.json
+.gemini_key
+*.key
+*.secret
+.wrangler
+.claude
+.DS_Store
+__pycache__
+*.mjs

@@ -27,6 +27,17 @@ const hasard = n => hex(crypto.getRandomValues(new Uint8Array(n)));
 const mel = e => { e = String(e || "").trim().toLowerCase(); return e.length <= 254 && /^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/.test(e) ? e : ""; };
 /** identifiant du compte : empreinte de l'adresse, sans le « +suffixe » (prenom+1@… et prenom+2@… sont le même compte) */
 const uidDe = async email => { const [loc, dom] = email.split("@"); return (await sha("titistoire:" + loc.split("+")[0] + "@" + dom)).slice(0, 32); };
+/** Gmail ignore les points (p.nom@ = pnom@) : sans cela, une seule boîte donne autant de comptes — et de créations offertes — que de variantes.
+    L'identifiant des comptes DÉJÀ créés ne change pas : si l'adresse telle qu'elle est écrite a un compte (ou la trace d'un compte supprimé), on le garde ;
+    seule une adresse Gmail encore inconnue est ramenée à sa forme sans points. Les autres domaines ne sont pas touchés. */
+async function uidPour(env, email) {
+  const tel = await uidDe(email), [loc, dom] = email.split("@");
+  if (dom !== "gmail.com" && dom !== "googlemail.com") return tel;
+  const canon = await uidDe(loc.replace(/\./g, "") + "@gmail.com");
+  if (canon === tel || await env.COMPTES.get("u:" + tel) !== null || await env.COMPTES.get("x:" + tel) !== null) return tel;
+  return canon;
+}
+const NEUFS_PAR_IP = 3;             // adresses encore inconnues pour lesquelles une même connexion peut demander un code, par jour (chacune vaut CREDITS_OFFERTS créations)
 
 export default {
   async fetch(req, env, ctx) {
@@ -68,6 +79,8 @@ async function permis(env, cle, max, periode = 3600) {
   await env.COMPTES.put(k, String(n + 1), { expirationTtl: periode + 100 }); return true;
 }
 const ipDe = async req => (await sha("ip:" + (req.headers.get("cf-connecting-ip") || "?"))).slice(0, 24);      // jamais l'adresse en clair
+/** comme ipDe, mais une adresse IPv6 est ramenée à son réseau (4 premiers groupes) : un même abonné en possède des milliards */
+const reseauDe = async req => { const ip = req.headers.get("cf-connecting-ip") || "?"; return (await sha("ip:" + (ip.includes(":") ? ip.split(":").slice(0, 4).join(":") : ip))).slice(0, 24); };
 async function session(req, env) {
   const t = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
   if (!/^[0-9a-f]{64}$/.test(t)) return null;
@@ -122,8 +135,17 @@ async function api(req, env, ctx, u) {
   // --- 1. demander un code de connexion
   if (p === "/api/compte/code" && M === "POST") {
     const b = await req.json().catch(() => ({})), email = mel(b.email); if (!email) return J({ erreur: "adresse" }, 400);
-    const uid = await uidDe(email);
+    const uid = await uidPour(env, email);
     if (!(await permis(env, "ip:" + await ipDe(req), 12)) || !(await permis(env, "mel:" + uid, 5)) || !(await permis(env, "melj:" + uid, 12, 86400))) return J({ erreur: "trop" }, 429);
+    // Frein aux comptes jetables : une même connexion ne peut demander un code que pour NEUFS_PAR_IP adresses inconnues par jour.
+    // Redemander le code pour la même adresse ne compte qu'une fois ; un compte existant (ou supprimé) n'est jamais freiné ici.
+    if (await env.COMPTES.get("u:" + uid) === null && await env.COMPTES.get("x:" + uid) === null) {
+      const res = await reseauDe(req), vu = "l:neuf:" + res + ":" + uid;
+      if (await env.COMPTES.get(vu) === null) {
+        if (!(await permis(env, "neufs:" + res, NEUFS_PAR_IP, 86400))) return J({ erreur: "trop" }, 429);
+        await env.COMPTES.put(vu, "1", { expirationTtl: 86400 });
+      }
+    }
     const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1000000).padStart(6, "0"), fin = Math.floor(Date.now() / 1000) + 900;
     await env.COMPTES.put("c:" + uid, JSON.stringify({ h: await sha(uid + ":" + code), essais: 0, fin }), { expiration: fin });
     if (!env.EMAIL) return J({ erreur: "courrier indisponible" }, 503);
@@ -139,7 +161,7 @@ async function api(req, env, ctx, u) {
   if (p === "/api/compte/entrer" && M === "POST") {
     const b = await req.json().catch(() => ({})), email = mel(b.email), code = String(b.code || "").replace(/\D/g, ""); if (!email || code.length !== 6) return J({ erreur: "code" }, 400);
     if (!(await permis(env, "entrer:" + await ipDe(req), 30))) return J({ erreur: "trop" }, 429);
-    const uid = await uidDe(email), att = await env.COMPTES.get("c:" + uid, "json");
+    const uid = await uidPour(env, email), att = await env.COMPTES.get("c:" + uid, "json");
     if (!att || !(att.fin > Date.now() / 1000 + 1)) return J({ erreur: "code" }, 403);
     if (att.essais >= 5) { await env.COMPTES.delete("c:" + uid); return J({ erreur: "code" }, 403); }
     if (att.h !== await sha(uid + ":" + code)) { att.essais++; await env.COMPTES.put("c:" + uid, JSON.stringify(att), { expiration: Math.max(att.fin, Math.floor(Date.now() / 1000) + 61) }); return J({ erreur: "code" }, 403); }
