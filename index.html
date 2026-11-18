@@ -342,7 +342,7 @@
     <button class="back" id="partBtn" style="float:right;margin-right:8px" aria-label="Partager cette histoire"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;vertical-align:-2px"><path d="M12 15V4M8 8l4-4 4 4M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg> <span id="partLab">Partager</span></button>
     <div class="book">
       <h2 class="title" id="title"></h2>
-      <div class="catlang" id="catLang" hidden><button type="button" data-l="">Français</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
+      <div class="catlang" id="catLang" hidden><button type="button" data-l="">Français</button><button type="button" data-l="en" lang="en">English</button><button type="button" data-l="ar" lang="ar">العربية</button></div>
       <div class="spread">
         <div class="frame" id="frame"><div class="scene" id="scene"></div></div>
         <div class="side">
@@ -390,6 +390,7 @@
 <script src="imagiers/recueil.js?v=1"></script>
 <script src="pensionnat/recueil.js?v=1"></script>      <!-- Haute-Lanterne : le feuilleton des Galaxies (8-10 ans) -->
 <script src="langues/ar/histoires.js?v=1"></script>
+<script src="langues/en/histoires.js?v=1"></script>
 <script src="langues/ary/histoires.js?v=1"></script>
 <script>
 /* ===== Worker IA (voix de secours + images et histoires du mode libre) ===== */
@@ -763,17 +764,19 @@ function showBook(){ $('title').textContent=book.titre||''; const rtl=book.lang=
   majCatLang();
   goto('s4'); }
 function allTracks(){ return book.voix&&book.sc&&[...new Set(book.sc)].every(s=>book.voix.sc[s]); }
-/* Langue d'une histoire du catalogue : le choix (fr / ar) est retenu d'une histoire à l'autre. */
-function catLangPref(){ try{ return localStorage.getItem('titi_cat_lang')==='ar'?'ar':''; }catch(e){ return ''; } }
+/* Langue d'une histoire du catalogue : le choix (fr / en / ar) est retenu d'une histoire à l'autre. */
+const CAT_LANGUES=['en','ar'];
+function traduite(sid,l){ return !!(l&&window.TITI_LANGUES&&TITI_LANGUES[l]&&TITI_LANGUES[l][sid]); }
+function catLangPref(){ try{ const l=localStorage.getItem('titi_cat_lang'); return CAT_LANGUES.includes(l)?l:''; }catch(e){ return ''; } }
 function majCatLang(){ const box=$('catLang'); if(!box) return;
-  const dispo=!!(book&&book.id&&window.TITI_LANGUES&&TITI_LANGUES.ar&&TITI_LANGUES.ar[book.id]);   // seulement le catalogue traduit (pas les recueils ni les histoires inventées)
+  const dispo=!!(book&&book.id&&CAT_LANGUES.some(l=>traduite(book.id,l)));   // seulement le catalogue traduit (pas les recueils ni les histoires inventées)
   box.hidden=!dispo; if(!dispo) return;
-  const cur=book.lang==='ar'?'ar':'';
-  box.querySelectorAll('button').forEach(b=>{ b.className=b.dataset.l===cur?'on':'';
+  const cur=CAT_LANGUES.includes(book.lang)?book.lang:'';
+  box.querySelectorAll('button').forEach(b=>{ b.className=b.dataset.l===cur?'on':''; b.hidden=!!b.dataset.l&&!traduite(book.id,b.dataset.l);      // une langue n'est proposée que si cette histoire y est traduite
     b.onclick=()=>{ if(b.dataset.l===cur) return; try{ localStorage.setItem('titi_cat_lang',b.dataset.l); }catch(e){} stopAudio&&stopAudio(); openStory(book.id,b.dataset.l); }; }); }
 /* `langue` : histoire traduite (essai : ?h=<id>&l=ar pour l'arabe standard, &l=ary pour le darija). Mêmes images, texte et voix de la langue, écriture de droite à gauche pour l'arabe. */
 async function openStory(sid,langue){ let st=STORIES[sid]; if(!st) return; const [h,u]=sid.split('_');
-  if(langue==null) langue=(window.TITI_LANGUES&&TITI_LANGUES.ar&&TITI_LANGUES.ar[sid])?catLangPref():'';   // reprend le choix de langue mémorisé (le lien de partage ?l= reste prioritaire)
+  if(langue==null) langue=traduite(sid,catLangPref())?catLangPref():'';   // reprend le choix de langue mémorisé (le lien de partage ?l= reste prioritaire)
   const tr=langue&&window.TITI_LANGUES&&TITI_LANGUES[langue]&&TITI_LANGUES[langue][sid]; if(tr) st=Object.assign({},st,{t:tr.t,sc:tr.sc});
   const petit=!tr&&groupe()==='lucioles'&&Array.isArray(st.p)&&st.p.length===st.sc.length;      // Lucioles : une page courte par tableau, sur sa première image
   const pages=[], sc=[]; if(petit) st.p.forEach((t,k)=>{ pages.push(t); sc.push(k+1); }); else st.sc.forEach((ps,k)=>ps.forEach(t=>{ pages.push(t); sc.push(k+1); }));
@@ -982,7 +985,7 @@ function openFree(it,fresh,partage){
   const tb=it.tableaux||[]; let pages=[], sc=[], imgs=null;
   if(tb.length){ imgs=[]; tb.forEach((t,k)=>(t.pages||[]).forEach((x,j)=>{ pages.push(x); sc.push(k+1); const u=(t.imgs&&t.imgs[j])||(j===0?t.img:null); imgs.push(u?(u.startsWith('/api/')?API+u:(imgBis[AIW+u]||AIW+u)):null); })); }
   else { pages=(it.pages||[]).slice(); pages.forEach((x,k)=>sc.push(Math.floor(k/3)+1)); }             // histoires gardées avant la refonte
-  book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,lang:it.lang||'',
+  book={id:'',titre:it.titre||'Mon histoire',pages,sc,im:null,imgs,hero:{emoji:it.emoji||'🧒'},decor:it.decor||'foret',voix:null,piste:null,lang:it.lang||(/[؀-ۿ]/.test(pages.join(' '))?'ar':''),      // histoire gardée avant que la langue soit enregistrée : l'écriture arabe se reconnaît au texte
         libre:fresh?it:null,src:it,partage:partage||'',distant:(!partage&&!fresh&&it.distant!==false&&/^h[0-9a-z]{6,24}$/.test(it.id||''))?it.id:''};
   showBook(); preparerVoix();
 }
@@ -1085,7 +1088,7 @@ function conteur(){ let v=''; try{v=localStorage.getItem('titi_conteur')||'';}ca
 function curVoice(){ return conteur()==="Algieba"?"IKne3meq5aSn9XLyUdCD":"Xb7hH8MSUJpSbSDYk0k2"; }
 /* Dit clairement quelle voix on va entendre : la voix choisie n'est pas forcément déjà enregistrée pour cette histoire. */
 function noteVoix(){ const n=$('voixNote'); if(!n||!book){ return; } const nom=v=>(CONTEURS.find(c=>c[0]===v)||[0,v])[1];
-  if(book.lang&&!(book.voix&&book.sc.every(x=>book.voix.sc[x]))){ n.textContent='La voix de cette langue n\'est pas encore enregistrée : le texte peut déjà se lire.'; return; }
+  if(book.lang&&!(book.voix&&book.sc.every(x=>book.voix.sc[x]))){ n.textContent=book.lang==='en'?'The voice for this language is not recorded yet: the text can already be read.':'La voix de cette langue n\'est pas encore enregistrée : le texte peut déjà se lire.'; return; }
   if(!book.id){ n.textContent=(book.piste||(book.voix&&book.voix.sc[1]))?'':'La voix de conteuse n\'est pas disponible pour l\'instant : lecture provisoire.'; return; }
   const d=book.voix&&(book.voix.v||book.voix.dir), complet=d&&book.sc.every(x=>book.voix.sc[x]);
   n.textContent = complet&&d===conteur() ? '' :

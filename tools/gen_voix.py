@@ -40,7 +40,14 @@ CONSIGNE = ("# AUDIO PROFILE: La conteuse\n"
 QUALITE_MIN = 0.86      # part du texte retrouvée dans la reconnaissance vocale
 # Histoires traduites (--langue) : consigne dans la langue, et reconnaissance vocale réglée sur elle.
 LANGUE = "fr"
-CONSIGNES = {"ar": ("# AUDIO PROFILE: الراوية\n"
+CONSIGNES = {"en": ("# AUDIO PROFILE: The storyteller\n"
+                    "A warm British storyteller reading a picture book to a four-year-old child.\n\n"
+                    "### DIRECTOR'S NOTES\n"
+                    "Style: a soft, smiling, lively voice; she lightly acts out the dialogue and the sound effects.\n"
+                    "Pace: unhurried but never slow, with short pauses between sentences.\n"
+                    "Language: British English, clear and natural. French first names (Filou, Nestor, Rosie, Plume) are said simply, without a heavy accent.\n\n"
+                    "#### TRANSCRIPT\n"),
+             "ar": ("# AUDIO PROFILE: الراوية\n"
                     "راوية عربية حنونة، تقرأ قصة مصورة لطفل في الرابعة من عمره.\n\n"
                     "### DIRECTOR'S NOTES\n"
                     "Style : صوت دافئ ومبتسم وحيّ؛ تمثّل الحوار والأصوات تمثيلا خفيفا.\n"

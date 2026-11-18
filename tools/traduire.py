@@ -14,7 +14,23 @@ import titi, langues
 ROOT = titi.ROOT
 KEY = (pathlib.Path.home() / ".config/gemini_key_titistoire").read_text().strip()
 MODELES = ["gemini-3.8-flash", "gemini-flash-latest"]
+CONSIGNE_NOMS = {
+    "ar": 'Pour tout autre personnage nommé, choisis un prénom ou un surnom arabe court, facile pour un petit enfant, et indique-le dans "nouveaux_noms" (nom français -> nom traduit).',
+    # anglais : les héros gardent leur prénom (Filou, Nestor, Rosie, Plume) ; seuls les noms qui veulent dire quelque chose sont adaptés, et toujours de la même façon
+    "en": 'Les héros gardent leur prénom français tel quel (Filou, Nestor, Rosie, Plume), comme tout prénom qui se dit bien en anglais. Un nom qui veut dire quelque chose (surnom, nom de bateau, « Mamie… », « Monsieur… ») reçoit un équivalent anglais court et amusant. Indique dans "nouveaux_noms" CHAQUE nom de personnage ou de lieu inventé rencontré (nom français -> nom utilisé en anglais, identique s\'il ne change pas), pour qu\'il reste le même d\'une histoire à l\'autre.',
+}
+CONSIGNE_PLUS = {
+    "en": "Ponctuation ANGLAISE des dialogues : guillemets “ ” (jamais « »), et l'incise HORS des guillemets (“That was just a test,” stammers Filou. “Hard to starboard!”), pas à la française.\n",
+}
 NOM_LANGUE = {"ar": "arabe standard moderne (fusha), SANS voyelles écrites (pas de harakat)", "en": "anglais britannique"}
+
+
+def guillemets(p, langue):
+    """En anglais, les dialogues s'écrivent entre “ ” et non entre « »."""
+    if langue != "en":
+        return p
+    import re
+    return re.sub(r"\s*»", "”", re.sub(r"«\s*", "“", p))
 
 
 def appel(prompt, schema):
@@ -44,6 +60,7 @@ def main():
     only = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--only=")), "")
     limit = int(next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--limit=")), "0"))
     d = ROOT / "langues" / langue
+    d.mkdir(parents=True, exist_ok=True)
     noms_f = d / "noms.json"
     noms = json.loads(noms_f.read_text(encoding="utf-8")) if noms_f.exists() else {}
     deja = langues.load(langue)
@@ -59,8 +76,8 @@ def main():
 Elle sera LUE À VOIX HAUTE par une voix de synthèse : phrases naturelles, simples, rythmées, chaleureuses ; garde les onomatopées, les répétitions, l'humour et les dialogues entre « ».
 Adapte avec naturel (pas de mot à mot), mais garde EXACTEMENT le même découpage : même nombre de tableaux, et dans chaque tableau le même nombre de pages, chaque page traduite à la même place ({forme}).
 Prénoms : utilise OBLIGATOIREMENT ces équivalents déjà fixés : {json.dumps(noms, ensure_ascii=False)}.
-Pour tout autre personnage nommé, choisis un prénom ou un surnom arabe court, facile pour un petit enfant, et indique-le dans "nouveaux_noms" (nom français -> nom traduit).
-Pas de références religieuses ajoutées ; les fêtes (Noël, Halloween) restent telles quelles, nommées simplement.
+{CONSIGNE_NOMS.get(langue, CONSIGNE_NOMS["ar"])}
+{CONSIGNE_PLUS.get(langue, "")}Pas de références religieuses ajoutées ; les fêtes (Noël, Halloween) restent telles quelles, nommées simplement.
 
 HISTOIRE (JSON) :
 {json.dumps(src, ensure_ascii=False)}"""
@@ -86,7 +103,7 @@ HISTOIRE (JSON) :
         fichier = d / f"{s['hero']}.txt"
         bloc = [f"\n=== {s['id']}", f"titre: {r['titre'].strip()}", ""]
         for t in r["tableaux"]:
-            bloc += [p.replace("\n", " ").strip() for p in t] + [""]
+            bloc += [guillemets(p.replace("\n", " ").strip(), langue) for p in t] + [""]
         if not fichier.exists():
             fichier.write_text(f"# Histoires de {s['hero']} — {NOM_LANGUE[langue]}. Traduction automatique (Gemini) à faire relire.\n", encoding="utf-8")
         with fichier.open("a", encoding="utf-8") as f:
