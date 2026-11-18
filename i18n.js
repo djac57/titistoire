@@ -97,7 +97,7 @@ en: {
   "Ce navigateur ne permet pas de garder des histoires (navigation privée ?).": "This browser cannot keep stories (private browsing?).",
   "Téléchargement interrompu : vérifiez la connexion, puis réessayez.": "Download interrupted: check the connection, then try again.",
   /* histoire du soir */
-  "Histoire du soir": "Bedtime story", "Combien d'histoires avant de dormir ?": "How many stories before sleep?", "ou pendant combien de temps ?": "or for how long?",
+  "Histoire du soir": "Bedtime story", "Le mode « histoire du soir » est réservé à votre compte : connectez-vous.": "Bedtime mode needs your account: please sign in.", "Combien d'histoires avant de dormir ?": "How many stories before sleep?", "ou pendant combien de temps ?": "or for how long?",
   "1 histoire": "1 story", "2 histoires": "2 stories", "3 histoires": "3 stories", "{n} min": "{n} min",
   "L'écran s'assombrit, les histoires s'enchaînent toutes seules, puis tout s'arrête sur « Bonne nuit ». Pour sortir avant la fin : un appui long sur le petit compteur, en haut de l'écran.": "The screen dims, the stories follow one another on their own, then everything stops on “Good night”. To leave before the end: press and hold the little counter at the top of the screen.",
   "Commencer": "Start", "Histoire {k} sur {n}": "Story {k} of {n}", "Dernière histoire": "Last story", "Encore {n} min": "{n} min left",
@@ -199,7 +199,7 @@ ar: {
   "Ce navigateur ne permet pas de garder des histoires (navigation privée ?).": "هذا المتصفح لا يسمح بحفظ القصص (ربما بسبب التصفح الخاص).",
   "Téléchargement interrompu : vérifiez la connexion, puis réessayez.": "توقف التنزيل: تحققوا من الاتصال ثم حاولوا مرة أخرى.",
   /* histoire du soir */
-  "Histoire du soir": "قصة قبل النوم", "Combien d'histoires avant de dormir ?": "كم قصة قبل النوم؟", "ou pendant combien de temps ?": "أو كم من الوقت؟",
+  "Histoire du soir": "قصة قبل النوم", "Le mode « histoire du soir » est réservé à votre compte : connectez-vous.": "وضع قصة قبل النوم مخصص لحسابك: من فضلك سجّل الدخول.", "Combien d'histoires avant de dormir ?": "كم قصة قبل النوم؟", "ou pendant combien de temps ?": "أو كم من الوقت؟",
   "1 histoire": "قصة واحدة", "2 histoires": "قصتان", "3 histoires": "3 قصص", "{n} min": "{n} دقيقة",
   "L'écran s'assombrit, les histoires s'enchaînent toutes seules, puis tout s'arrête sur « Bonne nuit ». Pour sortir avant la fin : un appui long sur le petit compteur, en haut de l'écran.": "تخفت إضاءة الشاشة، وتتوالى القصص وحدها، ثم يتوقف كل شيء عند «تصبح على خير». للخروج قبل النهاية: اضغطوا مطولا على العداد الصغير في أعلى الشاشة.",
   "Commencer": "ابدأ", "Histoire {k} sur {n}": "القصة {k} من {n}", "Dernière histoire": "القصة الأخيرة", "Encore {n} min": "بقي {n} دقيقة",

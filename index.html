@@ -788,6 +788,7 @@ async function entrerCompte(){ const m=$('cMsg'); m.textContent=t('Vérification
     try{localStorage.setItem('titi_jeton',r.j.jeton);}catch(e){} $('cCode').value=''; $('cCodeL').hidden=true; $('cEntrer').hidden=true; m.textContent='';
     recevoirCompte(r.j.compte); renderHome();
     if(apresCompte==='sFree'){ apresCompte=''; showLibreGate(); goto('sFree'); }
+    else if(apresCompte==='sSoir'){ apresCompte=''; ouvrirSoir(); }      // connecté pour l'histoire du soir : on y entre
   }catch(x){ m.textContent=t('Problème de connexion, réessayez.'); } }
 $('cEntrer').addEventListener('click',entrerCompte);
 $('cCode').addEventListener('keydown',e=>{ if(e.key==='Enter') entrerCompte(); });
@@ -1279,7 +1280,9 @@ function majSoirChoix(){ const p=soirPrefs(), n=p.min?0:([1,2,3].includes(p.n)?p
   $('soirN').querySelectorAll('button').forEach(b=>{ b.className=+b.dataset.n===n?'on':''; });
   $('soirMin').querySelectorAll('button').forEach(b=>{ b.textContent=t('{n} min',{n:b.dataset.min}); b.className=+b.dataset.min===m?'on':''; });
   $('soirCompte').textContent=t(compte?'Ces réglages suivent votre compte.':'Ces réglages restent sur cet appareil ; avec un compte, ils vous suivent partout.'); }
-function ouvrirSoir(){ SOIR.depart=book&&book.id?{id:book.id,lang:book.lang,petit:book.petit}:null;      // depuis le lecteur : on commence par l'histoire ouverte
+function ouvrirSoir(){
+  if(!jeton()){ apresCompte='sSoir'; ouvrirCompte(); $('cMsg').textContent=t('Le mode « histoire du soir » est réservé à votre compte : connectez-vous.'); return; }      // réservé au compte
+  SOIR.depart=book&&book.id?{id:book.id,lang:book.lang,petit:book.petit}:null;      // depuis le lecteur : on commence par l'histoire ouverte
   $('soirMsg').textContent=''; majSoirChoix(); goto('sSoir'); }
 $('modeSoir').addEventListener('click',()=>{ book=null; ouvrirSoir(); });
 $('soirIci').addEventListener('click',ouvrirSoir);
