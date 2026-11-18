@@ -207,7 +207,15 @@ async function api(req, env, ctx, u) {
     const b = await req.json().catch(() => null); if (!b || typeof b !== "object") return J({ erreur: "forme" }, 400);
     const q = {}; for (const k of ["groupe", "conteur", "mode", "vitesse"]) if (typeof b[k] === "string") q[k] = b[k].slice(0, 30);
     if (Array.isArray(b.heard)) q.heard = [...new Set(b.heard.map(x => String(x).slice(0, 60)))].slice(0, 400);
-    const frais = await env.COMPTES.get("u:" + uid, "json") || c; frais.prefs = q; frais.vu = c.vu;       // relu juste avant d'écrire : ne pas effacer une histoire gardée entre-temps
+    // Histoire du soir : rien n'est recopié tel quel. 1, 2 ou 3 histoires OU 10, 20 ou 30 minutes, et au plus les trois dernières histoires écoutées (identifiants du catalogue).
+    const s = b.coucher, soir = {};
+    if (s && typeof s === "object" && !Array.isArray(s)) {
+      if ([10, 20, 30].includes(s.min)) soir.min = s.min; else if ([1, 2, 3].includes(s.n)) soir.n = s.n;
+      if (Array.isArray(s.dernier)) { const d = s.dernier.filter(x => typeof x === "string" && /^[a-z0-9_]{1,40}(\/[a-z0-9_]{1,20})?$/.test(x)).slice(0, 3); if (d.length) soir.dernier = d; }
+    }
+    const frais = await env.COMPTES.get("u:" + uid, "json") || c;
+    if (soir.n || soir.min) q.coucher = soir; else if (b.coucher === undefined && frais.prefs && frais.prefs.coucher) q.coucher = frais.prefs.coucher;      // un onglet resté sur l'ancienne page n'envoie pas ce réglage : il ne l'efface pas
+    frais.prefs = q; frais.vu = c.vu;       // relu juste avant d'écrire : ne pas effacer une histoire gardée entre-temps
     await env.COMPTES.put("u:" + uid, JSON.stringify(frais), { expirationTtl: INACTIF }); return J({ ok: true });
   }
 
