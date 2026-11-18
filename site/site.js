@@ -96,7 +96,7 @@ async function api(req, env, ctx, u) {
   m = /^\/api\/p\/([0-9a-f]{32})$/.exec(p);
   if (m && M === "GET") {
     const v = await env.COMPTES.get("p:" + m[1]), it = v && await env.COMPTES.get("h:" + v, "json");
-    return it ? J({ titre: it.titre, emoji: [...String(it.emoji || "")].filter(ch => ch.codePointAt(0) > 0x2000).slice(0, 4).join("") || "📖", decor: it.decor, sig: it.sig, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
+    return it ? J({ titre: it.titre, emoji: [...String(it.emoji || "")].filter(ch => ch.codePointAt(0) > 0x2000).slice(0, 4).join("") || "📖", decor: it.decor, sig: it.sig, lang: it.lang || undefined, tableaux: it.tableaux }) : J({ erreur: "introuvable" }, 404);
   }
 
   // --- dons : Ko-fi prévient cette adresse (dont la fin est un secret gardé dans la base, « k:kofi ») à chaque don.
@@ -220,7 +220,7 @@ async function api(req, env, ctx, u) {
       t.imgs = imgs; t.img = imgs.find(Boolean) || null;
     }
     const h = { id, cle, n, titre: String(it.titre || "Mon histoire").slice(0, 90), emoji: String(it.emoji || "📖").slice(0, 16), ts: Date.now() };
-    await env.COMPTES.put(`h:${uid}:${id}`, JSON.stringify({ id, titre: h.titre, emoji: h.emoji, ts: h.ts, decor: String(it.decor || "").slice(0, 20), sig: String(it.sig || "").slice(0, 200), tableaux: it.tableaux.map(t => ({ pages: t.pages, imgs: t.imgs, img: t.img })) }), { expirationTtl: INACTIF });
+    await env.COMPTES.put(`h:${uid}:${id}`, JSON.stringify({ id, titre: h.titre, emoji: h.emoji, ts: h.ts, decor: String(it.decor || "").slice(0, 20), sig: String(it.sig || "").slice(0, 200), lang: ["ar", "en"].includes(it.lang) ? it.lang : undefined, tableaux: it.tableaux.map(t => ({ pages: t.pages, imgs: t.imgs, img: t.img })) }), { expirationTtl: INACTIF });
     const frais = await env.COMPTES.get("u:" + uid, "json") || c; frais.histoires = [h, ...(frais.histoires || [])].slice(0, MAX_HISTOIRES); frais.vu = c.vu;      // relu juste avant d'écrire
     await env.COMPTES.put("u:" + uid, JSON.stringify(frais), { expirationTtl: INACTIF });
     return J({ ok: true, histoire: vue(frais, cr).histoires[0], histoires: vue(frais, cr).histoires, images_manquantes: manque });

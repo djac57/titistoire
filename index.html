@@ -1046,7 +1046,7 @@ async function saveCurrent(){ if(!book||!book.libre) return;
   const b=$('saveBtn'); b.textContent='Gardée ✓'; b.disabled=true; }
 /* ===== PARTAGE : le lien ouvre précisément cette histoire. Une histoire inventée doit d'abord être gardée sur le compte (son lien tombe si on la supprime). ===== */
 async function partager(){ if(!book) return; const titre=book.titre||'Titistoire', lab=$('partLab'), dire=x=>{ lab.textContent=x; setTimeout(()=>{ lab.textContent='Partager'; },2600); }; let url='';
-  if(book.id) url='https://titistoire.fr/?h='+book.id;
+  if(book.id) url='https://titistoire.fr/?h='+book.id+(book.lang?'&l='+book.lang:'');      // histoire lue en traduction : le lien l'ouvre dans cette langue
   else if(book.partage) url='https://titistoire.fr/?p='+book.partage;
   else { if(!jeton()){ alert('Pour partager une histoire inventée, connectez-vous (« Mon compte ») : elle sera gardée sur votre compte, puis vous aurez son lien.'); return; }
     lab.textContent='Un instant…';
@@ -1055,7 +1055,9 @@ async function partager(){ if(!book) return; const titre=book.titre||'Titistoire
     try{ const r=await api('POST','/api/compte/histoires/'+book.distant+'/partage'); if(r.status===403){ dire('Partager'); alert('Cette histoire ne peut pas être partagée.'); return; } if(!r.ok||!r.j.code) throw 0; book.partage=r.j.code; url='https://titistoire.fr/?p='+r.j.code; }
     catch(e){ dire('Partager'); alert('Partage impossible pour le moment, réessayez.'); return; }
     lab.textContent='Partager'; }
-  if(navigator.share){ try{ await navigator.share({title:titre,text:'« '+titre+' », une histoire à écouter sur Titistoire',url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+  // le texte qui accompagne le lien est dans la langue de l'histoire partagée
+  const arabe='⁧«'+titre+'»، قصة للاستماع على Titistoire⁩', texte={ar:arabe,ary:arabe,en:'“'+titre+'”, a story to listen to on Titistoire'}[book.lang]||'« '+titre+' », une histoire à écouter sur Titistoire';
+  if(navigator.share){ try{ await navigator.share({title:titre,text:texte,url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
   try{ await navigator.clipboard.writeText(url); dire('Lien copié ✓'); }catch(e){ prompt('Lien de cette histoire :',url); } }
 $('partBtn').addEventListener('click',partager);
 function renderSaved(){ const dist=(compte&&compte.histoires||[]).map(h=>Object.assign({distant:true},h)), a=dist.concat(savedAll()), el=$('savedList');
