@@ -389,7 +389,7 @@ def main():
     if a.langue:                                        # mêmes histoires, texte de la langue ; seules les histoires traduites sont enregistrées
         global LANGUE, QUALITE_MIN
         import langues as _lg
-        T = _lg.load(a.langue); LANGUE = a.langue; QUALITE_MIN = float(os.environ.get("TITI_QUALITE_MIN", "0.6"))
+        T = _lg.load(a.langue); LANGUE = a.langue; QUALITE_MIN = float(os.environ.get("TITI_QUALITE_MIN", "0.6" if ECRIT_ARABE() else "0.86"))      # 0,6 : réglé pour l'arabe (reconnaissance moins sûre) ; l'anglais se reconnaît aussi bien que le français (essai du 18/11 : 0,988)
         stories = [dict(s, titre=T[s["id"]]["t"], scenes=[dict(sc, pages=T[s["id"]]["sc"][k]) for k, sc in enumerate(s["scenes"])]) for s in stories if s["id"] in T]
     dispo = list(MODELES)                               # modèles dont le quota du jour n'est pas épuisé
 
