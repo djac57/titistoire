@@ -998,7 +998,9 @@ function speakFallback(text,onend){ usingFallback=true; try{ const u=new SpeechS
   u.onend=()=>{clearHi();onend&&onend();}; speechSynthesis.cancel(); speechSynthesis.speak(u);
 }catch(e){ onend&&onend(); } }
 function advance(i){ if(!auto) return; if(i+1<book.pages.length) turnTo(i+1,()=>startAt(i+1)); else showEnd(); }
+function voixIndispo(){ auto=false; stopAudio(); const pb=$('playBtn'); pb.disabled=true; pb.classList.remove('pause'); pb.textContent=t('Voix non disponible pour le moment'); const n=$('voixNote'); if(n) n.textContent=t("La belle voix n'a pas pu être préparée : réessayez plus tard. Le texte peut déjà se lire."); }
 function readPage(i){
+  if(book&&!book.id){ voixIndispo(); return; }      // histoire inventée : jamais de voix de secours (trop mauvaise), on n'affiche pas de lecture
   if(cur!==i) renderPage(i); stopAudio();
   const my=++playToken, text=book.pages[i]; exactStarts=null;
   const url=AIW+"/tts?lang=fr&cv=3&v="+curVoice()+"&t="+encodeURIComponent(text);
@@ -1124,7 +1126,7 @@ function preparerVoix(){
   const moi=book, pb=$('playBtn'), P=lancerVoix(it); pb.disabled=true; pb.textContent=t('La conteuse se prépare…');
   book.voix={dir:null,sc:{}}; book.vp=P;
   Object.keys(P).forEach(n=>P[n].then(v=>{ if(book===moi&&v) book.voix.sc[n]=v; }));
-  P[1].then(()=>{ if(book===moi){ pb.disabled=false; setPlay(false); noteVoix(); } });      // pas de voix (quota du jour…) : lecture en direct à la place
+  P[1].then(v=>{ if(book!==moi) return; if(!v){ voixIndispo(); return; } pb.disabled=false; setPlay(false); noteVoix(); });      // pas de belle voix (quota du jour…) : bouton grisé, pas de voix de secours
 }
 $('genBtn').addEventListener('click',generateFree);
 function majLangLibre(){ $('fLang').querySelectorAll('button').forEach(x=>x.className=x.dataset.l===fLibre.lang?'on':''); }
